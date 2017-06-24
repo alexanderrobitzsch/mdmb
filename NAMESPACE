@@ -1,0 +1,146 @@
+
+# useDynLib(mdmb)
+
+
+
+######################################
+########### IMPORTS ##################
+
+
+
+#***************************************************
+#*************** R Basics / Linking To *************
+
+
+importFrom(graphics, par)
+importFrom(graphics, plot)
+importFrom(stats, as.formula)
+importFrom(stats, coef)
+importFrom(stats, cov)
+importFrom(stats, dnorm)
+importFrom(stats, dt)
+importFrom(stats, fitted)
+importFrom(stats, lm)
+importFrom(stats, lm.wfit)
+importFrom(stats, model.matrix)
+importFrom(stats, na.omit)
+importFrom(stats, pchisq)
+importFrom(stats, plogis)
+importFrom(stats, pnorm)
+importFrom(stats, predict)
+importFrom(stats, pt)
+importFrom(stats, qnorm)
+importFrom(stats, qt)
+importFrom(stats, quantile)
+importFrom(stats, residuals)
+importFrom(stats, rnorm)
+importFrom(stats, rt)
+importFrom(stats, runif)
+importFrom(stats, sd)
+importFrom(stats, var)
+importFrom(stats, vcov)
+importFrom(stats, weighted.mean)
+importFrom(utils, flush.console)
+importFrom(utils, packageDescription)
+
+
+
+
+#***************************************************
+#************** Depends ****************************
+
+# import(miceadds)  # no dependent package
+
+
+#***************************************************
+#************** Imports ****************************
+ 
+
+importFrom(CDM, csink)
+importFrom(CDM, osink)
+importFrom(coda, effectiveSize)
+importFrom(coda, mcmc)
+importFrom(miceadds, datlist_create)
+importFrom(sirt, mcmc_Rhat)
+importFrom(sirt, rowCumsums.sirt)
+importFrom(sirt, rowIntervalIndex.sirt)
+importFrom(TAM, weighted_sd)
+
+
+
+
+######################################
+########### EXPORTS ##################
+
+
+#############################
+## exports
+
+
+export(bc_trafo)
+export(bc_antitrafo)
+export(bct_regression)
+export(dbct_scaled)
+export(dt_scaled)
+export(dyjt_scaled)
+export(eval_prior_list)
+export(eval_prior_list_sumlog)
+export(fit_bct_scaled)
+export(fit_t_scaled)
+export(fit_yjt_scaled)
+export(frm_em)
+export(frm_fb)
+export(frm2datlist)
+export(logistic_regression)
+export(offset_values_extract)
+export(remove_NA_data_frame)
+export(rbct_scaled)
+export(rt_scaled)
+export(ryjt_scaled)
+export(yj_trafo)
+export(yj_antitrafo)
+export(yjt_regression)
+
+
+
+
+
+#########################################
+########### S3 METHODS ##################
+
+S3method(coef, bct_regression)
+S3method(coef, fit_bct_scaled)
+S3method(coef, fit_t_scaled)
+S3method(coef, fit_yjt_scaled)
+S3method(coef, frm_fb)
+S3method(coef, frm_em)
+S3method(coef, logistic_regression)
+S3method(coef, yjt_regression)
+S3method(logLik, bct_regression)
+S3method(logLik, fit_bct_scaled)
+S3method(logLik, fit_t_scaled)
+S3method(logLik, fit_yjt_scaled)
+S3method(logLik, frm_em)
+S3method(logLik, logistic_regression)
+S3method(logLik, yjt_regression)
+S3method(plot, frm_fb)
+S3method(predict, bct_regression)
+S3method(predict, logistic_regression)
+S3method(predict, yjt_regression)
+S3method(summary, bct_regression)
+S3method(summary, fit_bct_scaled)
+S3method(summary, fit_t_scaled)
+S3method(summary, fit_yjt_scaled)
+S3method(summary, frm_fb)
+S3method(summary, frm_em)
+S3method(summary, logistic_regression)
+S3method(summary, yjt_regression)
+S3method(vcov, bct_regression)
+S3method(vcov, fit_bct_scaled)
+S3method(vcov, fit_t_scaled)
+S3method(vcov, fit_yjt_scaled)
+S3method(vcov, frm_fb)
+S3method(vcov, frm_em)
+S3method(vcov, logistic_regression)
+S3method(vcov, yjt_regression)
+

@@ -1,0 +1,23 @@
+Package: mdmb
+Type: Package
+Title: Model Based Treatment of Missing Data
+Version: 0.3-9
+Date: 2017-06-24 17:20:49
+Author: 
+    Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
+Maintainer: 
+    Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
+Description: 
+    Contains model-based treatment of missing data for regression models 
+    with missing values in covariates or the dependent variable 
+    using maximum likelihood or Bayesian estimation.
+    Multiple imputation can be also conducted.
+Depends:
+    R (>= 3.1)
+Imports: 
+    CDM, coda, graphics, miceadds, sirt, stats, TAM, utils     
+Suggests: 
+    mice
+URL: https://github.com/alexanderrobitzsch/mdmb
+License: 
+    GPL (>= 2)

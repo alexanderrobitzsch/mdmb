@@ -1,0 +1,24 @@
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
+citHeader("To cite the 'mdmb' package in publications use:")
+
+
+citEntry(entry="Manual",
+         title = "mdmb: Model Based Treatment of Missing Data",
+         author = c(
+                   person(given = "Alexander",
+                          family = "Robitzsch"),
+                   person(given = "Oliver",
+                          family = "Luedtke") ) ,
+         year = year,
+         note = vers,
+	 url = "https://CRAN.R-project.org/package=mdmb" ,
+         textVersion =
+         paste0("Robitzsch, A., Luedtke, O. (",
+               year,
+               "). mdmb: Model based treatment of missing data.",
+               vers, ". https://CRAN.R-project.org/package=mdmb")
+	)
+

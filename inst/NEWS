@@ -1,0 +1,76 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+------------------------- mdmb NEWS ---------------------------
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+|\  /||~~\ |\  /||~~\
+| \/ ||   || \/ ||--<
+|    ||__/ |    ||__/
+                     
+
+mdmb:  Model Based Treatment of Missing Data
+
+Alexander Robitzsch & Oliver Luedtke
+
+Questions or suggestions about mdmb should be sent to
+robitzsch@ipn.uni-kiel.de
+
+In case of reporting a bug, please always provide a
+reproducible script.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CHANGELOG mdmb
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+---------------------------------------------------------------------
+VERSIONS mdmb 0.3  |  2017-06-24  |  Last: mdmb 0.3-9
+---------------------------------------------------------------------
+
+NOTE  * changed default in 'nodes_control' in 'frm_em' to use a
+        wider integration grid for missing values
+NOTE  * added information about standard error calculation in 'frm_em';
+        reference Jamshidian and Jennrich (2000, JRSSB)
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+---------------------------------------------------------------------
+Versions 0.2  -- 2017-02-07  --  CRAN mdmb 0.2-0
+---------------------------------------------------------------------
+
+FIXED * fixed an error in initialization of sigma parameter in 
+        mdmb::frm_fb function with 'linreg' imputation
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+---------------------------------------------------------------------
+Versions 0.1  -- 2017-01-25  --  CRAN mdmb 0.1-0
+---------------------------------------------------------------------
+
+INIT  * initial version of the package
+ADDED * added functions for scaled t distribution with Yeo-Johnson
+        transformation ('d_yjt_scaled', 'fit_yjt_scaled') and 
+        Box-Cox transformation ('d_bct_scaled', 'fit_bct_scaled')
+ADDED * added additional regression functions 'logistic_regression',
+        'yjt_regression' and 'bct_regression'
+ADDED * added function 'frm_em' for maximum likelihood estimation of
+        regression models with missing covariates
+ADDED * added function 'frm_fb' for fully Bayesian estimation of
+        regression models with missing covariates. Imputations of
+        missing values are provided.
+NOTE  * included utility functions 'eval_prior_list',
+        'eval_prior_list_sumlog', 'offset_values_extract' and
+        'remove_NA_data_frame'
+
+DATA  * included/modified datasets: data.mb01, data.mb02
+EXAMP * included/modified examples: mbmb_regression (1,2,3,4,5),
+        frm (1,2,3,4,5), yjt_dist (1,2,3,4,5)
