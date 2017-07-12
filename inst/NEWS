@@ -30,17 +30,18 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.3  |  2017-06-24  |  Last: mdmb 0.3-9
+VERSIONS mdmb 0.3  |  2017-07-12  |  Last: mdmb 0.3-11
 ---------------------------------------------------------------------
 
 NOTE  * changed default in 'nodes_control' in 'frm_em' to use a
         wider integration grid for missing values
 NOTE  * added information about standard error calculation in 'frm_em';
         reference Jamshidian and Jennrich (2000, JRSSB)
+NOTE  * fixed an error in the 'frm_em' function which was not yet 
+        applicable for 'yjtreg' regression models
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
-
 
 ---------------------------------------------------------------------
 Versions 0.2  -- 2017-02-07  --  CRAN mdmb 0.2-0

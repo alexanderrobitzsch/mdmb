@@ -6,6 +6,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 {
 	CALL <- match.call()
 	s1 <- Sys.time()	
+	
 	#*** prepare models
 	res <- frm_prepare_models(dep,ind, dat0=dat, nodes_control=nodes_control)
 	dep <- res$dep
@@ -48,6 +49,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	conv1 <- conv2 <- FALSE
 zz0 <- Sys.time()
 
+
 	#**** EM algorithm
 	while( iterate ){		
 		ll_old <- ll_new
@@ -61,10 +63,8 @@ zz0 <- Sys.time()
 		beta_new <- res$coefs[[NM+1]]
 		ll_new <- res$ll
 		iter <- iter + 1
+			
 		#**** changes in parameters
-# Revalpr("ll_new")		
- # Revalpr("beta_new")
- # Revalpr("coef(res$model_results[[1]])")
 		ll_change0 <- ( ll_new - ll_old ) / abs( ll_new)
 		ll_change <- abs(ll_change0)
 		beta_change <- max( abs( beta_new - beta_old ) )		

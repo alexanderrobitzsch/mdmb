@@ -36,8 +36,7 @@ frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 			nodes_mm <- seq( nodes[1] , nodes[2] , len = n_nodes )		
 			ind_mm$nodes_description <- "automatically chosen nodes"							
 			ind_mm$nodes <- nodes_mm
-		}				
-		
+		}						
 		#*** logistic regression
 		if ( ind_mm$model %in% c("logistic") ){
 			ind_mm$nodes <- c(0,1)
@@ -50,7 +49,7 @@ frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 		nodes_mm <- ind_mm$nodes
 		NM <- length(nodes_mm)
 		#*** linear regression
-		if ( ind_mm$model %in% c("linreg") ){
+		if ( ind_mm$model %in% c("linreg","yjtreg") ){
 			nodes_weights <- stats::dnorm( nodes_mm , mean=m0, sd=sd0)
 		}
 		#*** logistic regression

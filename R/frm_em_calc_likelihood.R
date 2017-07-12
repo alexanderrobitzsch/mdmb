@@ -16,14 +16,12 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 	coefs <- as.list( 1:(NM+1) )	
 	for (mm in 1:(NM+1)){	
 		ind_mm <- ind0[[mm]]
-# Revalpr("ind_mm$formula")		
 		#--- estimate model with weights
 		mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat, 
 					weights=weights )		
 		model_results[[mm]] <- mod
 		model_results <- frm_em_include_coef_inits( ind=ind0 , mm=mm , 
 				model_results=model_results , iter=iter)
-				
 		model_results[[mm]]$est_sigma <- FALSE	
 		if ( ! is.null(ind_mm$sigma_fixed)){
 			model_results[[mm]]$sigma <- ind_mm$sigma_fixed
