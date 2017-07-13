@@ -5,7 +5,7 @@ dbct_scaled <- function( x , location=0, shape=1, lambda = 1 , df = Inf )
 	eps <- 1E-3
 	# lambda <- yj_adjust_lambda( lambda = lambda , lambda0 = 0 , eps = eps )	
 	xt <- bc_trafo(y=x , lambda =lambda )
-	if ( df==Inf){
+	if ( df==Inf ){
 		dy <- stats::dnorm( x = xt , mean = location , sd = shape )
 	} else {
 		dy <- dt_scaled( x = xt , location = location , shape = shape , df = df )
