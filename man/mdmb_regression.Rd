@@ -44,7 +44,7 @@ for dichotomous data.
 \usage{
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
 yjt_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NULL,
-        df = Inf, lambda_fixed = NULL, control = NULL)	
+        df = Inf, lambda_fixed = NULL, use_grad = 2, h = 1e-5, control = NULL)	
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -54,7 +54,7 @@ yjt_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NUL
 
 #---- linear regression with Box-Cox transformed scaled t distribution
 bct_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NULL,
-        df = Inf, lambda_fixed = NULL, control = NULL)	
+        df = Inf, lambda_fixed = NULL, use_grad = 2, h = 1e-5, control = NULL)	
 
 \method{coef}{bct_regression}(object, ...)
 \method{logLik}{bct_regression}(object, ...)
@@ -64,7 +64,7 @@ bct_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NUL
 
 #---- logistic regression
 logistic_regression(formula, data, weights = NULL, beta_init = NULL, 
-         beta_prior = NULL, control = NULL)
+         beta_prior = NULL, use_grad = 2, h = 1e-5, control = NULL)
 
 \method{coef}{logistic_regression}(object, ...)
 \method{logLik}{logistic_regression}(object, ...)
@@ -93,6 +93,13 @@ Optional vector of initial regression coefficients
 \item{df}{Fixed degrees of freedom for scaled \eqn{t} distribution}
 \item{lambda_fixed}{Optional fixed value for \eqn{\lambda} for scaled
   \eqn{t} distribution with Yeo-Johnson transformation}
+ \item{use_grad}{Computation method for gradients in \code{stats::optim}.
+ 	 The value \code{0} is the internal approximation of
+ 	 \code{stats::optim} and applies the settings in \pkg{mdmb} (\eqn{\le}0.3).
+ 	 The specification \code{use_grad=1} uses the calculation of
+ the gradient in \code{CDM::numerical_Hessian}. The value \code{2} is
+ usually the most efficient calculation of the gradient.}
+\item{h}{Numerical differentiation parameter.} 
   \item{control}{
 Optional arguments to be passed to optimization function 
 \code{\link[stats:optim]{stats::optim}}

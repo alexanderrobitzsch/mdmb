@@ -2,13 +2,14 @@
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	maxiter = 500 , conv_dev = 1E-8, conv_parm=1E-5,
-	nodes_control = c(11,5), h = 1E-4 )
+	nodes_control = c(11,5), h = 1E-4, use_grad=2 )
 {
 	CALL <- match.call()
 	s1 <- Sys.time()	
-	
+
 	#*** prepare models
-	res <- frm_prepare_models(dep,ind, dat0=dat, nodes_control=nodes_control)
+	res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_control=nodes_control,
+					use_grad=use_grad)
 	dep <- res$dep
 	ind <- res$ind
 	predictorMatrix <- res$predictorMatrix
@@ -37,26 +38,25 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	ind0 <- ind
 	ind0[[ dep$dv_vars ]] <- dep
 	ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
-	
 	#*** add additional arguments for regression functions	
 	ind0 <- frm_prepare_models_design_matrices( ind0=ind0 , dat=dat , NM=NM)
-	
 	iter <- 0
 	conv <- FALSE
 	ll_new <- 1E-500
 	beta_new <- 0	
 	iterate <- TRUE
-	conv1 <- conv2 <- FALSE
-zz0 <- Sys.time()
-
-
+	conv1 <- conv2 <- FALSE	
+	
 	#**** EM algorithm
 	while( iterate ){		
 		ll_old <- ll_new
 		beta_old <- beta_new
+		
+			# tictoc::tic("--- calc like")		
 		res <- frm_em_calc_likelihood( dat=dat, ind0=ind0 , NM=NM, iter = iter,
 					weights0=weights0 , dat_resp=dat_resp, ind_resp=ind_resp,
 					ind_miss=ind_miss )			
+			# tictoc::toc()				
 		ind0 <- res$ind0		
 		dat$weights <- res$post * dat$weights0
 		like <- res$like
@@ -83,17 +83,14 @@ zz0 <- Sys.time()
 	}
 	#***************************************
 # cat("\n* EM algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1		
-# stop()
-	
+
 	if (verbose){
 		cat("--- Compute asymptotic covariance matrix")
 		utils::flush.console()
 	}
 
-# zz0 <- Sys.time()
 	#--- computation asymptotic covariance matrix
 	res0 <- frm_em_avcov(res=res, dat=dat, ind0=ind0, NM=NM, h=h)	
-# cat("\n* avcov ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1	 
  
 	if (verbose){
 		cat("\n")

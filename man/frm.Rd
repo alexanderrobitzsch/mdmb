@@ -50,7 +50,7 @@ The handling of ordinal and nominal covariates will be included in future
 \usage{
 # Factored regression model: Numerical integration with EM algorithm
 frm_em(dat, dep, ind, weights = NULL, verbose = TRUE, maxiter = 500, conv_dev = 1e-08, 
-         conv_parm = 1e-05, nodes_control = c(11,5), h = 1e-04)
+         conv_parm = 1e-05, nodes_control = c(11,5), h = 1e-04, use_grad = 2)
 
 \method{coef}{frm_em}(object, ...)
 \method{logLik}{frm_em}(object, ...)
@@ -120,6 +120,10 @@ the second value denotes the spread of the node distribution defined
 as the factor of the standard deviation of the observed data.}
 \item{h}{Step width for numerical differentiation for calculating the
 covariance matrix}
+\item{use_grad}{Computation method for gradient in \code{\link{yjt_regression}},
+	\code{\link{bct_regression}} or \code{\link{logistic_regression}}.
+	It can be \code{0} (compatible with \pkg{mdb} \eqn{\le}0.3), 
+\code{1} or \code{2} (most efficient one).}
 \item{data_init}{Initial values for dataset}
 \item{iter}{Number of iterations}
 \item{burnin}{Number of burnin iterations}
@@ -292,6 +296,21 @@ imp2 <- miceadds::datlist2mids(datlist)
 # estimate linear model on multiply imputed datasets
 mod2c <- with(imp2, stats::lm( Y ~ X*Z ) )
 summary( mice::pool(mod2c) )
+
+#******************************************
+# Model 3: Multiple imputation in jomo package
+
+library(jomo)
+
+# impute with substantive model containing interaction effects
+formula <- Y ~ X*Z
+imp <- jomo::jomo.lm( formula=formula, data=dat, nburn=100, nbetween=100)
+
+# convert to object of class mids
+datlist <- miceadds::jomo2mids( imp )
+# estimate linear model
+mod3 <- with(datlist, lm( Y ~ X*Z ) )
+summary( mice::pool(mod3) )
 
 #############################################################################
 # EXAMPLE 2: Simulated example logistic regression with interaction effects
@@ -537,6 +556,57 @@ summary(mod1)
 #--- model chi-square distribution of predictor with Box-Cox transformation
 mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind2 )
 summary(mod2)
+
+#############################################################################
+# EXAMPLE 7: Latent interaction model
+#############################################################################
+                                     
+# A latent interaction model Y ~ FX + FZ is of interest. Y is directly observed,
+# FX and FZ are both indirectly observed by three items 
+
+#--- simulate data
+N <- 1000
+set.seed(987)
+# latent variable
+FX <- stats::rnorm(N)
+FZ <- stats::rnorm(N)
+# simulate items
+x1 <- 1.5 + 1*FX + stats::rnorm(N , sd = .7 )
+x2 <- 1.9 + .7*FX + stats::rnorm(N , sd = 1 )
+x3 <- .9 + .7*FX + stats::rnorm(N , sd = .2 )
+z1 <- 1.5 + 1*FZ + stats::rnorm(N , sd = .7 )
+z2 <- 1.9 + .7*FZ + stats::rnorm(N , sd = 1 )
+z3 <- .9 + .7*FZ + stats::rnorm(N , sd = .2 )
+dat <- data.frame(x1,x2,x3,z1,z2,z3)
+dat$FX <- NA
+dat$FZ <- NA
+dat$y <- 2 + .5*FX + .3*FZ + .4*FX*FZ + rnorm( N , sd = 1 )
+
+# estimate interaction model with ML
+
+#--- define model
+nodes <- seq(-4,4,len=11)
+ind_x1 <- list("model" = "linreg" , "formula" = x1 ~  offset(1*FX) , 
+                "nodes" = nodes )
+ind_x2 <- list( "model" = "linreg", "formula" = x2 ~ FX, "nodes" = nodes, 
+                "coef_inits" = c(NA,1) )
+ind_x3 <- list( "model" = "linreg", "formula" = x3 ~ FX, "nodes" = nodes, 
+                 "coef_inits" = c(1,1) )
+ind_FX <- list( "model" = "linreg", "formula" = FX ~ 0 , "nodes" = nodes )
+ind_z1 <- list("model" = "linreg" , "formula" = z1 ~  offset(1*FZ) , 
+                "nodes" = nodes )
+ind_z2 <- list( "model" = "linreg", "formula" = z2 ~ FZ, "nodes" = nodes, 
+                "coef_inits" = c(NA,1) )
+ind_z3 <- list( "model" = "linreg", "formula" = z3 ~ FZ, "nodes" = nodes, 
+                 "coef_inits" = c(1,1) )
+ind_FZ <- list( "model" = "linreg", "formula" = FZ ~ 0 + FX , "nodes" = nodes )
+ind <- list( "x1" = ind_x1 ,  "x2" = ind_x2 , "x3" = ind_x3, "FX" = ind_FX ,
+            "z1" = ind_z1 ,  "z2" = ind_z2 , "z3" = ind_z3, "FX" = ind_FZ )
+dep <- list( "model" = "linreg", formula = y ~ FX+FZ+FX*FZ , "coef_inits" = c(1,.2,.2,0) )
+
+#*** estimate model with mdmb::frm_em
+mod1 <- mdmb::frm_em(dat, dep, ind)
+summary(mod1)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

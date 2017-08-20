@@ -1,6 +1,7 @@
 
-frm_prepare_models <- function(dep, ind, dat0 , nodes_control, nodes_weights=TRUE )
+frm_prepare_models <- function(dep, ind, dat0 , nodes_control, nodes_weights=TRUE, use_grad=2 )
 {	
+
 	all_vars <- NULL	
 	#*** independent variables models
 	NM <- length(ind)
@@ -10,7 +11,7 @@ frm_prepare_models <- function(dep, ind, dat0 , nodes_control, nodes_weights=TRU
 		all_vars <- c( all_vars , res$all_vars )
 		dv_vars <- c( dv_vars , res$dv_vars )
 		res <- frm_append_list( list1 = ind[[mm]]  , list2 = res )
-		res1 <- frm_define_model_R_function(res)   ## depends on regression model classes
+		res1 <- frm_define_model_R_function(res, use_grad=use_grad)   ## depends on regression model classes
 		ind[[mm]] <- frm_append_list( list1= res , list2 = res1 )
 		if (nodes_weights){
 			ind[[mm]] <- frm_prepare_model_nodes_weights( ind_mm = ind[[mm]] ,
@@ -24,7 +25,7 @@ frm_prepare_models <- function(dep, ind, dat0 , nodes_control, nodes_weights=TRU
 	res <- frm_formula_extract_terms( dep$formula )
 	all_vars <- unique( c( all_vars , res$all_vars ) )
 	res <- frm_append_list( list1 = dep  , list2 = res )
-	res1 <- frm_define_model_R_function(res)
+	res1 <- frm_define_model_R_function(res, use_grad=use_grad)
 	dep <- frm_append_list( list1=res, list2 = res1 )
 	if (nodes_weights){
 		dep <- frm_prepare_model_nodes_weights( ind_mm = dep , dat0=dat0,

@@ -29,9 +29,8 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 		mod <- model_results[[mm]]		
 		#--- compute likelihood (evaluation of density)		
 		args <- list(model = mod , y = dat[ , ind_mm$dv_vars ],  case=dat$case )
-		args <- frm_em_linreg_density_extend_args(args=args, ind_mm=ind_mm)				
+		args <- frm_em_linreg_density_extend_args(args=args, ind_mm=ind_mm)		
 		dmod <- do.call( what=ind_mm$R_density_fct , args = args )
-				
 		#*** arrange coefficients
 		mod <- model_results[[mm]]
 		cm <- coef(mod)			

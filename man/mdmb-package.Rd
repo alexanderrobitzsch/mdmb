@@ -10,8 +10,9 @@ Model Based Treatment of Missing Data
 \description{
     Contains model-based treatment of missing data for regression models 
     with missing values in covariates or the dependent variable 
-    using maximum likelihood or Bayesian estimation.
-    Multiple imputation can be also conducted.
+    using maximum likelihood or Bayesian estimation. The regression 
+    model can be nonlinear (e.g., including interaction or quadratic
+    effects). Multiple imputation can be also conducted.
 }
 
 \details{

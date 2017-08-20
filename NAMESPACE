@@ -57,6 +57,7 @@ importFrom(utils, packageDescription)
  
 
 importFrom(CDM, csink)
+importFrom(CDM, numerical_Hessian)
 importFrom(CDM, osink)
 importFrom(coda, effectiveSize)
 importFrom(coda, mcmc)

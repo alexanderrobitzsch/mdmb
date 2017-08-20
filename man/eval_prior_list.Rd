@@ -14,9 +14,9 @@ computes the sum of the logarithms of all prior values.
 }
 
 \usage{
-eval_prior_list(par, par_prior)
+eval_prior_list(par, par_prior, log = FALSE, eps = 1e-50)
 
-eval_prior_list_sumlog(par, par_prior)
+eval_prior_list_sumlog(par, par_prior, use_grad = 1)
 }
 
 
@@ -28,6 +28,11 @@ Parameter vector
   \item{par_prior}{
 List of prior distributions specified in a list (see Examples)
 }
+\item{log}{Logical indicating whether the logarithm of the prior should be
+computed}
+\item{eps}{Summand to be added to the prior to avoid computation of the logarithm
+for values of zero}
+\item{use_grad}{Integer value for computation value for gradient}
 }
 %\details{
 %%  ~~ If necessary, more details than the description above ~~

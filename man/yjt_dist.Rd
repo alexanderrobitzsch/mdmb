@@ -46,7 +46,7 @@ yj_trafo(y, lambda)
 yj_antitrafo(y, lambda)
 
 #---- scaled t distribution with Yeo-Johnson transformation
-dyjt_scaled(x, location=0, shape=1, lambda=1, df=Inf)
+dyjt_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE)
 ryjt_scaled(n, location=0, shape=1, lambda=1, df=Inf)
 
 fit_yjt_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL)
@@ -60,7 +60,7 @@ bc_trafo(y, lambda)
 bc_antitrafo(y, lambda)
 
 #---- scaled t distribution with Box-Cox transformation
-dbct_scaled(x, location=0, shape=1, lambda=1, df=Inf)
+dbct_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE)
 rbct_scaled(n, location=0, shape=1, lambda=1, df=Inf)
 
 fit_bct_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL)
@@ -70,7 +70,7 @@ fit_bct_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL)
 \method{vcov}{fit_bct_scaled}(object, ...)
 
 #---- scaled t distribution
-dt_scaled(x, location=0, shape=1, df=Inf)
+dt_scaled(x, location=0, shape=1, df=Inf, log=FALSE)
 rt_scaled(n, location=0, shape=1, df=Inf)
 
 fit_t_scaled(x, df=Inf, par_init=NULL, weights=NULL)
@@ -93,6 +93,8 @@ Transformation parameter \eqn{\lambda} for Yeo-Johnson transformation
 \item{location}{Location parameter of (transformed) scaled \eqn{t} distribution}
 \item{shape}{Shape parameter of (transformed) scaled \eqn{t} distribution}
 \item{df}{Degrees of freedom of (transformed) scaled \eqn{t} distribution}
+\item{log}{Logical indicating whether logarithm of the density should be
+computed}
 \item{n}{Number of observations to be simulated}
 \item{par_init}{Optional vector of initial parameters}
 \item{lambda_fixed}{Optional value for fixed \eqn{\lambda} parameter}

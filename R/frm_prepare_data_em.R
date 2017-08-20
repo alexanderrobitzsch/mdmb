@@ -12,7 +12,7 @@ frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0)
 	for (mm in 1:NM){	
 		# mm <- 1
 		ind_mm <- ind[[mm]]		
-		var_mm <- ind_mm$dv_vars
+		var_mm <- ind_mm$dv_vars	
 		dv_vars <- c( dv_vars , var_mm)
 		nodes_mm <- ind_mm$nodes
 		dat <- frm_prepare_data_include_latent_data( dat = dat , 

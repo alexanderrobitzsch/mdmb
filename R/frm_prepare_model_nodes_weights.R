@@ -1,7 +1,7 @@
 
 frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 {
-	dv_vars <- ind_mm$dv_vars
+	dv_vars <- ind_mm$dv_vars	
 	ind_mm$nodes_description <- "prespecified nodes"
 		
 	#--------- descriptives
