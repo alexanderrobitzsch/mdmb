@@ -1,3 +1,6 @@
+## File Name: mdmb_regression_predict_yjt_bct.R
+## File Version: 0.03
+## File Last Change: 2017-01-23 19:47:53
 
 mdmb_regression_predict_yjt_bct <- function( object , newdata = NULL, trafo=TRUE, ...)
 {

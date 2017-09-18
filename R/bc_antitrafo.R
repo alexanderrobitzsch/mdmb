@@ -1,3 +1,6 @@
+## File Name: bc_antitrafo.R
+## File Version: 0.02
+## File Last Change: 2017-01-23 19:35:11
 
 bc_antitrafo <- function(y , lambda )
 {

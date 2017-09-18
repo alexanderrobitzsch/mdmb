@@ -1,3 +1,6 @@
+## File Name: fit_t_scaled.R
+## File Version: 0.16
+## File Last Change: 2017-01-23 19:35:11
 
 fit_t_scaled <- function(x, df=Inf, par_init=NULL, weights=NULL)
 {

@@ -1,3 +1,6 @@
+## File Name: remove_NA_data_frame.R
+## File Version: 0.03
+## File Last Change: 2017-01-23 19:35:14
 
 remove_NA_data_frame <- function( formula , data , weights=NULL)
 {

@@ -1,3 +1,6 @@
+## File Name: fit_mdmb_distribution_summary.R
+## File Version: 0.16
+## File Last Change: 2017-03-01 11:31:55
 
 
 #*******************************************************

@@ -1,3 +1,6 @@
+## File Name: frm_prepare_models.R
+## File Version: 0.32
+## File Last Change: 2017-08-19 19:16:12
 
 frm_prepare_models <- function(dep, ind, dat0 , nodes_control, nodes_weights=TRUE, use_grad=2 )
 {	

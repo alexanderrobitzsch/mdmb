@@ -1,3 +1,6 @@
+## File Name: mdmb_regression_ic.R
+## File Version: 0.10
+## File Last Change: 2017-01-23 19:35:13
 
 
 mdmb_regression_ic <- function( N, beta, deviance, type, index_beta, index_sigma,

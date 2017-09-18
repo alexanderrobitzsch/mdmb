@@ -1,3 +1,7 @@
+%% File Name: mdmb_regression.Rd
+%% File Version: 0.34
+%% File Last Change: 2017-08-19 19:26:54
+
 \name{mdmb_regression}
 \alias{logistic_regression}
 \alias{coef.logistic_regression}

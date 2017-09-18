@@ -1,3 +1,6 @@
+## File Name: dbct_scaled.R
+## File Version: 0.18
+## File Last Change: 2017-08-19 12:33:24
 
 dbct_scaled <- function( x , location=0, shape=1, lambda = 1 , df = Inf, log = FALSE )
 {

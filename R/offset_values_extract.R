@@ -1,3 +1,6 @@
+## File Name: offset_values_extract.R
+## File Version: 0.07
+## File Last Change: 2017-01-23 19:35:14
 
 offset_values_extract <- function(formula, data )
 {

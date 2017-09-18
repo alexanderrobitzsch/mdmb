@@ -1,3 +1,6 @@
+## File Name: frm_em_include_coef_inits.R
+## File Version: 0.05
+## File Last Change: 2017-01-23 19:35:12
 
 frm_em_include_coef_inits <- function( ind , mm , model_results , iter)
 {

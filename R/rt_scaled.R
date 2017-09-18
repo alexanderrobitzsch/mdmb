@@ -1,3 +1,6 @@
+## File Name: rt_scaled.R
+## File Version: 0.03
+## File Last Change: 2017-01-23 19:35:14
 
 rt_scaled <- function(n , location=0, shape=1, df=Inf)
 {

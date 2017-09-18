@@ -1,3 +1,6 @@
+## File Name: frm2datlist.R
+## File Version: 0.05
+## File Last Change: 2017-01-23 19:35:13
 
 frm2datlist <- function( object)
 {

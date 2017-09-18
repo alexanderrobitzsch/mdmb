@@ -1,3 +1,7 @@
+%% File Name: frm.Rd
+%% File Version: 0.62
+%% File Last Change: 2017-08-21 10:44:19
+
 \name{frm}
 \alias{frm_em}
 \alias{coef.frm_em}
@@ -122,7 +126,7 @@ as the factor of the standard deviation of the observed data.}
 covariance matrix}
 \item{use_grad}{Computation method for gradient in \code{\link{yjt_regression}},
 	\code{\link{bct_regression}} or \code{\link{logistic_regression}}.
-	It can be \code{0} (compatible with \pkg{mdb} \eqn{\le}0.3), 
+	It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3), 
 \code{1} or \code{2} (most efficient one).}
 \item{data_init}{Initial values for dataset}
 \item{iter}{Number of iterations}
@@ -607,6 +611,49 @@ dep <- list( "model" = "linreg", formula = y ~ FX+FZ+FX*FZ , "coef_inits" = c(1,
 #*** estimate model with mdmb::frm_em
 mod1 <- mdmb::frm_em(dat, dep, ind)
 summary(mod1)
+
+#############################################################################
+# EXAMPLE 8: Non-ignorable data in Y
+#############################################################################
+
+# regression Y ~ X in which Y is missing depending Y itself
+
+library(mvtnorm)
+cor_XY <- .4        # correlation between X and Y
+prop_miss <- .5     # missing proportion
+cor_missY <- .7     # correlation with missing propensity
+N <- 3000           # sample size
+
+#----- simulate data
+set.seed(790)
+Sigma <- matrix( c(1, cor_XY , cor_XY , 1) , 2 , 2 )
+mu <- c(0,0)
+dat <- mvtnorm::rmvnorm( N , mean = mu, sigma=Sigma )
+colnames(dat) <- c("X","Y")
+dat <- as.data.frame(dat)
+
+#-- generate missing responses on Y depending on Y itself
+y1 <- dat$Y
+miss_tend <- cor_missY * y1  + rnorm(N , sd = sqrt( 1 - cor_missY^2) )
+dat$Y[ miss_tend < quantile( miss_tend , prop_miss ) ] <- NA
+
+#--- ML estimation under assumption of ignorability
+nodes <- seq(-5,5,len=15)
+dep <- list("model" = "linreg" , "formula" = Y ~  X , "nodes" = nodes )
+ind_X <- list( "model" = "linreg" , "formula" = X ~ 1 , "nodes" = nodes )
+ind <- list( "X" = ind_X )
+mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind)
+summary(mod1)
+
+#--- ML estimation under assumption with specifying a model for non-ignorability
+#    for response indicator resp_Y
+dat$resp_Y <- 1* ( 1 - is.na(dat$Y) )
+dep <- list("model" = "linreg" , "formula" = Y ~  X , "nodes" = nodes )
+ind_X <- list( "model" = "linreg" , "formula" = X ~ 1 , "nodes" = nodes )
+ind_respY <- list( "model" = "logistic" , "formula" = resp_Y ~ Y , "nodes" = nodes )
+ind <- list( "X" = ind_X , "resp_Y" = ind_respY )
+mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind)
+summary(mod2)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

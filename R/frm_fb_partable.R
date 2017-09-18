@@ -1,3 +1,6 @@
+## File Name: frm_fb_partable.R
+## File Version: 0.11
+## File Last Change: 2017-01-24 11:46:03
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {

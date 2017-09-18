@@ -16,7 +16,7 @@ citEntry(entry="Manual",
          note = vers,
 	 url = "https://CRAN.R-project.org/package=mdmb" ,
          textVersion =
-         paste0("Robitzsch, A., Luedtke, O. (",
+         paste0("Robitzsch, A., & Luedtke, O. (",
                year,
                "). mdmb: Model based treatment of missing data.",
                vers, ". https://CRAN.R-project.org/package=mdmb")

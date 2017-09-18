@@ -1,3 +1,7 @@
+%% File Name: yjt_dist.Rd
+%% File Version: 0.26
+%% File Last Change: 2017-08-19 12:13:00
+
 \name{yjt_dist}
 \alias{yjt_dist}
 \alias{yj_trafo}

@@ -1,3 +1,6 @@
+## File Name: frm_fb_sample_parameters.R
+## File Version: 0.29
+## File Last Change: 2017-01-24 11:30:05
 
 
 frm_fb_sample_parameters <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,

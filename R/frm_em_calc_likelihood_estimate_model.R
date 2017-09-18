@@ -1,3 +1,6 @@
+## File Name: frm_em_calc_likelihood_estimate_model.R
+## File Version: 0.16
+## File Last Change: 2017-08-19 19:33:52
 
 frm_em_calc_likelihood_estimate_model <- function( ind_mm, dat, weights )
 { 

@@ -1,3 +1,6 @@
+## File Name: frm_linreg_density.R
+## File Version: 0.92
+## File Last Change: 2017-01-23 19:35:13
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
 		X = NULL , offset = NULL )

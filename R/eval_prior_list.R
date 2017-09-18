@@ -1,3 +1,6 @@
+## File Name: eval_prior_list.R
+## File Version: 0.08
+## File Last Change: 2017-08-20 14:06:27
 
 eval_prior_list <- function( par , par_prior, log = FALSE, eps=1E-50 )
 {

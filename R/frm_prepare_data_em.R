@@ -1,3 +1,6 @@
+## File Name: frm_prepare_data_em.R
+## File Version: 0.19
+## File Last Change: 2017-08-01 17:55:07
 
 frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0)
 {

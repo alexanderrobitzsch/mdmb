@@ -1,3 +1,6 @@
+## File Name: frm_fb_init_matrices_saved_parameters.R
+## File Version: 0.10
+## File Last Change: 2017-01-23 19:35:12
 
 frm_fb_init_matrices_saved_parameters <- function( iter , burnin ,
 		Nsave, Nimp , npars, parms , parms_index , predictorMatrix )

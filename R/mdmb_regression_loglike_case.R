@@ -1,3 +1,6 @@
+## File Name: mdmb_regression_loglike_case.R
+## File Version: 0.08
+## File Last Change: 2017-01-23 19:35:13
 
 #**** evaluate individual likelihood
 mdmb_regression_loglike_case <- function(y, linear.predictor, 

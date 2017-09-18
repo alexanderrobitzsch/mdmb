@@ -1,3 +1,6 @@
+## File Name: frm_define_model_R_function.R
+## File Version: 0.19
+## File Last Change: 2017-08-19 19:17:15
 
 frm_define_model_R_function <- function(model, use_grad=2)
 {

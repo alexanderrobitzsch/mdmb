@@ -1,3 +1,6 @@
+## File Name: frm_fb_sample_imputed_values.R
+## File Version: 0.29
+## File Last Change: 2017-02-07 12:08:47
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,

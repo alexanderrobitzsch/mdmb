@@ -1,3 +1,7 @@
+%% File Name: remove_NA_data_frame.Rd
+%% File Version: 0.09
+%% File Last Change: 2017-01-25 18:42:36
+
 \name{remove_NA_data_frame}
 \alias{remove_NA_data_frame}
 %- Also NEED an '\alias' for EACH other topic documented here.

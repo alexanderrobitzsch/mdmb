@@ -1,3 +1,6 @@
+## File Name: fit_mdmb_distribution_extract_results.R
+## File Version: 0.05
+## File Last Change: 2017-01-23 19:35:11
 
 fit_mdmb_distribution_extract_results <- function( res0, lambda_fixed, 
 		is_lambda_fixed, parnames)

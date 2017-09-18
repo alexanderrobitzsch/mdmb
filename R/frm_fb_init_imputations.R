@@ -1,3 +1,6 @@
+## File Name: frm_fb_init_imputations.R
+## File Version: 0.19
+## File Last Change: 2017-02-07 12:08:19
 
 frm_fb_init_imputations <- function( Nimp , model_results, burnin ,
 		iter , impute_vars , impute_vars_index, ind_miss, ind0, dv_vars,
