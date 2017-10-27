@@ -1,6 +1,5 @@
 ## File Name: fit_mdmb_distribution.R
 ## File Version: 0.35
-## File Last Change: 2017-01-23 19:35:11
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
 	weights=NULL)

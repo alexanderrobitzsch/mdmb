@@ -1,6 +1,5 @@
 ## File Name: frm_prepare_models_sigma_fixed.R
 ## File Version: 0.06
-## File Last Change: 2017-01-23 19:35:13
 
 frm_prepare_models_sigma_fixed <- function( ind0 , NM, dat0, dat)
 {

@@ -1,6 +1,5 @@
 ## File Name: frm_em_ic.R
 ## File Version: 0.06
-## File Last Change: 2017-01-23 19:35:12
 
 frm_em_ic <- function(ll_new , N , ind0, model_results)
 {

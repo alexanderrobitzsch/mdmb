@@ -1,6 +1,5 @@
 ## File Name: frm_logistic_density.R
 ## File Version: 0.07
-## File Last Change: 2017-01-23 19:35:13
 
 frm_logistic_density <- function(model, y, design_matrix=NULL, case=NULL)
 {

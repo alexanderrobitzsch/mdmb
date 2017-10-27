@@ -1,6 +1,5 @@
 %% File Name: mdmb-package.Rd
 %% File Version: 0.17
-%% File Last Change: 2017-08-17 19:20:36
 
 \name{mdmb-package}
 \alias{mdmb-package}

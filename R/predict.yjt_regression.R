@@ -1,6 +1,5 @@
 ## File Name: predict.yjt_regression.R
 ## File Version: 0.07
-## File Last Change: 2017-01-23 19:35:14
 
 predict.yjt_regression <- function( object , newdata = NULL, trafo=TRUE, ...)
 {	

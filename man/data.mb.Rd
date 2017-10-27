@@ -1,6 +1,5 @@
 %% File Name: data.mb.Rd
 %% File Version: 0.03
-%% File Last Change: 2017-01-23 19:34:08
 
 \name{data.mb}
 \alias{data.mb}

@@ -1,6 +1,5 @@
 ## File Name: frm_mdmb_regression_density.R
 ## File Version: 0.09
-## File Last Change: 2017-01-23 19:56:46
 
 frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
 		X = NULL , offset = NULL )

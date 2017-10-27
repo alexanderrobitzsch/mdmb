@@ -1,6 +1,5 @@
 ## File Name: frm_fb_sample_parameter_step.R
 ## File Version: 0.14
-## File Last Change: 2017-01-23 19:48:18
 
 
 frm_fb_sample_parameter_step <- function( ind_mm , dat , weights ,

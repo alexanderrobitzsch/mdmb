@@ -1,6 +1,5 @@
 ## File Name: frm_em.R
 ## File Version: 0.881
-## File Last Change: 2017-08-19 19:34:39
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,

@@ -1,6 +1,5 @@
 ## File Name: mdmb_regression_summary_table.R
 ## File Version: 0.06
-## File Last Change: 2017-01-23 19:35:14
 
 mdmb_regression_summary_table <- function( beta, vcov1 )
 {	

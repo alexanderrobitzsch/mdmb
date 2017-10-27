@@ -1,6 +1,5 @@
 ## File Name: bc_trafo.R
 ## File Version: 0.03
-## File Last Change: 2017-01-23 19:35:11
 
 bc_trafo <- function( y , lambda )
 {

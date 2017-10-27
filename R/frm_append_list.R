@@ -1,6 +1,5 @@
 ## File Name: frm_append_list.R
 ## File Version: 0.04
-## File Last Change: 2017-01-23 19:35:11
 
 frm_append_list <- function(list1, list2)
 {

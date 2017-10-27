@@ -1,6 +1,5 @@
 %% File Name: frm.Rd
 %% File Version: 0.62
-%% File Last Change: 2017-08-21 10:44:19
 
 \name{frm}
 \alias{frm_em}

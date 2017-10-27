@@ -1,6 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
 ## File Version: 0.18
-## File Last Change: 2017-02-07 12:09:23
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv , index_vv ,

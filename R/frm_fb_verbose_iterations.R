@@ -1,6 +1,5 @@
 ## File Name: frm_fb_verbose_iterations.R
 ## File Version: 0.06
-## File Last Change: 2017-01-23 19:35:13
 
 frm_fb_verbose_iterations <- function( verbose , iter , print_iter , maxiter, 
 		mcmc_start_time )

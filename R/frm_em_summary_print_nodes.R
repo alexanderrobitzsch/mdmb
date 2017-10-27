@@ -1,6 +1,5 @@
 ## File Name: frm_em_summary_print_nodes.R
 ## File Version: 0.05
-## File Last Change: 2017-01-23 19:35:12
 
 frm_em_summary_print_nodes <- function( dv_vars , nodes , nodes_description,
 			desc_vars )

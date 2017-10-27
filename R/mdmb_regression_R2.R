@@ -1,6 +1,5 @@
 ## File Name: mdmb_regression_R2.R
 ## File Version: 0.10
-## File Last Change: 2017-01-23 19:35:13
 
 #**** evaluate individual likelihood
 mdmb_regression_R2 <- function( linear.predictor,  y, type, beta , index_sigma  )

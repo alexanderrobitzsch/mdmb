@@ -1,6 +1,5 @@
 %% File Name: offset_values_extract.Rd
 %% File Version: 0.07
-%% File Last Change: 2017-01-23 19:34:08
 
 \name{offset_values_extract}
 \alias{offset_values_extract}

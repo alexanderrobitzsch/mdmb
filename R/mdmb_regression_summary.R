@@ -1,6 +1,5 @@
 ## File Name: mdmb_regression_summary.R
 ## File Version: 0.26
-## File Last Change: 2017-03-01 11:32:03
 
 
 #*******************************************************

@@ -1,6 +1,5 @@
 ## File Name: mdmb_regression.R
 ## File Version: 1.54
-## File Last Change: 2017-08-20 14:14:12
 
 
 mdmb_regression <- function( formula , data , type , weights = NULL,

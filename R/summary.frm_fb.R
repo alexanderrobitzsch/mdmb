@@ -1,6 +1,5 @@
 ## File Name: summary.frm_fb.R
 ## File Version: 0.08
-## File Last Change: 2017-03-01 11:32:23
 
 
 #*******************************************************

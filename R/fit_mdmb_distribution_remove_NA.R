@@ -1,6 +1,5 @@
 ## File Name: fit_mdmb_distribution_remove_NA.R
 ## File Version: 0.05
-## File Last Change: 2017-01-23 19:35:11
 
 fit_mdmb_distribution_remove_NA <- function( x , weights )
 {

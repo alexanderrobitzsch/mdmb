@@ -1,6 +1,5 @@
 ## File Name: frm_formula_character.R
 ## File Version: 0.08
-## File Last Change: 2017-01-23 19:35:13
 
 
 frm_formula_character <- function( ind_mm)

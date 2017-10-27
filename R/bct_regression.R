@@ -1,6 +1,5 @@
 ## File Name: bct_regression.R
 ## File Version: 0.03
-## File Last Change: 2017-08-19 17:45:22
 
 
 bct_regression <- function( formula , data , weights = NULL,

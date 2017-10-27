@@ -1,6 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
 ## File Version: 1.09
-## File Last Change: 2017-08-19 19:34:15
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,

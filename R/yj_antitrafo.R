@@ -1,6 +1,5 @@
 ## File Name: yj_antitrafo.R
 ## File Version: 0.04
-## File Last Change: 2017-01-23 19:35:14
 
 yj_antitrafo <- function(y, lambda)
 {
