@@ -1,10 +1,11 @@
 ## File Name: fit_mdmb_distribution_summary.R
-## File Version: 0.16
+## File Version: 0.17
 
 
 #*******************************************************
 # Summary for logistic_regression object
-fit_mdmb_distribution_summary <- function( object , digits = 4 , file=NULL , ...){
+fit_mdmb_distribution_summary <- function( object , digits = 4 , file=NULL , ...)
+{
 
 	type <- object$type
 
@@ -38,7 +39,6 @@ fit_mdmb_distribution_summary <- function( object , digits = 4 , file=NULL , ...
 		obji[,ii] <- round( obji[,ii] , digits)
 	}
 	print(obji)		
-	# cat("\n")
 			
 	# close sink
     CDM::csink( file = file )		

@@ -1,12 +1,10 @@
 ## File Name: logLik_extract_ic.R
-## File Version: 0.03
+## File Version: 0.04
 
-logLik_extract_ic <- function( object ){
-    # extract log-likelihood
+logLik_extract_ic <- function( object )
+{
     out <- - object$ic$deviance / 2 
-    # number of parameters
     attr(out, "df") <- object$ic$np
-    # extract number of observations
     attr(out, "nobs") <- object$ic$n
     class(out) <- "logLik"
     return(out)

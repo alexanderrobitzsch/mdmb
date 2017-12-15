@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution.R
-## File Version: 0.35
+## File Version: 0.38
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
 	weights=NULL)
@@ -26,7 +26,6 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 		x0 <- c( m0, sd0 )
 		parnames <- c("location","scale")
 		description <- paste0( "Scaled t distribution (df=" , df , ")")
-		type <- "t_scaled"
 		class_type <- "fit_t_scaled"				
 		loglik_fit <- function(x){			
 			dx <- dt_scaled( x = y , location = x[1], shape = x[2] , df = df )
@@ -48,7 +47,6 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 		parnames <- c("location","scale","lambda")
 		description <- paste0(
 			"Scaled t distribution with Yeo-Johnson transformation (df=", df , ")")
-		type <- "yjt_scaled"
 		class_type <- "fit_yjt_scaled"
 		loglik_fit <- function(x){		
 			if ( is_lambda_fixed ){
@@ -76,7 +74,6 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 		parnames <- c("location","scale","lambda")
 		description <- paste0(
 			"Scaled t distribution with Box-Cox transformation (df=", df , ")")
-		type <- "bct_scaled"
 		class_type <- "fit_bct_scaled"
 		loglik_fit <- function(x){		
 			if ( is_lambda_fixed ){
@@ -89,9 +86,26 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 			fn <- - sum( weights * log(dx + eps ) )
 			return(fn)
 		}		
+	}	
+	#***************************************************	
+	#******* ordinal probit model
+	if ( type=="oprobit"){
+		# initial values for parameters
+		freq <- cumsum( table(y) ) / length(y)
+		x0 <- stats::qnorm( freq[ - length(freq) ] )				
+		K <- length(x0)
+		df <- NULL
+		parnames <- paste0( "thresh", 1:K)
+		description <- paste0( "Ordinal Probit Model")
+		class_type <- "fit_oprobit"				
+		loglik_fit <- function(x){			
+			dx <- doprobit( x = y , thresh=x )
+			fn <- - sum( weights * log(dx + eps ) )
+			return(fn)
+		}		
 	}
-	#***************************************************
-	
+	#***************************************************	
+		
 	if ( ! is.null(par_init) ){
 		x0 <- par_init	
 	}	
@@ -106,8 +120,7 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 	coefs <- res0$coefs
 	vcovs <- res0$vcovs
 	loglike <- res0$loglike
-	deviance <- res0$deviance
-	
+	deviance <- res0$deviance	
 	N <- length(y)		
 	partable <- fit_mdmb_distribution_summary_table( beta = coefs , vcov1 = vcovs )
 	s2 <- Sys.time()

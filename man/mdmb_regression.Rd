@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.34
+%% File Version: 0.38
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -20,7 +20,12 @@
 \alias{logLik.bct_regression}
 \alias{summary.bct_regression}
 \alias{predict.bct_regression}
-
+\alias{oprobit_regression}
+\alias{coef.oprobit_regression}
+\alias{vcov.oprobit_regression}
+\alias{logLik.oprobit_regression}
+\alias{summary.oprobit_regression}
+\alias{predict.oprobit_regression}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 
@@ -42,6 +47,9 @@ of the outcome variable.
 
 The function \code{logistic_regression} performs logistic regression
 for dichotomous data.
+
+The function \code{oprobit_regression} performs ordinal probit regression
+for ordinal polytomous data.
 }
 
 \usage{
@@ -74,6 +82,17 @@ logistic_regression(formula, data, weights = NULL, beta_init = NULL,
 \method{predict}{logistic_regression}(object, newdata=NULL, ...)
 \method{summary}{logistic_regression}(object, digits=4, file=NULL, ...)
 \method{vcov}{logistic_regression}(object, ...)
+
+#---- ordinal probit regression
+oprobit_regression(formula, data, weights = NULL, beta_init = NULL, 
+        use_grad = 2, h = 1e-5, control = NULL)
+
+\method{coef}{oprobit_regression}(object, ...)
+\method{logLik}{oprobit_regression}(object, ...)
+\method{predict}{oprobit_regression}(object, newdata=NULL, ...)
+\method{summary}{oprobit_regression}(object, digits=4, file=NULL, ...)
+\method{vcov}{oprobit_regression}(object, ...)
+
 }
 
 
@@ -268,6 +287,27 @@ summary(mod2)
 #--- compare fit
 logLik(mod1)
 logLik(mod2)
+
+#############################################################################
+# EXAMPLE 4: Ordinal probit regression
+#############################################################################
+
+#--- simulate data
+set.seed(987)
+N <- 1500
+x <- stats::rnorm(N)
+z <- stats::rnorm(N)
+# regression coefficients
+b0 <- -.5 ; b1 <- .6 ; b2 <- .1
+# vector of thresholds
+thresh <- c(-1, -.3 , 1)
+yast <- b0 + b1 * x + b2*z + stats::rnorm(N)
+y <- as.numeric( cut( yast , c(-Inf,thresh,Inf) ) ) - 1
+dat <- data.frame( x = x , y = y, z=z )
+
+#--- probit regression
+mod <- mdmb::oprobit_regression( formula = y ~ x + z + I(x*z), data=dat)
+summary(mod)
 }
 }
 

@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.54
+## File Version: 1.703
 
 
 mdmb_regression <- function( formula , data , type , weights = NULL,
@@ -13,6 +13,10 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	weights <- res$weights
 	Xdes <- stats::model.matrix( object=formula , data=data )
 	N <- nrow(Xdes)	
+	
+	index_beta <- NULL
+	index_thresh <- NULL
+	
 	offset_values <- offset_values_extract(formula=formula, data=data )
 	Ndes <- ncol(Xdes)
 	parnames <- colnames(Xdes)
@@ -22,10 +26,20 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	dv_var <- as.character( formula[[2]] )
 	y <- data[,dv_var]
 	#*** lambda fixed
-	is_lambda_fixed <- TRUE
+	is_lambda_fixed <- TRUE	
 	if (  ( type %in% c("yjt","bct") ) & ( is.null( lambda_fixed ) ) ){
 		is_lambda_fixed <- FALSE
 	}	
+	#-- probit model
+	if ( type %in% "oprobit"){
+		K <- max(y, na.rm=TRUE)
+		t1 <- cumsum( prop.table(table(y)) )
+		thresh_init <- diff(stats::qnorm( t1[ - c(K+1) ] ))	
+		if (K>=2){
+			names(thresh_init) <- paste0("thresh",2:K)		
+		}
+	}	
+	
 	#--- starting values parameters
 	if ( is.null(beta_init) ){
 		par <- rep(0,Ndes)
@@ -44,8 +58,19 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 			} else {
 				par <- c( par , sd_y , 1 )
 			}
+		}
+		#** ordinal probit model
+		if ( type %in% c("oprobit") ){
+			par <- c( par0, thresh_init )
+			index_beta <- 1:Ndes
+			if (K>=2){
+				index_thresh <- Ndes + seq(1,length(thresh_init))		
+			} else {
+				index_thresh <- NULL
+			}						
 		}		
-	} else {
+	}			
+	if ( ! is.null(beta_init) ){
 		par <- beta_init
 	}
 	
@@ -55,6 +80,8 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	}
 	
 	x <- par	
+	parnames <- names(par)
+	np <- length(x)
 	eps <- 1E-50
 	index_sigma <- NULL
 	index_lambda <- NULL
@@ -66,7 +93,6 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	#*** logistic regression
 	if ( type=="logistic"){
 		description <- "Logistic regression"
-		np <- length(x)
 		index_beta <- 1:np
 		#--- optimization function
 		fct_optim <- function(x){
@@ -97,7 +123,6 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	#***********************************
 	#*** yjt regression
 	if ( type %in% c("yjt","bct") ){
-		np <- length(x)
 		index_beta <- seq(1,np-2 + is_lambda_fixed)
 		index_sigma <- np - 1 + is_lambda_fixed
 		if ( ! is_lambda_fixed){
@@ -165,13 +190,58 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 			return(x_grad)
 		}		
 	}
-	#***********************************					
-
+	#***********************************
+	#*** ordinal probit model
+	if ( type=="oprobit"){
+		description <- "Ordinal Probit Regression"
+		a0 <- .01
+		NT <- length(index_thresh)
+		#--- optimization function
+		fct_optim <- function(x){
+			beta <- x[ index_beta ]
+			thresh <- x[ index_thresh ]			
+			ypred <- Xdes %*% beta + offset_values			
+			ll_i <- mdmb_regression_oprobit_density( y=y, ypred=ypred, thresh=thresh, 
+						log=TRUE, eps=eps)
+			ll <- - sum( weights * ll_i )		
+			#--- output
+			return(ll)
+		}
+		#--- gradient
+		grad_optim2 <- function(x){
+			beta <- x[ index_beta ]
+			thresh <- x[ index_thresh ]
+			xgrad <- rep(0, length(x) )
+			ypred <- Xdes %*% beta + offset_values			
+			ll0 <- mdmb_regression_oprobit_density( y=y, ypred=ypred, thresh=thresh, 
+							log = TRUE , eps = eps )
+			ll1 <- mdmb_regression_oprobit_density( y=y, ypred=ypred+h, thresh=thresh, 
+							log = TRUE , eps = eps )						
+			der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
+			wder1 <- weights * der1[,1]
+			xgrad[index_beta] <- colSums( wder1 * Xdes )
+			#-- derivatives for thresholds
+			if (NT>0){
+				for (ii in 1:NT){
+					thresh0 <- thresh
+					thresh0[ii] <- thresh[ii] + h
+					ll1 <- mdmb_regression_oprobit_density( y=y, ypred=ypred, thresh=thresh0, 
+								log = TRUE , eps = eps )						
+					der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
+					xgrad[ index_thresh[ii] ] <- sum( weights * der1[,1] )		
+				}						
+			}
+			return(xgrad)
+		}    		
+		
+	}	
+		
 	#--- compute gradient 
 	grad_optim <- function(x){
 		xh <- CDM::numerical_Hessian( par = x , FUN = fct_optim , gradient=TRUE , hessian = FALSE)
 		return(xh)
 	}	
+
 	if ( use_grad == 0){
 		grad_optim <- NULL
 	}
@@ -179,20 +249,15 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 		grad_optim <- grad_optim2
 	}
 
-# Revalpr("grad_optim(par)")
-# Revalpr("grad_optim2(par)")
- 
-	
 	#-------------------------------------------
 	#---- optimization using optim
 	mod1 <- stats::optim( par=par , fn=fct_optim , gr = grad_optim, method = "L-BFGS-B", 
 				hessian = TRUE , control=control)		
-				
+
 	#--- extract parameters
 	beta <- mdmb_regression_extract_parameters( mod=mod1 , parnames=parnames , 
-				type=type , is_lambda_fixed=is_lambda_fixed , 
-				lambda_fixed = lambda_fixed )			
-			
+				type=type , is_lambda_fixed=is_lambda_fixed , lambda_fixed = lambda_fixed )			
+
 	#--- extract log-likelihood, log prior and log-posterior
 	res0 <- mdmb_regression_loglike_logpost(mod=mod1, beta=beta , 
 				beta_prior=beta_prior, is_prior=is_prior, type=type, 
@@ -211,12 +276,14 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	
 	#---- individual likelihood
 	loglike_case <- mdmb_regression_loglike_case(y=y, linear.predictor=linear.predictor, 
-						fitted.values=fitted.values, type=type , beta = beta , df=df )				
+						fitted.values=fitted.values, type=type , beta = beta , df=df,
+						index_beta=index_beta, index_thresh=index_thresh)				
 						
 	#---- information criteria
 	deviance <- - 2 * loglike
 	ic <- mdmb_regression_ic( N=N, beta=beta , deviance=deviance , type=type,
-				index_beta = index_beta, index_sigma=index_sigma , index_lambda=index_lambda )
+				index_beta = index_beta, index_sigma=index_sigma , index_lambda=index_lambda,
+				index_thresh=index_thresh )
 	
 	#---- summary table
 	partable <- mdmb_regression_summary_table( beta=beta, vcov1=vcov1 )

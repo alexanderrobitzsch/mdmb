@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_summary.R
-## File Version: 0.26
+## File Version: 0.27
 
 
 #*******************************************************
@@ -35,7 +35,9 @@ mdmb_regression_summary <- function( object , digits = 4 , file=NULL , ...){
 		
     cat( "  Number of estimated beta parameters = " , object$ic$np.beta , "\n" )    	
 	cat( "  Number of estimated sigma parameters = " , object$ic$np.sigma , "\n" )    		
-	cat( "  Number of estimated lambda parameters = " , object$ic$np.lambda , "\n\n" )  
+	cat( "  Number of estimated lambda parameters = " , object$ic$np.lambda , "\n" ) 
+	cat( "  Number of estimated threshold parameters = " , object$ic$np.thresh , "\n" ) 
+	cat("\n")	
 	
 	cat( "AIC  = " , round( object$ic$AIC , 2 ) , " | penalty =" , 
 				round( object$ic$AIC - object$ic$deviance ,2 ) , 
