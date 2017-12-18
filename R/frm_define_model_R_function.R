@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.19
+## File Version: 0.21
 
 frm_define_model_R_function <- function(model, use_grad=2)
 {
@@ -21,6 +21,13 @@ frm_define_model_R_function <- function(model, use_grad=2)
 		R_args <- list( "use_grad" = use_grad )
 		R_density_fct <- "frm_logistic_density"
 	}	
+	#--- ordinal probit regression
+	if (model$model == "oprobit"){ 
+		R_fct <- oprobit_regression 
+		R_fct_name <- "mdmb::oprobit_regression"		
+		R_args <- list( "use_grad" = use_grad )
+		R_density_fct <- "frm_oprobit_density"
+	}		
 	#--- linear regression with Box-Cox Transformation
 	if (model$model %in% c("bctreg") ){ 
 		R_fct <- bct_regression		

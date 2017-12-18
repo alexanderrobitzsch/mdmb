@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.62
+%% File Version: 0.66
 
 \name{frm}
 \alias{frm_em}
@@ -44,8 +44,9 @@ the posterior distributions. Imputed datasets can be extracted by the
 function \code{frm2datlist}.
 
 The current functionality only support missing values on continuous covariates
-(accomodating skewness and only positive values) and dichotomous covariates.
-The handling of ordinal and nominal covariates will be included in future
+(accomodating skewness and only positive values), dichotomous covariates and
+ordinal covariates.
+The handling of nominal covariates will be included in future
 \pkg{mdmb} package versions.
 }
 
@@ -86,9 +87,12 @@ has arguments (see Examples)
 \code{model}: String indicating the model type. Options are
 \code{"linreg"} (wrapper to \code{\link[stats:lm]{stats::lm}}
 or \code{\link[stats:lm.wfit]{stats::lm.wfit}}),
-\code{"logistic"} (wrapper to \code{\link{logistic_regression}}), 
-\code{"yjtreg"} (wrapper to \code{\link{yjt_regression}}),
-\code{"bctreg"} (wrapper to \code{\link{bct_regression}})
+\code{"logistic"} for dichotomous variables (wrapper to \code{\link{logistic_regression}}),
+\code{"oprobit"} for ordinal variables 
+(wrapper to \code{\link{oprobit_regression}}),
+\code{"yjtreg"} for continuous variables (wrapper to \code{\link{yjt_regression}}),
+\code{"bctreg"} for positive continuous variables
+(wrapper to \code{\link{bct_regression}})
  \cr
 \code{formula}: An \R formula object. \cr
 \code{nodes} (for \code{frm_em}): Vector containing the integration nodes \cr
@@ -653,6 +657,47 @@ ind_respY <- list( "model" = "logistic" , "formula" = resp_Y ~ Y , "nodes" = nod
 ind <- list( "X" = ind_X , "resp_Y" = ind_respY )
 mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind)
 summary(mod2)
+
+#############################################################################
+# EXAMPLE 9: Ordinal variables: Graded response model
+#############################################################################
+
+#--- simulate data
+N <- 2000
+set.seed(91834)
+# latent variable
+theta <- stats::rnorm(N)
+# simulate items
+y1 <- 1*theta + stats::rnorm(N)
+y2 <- .7*theta + stats::rnorm(N)
+y3 <- .7*theta + stats::rnorm(N)
+# discretize variables
+y1 <- as.numeric( cut( y1 , breaks=c(-Inf, -.5 , 0.4 , 1, Inf ) ) ) - 1
+y2 <- as.numeric( cut( y2 , breaks=c(-Inf, 0.3 , 1, Inf ) ) ) - 1
+y3 <- as.numeric( cut( y3 , breaks=c(-Inf, .2 , Inf ) ) ) - 1
+# define dataset
+dat <- data.frame(y1,y2,y3)
+dat$theta <- NA
+
+#******************************************
+# Model 1: Fully Bayesian estimation
+
+#--- define model
+ind_y1 <- list("model" = "oprobit" , "formula" = y1 ~  offset(1*theta) )
+ind_y2 <- list( "model" = "oprobit", "formula" = y2 ~ theta )
+ind_y3 <- list( "model" = "oprobit", "formula" = y3 ~ theta )
+dep <- list( "model" = "linreg", "formula" = theta ~ 0  )
+ind <- list( "y1" = ind_y1 ,  "y2" = ind_y2 , "y3" = ind_y3)
+# initial data
+data_init <- dat
+data_init$theta <- as.numeric( scale(dat$y1) ) + stats::rnorm(N, sd = .4 )
+
+#-- estimate model
+iter <- 3000; burnin <- 1000
+mod1 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, data_init=data_init, 
+                   iter = iter, burnin=burnin)
+summary(mod1)
+plot(mod1)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

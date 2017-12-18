@@ -1,5 +1,5 @@
 ## File Name: predict.oprobit_regression.R
-## File Version: 0.01
+## File Version: 0.04
 
 predict.oprobit_regression <- function( object , newdata = NULL , ...)
 {	
@@ -10,7 +10,7 @@ predict.oprobit_regression <- function( object , newdata = NULL , ...)
 		Xdes <- object$X
 		offset_values <- object$offset_values		
 	}
-	beta <- coef(object)
+	beta <- object$coefficients[ object$index_beta ]
 	linear_predictor <- Xdes %*% beta + offset_values
-	return(linear_predictor)
+	return(linear_predictor[,1])
 }

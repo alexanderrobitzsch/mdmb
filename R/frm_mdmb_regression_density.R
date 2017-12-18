@@ -1,5 +1,5 @@
 ## File Name: frm_mdmb_regression_density.R
-## File Version: 0.09
+## File Version: 0.11
 
 frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
 		X = NULL , offset = NULL )
@@ -32,10 +32,10 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
 	y_sd <- TAM::weighted_sd( y_pred , w = w )
 	#*** y values on the transformed metric
 	if (class_model	== "bct_regression"){
-		yt <- bc_trafo( y , lambda = pars[np] )
+		yt <- bc_trafo( y=y, lambda = pars[np] )
 	}
 	if (class_model	== "yjt_regression"){
-		yt <- yj_trafo( y , lambda = pars[np] )
+		yt <- yj_trafo( y=y, lambda = pars[np] )
 	}	
 	y_sd0 <- TAM::weighted_sd( yt , w = w ) 
 	if ( ! is.null(model$sigma) ){	

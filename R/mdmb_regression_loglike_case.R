@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_loglike_case.R
-## File Version: 0.13
+## File Version: 0.14
 
 #**** evaluate individual likelihood
 mdmb_regression_loglike_case <- function(y, linear.predictor, 
@@ -14,7 +14,7 @@ mdmb_regression_loglike_case <- function(y, linear.predictor,
 	#**********************
 	# ordinal probit model
 	if (type=="oprobit"){	
-		thresh <- beta[ index_thresh ]
+		thresh <- logthresh_2_thresh(x=beta[ index_thresh ])
 		loglike_case <- mdmb_regression_oprobit_density( y=y, ypred=linear.predictor, 
 							thresh=thresh, log=FALSE )	
 	}	

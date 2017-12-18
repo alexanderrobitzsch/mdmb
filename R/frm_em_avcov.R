@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.915
+## File Version: 0.923
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -38,6 +38,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 		}		
 		dfr <- rbind( dfr1 , dfr )
 	}
+		
 	NP <- nrow(dfr)
 	dfr <- data.frame("index" = 1:NP , dfr )
 	rownames(dfr) <- NULL
@@ -213,8 +214,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 	#----------------------------------------------------
 	#-----------------------------------------------------
 	
-	score_fct1 <- score_f1( par = par )
-		
+	score_fct1 <- score_f1( par = par )		
 	infomat <- matrix(NA,nrow=NP,ncol=NP)
 	m1 <- paste0( rep("*",NP), collapse="")
 	cat( paste0("\n|",m1,"|","\n|") )
@@ -227,8 +227,11 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 		infomat[ii,] <- (sc2 - score_fct1) / hvec[ii]				
 	}
 	cat("|\n")
+	
+	dfr <- frm_partable_thresholds(partable=dfr)
+	
 	infomat <- - infomat
-	avcov <- solve( infomat )
+	avcov <- MASS::ginv( infomat )
 	se <- sqrt( diag(avcov) )
 	dfr$se <- se
 	dfr <- sirt::parmsummary_extend(dfr=dfr)	

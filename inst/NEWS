@@ -30,18 +30,18 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.5  |  2017-12-15  |  Last: mdmb 0.5-14
+VERSIONS mdmb 0.5  |  2017-12-18  |  Last: mdmb 0.5-20
 ---------------------------------------------------------------------
 
 ADDED * added example for modelling nonignorable data with frm_em()
         (see Example 8 in 'frm.Rd')
 ADDED * added ordinal probit distribution fit_oprobit() and ordinal
         probit regression oprobit_regression().
-
+ADDED * extended frm_em() and frm_fb() functions to ordinal data
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: frm (8), oprobit_dist (1),
-        mdmb_regression (4)
+        mdmb_regression (4), frm (9)
 
 
 ---------------------------------------------------------------------

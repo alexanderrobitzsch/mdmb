@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_loglike_logpost.R
-## File Version: 0.10
+## File Version: 0.11
 
 mdmb_regression_loglike_logpost <- function(mod, beta , beta_prior, is_prior, type, 
 		is_lambda_fixed)
@@ -14,7 +14,7 @@ mdmb_regression_loglike_logpost <- function(mod, beta , beta_prior, is_prior, ty
 	hessian <- mod$hessian
 	parnames <- names(beta)
 	np <- length(beta)
-	vcov1 <- solve(hessian)
+	vcov1 <- MASS::ginv(hessian)
 	if ( ( type %in% c("yjt","bct") ) & ( is_lambda_fixed ) ){
 		vcov0 <- matrix( 0 , nrow=np , ncol=np )	
 		vcov0[1:(np-1),1:(np-1)] <- vcov1

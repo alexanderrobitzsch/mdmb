@@ -55,6 +55,8 @@ importFrom(utils, packageDescription)
 #***************************************************
 #************** Imports ****************************
  
+importFrom(MASS, ginv)
+
 
 importFrom(CDM, csink)
 importFrom(CDM, numerical_Hessian)

@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.09
+## File Version: 1.16
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
@@ -20,7 +20,7 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 		ind_mm <- ind0[[mm]]
 		#--- estimate model with weights
 		mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat, 
-					weights=weights )		
+					weights=weights )	
 		model_results[[mm]] <- mod
 		model_results <- frm_em_include_coef_inits( ind=ind0 , mm=mm , 
 				model_results=model_results , iter=iter)
@@ -54,6 +54,12 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 			ind0[[mm]]$R_args$beta_init <- coef(mod)
 			cm["R2"] <- mod$R2
 		}		
+		if (ind_mm$model == "oprobit"){	
+			if (iter>1){
+				ind0[[mm]]$R_args$beta_init <- coef(mod)
+			}
+			cm["R2"] <- mod$R2
+		}						
 		coefs[[mm]] <- cm	
 		like0[,mm] <- dmod$like
 		loglike[,mm] <- log( dmod$like + eps )

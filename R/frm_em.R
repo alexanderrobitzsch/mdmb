@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.881
+## File Version: 0.888
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -65,15 +65,17 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 		beta_new <- res$coefs[[NM+1]]
 		ll_new <- res$ll
 		iter <- iter + 1
-			
+		
 		#**** changes in parameters
 		ll_change0 <- ( ll_new - ll_old ) / abs( ll_new)
 		ll_change <- abs(ll_change0)
+		ll_change_disp <- ll_new - ll_old
+		if (iter == 1 ){ ll_change_disp <- NA }
 		beta_change <- max( abs( beta_new - beta_old ) )		
 		if(verbose){
 			p1 <- paste0("*** Iter. ", iter , " | " , "LL = " ,
 					round(ll_new,3) , 
-					" | LL change = " , round(ll_change,6) , 
+					" | LL change = " , round(ll_change_disp,6) , 
 					" | Parm. change = " , round(beta_change,6) ,"\n"	)
 			cat(p1)
 			utils::flush.console()
@@ -84,7 +86,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 		conv <- conv1 & conv2 			
 	}
 	#***************************************
-# cat("\n* EM algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1		
+#	cat("\n* EM algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1		
 
 	if (verbose){
 		cat("--- Compute asymptotic covariance matrix")

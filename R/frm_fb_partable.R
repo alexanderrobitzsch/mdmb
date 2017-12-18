@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.11
+## File Version: 0.17
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {
@@ -61,7 +61,9 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	dfr <- data.frame("index" = 1:NP , dfr )
 	rownames(dfr) <- NULL
 	dfr <- dfr[ ! is.na( dfr$idparm ) , ]
-		
+	
+	dfr <- frm_partable_thresholds(partable=dfr)
+	
 	#--- compute statistics
 	values <- parms_mcmc$values	
 	est <- colMeans( values )
@@ -80,7 +82,8 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	values_coda <- coda::mcmc(data= values, start = min(parms_mcmc$iter_save), 
 								end = max(parms_mcmc$iter_save) , 
 								thin = diff(parms_mcmc$iter_save)[1] )
-	
+	colnames(values_coda) <- paste( dfr$parm )
+								
 	#--- technical summary MCMC algorithm
 	dfr2 <- dfr[ , 1:5]
 	dfr2[,"Nsampled"] <- nrow(values)

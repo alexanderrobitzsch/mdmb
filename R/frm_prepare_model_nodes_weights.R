@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_model_nodes_weights.R
-## File Version: 0.22
+## File Version: 0.23
 
 frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 {
@@ -43,7 +43,13 @@ frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 		if ( ind_mm$model %in% c("logistic") ){
 			ind_mm$nodes <- c(0,1)
 			ind_mm$nodes_description <- "nodes consisting of observed values"
-		}			
+		}
+		#*** ordinal probit regression
+		if ( ind_mm$model %in% c("oprobit") ){		
+			nodes <- sort( unique( na.omit(y) ) )
+			ind_mm$nodes <- nodes
+			ind_mm$nodes_description <- "nodes consisting of observed values"
+		}
 	}
 	
 	#--------- define initial weights for nodes
@@ -64,9 +70,13 @@ frm_prepare_model_nodes_weights <- function( ind_mm , dat0, nodes_control )
 		}
 		#*** bct regression
 		if ( ind_mm$model %in% c("bctreg") ){
-			# nodes_weights <- 1 + 0 * nodes_mm
 			nodes_weights <- stats::dnorm( nodes_mm , mean=m0 , sd = sd0)
-		}								
+		}	
+		#*** ordinal probit regression
+		if ( ind_mm$model %in% c("oprobit") ){
+			nodes_weights <- prop.table( table(y) )
+		}	
+		
 		#---- normalize nodes
 		nodes_weights <- frm_normalize_vector(vec=nodes_weights)
 		ind_mm$nodes_weights <- nodes_weights
