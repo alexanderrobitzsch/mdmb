@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.35
+## File Version: 0.39
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -9,13 +9,13 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
 	NM <- attr(ind0,"NM")
 	NM1 <- NM + 1
 	for (vv in 1:NV){
-		var_vv <- imputations_mcmc$impute_vars[vv]
+		var_vv <- imputations_mcmc$impute_vars[vv]	
 		index_vv <- imputations_mcmc$impute_vars_index[vv]
 		ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]
 		N_vv <- length( ind_miss_vv )
 		# dat_vv is a reduced data frame which has missing values in variable vv
 		dat_vv <- dat[ ind_miss_vv , , drop=FALSE ]
-		imp <- dat_vv[ , var_vv ]
+		imp <- dat_vv[ , var_vv ]		
 		#--- sample new proposed values
 		dat1_vv <- dat_vv
  		res <- frm_fb_sample_imputed_values_proposal( var_vv=var_vv , 
@@ -33,7 +33,6 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
 		if ( ! do_mh){
 			probs_vv <- matrix( NA , nrow=N_vv , ncol=NG)
 			for (gg in 1:NG){
-				# gg <- 1
 				like_temp <- like
 				pdat_vv <- dat_vv
 				pdat_vv[ , var_vv] <- gibbs_values[gg]

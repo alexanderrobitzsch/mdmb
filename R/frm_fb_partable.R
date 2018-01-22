@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.17
+## File Version: 0.19
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {
@@ -79,10 +79,12 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	dfr[ , "upper95"] <- apply( values, 2 , stats::quantile , probs = .975 )[ind1]
 	
 	#--- convert parameter values into coda object
+	NV <- ncol(values)
+	values <- values[ , seq(NV,1,-1) ]
 	values_coda <- coda::mcmc(data= values, start = min(parms_mcmc$iter_save), 
 								end = max(parms_mcmc$iter_save) , 
 								thin = diff(parms_mcmc$iter_save)[1] )
-	colnames(values_coda) <- paste( dfr$parm )
+#	colnames(values_coda) <- paste( dfr$parm )
 								
 	#--- technical summary MCMC algorithm
 	dfr2 <- dfr[ , 1:5]

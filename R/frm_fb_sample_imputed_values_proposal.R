@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.18
+## File Version: 0.21
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv , index_vv ,
@@ -23,6 +23,12 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv , index_vv ,
 		imp1 <- dat_vv[,var_vv]
 		NG <- length(gibbs_values)
 	}
+	#*** sample new values for logistic regression
+	if ( model_vv %in% c( "oprobit" ) ){		
+		imp1 <- dat_vv[,var_vv]
+		gibbs_values <- as.numeric( names(table(imp1) ) )
+		NG <- length(gibbs_values)
+	}	
 	#*** sample new values for yjtreg and bctreg regression
 	if ( model_vv %in% c( "bctreg" , "yjtreg" ) ){
 		imp1 <- stats::rnorm( N_vv , mean=imp , sd = mh_vv$sd_proposal )

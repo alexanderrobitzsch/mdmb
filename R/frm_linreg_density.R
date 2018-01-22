@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_density.R
-## File Version: 0.932
+## File Version: 0.935
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
 		X = NULL , offset = NULL )
@@ -28,6 +28,13 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
 		w <- rep( 1 , length( yr ) )
 	}
 	y_sd <- TAM::weighted_sd( yr , w = w )  
+	y1 <- y
+	if ( length(y1) > length(w) ){
+		y1 <- y[ ! is.na(y) ]
+		if ( length(y1) > length(w) ){
+			y1 <- y1[ seq(1,length(w))]
+		}
+	}
 	y_sd0 <- TAM::weighted_sd( y , w = w ) 
 	if ( ! is.null(model$sigma) ){	
 		y_sd <- model$sigma		
