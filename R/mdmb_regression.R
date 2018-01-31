@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.733
+## File Version: 1.737
 
 
 mdmb_regression <- function( formula , data , type , weights = NULL,
@@ -72,12 +72,16 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 	}
 	
 	if (type %in% c("oprobit") ){
-		index_beta <- 1:Ndes
+		if (Ndes > 0){
+			index_beta <- 1:Ndes
+		} else {
+			index_beta <- NULL
+		}
 		if (K>=2){
 			index_thresh <- Ndes + seq(1,length(thresh_init))		
 		} else {
 			index_thresh <- NULL
-		}		
+		}	
 	}
 	
 	if ( ! is.null(beta_init) ){
@@ -206,7 +210,7 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 		description <- "Ordinal Probit Regression"
 		a0 <- .01
 		NT <- length(index_thresh)
-		
+
 		#--- optimization function
 		fct_optim <- function(x){
 			beta <- x[ index_beta ]
@@ -230,8 +234,10 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 			ll1 <- mdmb_regression_oprobit_density( y=y, ypred=ypred+h, thresh=thresh, 
 							log = TRUE , eps = eps )						
 			der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
-			wder1 <- weights * der1[,1]
-			xgrad[index_beta] <- colSums( wder1 * Xdes )
+			if (! is.null(index_beta) ){
+				wder1 <- weights * der1[,1]
+				xgrad[index_beta] <- colSums( wder1 * Xdes )
+			}
 			#-- derivatives for thresholds
 			if (NT>0){
 				for (ii in 1:NT){
@@ -248,7 +254,6 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 		}    		
 		
 	}	
-		
 	#--- compute gradient 
 	grad_optim <- function(x){
 		xh <- CDM::numerical_Hessian( par = x , FUN = fct_optim , gradient=TRUE , hessian = FALSE)
@@ -277,8 +282,7 @@ mdmb_regression <- function( formula , data , type , weights = NULL,
 		thresh <- c( 0 , logthresh_2_thresh(x=beta[index_thresh] ) )
 		names(thresh) <- paste0("thresh", 1:K)
 	}
-				
-				
+								
 	#--- extract log-likelihood, log prior and log-posterior
 	res0 <- mdmb_regression_loglike_logpost(mod=mod1, beta=beta , 
 				beta_prior=beta_prior, is_prior=is_prior, type=type, 

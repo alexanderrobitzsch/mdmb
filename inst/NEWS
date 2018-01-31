@@ -30,10 +30,11 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.6  |  2018-01-22  |  Last: mdmb 0.6-1
+VERSIONS mdmb 0.6  |  2018-01-31  |  Last: mdmb 0.6-6
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * fixed bug in oprobit_regression() when no regression
+        coefficients were estimated in the model
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

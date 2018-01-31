@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.714
+## File Version: 0.718
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -56,6 +56,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	parms_mcmc <- frm_fb_init_matrices_saved_parameters( iter=iter , burnin=burnin ,
 						Nsave=Nsave, Nimp=Nimp , npars=npars, parms=parms,
 						parms_index = parms_index, predictorMatrix=predictorMatrix )
+	iter <- parms_mcmc$iter
 						
 	#**** inits objects for imputations
 	imputations_mcmc <- frm_fb_init_imputations( Nimp = Nimp, 
@@ -71,6 +72,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	iterate <- TRUE
 	mcmc_start_time <- Sys.time()
 
+	
 zz0 <- Sys.time()
 
 	#**** MCMC algorithm

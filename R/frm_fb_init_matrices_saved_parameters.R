@@ -1,5 +1,5 @@
 ## File Name: frm_fb_init_matrices_saved_parameters.R
-## File Version: 0.10
+## File Version: 0.12
 
 frm_fb_init_matrices_saved_parameters <- function( iter , burnin ,
 		Nsave, Nimp , npars, parms , parms_index , predictorMatrix )
@@ -9,6 +9,7 @@ frm_fb_init_matrices_saved_parameters <- function( iter , burnin ,
 	Nsave0 <- min( iter_main , Nsave )
 	steps <- floor( iter_main / Nsave0 )
 	iter_save <- seq( burnin + 1 , iter , steps )
+	iter <- max(iter_save)
 	NI <- length(iter_save)
 	values <- matrix( NA , nrow=NI , ncol=npars , byrow=TRUE )
 	rownames(values) <- iter_save		
@@ -25,7 +26,7 @@ frm_fb_init_matrices_saved_parameters <- function( iter , burnin ,
 	colnames(M_mcmc) <- vars	
 	SD_mcmc <- M_mcmc
 	#--- output
-	res <- list( values = values , NI = NI , iter_save = iter_save ,
+	res <- list( values = values , NI = NI , iter=iter, iter_save = iter_save ,
 				parms = parms , parms_index = parms_index ,
 				parms_unlist = parms_unlist, iter_save_temp = iter_save_temp,
 				iter_save_index = iter_save_index, M_mcmc=M_mcmc ,
