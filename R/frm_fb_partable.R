@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.19
+## File Version: 0.28
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {
@@ -89,19 +89,24 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	#--- technical summary MCMC algorithm
 	dfr2 <- dfr[ , 1:5]
 	dfr2[,"Nsampled"] <- nrow(values)
-	dfr2[,"effsize"] <- coda::effectiveSize(values_coda)[ind1]
-	dfr2[,"accrate"] <- accrate[ind1]
+	es <- coda::effectiveSize(values_coda)
+	parnames <- paste(dfr2$parm)	
+	dfr2[,"effsize"] <- es[parnames]
+	dfr2[,"accrate"] <- accrate
+
 	#* compute Rhat function
-	dfr2[,"Rhat"] <- sirt::mcmc_Rhat( mcmc_object = values_coda , n_splits = 3 )[ind1]
-		
+	r1 <- sirt::mcmc_Rhat( mcmc_object = values_coda , n_splits = 3 )
+	dfr2[,"Rhat"] <- r1[ parnames ]
+	
 	#--- covariance matrix of parameters
 	coefs <- dfr$est
 	names(coefs) <- dfr$parm
-	vcovs <- stats::cov( values[, ind1]  )
+	colnames(values) <- gsub( "ON difflogthresh", "difflogthresh", colnames(values))
 	
+	vcovs <- stats::cov( values[, parnames]  )
 	dfr$index <- NULL
 	dfr2$index <- NULL
-	
+
 	#--- output
 	res <- list( partable = dfr, tech_summary = dfr2 , vcov = vcovs,
 					coef = coefs , values_coda = values_coda )
