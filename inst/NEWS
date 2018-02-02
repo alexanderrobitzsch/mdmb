@@ -30,7 +30,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.6  |  2018-02-02  |  Last: mdmb 0.6-8
+VERSIONS mdmb 0.6  |  2018-02-02  |  Last: mdmb 0.6-10
 ---------------------------------------------------------------------
 
 FIXED * fixed bug in oprobit_regression() when no regression

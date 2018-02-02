@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.28
+## File Version: 0.33
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {
@@ -73,7 +73,7 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	
 	p1 <- colMeans( values > 0 )
 	p2 <- colMeans( values < 0 )
-	y0 <- ifelse( p1 < p2 , p1 , p2 )
+	y0 <- 2 * ifelse( p1 < p2 , p1 , p2 )
 	dfr[ , "p" ] <- y0[ind1]
 	dfr[ , "lower95"] <- apply( values, 2 , stats::quantile , probs = .025 )[ind1]
 	dfr[ , "upper95"] <- apply( values, 2 , stats::quantile , probs = .975 )[ind1]
@@ -89,7 +89,10 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	#--- technical summary MCMC algorithm
 	dfr2 <- dfr[ , 1:5]
 	dfr2[,"Nsampled"] <- nrow(values)
+	
+	colnames(values_coda) <- gsub( "ON difflogthresh", "difflogthresh", colnames(values_coda))
 	es <- coda::effectiveSize(values_coda)
+	
 	parnames <- paste(dfr2$parm)	
 	dfr2[,"effsize"] <- es[parnames]
 	dfr2[,"accrate"] <- accrate
