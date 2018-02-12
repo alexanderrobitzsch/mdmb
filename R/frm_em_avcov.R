@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.923
+## File Version: 0.935
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -26,7 +26,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 		}
 		
 		#*** include standard deviation if model=="linreg"
-		
 		include_sigma <- ( ind0[[mm]]$model == "linreg" )
 		is_sigma_fixed <- ( ! is.null( ind0[[mm]]$sigma_fixed ) )
 		include_sigma <- include_sigma & ( ! is_sigma_fixed	)
@@ -35,8 +34,11 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 			dfr1b <- data.frame( "model" = mm , "dv" = dv_mm , 
 						"parm" = paste0( dv_mm , " sigma" ) , "ON" = 0, "est" = sigma )			
 			dfr1 <- rbind( dfr1 , dfr1b )		
-		}		
-		dfr <- rbind( dfr1 , dfr )
+		}	
+		dfr1$parm <- paste(dfr1$parm)
+
+		dfr <- rbind( dfr1 , dfr )		
+		
 	}
 		
 	NP <- nrow(dfr)
@@ -227,13 +229,18 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 		infomat[ii,] <- (sc2 - score_fct1) / hvec[ii]				
 	}
 	cat("|\n")
-	
+
+	#-- modify parameter labels
+	dfr <- frm_modify_parameter_labels( dfr=dfr, ind0=ind0, NM=NM )	
+
+	#-- parameter labels thresholds
 	dfr <- frm_partable_thresholds(partable=dfr)
 	
 	infomat <- - infomat
 	avcov <- MASS::ginv( infomat )
 	se <- sqrt( diag(avcov) )
 	dfr$se <- se
+	
 	dfr <- sirt::parmsummary_extend(dfr=dfr)	
 	res <- list( avcov = avcov , se = se, partable = dfr, info  = infomat )
 	return(res)

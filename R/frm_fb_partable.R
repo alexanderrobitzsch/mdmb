@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.33
+## File Version: 0.37
 
 frm_fb_partable <- function( ind0 , parms_mcmc )
 {
@@ -25,7 +25,6 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 			dfr1 <- data.frame( 
 						"index" =  parms_index[[mm]][1] ,	
 						"model" = mm , 
-						# "type" = model_mm , 
 						"dv" = dv_mm , "parm" = c1 ,
 						"ON" = 1 , "est" = NA )
 			c2 <- ind0[[mm]]$coef_MH
@@ -57,13 +56,17 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 		}		
 		dfr <- rbind( dfr1 , dfr )
 	}
+		
 	NP <- nrow(dfr)
 	dfr <- data.frame("index" = 1:NP , dfr )
 	rownames(dfr) <- NULL
 	dfr <- dfr[ ! is.na( dfr$idparm ) , ]
 	
+	#-- include labels bctreg or yjtreg
+	dfr <- frm_modify_parameter_labels( dfr=dfr, ind0=ind0, NM=NM )
+	#-- include labels thresholds
 	dfr <- frm_partable_thresholds(partable=dfr)
-	
+
 	#--- compute statistics
 	values <- parms_mcmc$values	
 	est <- colMeans( values )
@@ -81,6 +84,10 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	#--- convert parameter values into coda object
 	NV <- ncol(values)
 	values <- values[ , seq(NV,1,-1) ]
+	dfr11 <- dfr[ order(dfr$idparm) , ]
+	dfr11 <- dfr11[ seq(NV,1,-1) , ]
+	colnames(values) <- paste(dfr$parm)
+
 	values_coda <- coda::mcmc(data= values, start = min(parms_mcmc$iter_save), 
 								end = max(parms_mcmc$iter_save) , 
 								thin = diff(parms_mcmc$iter_save)[1] )
@@ -103,7 +110,7 @@ frm_fb_partable <- function( ind0 , parms_mcmc )
 	
 	#--- covariance matrix of parameters
 	coefs <- dfr$est
-	names(coefs) <- dfr$parm
+	names(coefs) <- dfr$parm	
 	colnames(values) <- gsub( "ON difflogthresh", "difflogthresh", colnames(values))
 	
 	vcovs <- stats::cov( values[, parnames]  )

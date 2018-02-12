@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.904
+## File Version: 0.907
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -48,6 +48,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	beta_new <- 0	
 	iterate <- TRUE
 	conv1 <- conv2 <- FALSE	
+		
 	
 	#**** EM algorithm
 	while( iterate ){		
@@ -99,7 +100,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 
 	#--- computation asymptotic covariance matrix
 	res0 <- frm_em_avcov(res=res, dat=dat, ind0=ind0, NM=NM, h=h)	
- 
+	
 	if (verbose){
 		cat("\n")
 		utils::flush.console()
