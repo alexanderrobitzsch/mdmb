@@ -30,7 +30,18 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.6  |  2018-02-12  |  Last: mdmb 0.6-11
+VERSIONS mdmb 0.7  |  2018-02-16  |  Last: mdmb 0.7-1
+---------------------------------------------------------------------
+
+xxxx  *
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+
+---------------------------------------------------------------------
+VERSIONS mdmb 0.6  |  2018-02-16  |  Last: mdmb 0.6-17
 ---------------------------------------------------------------------
 
 FIXED * fixed bug in oprobit_regression() when no regression
@@ -39,11 +50,12 @@ FIXED * fixed incorrect matching of MCMC diagnostics informations
         in summary output 
 FIXED * included correct labelling in frm_em() and frm_fb() if classes
         'yjtreg' and 'bctreg' are used
+NOTE  * included dataset data.mb03 from Enders et al. (2014, PsychMeth)
+FIXED * fixed problems in numerical overflow when calculating 
+        Metropolis-Hasting ratios in frm_fb()
 
-DATA  * included/modified datasets: ---
-EXAMP * included/modified examples: ---
-
-
+DATA  * included/modified datasets: data.mb03
+EXAMP * included/modified examples: data.mb (1)
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 0.5  |  2018-01-22  |  Last: mdmb 0.5-27

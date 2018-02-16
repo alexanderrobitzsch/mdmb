@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.721
+## File Version: 0.722
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -139,10 +139,8 @@ zz0 <- Sys.time()
 	ic$np <- nrow(partable)
 	
 	#--- descriptive statistics
-	desc_vars <- frm_fb_descriptives_variables(dat=dat, 
-						predictorMatrix=predictorMatrix,
-						freq_miss_values=freq_miss_values, dat0=dat0,
-						parms_mcmc = parms_mcmc )	
+	desc_vars <- frm_fb_descriptives_variables(dat=dat, predictorMatrix=predictorMatrix,
+						freq_miss_values=freq_miss_values, dat0=dat0, parms_mcmc = parms_mcmc )	
 	
 	#--- output
 	s2 <- Sys.time()	

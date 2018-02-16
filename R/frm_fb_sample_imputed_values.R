@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.39
+## File Version: 0.42
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -62,7 +62,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
 		if (do_mh){
 			like1 <- rowSums( log( like1 + eps ) )
 			like <- rowSums( log( like + eps ) )
-			prob_nn <- exp( like1 - like )
+			prob_nn <- mdmb_exp_overflow( like1 - like )
 			rn_nn <- stats::runif(N_vv)
 			accept <- rn_nn < prob_nn
 			accept[ ! is.finite(accept)	] <- FALSE

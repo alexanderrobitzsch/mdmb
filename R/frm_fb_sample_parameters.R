@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.36
+## File Version: 0.38
 
 
 frm_fb_sample_parameters <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
@@ -31,7 +31,7 @@ frm_fb_sample_parameters <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 								weights=weights , mod = mod ,
 								coef = coef1 , sigma = sigma0)					
 				logprob_cc <- res1$ll - res0$ll
-				prob_cc <- exp( logprob_cc)
+				prob_cc <- mdmb_exp_overflow(logprob_cc)
 				# simulate random number
 				rn0 <- stats::runif(1)
 				accept <- 1 * ( rn0 < prob_cc )
@@ -56,7 +56,7 @@ frm_fb_sample_parameters <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 							weights=weights , mod = mod ,
 							coef = coef0 , sigma = sigma1)					
 			logprob_cc <- res1$ll - res0$ll
-			prob_cc <- exp( logprob_cc)
+			prob_cc <- mdmb_exp_overflow( logprob_cc)
 			rn0 <- stats::runif(1)
 			accept <- 1 * ( rn0 < prob_cc )	
 			if ( ! is.finite(accept) ){
