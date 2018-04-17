@@ -1,7 +1,7 @@
 ## File Name: frm2datlist.R
-## File Version: 0.05
+## File Version: 0.06
 
-frm2datlist <- function( object)
+frm2datlist <- function( object, as_mids=FALSE)
 {
 	imputations_mcmc <- object$imputations_mcmc
 	values <- imputations_mcmc$values
@@ -13,7 +13,6 @@ frm2datlist <- function( object)
 	for (ii in 1:Nimp){
 		dat <- dat0
 		for (vv in 1:NV){
-			# vv <- 1
 			var_vv <- impute_vars[vv] 
 			val_vv <- values[[ var_vv ]]
 			ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]
@@ -22,5 +21,8 @@ frm2datlist <- function( object)
 		datlist[[ii]] <- dat
 	}
 	datlist <- miceadds::datlist_create(datlist)
+	if ( as_mids ){
+		datlist <- miceadds::datalist2mids(datlist)
+	}		
 	return(datlist)
 }

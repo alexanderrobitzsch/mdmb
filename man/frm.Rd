@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.66
+%% File Version: 0.68
 
 \name{frm}
 \alias{frm_em}
@@ -71,7 +71,7 @@ frm_fb(dat, dep, ind, weights=NULL, verbose=TRUE, data_init = NULL, iter=500,
 \method{summary}{frm_fb}(object, digits=4, file=NULL, ...)
 \method{vcov}{frm_fb}(object, ...)
 
-frm2datlist(object)  # create list of imputed datasets
+frm2datlist(object, as_mids=FALSE)  # create list of imputed datasets
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -147,6 +147,8 @@ should be displayed}
 \item{file}{File to which the \code{summary} should be linked}
 \item{idparm}{Indices for parameters to be plotted}
 \item{ask}{Logical indicating whether the user is asked before new plot}
+\item{as_mids}{Logical indicating whether multiply imputed datasets
+should be converted into objects of class \code{mids}}
 \item{\dots}{Further arguments to be passed}
 }
 

@@ -30,10 +30,11 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.7  |  2018-02-16  |  Last: mdmb 0.7-1
+VERSIONS mdmb 0.7  |  2018-04-17  |  Last: mdmb 0.7-5
 ---------------------------------------------------------------------
 
-xxxx  *
+NOTE  * included argument 'as_mids()' for conversion into mids objects
+        in frm2datlist()
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
