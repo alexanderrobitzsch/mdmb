@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.11
+%% File Version: 0.12
 
 \name{data.mb}
 \alias{data.mb}
@@ -58,7 +58,7 @@ variables \code{Z} and \code{Y} are dichotomous.
 \code{  ..$ Y: num [1:2000] 1 1 0 1 1 0 1 0 0 1 ...} \cr
 
 
-\item Dataset \code{data.mb03}. This dataset is from Enders, Beraldi & Cham (2014) 
+\item Dataset \code{data.mb03}. This dataset is from Enders, Baraldi & Cham (2014) 
 and contains three
 variables primary school reading (\code{x}), primary school learning problems (\code{z})
 and middle school reading (\code{y}) which all have missing values.

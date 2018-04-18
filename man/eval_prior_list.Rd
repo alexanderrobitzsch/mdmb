@@ -1,5 +1,5 @@
 %% File Name: eval_prior_list.Rd
-%% File Version: 0.09
+%% File Version: 0.12
 
 \name{eval_prior_list}
 \alias{eval_prior_list}
@@ -33,7 +33,7 @@ List of prior distributions specified in a list (see Examples)
 }
 \item{log}{Logical indicating whether the logarithm of the prior should be
 computed}
-\item{eps}{Summand to be added to the prior to avoid computation of the logarithm
+\item{eps}{Decimal to be added to the prior to avoid computation of the logarithm
 for values of zero}
 \item{use_grad}{Integer value for computation value for gradient}
 }

@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.935
+## File Version: 0.936
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -221,7 +221,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 	m1 <- paste0( rep("*",NP), collapse="")
 	cat( paste0("\n|",m1,"|","\n|") )
 	for (ii in 1:NP){
-		cat("-"); 
+		cat("-")
 		utils::flush.console()
 		par1 <- par
 		par1[ii] <- par[ii] + hvec[ii]

@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_data_include_latent_data.R
-## File Version: 0.15
+## File Version: 0.17
 
 
 ##################################################################
@@ -24,7 +24,7 @@ frm_prepare_data_include_latent_data <- function( dat , var_mm,
 	#		dat11$weights <- dat11$weights * ind_mm$nodes_weights[xx]	
 	#		dat12 <- rbind( dat12 , dat11 )
 	#	}
-	# }
+	# }	
 	if (N0>0){
 		rep_ind <- rep( 1:N0 , NX )
 		dat11 <- dat0[ rep_ind ,  ]

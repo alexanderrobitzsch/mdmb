@@ -1,5 +1,5 @@
 %% File Name: oprobit_dist.Rd
-%% File Version: 0.03
+%% File Version: 0.05
 
 \name{oprobit_dist}
 \alias{oprobit_dist}
@@ -42,12 +42,12 @@ Numeric vector
   \item{thresh}{
 Vector of thresholds
 }
-\item{max_val}{LMaximum value for computing thresholds}
+\item{max_val}{Maximum value for computing thresholds}
 \item{par_init}{Optional vector of initial parameters}
 \item{weights}{Optional vector of sampling weights}
 \item{object}{Object of class \code{fit_yjt_scaled} or \code{fit_t_scaled}}
 \item{digits}{Number of digits used for rounding in \code{summary}}
-\item{file}{File name for the \code{summary} to be sinked into}
+\item{file}{File name for the \code{summary} to be sunk into}
 \item{\dots}{Further arguments to be passed}
 }
 

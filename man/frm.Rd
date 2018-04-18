@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.68
+%% File Version: 0.69
 
 \name{frm}
 \alias{frm_em}
@@ -44,7 +44,7 @@ the posterior distributions. Imputed datasets can be extracted by the
 function \code{frm2datlist}.
 
 The current functionality only support missing values on continuous covariates
-(accomodating skewness and only positive values), dichotomous covariates and
+(accommodating skewness and only positive values), dichotomous covariates and
 ordinal covariates.
 The handling of nominal covariates will be included in future
 \pkg{mdmb} package versions.

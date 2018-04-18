@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.17
+%% File Version: 0.18
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -57,7 +57,7 @@ found in the \code{norm2::mcmcNorm} function.
 See the \pkg{lavaan}, \pkg{OpenMx} or \pkg{sem} packages for full information 
 maximum likelihood approaches for handling missing data for multivariate
 normal distributions, linear regression models, and, more generally, 
-structural equation modelling with missing data.
+structural equation modeling with missing data.
 
 Structural equation models with missing data can be also estimated with a
 two-stage procedure. In a first stage, a mean vector and a covariance matrix

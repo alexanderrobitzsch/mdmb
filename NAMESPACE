@@ -14,6 +14,7 @@
 
 importFrom(graphics, par)
 importFrom(graphics, plot)
+importFrom(Rcpp, evalCpp)
 importFrom(stats, as.formula)
 importFrom(stats, coef)
 importFrom(stats, cov)

@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.16
+## File Version: 1.26
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
@@ -16,7 +16,7 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 	like_obs <- post
 	post_miss <- post
 	coefs <- as.list( 1:(NM+1) )	
-	for (mm in 1:(NM+1)){	
+	for (mm in 1:(NM+1)){
 		ind_mm <- ind0[[mm]]
 		#--- estimate model with weights
 		mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat, 
@@ -29,10 +29,12 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 			model_results[[mm]]$sigma <- ind_mm$sigma_fixed
 		}		
 		mod <- model_results[[mm]]		
+
 		#--- compute likelihood (evaluation of density)		
-		args <- list(model = mod , y = dat[ , ind_mm$dv_vars ],  case=dat$case )
+		args <- list(model = mod , y = dat[ , ind_mm$dv_vars ],  case=dat$case)
 		args <- frm_em_linreg_density_extend_args(args=args, ind_mm=ind_mm)		
 		dmod <- do.call( what=ind_mm$R_density_fct , args = args )
+
 		#*** arrange coefficients
 		mod <- model_results[[mm]]
 		cm <- coef(mod)			
@@ -65,7 +67,7 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 		loglike[,mm] <- log( dmod$like + eps )
 		post0[,mm] <- dmod$post
 		post <- post * dmod$post
-		like <- like * dmod$like
+		like <- like * dmod$like			
 		# update observed likelihood	
 		res3 <- frm_em_calc_update_observed_likelihood(like_obs=like_obs, 
 					post_miss=post_miss, dmod=dmod , mm=mm , 
@@ -74,7 +76,8 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 		post_miss <- res3$post_miss		
 	}	#* end mm
 	#-------	
-    post <- frm_normalize_posterior( post=post , case=dat$case )    
+
+    post <- frm_normalize_posterior( post=post , case=dat$case)    
 	dat$weights <- dat$weights0 * post
  	#--- compute total log likelihood
 	ll <- frm_em_calc_total_likelihood(dat=dat, weights0=weights0, 
@@ -85,3 +88,4 @@ frm_em_calc_likelihood <- function( dat, ind0 , NM, eps =1E-30, iter = NULL ,
 	return(res)			
 }			   
 	
+# z0 <- TAM:::tamcat(" -- like/post_calculations",z0,TRUE)		

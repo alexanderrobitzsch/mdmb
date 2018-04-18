@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.38
+%% File Version: 0.39
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -132,7 +132,7 @@ Optional arguments to be passed to optimization function
 	transformed metric (\code{trafo=TRUE}) or the original metric
 (\code{trafo=FALSE})}
 \item{digits}{Number of digits for rounding}
-\item{file}{File name if the \code{summary} output should be sinked into a file.}
+\item{file}{File name if the \code{summary} output should be sunk into a file.}
 \item{\dots}{Further arguments to be passed.}
 }
 

@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.907
+## File Version: 0.915
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -8,10 +8,11 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 {
 	CALL <- match.call()
 	s1 <- Sys.time()	
-
+	
 	#*** prepare models
 	res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_control=nodes_control,
 					use_grad=use_grad)
+					
 	dep <- res$dep
 	ind <- res$ind
 	predictorMatrix <- res$predictorMatrix
@@ -25,7 +26,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	dat0 <- dat
 	#*** prepare data
 	res2 <- frm_prepare_data_em(dat=dat, dep=dep, ind=ind, weights0=weights0,
-					dat0=dat0)
+					dat0=dat0)					
 	dat <- res2$dat
 	dat_resp <- res2$dat_resp
 	dv_vars <- res2$dv_vars	
@@ -38,7 +39,8 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	#*** prepare list of models	
 	NM <- attr(ind,"NM")		
 	ind0 <- ind
-	ind0[[ dep$dv_vars ]] <- dep
+	ind0[[ dep$dv_vars ]] <- dep	
+	
 	ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
 	#*** add additional arguments for regression functions	
 	ind0 <- frm_prepare_models_design_matrices( ind0=ind0 , dat=dat , NM=NM)
@@ -48,16 +50,14 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	beta_new <- 0	
 	iterate <- TRUE
 	conv1 <- conv2 <- FALSE	
-		
-	
+
 	#**** EM algorithm
 	while( iterate ){		
 		ll_old <- ll_new
 		beta_old <- beta_new
-		
 		res <- frm_em_calc_likelihood( dat=dat, ind0=ind0 , NM=NM, iter = iter,
 					weights0=weights0 , dat_resp=dat_resp, ind_resp=ind_resp,
-					ind_miss=ind_miss )			
+					ind_miss=ind_miss )							
 		ind0 <- res$ind0		
 		dat$weights <- res$post * dat$weights0
 		like <- res$like
@@ -89,6 +89,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 		}
 		if (beta_change < conv_parm){ conv2 <- TRUE}
 		conv <- conv1 & conv2 			
+				
 	}
 	#***************************************
 #	cat("\n* EM algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1		
@@ -137,3 +138,5 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 	class(res) <- "frm_em"
 	return(res)
 }
+
+# z0 <- TAM:::tamcat("calc_likelihood",z0,TRUE)	

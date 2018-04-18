@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.26
+%% File Version: 0.29
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -104,7 +104,7 @@ computed}
 \item{weights}{Optional vector of sampling weights}
 \item{object}{Object of class \code{fit_yjt_scaled} or \code{fit_t_scaled}}
 \item{digits}{Number of digits used for rounding in \code{summary}}
-\item{file}{File name for the \code{summary} to be sinked into}
+\item{file}{File name for the \code{summary} to be sunk into}
 \item{\dots}{Further arguments to be passed}
 }
 
@@ -123,7 +123,7 @@ Vector or an object of fitted distribution depending on the called function
 
 \references{
 Sakia, S. M. (1992). The Box-Cox transformation technique: A review.
-\emph{The Staistician}, \bold{41}, 169-178.
+\emph{The Statistician}, \bold{41}, 169-178.
 	
 Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
 improve normality or symmetry. \emph{Biometrika}, \bold{87}, 954-959. 

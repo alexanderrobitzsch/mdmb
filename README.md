@@ -19,7 +19,7 @@ The CRAN version can be installed from within R using:
 utils::install.packages("mdmb")
 ```
 
-#### GitHub version `mdmb` 0.7-5 (2018-04-17)
+#### GitHub version `mdmb` 0.7-9 (2018-04-18)
 
 The version hosted [here](https://github.com/alexanderrobitzsch/mdmb) is the development version of `mdmb`. 
 The GitHub version can be installed using `devtools` as:
