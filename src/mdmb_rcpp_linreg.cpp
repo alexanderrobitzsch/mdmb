@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.cpp
-//// File Version: 0.39
+//// File Version: 0.43
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -71,8 +71,8 @@ double mdmb_rcpp_weighted_sd( Rcpp::NumericVector x, Rcpp::NumericVector w )
 		W2 += wgt[nn] * wgt[nn];
 	}
 	//*** copied from stats::cov.wt
-    // cov <- switch(match.arg(method), unbiased = crossprod(x)/(1 - 
-    //    sum(wt^2)), ML = crossprod(x))	
+	// cov <- switch(match.arg(method), unbiased = crossprod(x)/(1 - 
+	//    sum(wt^2)), ML = crossprod(x))	
 	val = std::sqrt( ( val - M*M )/ ( 1 - W2 ) );	
 
 	//--- OUTPUT                                 
@@ -100,18 +100,18 @@ Rcpp::List mdmb_rcpp_lm_wfit( arma::mat x, arma::colvec y, arma::colvec w )
 				xa(nn,pp) = x(nn,pp);
 			}
 		} else {
-			w_nn = sqrt( w(nn,0) );
+			w_nn = std::sqrt( w(nn,0) );
 			ya(nn,0) = y(nn,0) * w_nn;
 			for (int pp=0; pp<np; pp++){
 				xa(nn,pp) = x(nn,pp) * w_nn;
-			}						
+			}
 		}
 	}
 	
 	// regression estimation
-    arma::colvec coef = arma::solve(xa, ya);    // fit model y ~ X
+	arma::colvec coef = arma::solve(xa, ya);    // fit model y ~ X
 	arma::colvec fitted = x*coef;   // fitted values
-    arma::colvec res  = y - fitted ;           // residuals	
+	arma::colvec res  = y - fitted ;           // residuals	
 
 	//---- OUTPUT                                 
 	return Rcpp::List::create(    
@@ -145,14 +145,14 @@ Rcpp::NumericVector mdmb_rcpp_frm_normalize_posterior(
 				if (count!=1){
 					for (int ii=ii_start; ii<ii_end; ii++){
 						post1[ii] = post[ii] / val;				
-					}										
+					}
 				}
 			}
 			case_temp = case_[cc];			
 			ii_start=cc;
 			val = post[cc];
 			count = 1;			
-		} else {			
+		} else {
 			val += post[cc];
 			count ++;		
 		}
@@ -160,7 +160,7 @@ Rcpp::NumericVector mdmb_rcpp_frm_normalize_posterior(
 	}
 	for (int ii=ii_start; ii<ii_end; ii++){
 		post1[ii] = post[ii] / val;				
-	}				
+	}
 	
 	//---- OUTPUT                                 
 	return post1;
@@ -177,10 +177,10 @@ Rcpp::NumericVector mdmb_rcpp_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector 
 	int N = x.size();
 	Rcpp::NumericVector fx(N);	
 	double pi1 = 3.14159265359;
-	double fac = 1 / sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+	double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
 	fac = fac / sigma;
 	double tmp = 0;
-	double sq2 = 1 / sqrt(2) / sigma;	
+	double sq2 = 1 / std::sqrt(2) / sigma;	
 	for (int nn=0; nn<N; nn++){
 		tmp = sq2 * (x[nn] - mu[nn]);
 		fx[nn] = fac * exp( - tmp * tmp);

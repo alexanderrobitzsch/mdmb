@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.29
+%% File Version: 0.31
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -123,10 +123,10 @@ Vector or an object of fitted distribution depending on the called function
 
 \references{
 Sakia, S. M. (1992). The Box-Cox transformation technique: A review.
-\emph{The Statistician}, \bold{41}, 169-178.
+\emph{The Statistician, 41}, 169-178.
 	
 Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
-improve normality or symmetry. \emph{Biometrika}, \bold{87}, 954-959. 
+improve normality or symmetry. \emph{Biometrika, 87}, 954-959. 
 }
 
 %\author{

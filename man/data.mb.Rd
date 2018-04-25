@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.12
+%% File Version: 0.13
 
 \name{data.mb}
 \alias{data.mb}
@@ -82,7 +82,7 @@ and middle school reading (\code{y}) which all have missing values.
 
 \references{
 Enders, C. K., Baraldi, A. N., & Cham, H. (2014). Estimating interaction effects with 
-incomplete predictor variables. \emph{Psychological Methods}, \bold{19}(1), 39-55.
+incomplete predictor variables. \emph{Psychological Methods, 19}(1), 39-55.
 }
 
 

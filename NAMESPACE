@@ -1,5 +1,5 @@
 
-# useDynLib(mdmb)
+useDynLib(mdmb)
 
 
 

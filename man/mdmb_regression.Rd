@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.39
+%% File Version: 0.41
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -165,10 +165,10 @@ List containing values
 \references{
 McKelvey, R., & Zavoina, W. (1975). A statistical model for the analysis of 
 ordinal level dependent variables. 
-\emph{Journal of Mathematical Sociology}, \bold{4}, 103-120.
+\emph{Journal of Mathematical Sociology, 4}, 103-120.
 
 Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
-improve normality or symmetry. \emph{Biometrika}, \bold{87}, 954-959. 
+improve normality or symmetry. \emph{Biometrika, 87}, 954-959. 
 }
 
 \author{

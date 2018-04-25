@@ -28,19 +28,26 @@ CHANGELOG mdmb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.7  |  2018-04-18  |  Last: mdmb 0.7-9
+VERSIONS mdmb 0.8  |  2018-04-25  |  Last: mdmb 0.8-1
 ---------------------------------------------------------------------
 
-NOTE  * included argument 'as_mids()' for conversion into mids objects
-        in frm2datlist()
-NOTE  * translated some parts of calculations in frm_em() into Rcpp
+xxxx  *
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
 
 
+---------------------------------------------------------------------
+VERSIONS mdmb 0.7  |  2018-04-24  |  Last: mdmb 0.7-19
+---------------------------------------------------------------------
+
+NOTE  * included argument 'as_mids' for conversion into mids objects
+        in frm2datlist()
+NOTE  * translated some parts of calculations in frm_em() into Rcpp
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 0.6  |  2018-02-16  |  Last: mdmb 0.6-17

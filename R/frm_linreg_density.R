@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_density.R
-## File Version: 0.956
+## File Version: 0.957
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
 		X = NULL , offset = NULL )
@@ -46,12 +46,12 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
 	if ( ! is.null(model$sigma) ){	
 		y_sd <- model$sigma		
 	}
-				
+
 	# R^2
 	R2 <- mean( 1 - y_sd^2 / y_sd0^2 )
 
 	#-- evaluate normal density
-    # d1 <- stats::dnorm( y , mean=y_pred , sd=y_sd )
+	# d1 <- stats::dnorm( y , mean=y_pred , sd=y_sd )
 	d1 <- mdmb_rcpp_dnorm( x=y, mu=y_pred, sigma=y_sd)
 					
 	d2 <- frm_normalize_posterior( post = d1 , case = case )	

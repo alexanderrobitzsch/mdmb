@@ -1,7 +1,8 @@
 %% File Name: frm.Rd
-%% File Version: 0.69
+%% File Version: 0.762
 
 \name{frm}
+\alias{frm}
 \alias{frm_em}
 \alias{coef.frm_em}
 \alias{vcov.frm_em}
@@ -26,8 +27,8 @@ The factored regression model (FRM) allows the estimation of the linear regressi
 (with normally distributed residuals) and the generalized logistic regression model
 (logistic regression for dichotomous outcomes). Missing values in covariates are
 handled by posing a conditional univariate distribution for each covariate. The
-approach follows Ibrahim (1990), Ibrahim, Chen, Lipsitz and Herring (2005)
-and Lee and Mitra (2016). Latent variables
+approach follows Ibrahim (1990), Ibrahim, Chen, Lipsitz and Herring (2005),
+Lee and Mitra (2016), and Zhang and Wang (2017). Latent variables
 and covariates with measurement error or multiple indicators can also be handled 
 within this framework (see Examples 3, 4 and 5).
 
@@ -202,19 +203,38 @@ analysis in \pkg{coda} package}
 Allison, P. D. (2012). \emph{Handling missing data by maximum likelihood}.
 SAS Global Forum 2012.
 
+Bartlett, J. W., & Morris, T. P. (2015) Multiple imputation of covariates by 
+substantive-model compatible fully conditional specification. 
+\emph{Stata Journal, 15}(2), 437-456. 
+
+Bartlett, J. W., Seaman, S. R., White, I. R., Carpenter, J. R., & Alzheimer's Disease 
+Neuroimaging Initiative (2015). Multiple imputation of covariates by fully conditional 
+specification: Accommodating the substantive model. 
+\emph{Statistical Methods in Medical Research, 24}(4), 462-487.
+
+Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., & Lesaffre, E. M.
+(2016). Dealing with missing covariates in epidemiologic studies: A comparison between multiple
+imputation and a full Bayesian approach. \emph{Statistics in Medicine, 35}(17), 2955-2974.
+
 Ibrahim, J. G. (1990). Incomplete data in generalized linear models. 
-\emph{Journal of the American Statistical Association}, \bold{85}, 765-769.
+\emph{Journal of the American Statistical Association, 85}, 765-769.
 
 Ibrahim, J. G., Chen, M. H., Lipsitz, S. R., & Herring, A. H. (2005). 
 Missing-data methods for generalized linear models: A comparative review. 
-\emph{Journal of the American Statistical Association}, \bold{100}, 332-346.
+\emph{Journal of the American Statistical Association, 100}, 332-346.
 
 Jamshidian, M., & Jennrich, R. I. (2000). Standard errors for EM estimation. 
 \emph{Journal of the Royal Statistical Society (Series B), 62}, 257-270.
 
+Keller, B. T., & Enders, C. K. (2018). \emph{Blimp user's manual}. Los Angeles, CA.
+\emph{http://www.appliedmissingdata.com/multilevel-imputation.html}
+
 Lee, M. C., & Mitra, R. (2016). Multiply imputing missing values in data sets 
 with mixed measurement scales using a sequence of generalised linear models. 
-\emph{Computational Statistics & Data Analysis}, \bold{95}, 24-38.
+\emph{Computational Statistics & Data Analysis, 95}, 24-38.
+
+Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors. 
+\emph{Psychological Methods, 22}(4), 649-666.
 }
 
 \author{
@@ -222,7 +242,7 @@ Alexander Robitzsch
 }
 
 \note{
-The \code{coef} and \code{vcov} can be used to extract coefficients and
+The \code{coef} and \code{vcov} methods can be used to extract coefficients and
 the corresponding covariance matrix, respectively. Standard errors for a fitted
 object \code{mod} can be extracted by making use of the \pkg{survey}
 package and the statement \code{survey::SE(mod)}.
@@ -234,10 +254,19 @@ package and the statement \code{survey::SE(mod)}.
 See also the \pkg{icdGLM} package for estimation of generalized
 linear models with incomplete discrete covariates.
 
-The imputation of substantive models with interactions or nonlinear
-terms can be conducted with the \pkg{smcfcs} package or the
-\code{jomo::jomo.lm} function in the \pkg{jomo}
-package.
+The imputation of covariates in substantive models with interactions or nonlinear
+terms can be also conducted with the \pkg{JointAI} package which is a wrapper
+to the JAGS software (see Erler et al., 2016). This package is also based on a sequential 
+modelling approach.
+
+The \pkg{jomo} package also accommodates substantive models (\code{jomo::jomo.lm})
+based on a joint modeling framework. 
+
+Substantive model compatible imputation based
+on fully conditional specification can be found in the \pkg{smcfcs} package 
+(see Bartlett et al., 2015; Bartlett & Morris, 2015) 
+or the Blimp stand-alone software 
+(Keller & Enders, 2018).
 }
 
 % \code{\link[jomo:jomo.lm]{jomo::jomo.lm}}
