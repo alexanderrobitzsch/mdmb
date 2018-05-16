@@ -3,7 +3,7 @@
 
 coef_mdmb_extract <- function( object , ...)
 {
-	return(object$coef)
+    return(object$coef)
 }
 
 #-- mdmb main functions

@@ -3,7 +3,7 @@
 
 mdmb_exp_overflow <- function(x, M = 200)
 {
-	x <- ifelse( x > M, M , x)
-	y <- exp(x)
-	return(y)
+    x <- ifelse( x > M, M , x)
+    y <- exp(x)
+    return(y)
 }

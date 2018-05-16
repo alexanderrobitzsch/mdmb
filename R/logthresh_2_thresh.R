@@ -3,5 +3,5 @@
 
 logthresh_2_thresh <- function(x)
 {
-	cumsum( exp(x) )
+    cumsum( exp(x) )
 }

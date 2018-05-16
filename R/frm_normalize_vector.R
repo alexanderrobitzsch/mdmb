@@ -3,7 +3,7 @@
 
 frm_normalize_vector <- function(vec)
 {
-	res <- vec / sum(vec)
-	return(res)
+    res <- vec / sum(vec)
+    return(res)
 }
 

@@ -124,7 +124,7 @@ Vector or an object of fitted distribution depending on the called function
 \references{
 Sakia, S. M. (1992). The Box-Cox transformation technique: A review.
 \emph{The Statistician, 41}, 169-178.
-	
+    
 Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
 improve normality or symmetry. \emph{Biometrika, 87}, 954-959. 
 }
@@ -143,7 +143,7 @@ improve normality or symmetry. \emph{Biometrika, 87}, 954-959.
 See \code{\link{yjt_regression}} for fitting a regression model in which
 the response variable is distributed according to the scaled \eqn{t}
 distribution with Yeo-Johnson transformation.
-	
+    
 See \code{car::yjPower} for fitting the Yeo-Johnson
 transformation in the \pkg{car} package. See \code{car::bcPower} for the
 Box-Cox transformation.
@@ -186,7 +186,7 @@ lines( y , mdmb::yj_trafo( y , lambda = 0 ) , lty=4 )
 \dontrun{
 #############################################################################
 # EXAMPLE 2: Density of scaled t distribution
-#############################################################################	
+#############################################################################    
 
 # define location and scale parameter
 m0 <- 0.3
@@ -199,7 +199,7 @@ max(abs(y1-y2))
 
 #############################################################################
 # EXAMPLE 3: Simulating and fitting the scaled t distribution
-#############################################################################	
+#############################################################################    
 
 #-- simulate data with 10 degrees of freedom
 set.seed(987)

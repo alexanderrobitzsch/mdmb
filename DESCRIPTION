@@ -1,8 +1,8 @@
 Package: mdmb
 Type: Package
 Title: Model Based Treatment of Missing Data
-Version: 0.8-1
-Date: 2018-04-25 10:19:52
+Version: 0.8-6
+Date: 2018-05-16 18:53:25
 Author: 
     Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
 Maintainer: 
@@ -17,12 +17,12 @@ Description:
 Depends:
     R (>= 3.1)
 Imports: 
-    CDM, coda, graphics, MASS, miceadds, Rcpp, sirt, stats, TAM, 
-    utils     
+    CDM, coda, graphics, MASS, miceadds (>= 2.11-77), Rcpp, sirt, 
+    stats, TAM, utils     
 Suggests: 
     mice
 LinkingTo: 
-    Rcpp, RcppArmadillo
+    miceadds, Rcpp, RcppArmadillo
 URL: https://github.com/alexanderrobitzsch/mdmb
 License: 
     GPL (>= 2)

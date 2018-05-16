@@ -3,11 +3,11 @@
 
 frm_normalize_posterior <- function( post , case )
 {
-	post1 <- post
-	if ( ! is.null(case) ){
-		# rs1 <- rowsum( post , case )
-		# post1 <- post / rs1[ case ]
-		post1 <- mdmb_rcpp_frm_normalize_posterior( post=post, case_=case )		
-	}	
-	return(post1)
+    post1 <- post
+    if ( ! is.null(case) ){
+        # rs1 <- rowsum( post , case )
+        # post1 <- post / rs1[ case ]
+        post1 <- mdmb_rcpp_frm_normalize_posterior( post=post, case_=case )        
+    }    
+    return(post1)
 }

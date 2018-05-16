@@ -66,7 +66,7 @@ frm_em(dat, dep, ind, weights = NULL, verbose = TRUE, maxiter = 500, conv_dev = 
 frm_fb(dat, dep, ind, weights=NULL, verbose=TRUE, data_init = NULL, iter=500, 
         burnin=100, Nimp=10, Nsave = 3000, refresh = 25, acc_bounds = c(.45,.50), 
         print_iter = 10)
-	
+    
 \method{coef}{frm_fb}(object, ...)
 \method{plot}{frm_fb}(x, idparm=NULL, ask=TRUE, ... )
 \method{summary}{frm_fb}(object, digits=4, file=NULL, ...)
@@ -129,8 +129,8 @@ as the factor of the standard deviation of the observed data.}
 \item{h}{Step width for numerical differentiation for calculating the
 covariance matrix}
 \item{use_grad}{Computation method for gradient in \code{\link{yjt_regression}},
-	\code{\link{bct_regression}} or \code{\link{logistic_regression}}.
-	It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3), 
+    \code{\link{bct_regression}} or \code{\link{logistic_regression}}.
+    It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3), 
 \code{1} or \code{2} (most efficient one).}
 \item{data_init}{Initial values for dataset}
 \item{iter}{Number of iterations}
@@ -290,7 +290,7 @@ dat <- data.mb01$missing
 #--- specify models
 
 # define integration nodes
-xnodes <- seq(-4,4,len=11)		# nodes for X
+xnodes <- seq(-4,4,len=11)        # nodes for X
 ynodes <- seq(-10,10,len=13)           
   # nodes for Y. These ynodes are not really necessary for this dataset because
   # Y has no missing values.
@@ -368,7 +368,7 @@ dat <- data.mb02$missing
 
 # define nodes
 xnodes <- seq(-5,5,len=15)  # X - normally distributed variable
-ynodes <- c(0,1)	            # Y and Z dichotomous variable
+ynodes <- c(0,1)                # Y and Z dichotomous variable
 
 # model P(Y|X,Z) for dependent variable
 dep <- list("model" = "logistic" , "formula" = Y ~  X*Z , "nodes" = ynodes )

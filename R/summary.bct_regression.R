@@ -2,6 +2,6 @@
 ## File Version: 0.02
 
 summary.bct_regression <- function( object , digits = 4 , file=NULL , ...){
-	mdmb_regression_summary( object=object , digits = digits , file=file , ...)
+    mdmb_regression_summary( object=object , digits = digits , file=file , ...)
 }
 

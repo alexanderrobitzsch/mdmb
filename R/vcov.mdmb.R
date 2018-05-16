@@ -5,7 +5,7 @@
 
 vcov_mdmb_extract <- function( object , ...)
 {
-	return( object$vcov )		
+    return( object$vcov )        
 }
 
 
