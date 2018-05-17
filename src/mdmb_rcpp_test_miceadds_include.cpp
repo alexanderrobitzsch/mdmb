@@ -1,8 +1,9 @@
 //// File Name: mdmb_rcpp_test_miceadds_include.cpp
-//// File Version: 0.08
+//// File Version: 0.12
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::depends(miceadds)]]
 
 #include <RcppArmadillo.h>
 // #include <Rcpp.h>
@@ -23,16 +24,6 @@ using namespace miceadds;
 double mdmb_test_rtnorm2( double mu, double sigma, double lower, double upper)
 {
     double z = miceadds::miceadds_rcpp_rtnorm_double( mu, sigma, lower, upper );
-    return z;
-}
-///********************************************************************
-
-///********************************************************************
-///** mdmb_test_rtnorm3
-// [[Rcpp::export]]
-double mdmb_test_rtnorm3( double mu, double sigma, double lower, double upper)
-{
-    double z = 0;
     return z;
 }
 ///********************************************************************
