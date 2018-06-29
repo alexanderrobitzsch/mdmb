@@ -1,11 +1,11 @@
 ## File Name: vcov.mdmb.R
-## File Version: 0.12
+## File Version: 0.14
 
 
 
-vcov_mdmb_extract <- function( object , ...)
+vcov_mdmb_extract <- function( object, ...)
 {
-    return( object$vcov )        
+    return( object$vcov )
 }
 
 

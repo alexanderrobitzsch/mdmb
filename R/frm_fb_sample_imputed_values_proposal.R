@@ -1,8 +1,8 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.21
+## File Version: 0.28
 
 
-frm_fb_sample_imputed_values_proposal <- function( var_vv , index_vv ,
+frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
         ind0, imputations_mcmc, N_vv, imp, dat_vv )
 {
     mh_vv <- imputations_mcmc$mh_imputations_values[[ var_vv ]]
@@ -14,29 +14,34 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv , index_vv ,
     NG <- NULL
     #*** sample new values for linear regression
     if ( model_vv %in% c( "linreg" ) ){
-        imp1 <- stats::rnorm( N_vv , mean=imp , sd = mh_vv$sd_proposal )
+        imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
         do_mh <- TRUE
     }
     #*** sample new values for logistic regression
-    if ( model_vv %in% c( "logistic" ) ){        
+    if ( model_vv %in% c( "logistic" ) ){
         gibbs_values <- 0:1
         imp1 <- dat_vv[,var_vv]
         NG <- length(gibbs_values)
     }
     #*** sample new values for logistic regression
-    if ( model_vv %in% c( "oprobit" ) ){        
+    if ( model_vv %in% c( "oprobit" ) ){
         imp1 <- dat_vv[,var_vv]
         gibbs_values <- as.numeric( names(table(imp1) ) )
         NG <- length(gibbs_values)
-    }    
+    }
     #*** sample new values for yjtreg and bctreg regression
-    if ( model_vv %in% c( "bctreg" , "yjtreg" ) ){
-        imp1 <- stats::rnorm( N_vv , mean=imp , sd = mh_vv$sd_proposal )
-        if ( model_vv == "bctreg"){
-            imp1 <- ifelse( imp1 < 0 , imp , imp1 )
+    if ( model_vv %in% c( "bctreg", "yjtreg" ) ){
+        imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
+        if ( model_vv=="bctreg"){
+            imp1 <- ifelse( imp1 < 0, imp, imp1 )
         }
         do_mh <- TRUE
-    }    
-    res <- list( imp1 = imp1 , do_mh = do_mh, gibbs_values = gibbs_values, NG=NG )
+    }
+    #*** sample new values for linear regression
+    if ( model_vv %in% c( "mlreg" ) ){    
+        imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
+        do_mh <- TRUE
+    }        
+    res <- list( imp1=imp1, do_mh=do_mh, gibbs_values=gibbs_values, NG=NG )    
     return(res)
 }

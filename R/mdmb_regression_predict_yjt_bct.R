@@ -1,14 +1,14 @@
 ## File Name: mdmb_regression_predict_yjt_bct.R
-## File Version: 0.03
+## File Version: 0.07
 
-mdmb_regression_predict_yjt_bct <- function( object , newdata = NULL, trafo=TRUE, ...)
+mdmb_regression_predict_yjt_bct <- function( object, newdata=NULL, trafo=TRUE, ...)
 {
     if ( ! is.null(newdata) ){
         Xdes <- stats::model.matrix( object$formula, newdata )
-        offset_values <- offset_values_extract(formula=object$formula, data=newdata )        
+        offset_values <- offset_values_extract(formula=object$formula, data=newdata )
     } else {
         Xdes <- object$X
-        offset_values <- object$offset_values        
+        offset_values <- object$offset_values
     }
     beta <- coef(object)
     np <- length(beta)
@@ -18,12 +18,12 @@ mdmb_regression_predict_yjt_bct <- function( object , newdata = NULL, trafo=TRUE
     class_regr <- class(object)
     if ( ! trafo ){
         lam0 <- beta[np]
-        if ( class_regr == "yjt_regression"){    
-            fitted.values <- yj_antitrafo( fitted.values , lambda = lam0 )
+        if ( class_regr=="yjt_regression"){
+            fitted.values <- yj_antitrafo( fitted.values, lambda=lam0 )
         }
-        if ( class_regr == "bct_regression"){    
-            fitted.values <- bc_antitrafo( fitted.values , lambda = lam0 )
-        }        
+        if ( class_regr=="bct_regression"){
+            fitted.values <- bc_antitrafo( fitted.values, lambda=lam0 )
+        }
     }
-    return(fitted.values)    
+    return(fitted.values)
 }

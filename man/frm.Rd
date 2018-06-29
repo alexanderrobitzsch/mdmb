@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.762
+%% File Version: 0.778
 
 \name{frm}
 \alias{frm}
@@ -29,15 +29,15 @@ The factored regression model (FRM) allows the estimation of the linear regressi
 handled by posing a conditional univariate distribution for each covariate. The
 approach follows Ibrahim (1990), Ibrahim, Chen, Lipsitz and Herring (2005),
 Lee and Mitra (2016), and Zhang and Wang (2017). Latent variables
-and covariates with measurement error or multiple indicators can also be handled 
+and covariates with measurement error or multiple indicators can also be handled
 within this framework (see Examples 3, 4 and 5).
 
-Missing values are handled by numerical integration in \code{frm_em} 
-(see also Allison, 2012). The user has to specify an integration grid for each 
-variable (defined in argument \code{nodes} for each model). 
+Missing values are handled by numerical integration in \code{frm_em}
+(see also Allison, 2012). The user has to specify an integration grid for each
+variable (defined in argument \code{nodes} for each model).
 
-Standard error estimates in \code{frm_em} are obtained by a numerical differentiation of 
-the Fisher score function (see Jamshidian & Jennrich, 2000). 
+Standard error estimates in \code{frm_em} are obtained by a numerical differentiation of
+the Fisher score function (see Jamshidian & Jennrich, 2000).
 
 The function \code{frm_fb} employs a fully Bayesian approach with noninformative
 prior distribution. This function imputes missing values in the models from
@@ -54,8 +54,8 @@ The handling of nominal covariates will be included in future
 
 \usage{
 # Factored regression model: Numerical integration with EM algorithm
-frm_em(dat, dep, ind, weights = NULL, verbose = TRUE, maxiter = 500, conv_dev = 1e-08, 
-         conv_parm = 1e-05, nodes_control = c(11,5), h = 1e-04, use_grad = 2)
+frm_em(dat, dep, ind, weights=NULL, verbose=TRUE, maxiter=500, conv_dev=1e-08,
+         conv_parm=1e-05, nodes_control=c(11,5), h=1e-04, use_grad=2)
 
 \method{coef}{frm_em}(object, ...)
 \method{logLik}{frm_em}(object, ...)
@@ -63,10 +63,10 @@ frm_em(dat, dep, ind, weights = NULL, verbose = TRUE, maxiter = 500, conv_dev = 
 \method{vcov}{frm_em}(object, ...)
 
 # Factored regression model: Fully Bayesian estimation
-frm_fb(dat, dep, ind, weights=NULL, verbose=TRUE, data_init = NULL, iter=500, 
-        burnin=100, Nimp=10, Nsave = 3000, refresh = 25, acc_bounds = c(.45,.50), 
-        print_iter = 10)
-    
+frm_fb(dat, dep, ind, weights=NULL, verbose=TRUE, data_init=NULL, iter=500,
+        burnin=100, Nimp=10, Nsave=3000, refresh=25, acc_bounds=c(.45,.50),
+        print_iter=10, use_gibbs=TRUE, aggregation=TRUE)
+
 \method{coef}{frm_fb}(object, ...)
 \method{plot}{frm_fb}(x, idparm=NULL, ask=TRUE, ... )
 \method{summary}{frm_fb}(object, digits=4, file=NULL, ...)
@@ -82,26 +82,29 @@ frm2datlist(object, as_mids=FALSE)  # create list of imputed datasets
 Data frame
 }
   \item{dep}{
-List containing model specification for dependent variable. The list 
+List containing model specification for dependent variable. The list
 has arguments (see Examples)
 
 \code{model}: String indicating the model type. Options are
 \code{"linreg"} (wrapper to \code{\link[stats:lm]{stats::lm}}
 or \code{\link[stats:lm.wfit]{stats::lm.wfit}}),
 \code{"logistic"} for dichotomous variables (wrapper to \code{\link{logistic_regression}}),
-\code{"oprobit"} for ordinal variables 
+\code{"oprobit"} for ordinal variables
 (wrapper to \code{\link{oprobit_regression}}),
 \code{"yjtreg"} for continuous variables (wrapper to \code{\link{yjt_regression}}),
 \code{"bctreg"} for positive continuous variables
-(wrapper to \code{\link{bct_regression}})
+(wrapper to \code{\link{bct_regression}}),
+\code{"mlreg"} for multilevel models with normally distributed and ordinal
+data (wrapper to \code{\link[miceadds:ml_mcmc]{miceadds::ml_mcmc}})
  \cr
 \code{formula}: An \R formula object. \cr
 \code{nodes} (for \code{frm_em}): Vector containing the integration nodes \cr
-\code{nodes_weights} (for \code{frm_em}): 
+\code{nodes_weights} (for \code{frm_em}):
 Optional vector containing initial probabilities for each node \cr
 \code{coef_inits}: Optional vector containing initial coefficient for the model \cr
-\code{sigma_fixed}: Fixed standard deviations in case of \code{model="linreg"}. 
+\code{sigma_fixed}: Fixed standard deviations in case of \code{model="linreg"}.
 Heterogeneous standard deviations are allowed. \cr
+\code{R_args}: Arguments for estimation functions. \cr
 }
   \item{ind}{
 List containing a list of univariate conditional models for covariates.
@@ -130,18 +133,26 @@ as the factor of the standard deviation of the observed data.}
 covariance matrix}
 \item{use_grad}{Computation method for gradient in \code{\link{yjt_regression}},
     \code{\link{bct_regression}} or \code{\link{logistic_regression}}.
-    It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3), 
+    It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3),
 \code{1} or \code{2} (most efficient one).}
 \item{data_init}{Initial values for dataset}
 \item{iter}{Number of iterations}
 \item{burnin}{Number of burnin iterations}
 \item{Nimp}{Number of imputed datasets}
 \item{Nsave}{(Maximum) Number of values to be saved for MCMC chain}
-\item{refresh}{Number of imputations after which proposal distribution 
+\item{refresh}{Number of imputations after which proposal distribution
 should be updated in Metropolis-Hastings step}
 \item{acc_bounds}{Bounds for acceptance rates for parameters}
 \item{print_iter}{Number of imputation after which iteration progress
 should be displayed}
+\item{use_gibbs}{Logical indicating whether Gibbs sampling instead of
+    Metropolis-Hastings sampling should be used. Can be only
+applied for \code{linreg}.}
+\item{aggregation}{Logical indicating whether complete dataset should be
+used for computing the predictive distribution of missing values.
+\code{argument=TRUE} is often needed for multilevel data in which cluster
+means are included in regression models.
+}
 \item{object}{Object of corresponding class}
 \item{x}{Object of corresponding class}
 \item{digits}{Number of digits in \code{summary}}
@@ -161,9 +172,9 @@ The function allows for fitting a factored regression model. Consider the case
 of three variables \eqn{Y}, \eqn{X} and \eqn{Z}. A factored regression model
 consists of a sequence of univariate conditional models \eqn{P(Y|X,Z)},
 \eqn{P(X|Z)} and \eqn{P(Z)} such that the joint distribution can be factorized as
-\deqn{ P(Y,X,Z) = P( Y|X,Z) P(X|Z) P(Z) }
-Each of the three variables can contain missing values. Missing values are 
-integrated out by posing a distributional assumption for each variable with 
+\deqn{ P(Y,X,Z)=P( Y|X,Z) P(X|Z) P(Z) }
+Each of the three variables can contain missing values. Missing values are
+integrated out by posing a distributional assumption for each variable with
 missing values.
 }
 
@@ -185,7 +196,7 @@ For \code{frm_em} it is a list containing the following values
 \item{ic}{Information criteria}
 \item{ind0}{List with model specifications including \code{dep} and \code{ind}}
 \item{predictorMatrix}{Predictor matrix}
-\item{variablesMatrix}{Matrix containing all variables appearing in statistical 
+\item{variablesMatrix}{Matrix containing all variables appearing in statistical
 models}
 \item{desc_vars}{Descriptive statistics of variables}
 \item{model_results}{Results from fitted models}
@@ -203,37 +214,37 @@ analysis in \pkg{coda} package}
 Allison, P. D. (2012). \emph{Handling missing data by maximum likelihood}.
 SAS Global Forum 2012.
 
-Bartlett, J. W., & Morris, T. P. (2015) Multiple imputation of covariates by 
-substantive-model compatible fully conditional specification. 
-\emph{Stata Journal, 15}(2), 437-456. 
+Bartlett, J. W., & Morris, T. P. (2015) Multiple imputation of covariates by
+substantive-model compatible fully conditional specification.
+\emph{Stata Journal, 15}(2), 437-456.
 
-Bartlett, J. W., Seaman, S. R., White, I. R., Carpenter, J. R., & Alzheimer's Disease 
-Neuroimaging Initiative (2015). Multiple imputation of covariates by fully conditional 
-specification: Accommodating the substantive model. 
+Bartlett, J. W., Seaman, S. R., White, I. R., Carpenter, J. R., & Alzheimer's Disease
+Neuroimaging Initiative (2015). Multiple imputation of covariates by fully conditional
+specification: Accommodating the substantive model.
 \emph{Statistical Methods in Medical Research, 24}(4), 462-487.
 
 Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., & Lesaffre, E. M.
 (2016). Dealing with missing covariates in epidemiologic studies: A comparison between multiple
 imputation and a full Bayesian approach. \emph{Statistics in Medicine, 35}(17), 2955-2974.
 
-Ibrahim, J. G. (1990). Incomplete data in generalized linear models. 
+Ibrahim, J. G. (1990). Incomplete data in generalized linear models.
 \emph{Journal of the American Statistical Association, 85}, 765-769.
 
-Ibrahim, J. G., Chen, M. H., Lipsitz, S. R., & Herring, A. H. (2005). 
-Missing-data methods for generalized linear models: A comparative review. 
+Ibrahim, J. G., Chen, M. H., Lipsitz, S. R., & Herring, A. H. (2005).
+Missing-data methods for generalized linear models: A comparative review.
 \emph{Journal of the American Statistical Association, 100}, 332-346.
 
-Jamshidian, M., & Jennrich, R. I. (2000). Standard errors for EM estimation. 
+Jamshidian, M., & Jennrich, R. I. (2000). Standard errors for EM estimation.
 \emph{Journal of the Royal Statistical Society (Series B), 62}, 257-270.
 
 Keller, B. T., & Enders, C. K. (2018). \emph{Blimp user's manual}. Los Angeles, CA.
 \emph{http://www.appliedmissingdata.com/multilevel-imputation.html}
 
-Lee, M. C., & Mitra, R. (2016). Multiply imputing missing values in data sets 
-with mixed measurement scales using a sequence of generalised linear models. 
+Lee, M. C., & Mitra, R. (2016). Multiply imputing missing values in data sets
+with mixed measurement scales using a sequence of generalised linear models.
 \emph{Computational Statistics & Data Analysis, 95}, 24-38.
 
-Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors. 
+Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors.
 \emph{Psychological Methods, 22}(4), 649-666.
 }
 
@@ -256,16 +267,16 @@ linear models with incomplete discrete covariates.
 
 The imputation of covariates in substantive models with interactions or nonlinear
 terms can be also conducted with the \pkg{JointAI} package which is a wrapper
-to the JAGS software (see Erler et al., 2016). This package is also based on a sequential 
+to the JAGS software (see Erler et al., 2016). This package is also based on a sequential
 modelling approach.
 
 The \pkg{jomo} package also accommodates substantive models (\code{jomo::jomo.lm})
-based on a joint modeling framework. 
+based on a joint modeling framework.
 
 Substantive model compatible imputation based
-on fully conditional specification can be found in the \pkg{smcfcs} package 
-(see Bartlett et al., 2015; Bartlett & Morris, 2015) 
-or the Blimp stand-alone software 
+on fully conditional specification can be found in the \pkg{smcfcs} package
+(see Bartlett et al., 2015; Bartlett & Morris, 2015)
+or the Blimp stand-alone software
 (Keller & Enders, 2018).
 }
 
@@ -291,17 +302,17 @@ dat <- data.mb01$missing
 
 # define integration nodes
 xnodes <- seq(-4,4,len=11)        # nodes for X
-ynodes <- seq(-10,10,len=13)           
+ynodes <- seq(-10,10,len=13)
   # nodes for Y. These ynodes are not really necessary for this dataset because
   # Y has no missing values.
 
 # define model for dependent variable Y
-dep <- list("model" = "linreg" , "formula" = Y ~  X*Z , "nodes" = ynodes )
+dep <- list("model"="linreg", "formula"=Y ~  X*Z, "nodes"=ynodes )
 
 # model P(X|Z)
-ind_X <- list( "model" = "linreg" , "formula" = X ~ Z , "nodes" = xnodes )
+ind_X <- list( "model"="linreg", "formula"=X ~ Z, "nodes"=xnodes )
 # all models for covariates
-ind <- list( "X" = ind_X )
+ind <- list( "X"=ind_X )
 
 #--- estimate model with numerical integration
 mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind )
@@ -316,18 +327,18 @@ logLik(mod1)
 # Model 2: Fully Bayesian approach / Multiple Imputation
 
 #--- define models
-dep <- list("model" = "linreg", "formula" = Y ~  X*Z )
-ind_X <- list( "model" = "linreg", "formula" = X ~ Z  )
-ind_Z <- list( "model" = "linreg", "formula" = Z ~ 1  )
-ind <- list( "X" = ind_X, Z = ind_Z)
+dep <- list("model"="linreg", "formula"=Y ~  X*Z )
+ind_X <- list( "model"="linreg", "formula"=X ~ Z  )
+ind_Z <- list( "model"="linreg", "formula"=Z ~ 1  )
+ind <- list( "X"=ind_X, Z=ind_Z)
 
 #--- estimate model
-mod2 <- mdmb::frm_fb(dat, dep, ind , burnin=200, iter=1000)
+mod2 <- mdmb::frm_fb(dat, dep, ind, burnin=200, iter=1000)
 summary(mod2)
 #* plot parameters
 plot(mod2)
 
-#--- create list of multiply imputed datasets 
+#--- create list of multiply imputed datasets
 datlist <- mdmb::frm2datlist(mod2)
 # convert into object of class mids
 imp2 <- miceadds::datlist2mids(datlist)
@@ -371,12 +382,12 @@ xnodes <- seq(-5,5,len=15)  # X - normally distributed variable
 ynodes <- c(0,1)                # Y and Z dichotomous variable
 
 # model P(Y|X,Z) for dependent variable
-dep <- list("model" = "logistic" , "formula" = Y ~  X*Z , "nodes" = ynodes )
+dep <- list("model"="logistic", "formula"=Y ~  X*Z, "nodes"=ynodes )
 # model P(X|Z)
-ind_X <- list( "model" = "linreg" , "formula" = X ~ Z , "nodes" = xnodes )
+ind_X <- list( "model"="linreg", "formula"=X ~ Z, "nodes"=xnodes )
 # model P(Z)
-ind_Z <- list( "model" = "logistic" , "formula" = Z ~ 1 , "nodes" = ynodes )
-ind <- list(  "Z" = ind_Z , "X" = ind_X )
+ind_Z <- list( "model"="logistic", "formula"=Z ~ 1, "nodes"=ynodes )
+ind <- list(  "Z"=ind_Z, "X"=ind_X )
 
 #--- estimate model with numerical integration
 mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind )
@@ -386,10 +397,10 @@ summary(mod1)
 # Model 2: Fully Bayesian approach
 
 #--- specify model
-dep <- list("model" = "logistic" , "formula" = Y ~  X*Z  )
-ind_X <- list( "model" = "linreg" , "formula" = X ~ Z )
-ind_Z <- list( "model" = "logistic" , "formula" = Z ~ 1 )
-ind <- list(  "Z" = ind_Z , "X" = ind_X )
+dep <- list("model"="logistic", "formula"=Y ~  X*Z  )
+ind_X <- list( "model"="linreg", "formula"=X ~ Z )
+ind_Z <- list( "model"="logistic", "formula"=Z ~ 1 )
+ind <- list(  "Z"=ind_Z, "X"=ind_X )
 
 #--- Bayesian estimation
 mod2 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, burnin=500, iter=1000 )
@@ -408,9 +419,9 @@ set.seed(91834)
 # latent variable
 theta <- stats::rnorm(N)
 # simulate items
-y1 <- 1.5 + 1*theta + stats::rnorm(N , sd = .7 )
-y2 <- 1.9 + .7*theta + stats::rnorm(N , sd = 1 )
-y3 <- .9 + .7*theta + stats::rnorm(N , sd = .2 )
+y1 <- 1.5 + 1*theta + stats::rnorm(N, sd=.7 )
+y2 <- 1.9 + .7*theta + stats::rnorm(N, sd=1 )
+y3 <- .9 + .7*theta + stats::rnorm(N, sd=.2 )
 dat <- data.frame(y1,y2,y3)
 dat$theta <- NA
 
@@ -419,14 +430,14 @@ dat$theta <- NA
 
 #--- define model
 nodes <- seq(-4,4,len=21)
-ind_y1 <- list("model" = "linreg" , "formula" = y1 ~  offset(1*theta) , 
-                "nodes" = nodes )
-ind_y2 <- list( "model" = "linreg", "formula" = y2 ~ theta, "nodes" = nodes, 
-                "coef_inits" = c(NA,1) )
-ind_y3 <- list( "model" = "linreg", "formula" = y3 ~ theta, "nodes" = nodes, 
-                 "coef_inits" = c(1,1) )
-dep <- list( "model" = "linreg", "formula" = theta ~ 0 , "nodes" = nodes )
-ind <- list( "y1" = ind_y1 ,  "y2" = ind_y2 , "y3" = ind_y3)
+ind_y1 <- list("model"="linreg", "formula"=y1 ~  offset(1*theta),
+                "nodes"=nodes )
+ind_y2 <- list( "model"="linreg", "formula"=y2 ~ theta, "nodes"=nodes,
+                "coef_inits"=c(NA,1) )
+ind_y3 <- list( "model"="linreg", "formula"=y3 ~ theta, "nodes"=nodes,
+                 "coef_inits"=c(1,1) )
+dep <- list( "model"="linreg", "formula"=theta ~ 0, "nodes"=nodes )
+ind <- list( "y1"=ind_y1,  "y2"=ind_y2, "y3"=ind_y3)
 
 #*** estimate model with mdmb::frm_em
 mod1 <- mdmb::frm_em(dat, dep, ind)
@@ -435,10 +446,10 @@ summary(mod1)
 #*** estimate model in lavaan
 library(lavaan)
 lavmodel <- "
-     theta =~ 1*y1 + y2 + y3
+     theta=~ 1*y1 + y2 + y3
      theta ~~ theta
      "
-mod1b <- lavaan::cfa( model=lavmodel , data = dat )     
+mod1b <- lavaan::cfa( model=lavmodel, data=dat )
 summary(mod1b)
 
 # compare likelihood
@@ -456,7 +467,7 @@ N <- 500
 theta0 <- theta <- stats::rnorm(N)
 # number of items
 I <- 7
-dat <- sirt::sim.raschtype( theta , b = seq(-1.5,1.5,len=I) )
+dat <- sirt::sim.raschtype( theta, b=seq(-1.5,1.5,len=I) )
 colnames(dat) <- paste0("I",1:I)
 dat$theta <- NA
 
@@ -465,11 +476,11 @@ dat$theta <- NA
 
 #--- define model
 nodes <- seq(-4,4,len=13)
-dep <- list("model" = "linreg", "formula" = theta ~  0 , "nodes" = nodes )
+dep <- list("model"="linreg", "formula"=theta ~  0, "nodes"=nodes )
 ind <- list()
 for (ii in 1:I){
-    ind_ii <- list( "model" = "logistic", formula = 
-                 stats::as.formula( paste0("I",ii , " ~ offset(1*theta)") ) )
+    ind_ii <- list( "model"="logistic", formula=
+                 stats::as.formula( paste0("I",ii, " ~ offset(1*theta)") ) )
     ind[[ii]] <- ind_ii
 }
 names(ind) <- colnames(dat)[-(I+1)]
@@ -484,7 +495,7 @@ mod2 <- sirt::rasch.mml2( dat[,-(I+1)], theta.k=nodes, use.freqpatt=FALSE)
 summary(mod2)
 
 #** compare estimated parameters
-round(cbind(coef(mod1), c( mod2$sd.trait , -mod2$item$thresh[ seq(I,1)] ) ), 3)
+round(cbind(coef(mod1), c( mod2$sd.trait, -mod2$item$thresh[ seq(I,1)] ) ), 3)
 
 #############################################################################
 # EXAMPLE 5: Regression model with measurement error in covariates
@@ -496,15 +507,15 @@ N <- 1000
 # true score
 theta <- stats::rnorm(N)
 # heterogeneous error variance
-var_err <- stats::runif(N, .5 , 1)
+var_err <- stats::runif(N, .5, 1)
 # simulate observed score
-x <- theta + stats::rnorm(N, sd = sqrt(var_err) )
+x <- theta + stats::rnorm(N, sd=sqrt(var_err) )
 # simulate outcome
-y <- .3 + .7 * theta + stats::rnorm( N , sd = .8 )
+y <- .3 + .7 * theta + stats::rnorm( N, sd=.8 )
 dat0 <- dat <- data.frame( y=y, x=x, theta=theta )
 
 #*** estimate model with true scores (which are unobserved in real datasets)
-mod0 <- stats::lm( y ~ theta , data = dat0 )
+mod0 <- stats::lm( y ~ theta, data=dat0 )
 summary(mod0)
 
 #******************************************
@@ -513,13 +524,13 @@ summary(mod0)
 #--- specify model
 dat$theta <- NA
 nodes <- seq(-4,4,len=15)
-dep <- list( "model" = "linreg", "formula" = y ~ theta , "nodes" = nodes , 
-                "coef_inits" = c(NA, .4 ) )
+dep <- list( "model"="linreg", "formula"=y ~ theta, "nodes"=nodes,
+                "coef_inits"=c(NA, .4 ) )
 ind <- list()
-ind[["theta"]] <- list( "model" = "linreg", "formula" = theta ~ 1 , 
-                         "nodes" = nodes  )
-ind[["x"]] <- list( "model" = "linreg", "formula" = x ~ 0 + offset(theta) , 
-                        "nodes" = nodes )
+ind[["theta"]] <- list( "model"="linreg", "formula"=theta ~ 1,
+                         "nodes"=nodes  )
+ind[["x"]] <- list( "model"="linreg", "formula"=x ~ 0 + offset(theta),
+                        "nodes"=nodes )
 # assumption of heterogeneous known error variance
 ind[["x"]]$sigma_fixed <- sqrt( var_err )
 
@@ -531,17 +542,17 @@ summary(mod1)
 # Model 2: Fully Bayesian estimation
 
 #--- specify model
-dep <- list( "model" = "linreg", "formula" = y ~ theta )
+dep <- list( "model"="linreg", "formula"=y ~ theta )
 ind <- list()
-ind[["theta"]] <- list( "model" = "linreg", "formula" = theta ~ 1  )
-ind[["x"]] <- list( "model" = "linreg", "formula" = x ~ 0 + offset(theta) )
+ind[["theta"]] <- list( "model"="linreg", "formula"=theta ~ 1  )
+ind[["x"]] <- list( "model"="linreg", "formula"=x ~ 0 + offset(theta) )
 # assumption of heterogeneous known error variance
 ind[["x"]]$sigma_fixed <- sqrt( var_err )
 data_init <- dat
 data_init$theta <- dat$x
 
 # estimate model
-mod2 <- mdmb::frm_fb(dat, dep, ind, burnin=200, iter = 1000, data_init = data_init)
+mod2 <- mdmb::frm_fb(dat, dep, ind, burnin=200, iter=1000, data_init=data_init)
 summary(mod2)
 plot(mod2)
 
@@ -549,43 +560,43 @@ plot(mod2)
 # EXAMPLE 6: Non-normally distributed covariates
 #############################################################################
 
-# simulate data with chi-squared distributed covariate from 
+# simulate data with chi-squared distributed covariate from
 # regression model Y ~ X
 set.seed(876)
 n <- 1500
 df <- 2
-x <- stats::rchisq( n , df=df )
-x <- x / sqrt( 2*df) 
+x <- stats::rchisq( n, df=df )
+x <- x / sqrt( 2*df)
 y <- 0 + 1*x
 R2 <- .25    # explained variance
-y <- y + stats::rnorm(n , sd = sqrt( (1-R2)/R2 * 1) )
-dat0 <- dat <- data.frame( y = y , x = x )
+y <- y + stats::rnorm(n, sd=sqrt( (1-R2)/R2 * 1) )
+dat0 <- dat <- data.frame( y=y, x=x )
 
 # simulate missing responses
 prop_miss <- .5
 cor_miss <- .7
-resp_tend <- cor_miss*(dat$y-mean(y) )/ stats::sd(y) + 
-                 stats::rnorm(n , sd = sqrt( 1 - cor_miss^2) )
-dat[ resp_tend < stats::qnorm( prop_miss ) , "x" ] <- NA
+resp_tend <- cor_miss*(dat$y-mean(y) )/ stats::sd(y) +
+                 stats::rnorm(n, sd=sqrt( 1 - cor_miss^2) )
+dat[ resp_tend < stats::qnorm( prop_miss ), "x" ] <- NA
 summary(dat)
 
 #-- complete data
-mod0 <- stats::lm( y ~ x, data = dat0 )
+mod0 <- stats::lm( y ~ x, data=dat0 )
 summary(mod0)
 #-- listwise deletion
-mod1 <- stats::lm( y ~ x, data = dat )
+mod1 <- stats::lm( y ~ x, data=dat )
 summary(mod1)
 
 # normal distribution assumption for frm
 
 # define models
-dep <- list("model" = "linreg" , "formula" = y ~  x )
+dep <- list("model"="linreg", "formula"=y ~  x )
 # normally distributed data
-ind_x1 <- list( "model" = "linreg" , "formula" = x ~ 1 )
+ind_x1 <- list( "model"="linreg", "formula"=x ~ 1 )
 # distribution according to Box-Cox
-ind_x2 <- list( "model" = "bctreg" , "formula" = x ~ 1 )
-ind1 <- list( "x" = ind_x1 )
-ind2 <- list( "x" = ind_x2 )
+ind_x2 <- list( "model"="bctreg", "formula"=x ~ 1 )
+ind1 <- list( "x"=ind_x1 )
+ind2 <- list( "x"=ind_x2 )
 
 #--- incorrect normal distribution assumption
 mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind1 )
@@ -598,9 +609,9 @@ summary(mod2)
 #############################################################################
 # EXAMPLE 7: Latent interaction model
 #############################################################################
-                                     
+
 # A latent interaction model Y ~ FX + FZ is of interest. Y is directly observed,
-# FX and FZ are both indirectly observed by three items 
+# FX and FZ are both indirectly observed by three items
 
 #--- simulate data
 N <- 1000
@@ -609,38 +620,38 @@ set.seed(987)
 FX <- stats::rnorm(N)
 FZ <- stats::rnorm(N)
 # simulate items
-x1 <- 1.5 + 1*FX + stats::rnorm(N , sd = .7 )
-x2 <- 1.9 + .7*FX + stats::rnorm(N , sd = 1 )
-x3 <- .9 + .7*FX + stats::rnorm(N , sd = .2 )
-z1 <- 1.5 + 1*FZ + stats::rnorm(N , sd = .7 )
-z2 <- 1.9 + .7*FZ + stats::rnorm(N , sd = 1 )
-z3 <- .9 + .7*FZ + stats::rnorm(N , sd = .2 )
+x1 <- 1.5 + 1*FX + stats::rnorm(N, sd=.7 )
+x2 <- 1.9 + .7*FX + stats::rnorm(N, sd=1 )
+x3 <- .9 + .7*FX + stats::rnorm(N, sd=.2 )
+z1 <- 1.5 + 1*FZ + stats::rnorm(N, sd=.7 )
+z2 <- 1.9 + .7*FZ + stats::rnorm(N, sd=1 )
+z3 <- .9 + .7*FZ + stats::rnorm(N, sd=.2 )
 dat <- data.frame(x1,x2,x3,z1,z2,z3)
 dat$FX <- NA
 dat$FZ <- NA
-dat$y <- 2 + .5*FX + .3*FZ + .4*FX*FZ + rnorm( N , sd = 1 )
+dat$y <- 2 + .5*FX + .3*FZ + .4*FX*FZ + rnorm( N, sd=1 )
 
 # estimate interaction model with ML
 
 #--- define model
 nodes <- seq(-4,4,len=11)
-ind_x1 <- list("model" = "linreg" , "formula" = x1 ~  offset(1*FX) , 
-                "nodes" = nodes )
-ind_x2 <- list( "model" = "linreg", "formula" = x2 ~ FX, "nodes" = nodes, 
-                "coef_inits" = c(NA,1) )
-ind_x3 <- list( "model" = "linreg", "formula" = x3 ~ FX, "nodes" = nodes, 
-                 "coef_inits" = c(1,1) )
-ind_FX <- list( "model" = "linreg", "formula" = FX ~ 0 , "nodes" = nodes )
-ind_z1 <- list("model" = "linreg" , "formula" = z1 ~  offset(1*FZ) , 
-                "nodes" = nodes )
-ind_z2 <- list( "model" = "linreg", "formula" = z2 ~ FZ, "nodes" = nodes, 
-                "coef_inits" = c(NA,1) )
-ind_z3 <- list( "model" = "linreg", "formula" = z3 ~ FZ, "nodes" = nodes, 
-                 "coef_inits" = c(1,1) )
-ind_FZ <- list( "model" = "linreg", "formula" = FZ ~ 0 + FX , "nodes" = nodes )
-ind <- list( "x1" = ind_x1 ,  "x2" = ind_x2 , "x3" = ind_x3, "FX" = ind_FX ,
-            "z1" = ind_z1 ,  "z2" = ind_z2 , "z3" = ind_z3, "FX" = ind_FZ )
-dep <- list( "model" = "linreg", formula = y ~ FX+FZ+FX*FZ , "coef_inits" = c(1,.2,.2,0) )
+ind_x1 <- list("model"="linreg", "formula"=x1 ~  offset(1*FX),
+                "nodes"=nodes )
+ind_x2 <- list( "model"="linreg", "formula"=x2 ~ FX, "nodes"=nodes,
+                "coef_inits"=c(NA,1) )
+ind_x3 <- list( "model"="linreg", "formula"=x3 ~ FX, "nodes"=nodes,
+                 "coef_inits"=c(1,1) )
+ind_FX <- list( "model"="linreg", "formula"=FX ~ 0, "nodes"=nodes )
+ind_z1 <- list("model"="linreg", "formula"=z1 ~  offset(1*FZ),
+                "nodes"=nodes )
+ind_z2 <- list( "model"="linreg", "formula"=z2 ~ FZ, "nodes"=nodes,
+                "coef_inits"=c(NA,1) )
+ind_z3 <- list( "model"="linreg", "formula"=z3 ~ FZ, "nodes"=nodes,
+                 "coef_inits"=c(1,1) )
+ind_FZ <- list( "model"="linreg", "formula"=FZ ~ 0 + FX, "nodes"=nodes )
+ind <- list( "x1"=ind_x1,  "x2"=ind_x2, "x3"=ind_x3, "FX"=ind_FX,
+            "z1"=ind_z1,  "z2"=ind_z2, "z3"=ind_z3, "FX"=ind_FZ )
+dep <- list( "model"="linreg", formula=y ~ FX+FZ+FX*FZ, "coef_inits"=c(1,.2,.2,0) )
 
 #*** estimate model with mdmb::frm_em
 mod1 <- mdmb::frm_em(dat, dep, ind)
@@ -660,32 +671,32 @@ N <- 3000           # sample size
 
 #----- simulate data
 set.seed(790)
-Sigma <- matrix( c(1, cor_XY , cor_XY , 1) , 2 , 2 )
+Sigma <- matrix( c(1, cor_XY, cor_XY, 1), 2, 2 )
 mu <- c(0,0)
-dat <- mvtnorm::rmvnorm( N , mean = mu, sigma=Sigma )
+dat <- mvtnorm::rmvnorm( N, mean=mu, sigma=Sigma )
 colnames(dat) <- c("X","Y")
 dat <- as.data.frame(dat)
 
 #-- generate missing responses on Y depending on Y itself
 y1 <- dat$Y
-miss_tend <- cor_missY * y1  + rnorm(N , sd = sqrt( 1 - cor_missY^2) )
-dat$Y[ miss_tend < quantile( miss_tend , prop_miss ) ] <- NA
+miss_tend <- cor_missY * y1  + rnorm(N, sd=sqrt( 1 - cor_missY^2) )
+dat$Y[ miss_tend < quantile( miss_tend, prop_miss ) ] <- NA
 
 #--- ML estimation under assumption of ignorability
 nodes <- seq(-5,5,len=15)
-dep <- list("model" = "linreg" , "formula" = Y ~  X , "nodes" = nodes )
-ind_X <- list( "model" = "linreg" , "formula" = X ~ 1 , "nodes" = nodes )
-ind <- list( "X" = ind_X )
+dep <- list("model"="linreg", "formula"=Y ~  X, "nodes"=nodes )
+ind_X <- list( "model"="linreg", "formula"=X ~ 1, "nodes"=nodes )
+ind <- list( "X"=ind_X )
 mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind)
 summary(mod1)
 
 #--- ML estimation under assumption with specifying a model for non-ignorability
 #    for response indicator resp_Y
 dat$resp_Y <- 1* ( 1 - is.na(dat$Y) )
-dep <- list("model" = "linreg" , "formula" = Y ~  X , "nodes" = nodes )
-ind_X <- list( "model" = "linreg" , "formula" = X ~ 1 , "nodes" = nodes )
-ind_respY <- list( "model" = "logistic" , "formula" = resp_Y ~ Y , "nodes" = nodes )
-ind <- list( "X" = ind_X , "resp_Y" = ind_respY )
+dep <- list("model"="linreg", "formula"=Y ~  X, "nodes"=nodes )
+ind_X <- list( "model"="linreg", "formula"=X ~ 1, "nodes"=nodes )
+ind_respY <- list( "model"="logistic", "formula"=resp_Y ~ Y, "nodes"=nodes )
+ind <- list( "X"=ind_X, "resp_Y"=ind_respY )
 mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind)
 summary(mod2)
 
@@ -703,9 +714,9 @@ y1 <- 1*theta + stats::rnorm(N)
 y2 <- .7*theta + stats::rnorm(N)
 y3 <- .7*theta + stats::rnorm(N)
 # discretize variables
-y1 <- as.numeric( cut( y1 , breaks=c(-Inf, -.5 , 0.4 , 1, Inf ) ) ) - 1
-y2 <- as.numeric( cut( y2 , breaks=c(-Inf, 0.3 , 1, Inf ) ) ) - 1
-y3 <- as.numeric( cut( y3 , breaks=c(-Inf, .2 , Inf ) ) ) - 1
+y1 <- as.numeric( cut( y1, breaks=c(-Inf, -.5, 0.4, 1, Inf ) ) ) - 1
+y2 <- as.numeric( cut( y2, breaks=c(-Inf, 0.3, 1, Inf ) ) ) - 1
+y3 <- as.numeric( cut( y3, breaks=c(-Inf, .2, Inf ) ) ) - 1
 # define dataset
 dat <- data.frame(y1,y2,y3)
 dat$theta <- NA
@@ -714,19 +725,19 @@ dat$theta <- NA
 # Model 1: Fully Bayesian estimation
 
 #--- define model
-ind_y1 <- list("model" = "oprobit" , "formula" = y1 ~  offset(1*theta) )
-ind_y2 <- list( "model" = "oprobit", "formula" = y2 ~ theta )
-ind_y3 <- list( "model" = "oprobit", "formula" = y3 ~ theta )
-dep <- list( "model" = "linreg", "formula" = theta ~ 0  )
-ind <- list( "y1" = ind_y1 ,  "y2" = ind_y2 , "y3" = ind_y3)
+ind_y1 <- list("model"="oprobit", "formula"=y1 ~  offset(1*theta) )
+ind_y2 <- list( "model"="oprobit", "formula"=y2 ~ theta )
+ind_y3 <- list( "model"="oprobit", "formula"=y3 ~ theta )
+dep <- list( "model"="linreg", "formula"=theta ~ 0  )
+ind <- list( "y1"=ind_y1,  "y2"=ind_y2, "y3"=ind_y3)
 # initial data
 data_init <- dat
-data_init$theta <- as.numeric( scale(dat$y1) ) + stats::rnorm(N, sd = .4 )
+data_init$theta <- as.numeric( scale(dat$y1) ) + stats::rnorm(N, sd=.4 )
 
 #-- estimate model
 iter <- 3000; burnin <- 1000
-mod1 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, data_init=data_init, 
-                   iter = iter, burnin=burnin)
+mod1 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, data_init=data_init,
+                   iter=iter, burnin=burnin)
 summary(mod1)
 plot(mod1)
 }

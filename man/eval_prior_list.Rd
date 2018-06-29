@@ -1,5 +1,5 @@
 %% File Name: eval_prior_list.Rd
-%% File Version: 0.12
+%% File Version: 0.16
 
 \name{eval_prior_list}
 \alias{eval_prior_list}
@@ -11,15 +11,15 @@ Evaluates Several Prior Distributions
 }
 
 \description{
-The function \code{eval_prior_list} evaluates several prior distributions 
+The function \code{eval_prior_list} evaluates several prior distributions
 specified in a list. The function \code{eval_prior_list_sumlog}
 computes the sum of the logarithms of all prior values.
 }
 
 \usage{
-eval_prior_list(par, par_prior, log = FALSE, eps = 1e-50)
+eval_prior_list(par, par_prior, log=FALSE, eps=1e-50)
 
-eval_prior_list_sumlog(par, par_prior, use_grad = 1)
+eval_prior_list_sumlog(par, par_prior, use_grad=1)
 }
 
 
@@ -41,7 +41,7 @@ for values of zero}
 %%  ~~ If necessary, more details than the description above ~~
 %}
 \value{
-Vector or a numeric value 
+Vector or a numeric value
 }
 %\references{
 %% ~put references to the literature/web site here ~
@@ -65,13 +65,13 @@ Vector or a numeric value
 #############################################################################
 
 # normal distribution
-b0 <- list( "dnorm" , list(mean=0,sd=100) )
+b0 <- list( "dnorm", list(mean=0,sd=100) )
 # t distribution with one degree of freedom (Cauchy distribution)
-b1 <- list( "dt" , list(df=1) )
+b1 <- list( "dt", list(df=1) )
 # define list of priors
-beta_prior <- list( b0 , b1 )
+beta_prior <- list( b0, b1 )
 # parameter value
-beta <- c( 0.3 , 1 )
+beta <- c( 0.3, 1 )
 
 #-- evaluate priors
 mdmb::eval_prior_list(par=beta, par_prior=beta_prior)

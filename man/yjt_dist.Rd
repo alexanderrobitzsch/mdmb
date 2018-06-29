@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.31
+%% File Version: 0.36
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -38,8 +38,8 @@ Scaled \eqn{t} Distribution with Yeo-Johnson and Box-Cox Transformations
 \description{
 Collection of functions for the Yeo-Johnson transformation
 (Yeo & Johnson, 2000) and the corresponding distribution family of scaled
-\eqn{t} distribution with and without Yeo-Johnson transformation 
-(see Details). The Box-Cox transformation (\code{bc}; Sakia, 1992) 
+\eqn{t} distribution with and without Yeo-Johnson transformation
+(see Details). The Box-Cox transformation (\code{bc}; Sakia, 1992)
 is also included in this collection of functions.
 }
 
@@ -112,7 +112,7 @@ computed}
 Let \eqn{g_\lambda} be the Yeo-Johnson transformation. A random variable \eqn{X}
 is distribution as Scaled \eqn{t} with Yeo-Johnson transformation with location
 \eqn{\mu}, scale \eqn{\sigma} and transformation parameter \eqn{\lambda}
-iff \eqn{X = g_\lambda ( \mu + \sigma Z ) } and \eqn{Z} is \eqn{t} distributed 
+iff \eqn{X=g_\lambda ( \mu + \sigma Z ) } and \eqn{Z} is \eqn{t} distributed
 with \code{df} degrees of freedom.
 }
 
@@ -124,9 +124,9 @@ Vector or an object of fitted distribution depending on the called function
 \references{
 Sakia, S. M. (1992). The Box-Cox transformation technique: A review.
 \emph{The Statistician, 41}, 169-178.
-    
-Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
-improve normality or symmetry. \emph{Biometrika, 87}, 954-959. 
+
+Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to
+improve normality or symmetry. \emph{Biometrika, 87}, 954-959.
 }
 
 %\author{
@@ -143,7 +143,7 @@ improve normality or symmetry. \emph{Biometrika, 87}, 954-959.
 See \code{\link{yjt_regression}} for fitting a regression model in which
 the response variable is distributed according to the scaled \eqn{t}
 distribution with Yeo-Johnson transformation.
-    
+
 See \code{car::yjPower} for fitting the Yeo-Johnson
 transformation in the \pkg{car} package. See \code{car::bcPower} for the
 Box-Cox transformation.
@@ -154,7 +154,7 @@ The scaled \eqn{t} distribution can be also found in
 See \code{\link[stats:dt]{stats::dt}} for the \eqn{t} distribution.
 
 See the \pkg{fitdistrplus} package or the general
-\code{\link[stats4:mle]{stats4::mle}} function 
+\code{\link[stats4:mle]{stats4::mle}} function
 for fitting several distributions in \R.
 }
 
@@ -167,31 +167,31 @@ for fitting several distributions in \R.
 #############################################################################
 
 # vector of y values
-y <- seq(-3 ,3 , len=100)
+y <- seq(-3,3, len=100)
 
 # non-negative lambda values
-plot( y , mdmb::yj_trafo( y , lambda = 1 ) , type="l" , ylim = 8*c(-1,1) , 
-           ylab = expression( g[lambda] (y) ) )
-lines( y , mdmb::yj_trafo( y , lambda = 2 ) , lty=2 )
-lines( y , mdmb::yj_trafo( y , lambda = .5 ) , lty=3 )
-lines( y , mdmb::yj_trafo( y , lambda = 0 ) , lty=4 )
+plot( y, mdmb::yj_trafo( y, lambda=1 ), type="l", ylim=8*c(-1,1),
+           ylab=expression( g[lambda] (y) ) )
+lines( y, mdmb::yj_trafo( y, lambda=2 ), lty=2 )
+lines( y, mdmb::yj_trafo( y, lambda=.5 ), lty=3 )
+lines( y, mdmb::yj_trafo( y, lambda=0 ), lty=4 )
 
 # non-positive lambda values
-plot( y , mdmb::yj_trafo( y , lambda = -1 ) , type="l" , ylim = 8*c(-1,1) , 
-           ylab = expression(g[lambda] (y) ) )
-lines( y , mdmb::yj_trafo( y , lambda = -2 ) , lty=2 )
-lines( y , mdmb::yj_trafo( y , lambda = -.5 ) , lty=3 )
-lines( y , mdmb::yj_trafo( y , lambda = 0 ) , lty=4 )
+plot( y, mdmb::yj_trafo( y, lambda=-1 ), type="l", ylim=8*c(-1,1),
+           ylab=expression(g[lambda] (y) ) )
+lines( y, mdmb::yj_trafo( y, lambda=-2 ), lty=2 )
+lines( y, mdmb::yj_trafo( y, lambda=-.5 ), lty=3 )
+lines( y, mdmb::yj_trafo( y, lambda=0 ), lty=4 )
 
 \dontrun{
 #############################################################################
 # EXAMPLE 2: Density of scaled t distribution
-#############################################################################    
+#############################################################################
 
 # define location and scale parameter
 m0 <- 0.3
 sig <- 1.5
-#-- compare density of scaled t distribution with large degrees of freedom 
+#-- compare density of scaled t distribution with large degrees of freedom
 #   with normal distribution
 y1 <- mdmb::dt_scaled( y, location=m0, shape=sig, df=100 )
 y2 <- stats::dnorm( y, mean=m0, sd=sig )
@@ -199,16 +199,16 @@ max(abs(y1-y2))
 
 #############################################################################
 # EXAMPLE 3: Simulating and fitting the scaled t distribution
-#############################################################################    
+#############################################################################
 
 #-- simulate data with 10 degrees of freedom
 set.seed(987)
 df0 <- 10    # define degrees of freedom
-x <- mdmb::rt_scaled( n=1E4, location=m0, shape=sig, df = df0 )
+x <- mdmb::rt_scaled( n=1E4, location=m0, shape=sig, df=df0 )
 #** fit data with df=10 degrees of freedom
-fit1 <- mdmb::fit_t_scaled(x=x, df = df0 )
-#** compare with fit from normal distribution 
-fit2 <- mdmb::fit_t_scaled(x=x, df = Inf )  # df=Inf is the default
+fit1 <- mdmb::fit_t_scaled(x=x, df=df0 )
+#** compare with fit from normal distribution
+fit2 <- mdmb::fit_t_scaled(x=x, df=Inf )  # df=Inf is the default
 
 #-- some comparisons
 coef(fit1)
@@ -218,7 +218,7 @@ AIC(fit1)
 AIC(fit2)
 
 #############################################################################
-# EXAMPLE 4: Simulation and fitting of scaled t distribution with 
+# EXAMPLE 4: Simulation and fitting of scaled t distribution with
 #            Yeo-Johnson transformation
 #############################################################################
 
@@ -228,16 +228,16 @@ sig <- 1.5
 lam <- .5
 
 # evaluate density
-x <- seq( -5 , 5, len=100 )
-y <- mdmb::dyjt_scaled( x , location=m0, shape=sig, lambda = lam )
-graphics::plot( x , y , type="l")
+x <- seq( -5, 5, len=100 )
+y <- mdmb::dyjt_scaled( x, location=m0, shape=sig, lambda=lam )
+graphics::plot( x, y, type="l")
 
 # transform original values
-mdmb::yj_trafo( y = x , lambda = lam )
+mdmb::yj_trafo( y=x, lambda=lam )
 
 #** simulate data
 set.seed(987)
-x <- mdmb::ryjt_scaled(n=3000 , location=m0, shape=sig, lambda = lam )
+x <- mdmb::ryjt_scaled(n=3000, location=m0, shape=sig, lambda=lam )
 graphics::hist(x, breaks=30)
 
 #*** Model 1: Fit data with lambda to be estimated
@@ -259,7 +259,7 @@ logLik(fit2)
 logLik(fit3)
 
 #############################################################################
-# EXAMPLE 5: Approximating the chi square distribution 
+# EXAMPLE 5: Approximating the chi square distribution
 #            with yjt and bct distribution
 #############################################################################
 
@@ -267,7 +267,7 @@ logLik(fit3)
 set.seed(987)
 n <- 3000
 df0 <- 5
-x <- stats::rchisq( n = n , df = df0 )
+x <- stats::rchisq( n=n, df=df0 )
 
 #-- plot data
 graphics::hist(x, breaks=30)
@@ -285,19 +285,19 @@ c2 <- coef(fit2)
 logLik(fit1)
 logLik(fit2)
 
-#-- plot chi square distribution and approximating yjt distribution 
-y <- seq( .01 , 3*df0 , len = 100 )
-dy <- stats::dchisq( y , df = df0 )
-graphics::plot( y , dy , type="l" , ylim=c(0, max(dy) )*1.1 )
+#-- plot chi square distribution and approximating yjt distribution
+y <- seq( .01, 3*df0, len=100 )
+dy <- stats::dchisq( y, df=df0 )
+graphics::plot( y, dy, type="l", ylim=c(0, max(dy) )*1.1 )
 # approximation with scaled t distribution and Yeo-Johnson transformation
-graphics::lines( y, mdmb::dyjt_scaled(y, location=c1[1], shape=c1[2], lambda=c1[3]), 
+graphics::lines( y, mdmb::dyjt_scaled(y, location=c1[1], shape=c1[2], lambda=c1[3]),
                      lty=2)
 # approximation with scaled t distribution and Box-Cox transformation
-graphocs::lines( y, mdmb::dbct_scaled(y, location=c2[1], shape=c2[2], lambda=c2[3]), 
+graphocs::lines( y, mdmb::dbct_scaled(y, location=c2[1], shape=c2[2], lambda=c2[3]),
                      lty=3)
 # appoximating normal distribution
-graphics::lines( y , stats::dnorm( y , mean = df0 , sd = sqrt(2*df0) ), lty=4)
-graphics::legend( .6*max(y), .9*max(dy), c("chi square", "yjt", "bct", "norm"), 
+graphics::lines( y, stats::dnorm( y, mean=df0, sd=sqrt(2*df0) ), lty=4)
+graphics::legend( .6*max(y), .9*max(dy), c("chi square", "yjt", "bct", "norm"),
                      lty=1:4)
 }
 }

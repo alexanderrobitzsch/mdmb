@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.41
+%% File Version: 0.45
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -41,7 +41,7 @@ prior distributions.
 The function \code{yjt_regression} performs a linear regression in which the
 response variable is transformed according to the Yeo-Johnson transformation
 (Yeo & Johnson, 2000; see \code{\link{yjt_dist}}) and the residuals are
-distributed following the scaled \eqn{t} distribution. The function 
+distributed following the scaled \eqn{t} distribution. The function
 \code{bct_regression} has same functionality but employs a Box-Cox transformation
 of the outcome variable.
 
@@ -54,8 +54,8 @@ for ordinal polytomous data.
 
 \usage{
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
-yjt_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NULL,
-        df = Inf, lambda_fixed = NULL, use_grad = 2, h = 1e-5, control = NULL)    
+yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
+        df=Inf, lambda_fixed=NULL, use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -64,8 +64,8 @@ yjt_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NUL
 \method{vcov}{yjt_regression}(object, ...)
 
 #---- linear regression with Box-Cox transformed scaled t distribution
-bct_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NULL,
-        df = Inf, lambda_fixed = NULL, use_grad = 2, h = 1e-5, control = NULL)    
+bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
+        df=Inf, lambda_fixed=NULL, use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{bct_regression}(object, ...)
 \method{logLik}{bct_regression}(object, ...)
@@ -74,8 +74,8 @@ bct_regression(formula, data, weights = NULL, beta_init = NULL, beta_prior = NUL
 \method{vcov}{bct_regression}(object, ...)
 
 #---- logistic regression
-logistic_regression(formula, data, weights = NULL, beta_init = NULL, 
-         beta_prior = NULL, use_grad = 2, h = 1e-5, control = NULL)
+logistic_regression(formula, data, weights=NULL, beta_init=NULL,
+         beta_prior=NULL, use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{logistic_regression}(object, ...)
 \method{logLik}{logistic_regression}(object, ...)
@@ -84,8 +84,8 @@ logistic_regression(formula, data, weights = NULL, beta_init = NULL,
 \method{vcov}{logistic_regression}(object, ...)
 
 #---- ordinal probit regression
-oprobit_regression(formula, data, weights = NULL, beta_init = NULL, 
-        use_grad = 2, h = 1e-5, control = NULL)
+oprobit_regression(formula, data, weights=NULL, beta_init=NULL,
+        use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{oprobit_regression}(object, ...)
 \method{logLik}{oprobit_regression}(object, ...)
@@ -121,14 +121,14 @@ Optional vector of initial regression coefficients
       The specification \code{use_grad=1} uses the calculation of
  the gradient in \code{CDM::numerical_Hessian}. The value \code{2} is
  usually the most efficient calculation of the gradient.}
-\item{h}{Numerical differentiation parameter.} 
+\item{h}{Numerical differentiation parameter.}
   \item{control}{
-Optional arguments to be passed to optimization function 
+Optional arguments to be passed to optimization function
 \code{\link[stats:optim]{stats::optim}}
 }
 \item{object}{Object of class \code{logistic_regression}}
 \item{newdata}{Design matrix for \code{predict} function}
-\item{trafo}{Logical indicating whether fitted values should be on the 
+\item{trafo}{Logical indicating whether fitted values should be on the
     transformed metric (\code{trafo=TRUE}) or the original metric
 (\code{trafo=FALSE})}
 \item{digits}{Number of digits for rounding}
@@ -163,12 +163,12 @@ List containing values
 }
 
 \references{
-McKelvey, R., & Zavoina, W. (1975). A statistical model for the analysis of 
-ordinal level dependent variables. 
+McKelvey, R., & Zavoina, W. (1975). A statistical model for the analysis of
+ordinal level dependent variables.
 \emph{Journal of Mathematical Sociology, 4}, 103-120.
 
-Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to 
-improve normality or symmetry. \emph{Biometrika, 87}, 954-959. 
+Yeo, I.-K., & Johnson, R. (2000). A new family of power transformations to
+improve normality or symmetry. \emph{Biometrika, 87}, 954-959.
 }
 
 \author{
@@ -184,9 +184,9 @@ Alexander Robitzsch
 
 \seealso{
 See \code{\link{yjt_dist}} or \code{car::yjPower}
-for functions for the Yeo-Johnson transformation.    
-    
-See \code{\link[stats:lm]{stats::lm}} and 
+for functions for the Yeo-Johnson transformation.
+
+See \code{\link[stats:lm]{stats::lm}} and
 \code{\link[stats:glm]{stats::glm}} for linear and logistic
 regression models.
 }
@@ -203,23 +203,23 @@ set.seed(986)
 N <- 500
 x <- stats::rnorm(N)
 y <- 1*( stats::runif(N) < stats::plogis( -0.8 + 1.2 * x ) )
-data <- data.frame( x = x , y = y )
+data <- data.frame( x=x, y=y )
 
 #--- estimate logistic regression with mdmb::logistic_regression
-mod1 <- mdmb::logistic_regression( y ~ x, data = data )
+mod1 <- mdmb::logistic_regression( y ~ x, data=data )
 summary(mod1)
 
 \dontrun{
 #--- estimate logistic regression with stats::glm
-mod1b <- stats::glm( y ~ x, data = data, family="binomial")
+mod1b <- stats::glm( y ~ x, data=data, family="binomial")
 summary(mod1b)
 
 #--- estimate logistic regression with prior distributions
-b0 <- list( "dnorm" , list(mean=0, sd=100) )  # first parameter
-b1 <- list( "dcauchy" , list(location=0, scale=2.5) )   # second parameter
-beta_priors <- list( b0 , b1 )  # order in list defines priors for parameters
+b0 <- list( "dnorm", list(mean=0, sd=100) )  # first parameter
+b1 <- list( "dcauchy", list(location=0, scale=2.5) )   # second parameter
+beta_priors <- list( b0, b1 )  # order in list defines priors for parameters
 #* estimation
-mod2 <- mdmb::logistic_regression( y ~ x, data = data, beta_prior = beta_priors )
+mod2 <- mdmb::logistic_regression( y ~ x, data=data, beta_prior=beta_priors )
 summary(mod2)
 
 #############################################################################
@@ -231,32 +231,32 @@ set.seed(9865)
 n <- 1000
 x <- stats::rnorm(n)
 y <- .5 + 1*x + stats::rnorm(n, sd=.7 )
-y <- mdmb::yj_antitrafo( y , lambda = .5 )
-dat <- data.frame( y = y , x = x )
+y <- mdmb::yj_antitrafo( y, lambda=.5 )
+dat <- data.frame( y=y, x=x )
 # display data
 graphics::hist(y)
 
 #--- Model 1: fit regression model with transformed normal distribution (df=Inf)
-mod1 <- mdmb::yjt_regression( y ~ x , data = dat )
+mod1 <- mdmb::yjt_regression( y ~ x, data=dat )
 summary(mod1)
 
 #--- Model 2: fit regression model with transformed scaled t distribution (df=10)
-mod2 <- mdmb::yjt_regression( y ~ x , data = dat , df = 10)
+mod2 <- mdmb::yjt_regression( y ~ x, data=dat, df=10)
 summary(mod2)
 
 #--- Model 3: fit regression model with transformed normal distribution (df=Inf)
 #             and fixed transformation parameter lambda of .5
-mod3 <- mdmb::yjt_regression( y ~ x , data = dat , lambda_fixed = .5)
+mod3 <- mdmb::yjt_regression( y ~ x, data=dat, lambda_fixed=.5)
 summary(mod3)
 
 #--- Model 3: fit regression model with transformed normal distribution (df=Inf)
 #             and fixed transformation parameter lambda of 1
 #             -> This model corresponds to least squares regression
-mod4 <- mdmb::yjt_regression( y ~ x , data = dat , lambda_fixed = 1)
+mod4 <- mdmb::yjt_regression( y ~ x, data=dat, lambda_fixed=1)
 summary(mod4)
 
 # fit with lm function
-mod4b <- stats::lm( y ~ x , data = dat )
+mod4b <- stats::lm( y ~ x, data=dat )
 summary(mod4b)
 
 #** compare log-likelihood values
@@ -275,14 +275,14 @@ set.seed(985)
 n <- 1000
 x <- stats::rnorm(n)
 y <- .5 + 1*x + stats::rnorm(n, sd=.7 )
-y <- mdmb::bc_antitrafo( y , lambda = .5 )
-dat <- data.frame( y = y , x = x )
+y <- mdmb::bc_antitrafo( y, lambda=.5 )
+dat <- data.frame( y=y, x=x )
 
 #--- Model 1: fit regression model with Box-Cox transformation
-mod1 <- mdmb::bct_regression( y ~ x , data = dat )
+mod1 <- mdmb::bct_regression( y ~ x, data=dat )
 summary(mod1)
 #--- Model 2: fit regression model with Yeo-Johnson transformation
-mod2 <- mdmb::yjt_regression( y ~ x , data = dat )
+mod2 <- mdmb::yjt_regression( y ~ x, data=dat )
 summary(mod2)
 #--- compare fit
 logLik(mod1)
@@ -300,13 +300,13 @@ z <- stats::rnorm(N)
 # regression coefficients
 b0 <- -.5 ; b1 <- .6 ; b2 <- .1
 # vector of thresholds
-thresh <- c(-1, -.3 , 1)
+thresh <- c(-1, -.3, 1)
 yast <- b0 + b1 * x + b2*z + stats::rnorm(N)
-y <- as.numeric( cut( yast , c(-Inf,thresh,Inf) ) ) - 1
-dat <- data.frame( x = x , y = y, z=z )
+y <- as.numeric( cut( yast, c(-Inf,thresh,Inf) ) ) - 1
+dat <- data.frame( x=x, y=y, z=z )
 
 #--- probit regression
-mod <- mdmb::oprobit_regression( formula = y ~ x + z + I(x*z), data=dat)
+mod <- mdmb::oprobit_regression( formula=y ~ x + z + I(x*z), data=dat)
 summary(mod)
 }
 }

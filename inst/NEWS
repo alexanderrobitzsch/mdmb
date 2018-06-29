@@ -29,10 +29,14 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.8  |  2018-05-17  |  Last: mdmb 0.8-9
+VERSIONS mdmb 0.8  |  2018-06-29  |  Last: mdmb 0.8-25
 ---------------------------------------------------------------------
 
-xxxx  *
+ADDED * included option for Gibbs sampling in frm_fb() which
+        can be enabled by the argument 'use_gibbs'
+ADDED * included multilevel regression for normally distributed
+        and ordinal data in frm_fb() (model 'mlreg')
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

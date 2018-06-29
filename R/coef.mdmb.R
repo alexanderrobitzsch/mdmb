@@ -1,7 +1,7 @@
 ## File Name: coef.mdmb.R
-## File Version: 0.13
+## File Version: 0.14
 
-coef_mdmb_extract <- function( object , ...)
+coef_mdmb_extract <- function( object, ...)
 {
     return(object$coef)
 }

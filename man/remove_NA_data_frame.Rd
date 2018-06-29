@@ -1,5 +1,5 @@
 %% File Name: remove_NA_data_frame.Rd
-%% File Version: 0.09
+%% File Version: 0.13
 
 \name{remove_NA_data_frame}
 \alias{remove_NA_data_frame}
@@ -16,7 +16,7 @@ known as listwise deletion.
 }
 
 \usage{
-remove_NA_data_frame(formula, data, weights = NULL)
+remove_NA_data_frame(formula, data, weights=NULL)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -66,15 +66,15 @@ data(data.ma01, package="miceadds")
 dat <- data.ma01
 
 #*** remove rows with some missings according to a formula
-dat1 <- mdmb::remove_NA_data_frame( formula = read ~ migrant + books , data=dat)
+dat1 <- mdmb::remove_NA_data_frame( formula=read ~ migrant + books, data=dat)
 
 #*** remove rows according to two formulas
 formula1 <- read ~ migrant + books
 formula2 <- paredu ~ migrant + female
 # create formula consisting of formula1 and formula2
-formula3 <- paste( "~" , deparse(formula1[[2]]), "+", deparse(formula1[[3]]), 
-             " + " , deparse(formula2[[2]]) , "+" , deparse(formula2[[3]])  )
-dat2 <- mdmb::remove_NA_data_frame( formula = as.formula(formula3) , data=dat)
+formula3 <- paste( "~", deparse(formula1[[2]]), "+", deparse(formula1[[3]]),
+             " + ", deparse(formula2[[2]]), "+", deparse(formula2[[3]])  )
+dat2 <- mdmb::remove_NA_data_frame( formula=as.formula(formula3), data=dat)
 
 dim(dat)
 dim(dat1$data)

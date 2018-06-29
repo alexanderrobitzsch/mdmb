@@ -1,10 +1,10 @@
 ## File Name: mdmb_regression_logistic_density.R
-## File Version: 0.02
+## File Version: 0.06
 
-mdmb_regression_logistic_density <- function( y, ypred , log, eps= 1E-50 )
+mdmb_regression_logistic_density <- function( y, ypred, log, eps=1E-50 )
 {
-    yp <- stats::plogis( ypred )                    
-    ll_i <- ifelse( y == 1 , yp , 1 - yp )
+    yp <- stats::plogis( ypred )
+    ll_i <- ifelse( y==1, yp, 1 - yp )
     if (log){
         ll_i <- log( ll_i + eps )
     }

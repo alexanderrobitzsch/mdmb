@@ -1,19 +1,19 @@
 ## File Name: remove_NA_data_frame.R
-## File Version: 0.03
+## File Version: 0.07
 
-remove_NA_data_frame <- function( formula , data , weights=NULL)
+remove_NA_data_frame <- function( formula, data, weights=NULL)
 {
     #-- include weights
     N <- nrow(data)
     if ( is.null(weights) ){
-        weights <- rep(1,N)    
-    }            
+        weights <- rep(1,N)
+    }
     #--- remove missings
-    data_vars <- stats::get_all_vars(formula=formula, data = data )
-    ind <- which( rowMeans( 1 - is.na(data_vars) ) == 1 )
-    data <- data[ ind , ]
+    data_vars <- stats::get_all_vars(formula=formula, data=data )
+    ind <- which( rowMeans( 1 - is.na(data_vars) )==1 )
+    data <- data[ ind, ]
     weights <- weights[ ind ]
     #--- output
-    res <- list( data = data , weights = weights )
-    return(res)        
-}    
+    res <- list( data=data, weights=weights )
+    return(res)
+}

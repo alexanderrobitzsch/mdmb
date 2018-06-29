@@ -1,5 +1,5 @@
 %% File Name: oprobit_dist.Rd
-%% File Version: 0.05
+%% File Version: 0.07
 
 \name{oprobit_dist}
 \alias{oprobit_dist}
@@ -18,7 +18,7 @@ Ordinal Probit Models
 }
 
 \description{
-Fits and evaluates the ordinal probit model. 
+Fits and evaluates the ordinal probit model.
 }
 
 \usage{
@@ -95,9 +95,9 @@ thresh <- c(0,.3, .7, 1.6)
 # latent continuous data
 yast <- stats::rnorm(N)
 # discretized ordinal data
-x <- as.numeric( cut( yast , c(-Inf,thresh,Inf) ) ) - 1
+x <- as.numeric( cut( yast, c(-Inf,thresh,Inf) ) ) - 1
 
-#-- fit ordinal probit distribution 
+#-- fit ordinal probit distribution
 mod <- mdmb::fit_oprobit(x=x)
 summary(mod)
 logLik(mod)

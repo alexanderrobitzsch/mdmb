@@ -1,5 +1,5 @@
 %% File Name: offset_values_extract.Rd
-%% File Version: 0.07
+%% File Version: 0.10
 
 \name{offset_values_extract}
 \alias{offset_values_extract}
@@ -58,7 +58,7 @@ Vector containing offset values
 data(data.ma01, package="miceadds")
 dat <- data.ma01
 
-dat1 <- mdmb::offset_values_extract( formula = ~ migrant + offset(books) , data = dat )
+dat1 <- mdmb::offset_values_extract( formula=~ migrant + offset(books), data=dat )
 dat1[1:5]
   ##  [1] 6 6 5 2 6
 }
