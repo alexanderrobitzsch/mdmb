@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.943
+## File Version: 0.944
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -97,7 +97,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         }
         post <- frm_normalize_posterior( post=post, case=dat$case )
         post <- dat$weights0 * post
-#        post <- dat$weights
         ll <- sum(loglike * post)
         res <- list( ll=ll, loglike=loglike, post0a=post0a )
         if ( ! return_like ){

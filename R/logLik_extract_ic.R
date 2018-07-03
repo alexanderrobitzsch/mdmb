@@ -1,5 +1,5 @@
 ## File Name: logLik_extract_ic.R
-## File Version: 0.05
+## File Version: 0.06
 
 logLik_extract_ic <- function( object )
 {

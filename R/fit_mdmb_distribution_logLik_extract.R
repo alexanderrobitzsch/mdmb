@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution_logLik_extract.R
-## File Version: 0.08
+## File Version: 0.09
 
 fit_mdmb_distribution_logLik_extract <- function( object )
 {

@@ -1,7 +1,8 @@
 ## File Name: summary.fit_oprobit.R
-## File Version: 0.04
+## File Version: 0.05
 
-summary.fit_oprobit <- function( object, digits=4, file=NULL, ...){
+summary.fit_oprobit <- function( object, digits=4, file=NULL, ...)
+{
     fit_mdmb_distribution_summary( object=object, digits=digits, file=file, ...)
 }
 

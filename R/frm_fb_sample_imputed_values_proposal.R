@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.28
+## File Version: 0.32
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
@@ -38,10 +38,18 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
         do_mh <- TRUE
     }
     #*** sample new values for linear regression
-    if ( model_vv %in% c( "mlreg" ) ){    
-        imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
-        do_mh <- TRUE
-    }        
-    res <- list( imp1=imp1, do_mh=do_mh, gibbs_values=gibbs_values, NG=NG )    
+    if ( model_vv %in% c( "mlreg" ) ){
+        outcome <- ind0_vv$R_args$outcome
+        if (outcome=="probit"){
+            imp1 <- dat_vv[,var_vv]
+            gibbs_values <- seq(0, max(imp1) )
+            NG <- length(gibbs_values)
+        }
+        if (outcome=="normal"){
+            imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
+            do_mh <- TRUE
+        }
+    }
+    res <- list( imp1=imp1, do_mh=do_mh, gibbs_values=gibbs_values, NG=NG )
     return(res)
 }

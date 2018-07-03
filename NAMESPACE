@@ -55,18 +55,22 @@ importFrom(utils, packageDescription)
 
 #***************************************************
 #************** Imports (own) **********************
- 
+
+importFrom(CDM, cdm_print_summary_data_frame) 
 importFrom(CDM, csink)
 importFrom(CDM, numerical_Hessian)
 importFrom(CDM, osink)
 importFrom(miceadds, datalist2mids)
 importFrom(miceadds, datlist_create)
 importFrom(miceadds, miceadds_rcpp_ml_mcmc_predict_fixed_random)
+importFrom(miceadds, miceadds_rcpp_ml_mcmc_probit_category_prob)
 importFrom(miceadds, ml_mcmc)
 importFrom(miceadds, ml_mcmc_fit)
 importFrom(sirt, mcmc_Rhat)
 importFrom(sirt, rowCumsums.sirt)
 importFrom(sirt, rowIntervalIndex.sirt)
+importFrom(sirt, sirt_summary_print_call)
+importFrom(sirt, sirt_summary_print_package_rsession)
 importFrom(TAM, weighted_sd)
 
 

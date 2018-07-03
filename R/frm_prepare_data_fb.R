@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_data_fb.R
-## File Version: 0.17
+## File Version: 0.18
 
 frm_prepare_data_fb <- function(dat, dep, ind, weights0, dat0, data_init )
 {
@@ -71,8 +71,8 @@ frm_prepare_data_fb <- function(dat, dep, ind, weights0, dat0, data_init )
     impute_vars <- names(freq_miss_values)[ freq_miss_values > 0]
     impute_vars_index <- match( impute_vars, dv_vars )
     #--- output
-    res <- list( dat=dat, dv_vars=dv_vars, dat_resp=dat_resp, ind_resp=ind_resp, 
-                ind_miss=ind_miss, freq_miss_values=freq_miss_values, 
+    res <- list( dat=dat, dv_vars=dv_vars, dat_resp=dat_resp, ind_resp=ind_resp,
+                ind_miss=ind_miss, freq_miss_values=freq_miss_values,
                 impute_vars=impute_vars, impute_vars_index=impute_vars_index)
     return(res)
 }

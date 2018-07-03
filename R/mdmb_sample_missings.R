@@ -1,5 +1,5 @@
 ## File Name: mdmb_sample_missings.R
-## File Version: 0.01
+## File Version: 0.05
 
 mdmb_sample_missings <- function(data, vars=NULL)
 {
@@ -13,8 +13,8 @@ mdmb_sample_missings <- function(data, vars=NULL)
         ind_vv <- is.na(dvv)
         svv <- sum(ind_vv)
         if ( svv > 0 ){
-            data[ ind_vv ,var_vv] <- sample( dvv[ ! ind_vv ], size = svv, replace=TRUE )
-        }        
+            data[ ind_vv,var_vv] <- sample( dvv[ ! ind_vv ], size=svv, replace=TRUE )
+        }
     }
     return(data)
 }

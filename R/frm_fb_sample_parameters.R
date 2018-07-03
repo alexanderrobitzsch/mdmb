@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.506
+## File Version: 0.512
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -20,24 +20,24 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         NC <- ind_mm$N_coef
         use_gibbs_model <- ind_mm$use_gibbs_model
         res0 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
-                    weights=weights, mod=mod, coef=coef0, sigma=sigma0)                
-        if ( use_gibbs_model ){            
+                    weights=weights, mod=mod, coef=coef0, sigma=sigma0)
+        if ( use_gibbs_model ){
             coef0 <- res0$coef
             #---- linear regression
-            if ( ind_mm$model == "linreg" ){
+            if ( ind_mm$model=="linreg" ){
                 if ( ind_mm$sample_sigma ){
                     sigma0 <- res0$sigma
                 }
             }
             #---- multilevel regression
-            if ( ind_mm$model == "mlreg" ){
+            if ( ind_mm$model=="mlreg" ){
                 mod$coef <- coef0
                 mod$beta <- res0$beta
                 mod$Psi_list <- res0$Psi_list
                 mod$sigma2 <- res0$sigma2
                 mod$u_list <- res0$u_list
-                mod$alpha <- res0$alpha                
-            }            
+                mod$alpha <- res0$alpha
+            }
         }
 
         if ( ( NC > 0) & ( ! use_gibbs_model ) ) {
@@ -45,8 +45,8 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
                 coef1 <- coef0
                 coef1[cc] <- stats::rnorm(1, mean=coef0[cc], sd=ind_mm$coef_sd_proposal[cc])
                 res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
-                                weights=weights, mod=mod, coef=coef1, sigma=sigma0)                                
-                accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)                                
+                                weights=weights, mod=mod, coef=coef1, sigma=sigma0)
+                accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)
                 ind_mm$coef_MH$iter[cc] <- ind_mm$coef_MH$iter[cc] + 1
                 if (accept){
                     coef0 <- coef1
@@ -62,7 +62,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
             sigma1 <- stats::rnorm(1, mean=sigma0, sd=ind_mm$sigma_sd_proposal)
             res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
                             weights=weights, mod=mod, coef=coef0, sigma=sigma1)
-            accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)    
+            accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)
             ind_mm$sigma_MH$iter <- ind_mm$sigma_MH$iter + 1
             if (accept){
                 sigma0 <- sigma1
@@ -102,8 +102,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     }
     #--------------------------------
     #--- output
-    res <- list( model_results=model_results, ind0=ind0,
-                    parms_mcmc=parms_mcmc  )
+    res <- list( model_results=model_results, ind0=ind0, parms_mcmc=parms_mcmc )
     return(res)
 }
 

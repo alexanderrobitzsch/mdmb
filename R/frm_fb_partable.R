@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.42
+## File Version: 0.43
 
 frm_fb_partable <- function( ind0, parms_mcmc )
 {
@@ -23,7 +23,7 @@ frm_fb_partable <- function( ind0, parms_mcmc )
         c1 <- names_mm
         if (NC > 0){
             dfr1 <- data.frame(
-                        "index"= parms_index[[mm]][1],
+                        "index"=parms_index[[mm]][1],
                         "model"=mm,
                         "dv"=dv_mm, "parm"=c1,
                         "ON"=1, "est"=NA )
@@ -42,7 +42,7 @@ frm_fb_partable <- function( ind0, parms_mcmc )
         names_mm <- parms[[mm]][2]
         if ( include_sigma ){
             dfr1b <- data.frame(
-                        "index"= parms_index[[mm]][2],
+                        "index"=parms_index[[mm]][2],
                         "model"=mm,
                         # "type"=model_mm,
                         "dv"=dv_mm,

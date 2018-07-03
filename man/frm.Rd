@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.778
+%% File Version: 0.785
 
 \name{frm}
 \alias{frm}
@@ -105,6 +105,10 @@ Optional vector containing initial probabilities for each node \cr
 \code{sigma_fixed}: Fixed standard deviations in case of \code{model="linreg"}.
 Heterogeneous standard deviations are allowed. \cr
 \code{R_args}: Arguments for estimation functions. \cr
+\code{sampling_level}: Variable name for cluster identifiers for level for sampling values
+for multilevel data. Sampling at level of clusters can be beneficials
+if derived variables from cluster members (e.g., group means) occur
+in multilevel models. The option is only applicable for \code{frm_fb}. \cr
 }
   \item{ind}{
 List containing a list of univariate conditional models for covariates.
@@ -740,6 +744,32 @@ mod1 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, data_init=data_init,
                    iter=iter, burnin=burnin)
 summary(mod1)
 plot(mod1)
+
+#############################################################################
+# EXAMPLE 10: Imputation for missig predictors in models with interaction
+#             effects in multilevel regression models
+#############################################################################
+
+library(miceadds)
+data(data.mb04, package="mdmb")
+dat <- data.mb04
+
+#*** model specification
+mcmc_iter <- 4   # number of MCMC iterations for model parameter sampling
+model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) +  w + w*cwc(x, idcluster) +
+                   w*gm(x, idcluster) + ( 1 + cwc(x, idcluster) | idcluster)
+dep <- list("model"="mlreg", "formula"=model_formula,
+               R_args=list(iter=mcmc_iter. outcome="probit") )
+ind_x <- list( "model"="mlreg", "formula"=x ~ w + ( 1|idcluster), R_args=list(iter=mcmc_iter),
+                  sampling_level="idcluster" )
+# group means of x are involved in the outcome model. Therefore, Metropolis-Hastings
+# sampling of missing values in x should be conducted at the level of clusters,
+# i.e. specifying sampling_level
+ind <- list( "x"=ind_x)
+
+# --- estimate model
+mod <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
+# agrument aggregation is necessary because group means are involved in regression formulas
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

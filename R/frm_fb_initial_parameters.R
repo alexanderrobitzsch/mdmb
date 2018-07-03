@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.357
+## File Version: 0.360
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init )
 {
@@ -38,8 +38,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init )
             }
             ind_mm$coef_parnames <- paste0( var_mm, on1, names_mm )
         }
-        if ( model_mm == "mlreg"){
-            ind_mm$coef_parnames <- paste0( var_mm, "_" , names_mm )
+        if ( model_mm=="mlreg"){
+            ind_mm$coef_parnames <- paste0( var_mm, "_", names_mm )
         }
         parms0[[1]] <- ind_mm$coef_parnames
         v1 <- 0*coef(mod)

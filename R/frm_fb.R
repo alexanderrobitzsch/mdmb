@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.753
+## File Version: 0.760
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -10,7 +10,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 {
     CALL <- match.call()
     s1 <- Sys.time()
-    
+
     #*****************----------------
     # adaptation of function for including new model classes
     #
@@ -49,7 +49,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     #        * no adaptations are needed
     #
     #*****************----------------
-    
+
     #*** prepare models
     res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_weights=FALSE, use_gibbs=use_gibbs,
                 weights=weights)
@@ -76,7 +76,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     impute_vars <- res2$impute_vars
     impute_vars_index <- res2$impute_vars_index
     N2 <- nrow(dat)
-    
+
     #*** prepare list of models
     NM <- attr(ind,"NM")
     ind0 <- ind
@@ -98,12 +98,13 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
                         Nsave=Nsave, Nimp=Nimp, npars=npars, parms=parms,
                         parms_index=parms_index, predictorMatrix=predictorMatrix )
     iter <- parms_mcmc$iter
-    
+
     #**** inits objects for imputations
     imputations_mcmc <- frm_fb_init_imputations( Nimp=Nimp, model_results=model_results,
                             iter=iter, burnin=burnin, impute_vars=impute_vars,
                             impute_vars_index=impute_vars_index, ind_miss=ind_miss,
-                            dv_vars=dv_vars, ind0=ind0, variablesMatrix=variablesMatrix)
+                            dv_vars=dv_vars, ind0=ind0, variablesMatrix=variablesMatrix,
+                            dat=dat)
     #*** add additional arguments for regression functions
     # ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
 
@@ -117,7 +118,6 @@ zz0 <- Sys.time()
 
     #**** MCMC algorithm
     while( iterate ){
-
         #*** sample model parameters
         res <- frm_fb_sample_parameters( dat=dat, ind0=ind0, NM=NM, iter=iter,
                     weights0=weights0, dat_resp=dat_resp, ind_resp=ind_resp,
@@ -126,7 +126,7 @@ zz0 <- Sys.time()
         ind0 <- res$ind0
         model_results <- res$model_results
         parms_mcmc <- res$parms_mcmc
-        
+
         #*** imputation of missing values
         res <- frm_fb_sample_imputed_values( imputations_mcmc=imputations_mcmc,
                     model_results=model_results, ind0=ind0, iter=iter, dat=dat,
@@ -180,9 +180,9 @@ zz0 <- Sys.time()
     #--- output
     s2 <- Sys.time()
     res <- list( coef=coefs, vcov=vcovs, partable=partable, tech_summary=tech_summary,
-                values_coda=values_coda, ic=ic, ind0=ind0, parms_mcmc=parms_mcmc, 
+                values_coda=values_coda, ic=ic, ind0=ind0, parms_mcmc=parms_mcmc,
                 imputations_mcmc=imputations_mcmc, predictorMatrix=predictorMatrix,
-                variablesMatrix=variablesMatrix, desc_vars=desc_vars, model_results=model_results, 
+                variablesMatrix=variablesMatrix, desc_vars=desc_vars, model_results=model_results,
                 ind0=ind0, dat=dat0, freq_miss_values=freq_miss_values,    iter=maxiter, burnin=burnin,
                 CALL=CALL, s1=s1, s2=s2    , diff_time=s2-s1 )
     class(res) <- "frm_fb"

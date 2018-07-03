@@ -1,17 +1,17 @@
 ## File Name: frm_mlreg_sample_parameters.R
-## File Version: 0.14
+## File Version: 0.15
 
 
-frm_mlreg_sample_parameters <- function(model, y, design_matrix, 
+frm_mlreg_sample_parameters <- function(model, y, design_matrix,
         R_args, ...)
 {
     #*** create new design matrices
     formula_terms <- model$formula_terms
     data <- design_matrix
-    res <- frm_mlreg_create_design_matrices(data=data, formula_terms=formula_terms )                                
+    res <- frm_mlreg_create_design_matrices(data=data, formula_terms=formula_terms )
     y <- res$y
     X <- res$X
-    Z_list <- res$Z_list    
+    Z_list <- res$Z_list
     #*** define arguments
     beta <- model$beta
     Psi_list <- model$Psi_list
@@ -52,9 +52,9 @@ frm_mlreg_sample_parameters <- function(model, y, design_matrix,
             parameter_index=parameter_index, est_parameter=est_parameter, npar=npar,
             iter=iter, save_iter=save_iter, verbose=verbose, print_iter=print_iter,
             parnames0=parnames0, K=K, est_thresh=est_thresh, thresh_fac=thresh_fac,
-            parm_summary=FALSE)    
+            parm_summary=FALSE)
     res <- do.call( miceadds::ml_mcmc_fit, args=ml_mcmc_fit_args)
-    sampled_values <- res$sampled_values    
+    sampled_values <- res$sampled_values
     coef <- sampled_values[ nrow(sampled_values), ]
     names(coef) <- colnames(sampled_values)
     res$coef <- coef

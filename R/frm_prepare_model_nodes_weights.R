@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_model_nodes_weights.R
-## File Version: 0.27
+## File Version: 0.28
 
 frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
 {

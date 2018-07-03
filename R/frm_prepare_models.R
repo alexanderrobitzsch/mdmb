@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.478
+## File Version: 0.485
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
     use_gibbs=FALSE, weights=NULL )
@@ -9,15 +9,16 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     NM <- length(ind)
     dv_vars <- NULL
     no_weights <- is.null(weights)
-    for (mm in 1:NM){    
+    for (mm in 1:NM){
         res <- frm_formula_extract_terms( ind[[mm]]$formula )
         all_vars <- c( all_vars, res$all_vars )
         dv_vars <- c( dv_vars, res$dv_vars )
-        res <- frm_append_list( list1=ind[[mm]], list2=res )        
+        res <- frm_append_list( list1=ind[[mm]], list2=res )
         ## depends on regression model classes
-        res1 <- frm_define_model_R_function(model=res, use_grad=use_grad, 
-                    use_gibbs=use_gibbs, R_args=ind[[mm]]$R_args ) 
-        res1$no_weights <- no_weights    
+        res1 <- frm_define_model_R_function(model=res, use_grad=use_grad,
+                    use_gibbs=use_gibbs, R_args=ind[[mm]]$R_args,
+                    sampling_level=ind[[mm]]$sampling_level )
+        res1$no_weights <- no_weights
         ind[[mm]] <- frm_append_list( list1=res, list2=res1 )
         if (nodes_weights){
             ind[[mm]] <- frm_prepare_model_nodes_weights( ind_mm=ind[[mm]],
@@ -31,7 +32,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     res <- frm_formula_extract_terms( dep$formula )
     all_vars <- unique( c( all_vars, res$all_vars ) )
     res <- frm_append_list( list1=dep, list2=res )
-    res1 <- frm_define_model_R_function(model=res, use_grad=use_grad, 
+    res1 <- frm_define_model_R_function(model=res, use_grad=use_grad,
                     use_gibbs=use_gibbs, R_args=dep$R_args )
     res1$no_weights <- no_weights
     dep <- frm_append_list( list1=res, list2=res1 )

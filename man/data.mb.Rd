@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.17
+%% File Version: 0.21
 
 \name{data.mb}
 \alias{data.mb}
@@ -7,6 +7,7 @@
 \alias{data.mb01}
 \alias{data.mb02}
 \alias{data.mb03}
+\alias{data.mb04}
 
 \docType{data}
 
@@ -23,6 +24,7 @@ Example datasets for \pkg{mdmb} package.
 data(data.mb01)
 data(data.mb02)
 data(data.mb03)
+data(data.mb04)
 }
 
 
@@ -67,6 +69,15 @@ and middle school reading (\code{y}) which all have missing values.
 \code{ $ x: num  NA NA NA NA NA 8.34 NA 8.36 6.89 8.56 ...} \cr
 \code{ $ z: num  8.81 4.5 6.31 4.7 5.1 4 6.11 3.7 6.81 6.31 ...} \cr
 \code{ $ y: num  5 5.1 6.3 9 9 9.3 NA 10.7 6.2 NA ...} \cr
+
+\item Dataset \code{data.mb04}. This multilevel dataset contains three variables:
+level-1 variables code{y}, \code{x} and the level-2 variable \code{w}.
+
+\code{'data.frame':   500 obs. of  4 variables:} \cr
+\code{ $ idcluster: int  1 1 1 1 1 2 2 2 2 2 ...} \cr
+\code{ $ x        : num  NA NA -1.15 -1.65 0.25 ...} \cr
+\code{ $ w        : num  -0.552 -0.552 -0.552 -0.552 -0.552 ...} \cr
+\code{ $ y        : num  NA NA -0.0711 0.7165 -0.1917 ...} \cr
 
 
 }

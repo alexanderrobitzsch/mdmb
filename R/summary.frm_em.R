@@ -1,59 +1,36 @@
 ## File Name: summary.frm_em.R
-## File Version: 0.31
+## File Version: 0.34
 
 
 #*******************************************************
 # Summary for frm_em object
-summary.frm_em <- function( object, digits=4, file=NULL, ...){
-
+summary.frm_em <- function( object, digits=4, file=NULL, ...)
+{
     # open sink
     CDM::osink( file=file, suffix=paste0( "__SUMMARY.Rout") )
 
     cat("-----------------------------------------------------------------\n")
-    d1 <- utils::packageDescription("mdmb")
-    cat( paste( d1$Package, " ", d1$Version, " (", d1$Date, ")", sep=""), "\n\n" )
-    cat( "Date of Analysis:", paste( object$s2 ), "\n" )
-    cat("Computation Time:", print(object$s2 - object$s1), "\n\n")
+    sirt::sirt_summary_print_package_rsession(pack="mdmb")
 
-    cat("Call:\n", paste( deparse(object$CALL), sep="\n", collapse="\n"),
-                "\n\n", sep="")
+    mdmb_summary_print_computation_time(object=object)
 
-    # cat( object$descriptions["des_method"], "\n\n")
+    sirt::sirt_summary_print_call(CALL=object$CALL)
 
     cat("-----------------------------------------------------------------\n")
-    cat( "Number of observations=", object$ic$N, "\n" )
-    cat( "Number of iterations=", object$iter, "\n\n" )
-    cat( "Deviance=", round( object$ic$deviance, 2 ), "\n" )
-    cat( "Log likelihood=", round( object$ic$loglike, 2 ), "\n" )
+    cat( "Number of observations","=", object$ic$N, "\n" )
+    cat( "Number of iterations","=", object$iter, "\n\n" )
+    cat( "Deviance","=", round( object$ic$deviance, 2 ), "\n" )
+    cat( "Log likelihood","=", round( object$ic$loglike, 2 ), "\n" )
 
     cat("\n")
-    cat( "Number of estimated parameters=", object$ic$np, "\n" )
-#    cat( "  Number of estimated beta parameters=", object$ic$np.beta,
-#                "\n" )
+    cat( "Number of estimated parameters","=", object$ic$np, "\n" )
 
-#        cat( "AIC =", round( object$ic$AIC, 1 ), " | penalty=",
-#                round( object$ic$AIC - object$ic$deviance,2 ),
-#                "   | AIC=-2*LL + 2*p  \n" )
-
-#    cat( "AICc=", round( object$ic$AICc, 0 )," | penalty=",
-# round( object$ic$AICc - object$ic$deviance,2 ) )
-#        cat("    | AICc=-2*LL + 2*p + 2*p*(p+1)/(n-p-1)  (bias corrected AIC)\n" )
-#    cat( "BIC =", round( object$ic$BIC, 0 ), " | penalty=",
-# round( object$ic$BIC - object$ic$deviance,2 ),
-#            "   | BIC=-2*LL + log(n)*p  \n" )
-#    cat( "CAIC=", round( object$ic$CAIC, 0 )," | penalty=",
-# round( object$ic$CAIC - object$ic$deviance,2 ) )
-#        cat("   | CAIC=-2*LL + [log(n)+1]*p  (consistent AIC)\n\n" )
 
     #--- Model equations
     cat("-----------------------------------------------------------------\n")
     cat("Descriptive Statistics (obtained from EM Algorithm)\n")
     obji <- object$desc_vars
-    for (ii in seq( 2, ncol(obji) )){
-        obji[,ii] <- round( obji[,ii], digits)
-    }
-    print(obji)
-
+    CDM::cdm_print_summary_data_frame(obji, digits=digits, from=2)
 
     #--- Predictor matrix
     cat("-----------------------------------------------------------------\n")
@@ -114,11 +91,7 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...){
         if (ind_mm$model=="linreg"){
             all_coefs <- object$all_coefs[[mm]]
             AC <- length(all_coefs)
-#            v1 <- paste0("Residual standard deviation sigma=",
-#                    round( all_coefs[ AC-1], digits ),    "\n")
-#            cat(v1)
-            v1 <- paste0("Explained variance R^2=",
-                    round( all_coefs[AC], digits ),    "\n")
+            v1 <- paste0("Explained variance R^2=", round( all_coefs[AC], digits ), "\n")
             cat(v1)
         }
         if (ind_mm$model %in% c("logistic") ) {
@@ -130,9 +103,6 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...){
         }
     }
 
-#    obji <- object$beta_summary
-#    a <- summary_round_helper(obji, digits=digits, exclude=excl, print=TRUE)
-    # close sink
     CDM::csink( file=file )
 }
 #*******************************************************
