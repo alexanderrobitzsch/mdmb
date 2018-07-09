@@ -1,7 +1,7 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.360
+## File Version: 0.386
 
-frm_fb_initial_parameters <- function(dat, ind0, data_init )
+frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
     weights <- dat$weights
     NM <- attr(ind0, "NM")
@@ -12,15 +12,48 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init )
     model_results <- list()
     parms <- list()
     parms00 <- list( NA, NA )
+
     for (mm in 1:NM1){
-        # mm <- 1
-# cat("\n------ mm=", mm, "----- \n")
         ind_mm <- ind0[[mm]]
         var_mm <- ind_mm$dv_vars
+# cat("\n------ mm=", mm, "----- var_mm ", var_mm, " ---- \n")
+        ind_miss_mm <- ind_miss[[ var_mm ]]
         model_mm <- ind_mm$model
         parms0 <- parms00
         #--- estimate model with weights
-        R_args <- list( formula=ind_mm$formula, data=dat, weights=weights)
+        use_variable_level <- FALSE
+        id_variable_level <- NULL
+        id_variable_level_unique <- NULL
+        variable_info <- NULL
+        if ( ! is.null( ind_mm$variable_level) ){
+            use_variable_level <- TRUE
+            id <- dat[, ind_mm$variable_level]
+            id_variable_level <- match( id, unique(id) )
+            id_variable_level_unique <- which( ! duplicated(id_variable_level) )
+            v1 <- dat[ id_variable_level_unique, var_mm ]
+            dat[, var_mm ] <- v1[ id_variable_level ]
+            #-- data frame with informations
+            N <- nrow(dat)
+            variable_info <- data.frame( case=1:N, id=id_variable_level)
+            variable_info$miss <- variable_info$case %in% ind_miss_mm
+            variable_info$unique <- variable_info$case %in% id_variable_level_unique
+            variable_info <- variable_info[ variable_info$miss, ]
+            variable_info$miss_id <- 1:nrow(variable_info)
+            variable_info$replace_miss_id <- variable_info$miss_id
+            # unique_cases <- unique(variable_info$id[ variable_info$unique ] )
+            var1 <- variable_info[ variable_info$unique, ]
+            var2 <- variable_info[ ! variable_info$unique, ]
+            var2[, "replace_miss_id"] <- var1[ match( var2$id, var1$id), "miss_id" ]
+            variable_info <- rbind( var1, var2)
+            variable_info <- variable_info[ order(variable_info$miss_id), ]
+        }
+        ind_mm$use_variable_level <- use_variable_level
+        ind_mm$id_variable_level <- id_variable_level
+        ind_mm$id_variable_level_unique <- id_variable_level_unique
+        ind_mm$variable_info <- variable_info
+
+        #*** estimate model
+        R_args <- frm_estimate_model_create_R_args(dat=dat, weights=weights, ind_mm=ind_mm)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod
@@ -85,7 +118,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init )
     }
     #--- output
     res <- list(ind0=ind0, parms=parms, parms_index=parms_index,
-                npars=N0, model_results=model_results )
+                npars=N0, model_results=model_results, dat=dat )
     return(res)
 }
 

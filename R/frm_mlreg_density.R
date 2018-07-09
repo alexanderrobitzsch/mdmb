@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_density.R
-## File Version: 0.14
+## File Version: 0.15
 
 
 frm_mlreg_density <- function( model, y, case, design_matrix)
@@ -21,7 +21,7 @@ frm_mlreg_density <- function( model, y, case, design_matrix)
     outcome <- model$outcome
     K <- model$K
 
-    #- evaluate normal density
+    #- evaluate densities
     ypred <- miceadds::miceadds_rcpp_ml_mcmc_predict_fixed_random( X=X, beta=beta, Z_list=Z_list,
                         u_list=u_list, idcluster_list=idcluster_list, NR=NR )
     ypred <- ypred[,1]

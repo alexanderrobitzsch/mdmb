@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_summary.R
-## File Version: 0.36
+## File Version: 0.42
 
 
 #*******************************************************
@@ -14,11 +14,7 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
 
     cat("-----------------------------------------------------------------\n")
     # package and R session
-    sirt::sirt_summary_print_package_rsession(pack="mdmb")
-    
-    mdmb_summary_print_computation_time(object=object)
-
-    sirt::sirt_summary_print_call(CALL=object$CALL)
+    mdmd_summary_print_model_description(object=object, pack="mdmb")
 
     cat( object$description, "\n\n")
 
@@ -39,16 +35,16 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
     cat( "  Number of estimated threshold parameters","=", object$ic$np.thresh, "\n" )
     cat("\n")
 
-    cat( "AIC=", round( object$ic$AIC, 2 ), " | penalty","=",
+    cat( "AIC","=", round( object$ic$AIC, 2 ), " | penalty","=",
                 round( object$ic$AIC - object$ic$deviance,2 ),
                 "   | AIC=-2*LL + 2*p  \n" )
-    cat( "AICc=", round( object$ic$AICc, 2 )," | penalty","=",
+    cat( "AICc","=", round( object$ic$AICc, 2 )," | penalty","=",
                 round( object$ic$AICc - object$ic$deviance,2 ) )
     cat("    | AICc=-2*LL + 2*p + 2*p*(p+1)/(n-p-1)  (bias corrected AIC)\n" )
-    cat( "BIC=", round( object$ic$BIC, 2 ), " | penalty","=",
+    cat( "BIC","=", round( object$ic$BIC, 2 ), " | penalty","=",
                 round( object$ic$BIC - object$ic$deviance,2 ),
             "   | BIC=-2*LL + log(n)*p  \n" )
-    cat( "CAIC=", round( object$ic$CAIC, 2 )," | penalty","=",
+    cat( "CAIC","=", round( object$ic$CAIC, 2 )," | penalty","=",
                 round( object$ic$CAIC - object$ic$deviance,2 ) )
     cat("   | CAIC=-2*LL + [log(n)+1]*p  (consistent AIC)\n\n" )
 
@@ -71,12 +67,12 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
 
     #*** logistic regression
     if (type %in% c("logistic", "oprobit") ){
-        cat("Pseudo R-Square (McKelvey & Zavoina)=",
+        cat("Pseudo R-Square (McKelvey & Zavoina)","=",
             round( object$R2, digits ), "\n" )
     }
     #*** yjt and bct regression
     if (type %in% c("yjt","bct") ){
-        cat("R2=",     round( object$R2, digits ), "\n" )
+        cat("R2","=",     round( object$R2, digits ), "\n" )
     }
 
     # close sink

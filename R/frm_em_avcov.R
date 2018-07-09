@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.944
+## File Version: 0.946
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {

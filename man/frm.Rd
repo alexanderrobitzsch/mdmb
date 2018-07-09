@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.785
+%% File Version: 0.798
 
 \name{frm}
 \alias{frm}
@@ -47,6 +47,12 @@ function \code{frm2datlist}.
 The current functionality only support missing values on continuous covariates
 (accommodating skewness and only positive values), dichotomous covariates and
 ordinal covariates.
+
+Multilevel models (using \code{model="mlreg"}) for normally distributed 
+(\code{outcome="normal"}) and ordinal variables (\code{outcome="probit"}) 
+as well as variables at higher levels (using argument \code{variable_level}) 
+are accommodated.
+
 The handling of nominal covariates will be included in future
 \pkg{mdmb} package versions.
 }
@@ -109,6 +115,8 @@ Heterogeneous standard deviations are allowed. \cr
 for multilevel data. Sampling at level of clusters can be beneficials
 if derived variables from cluster members (e.g., group means) occur
 in multilevel models. The option is only applicable for \code{frm_fb}. \cr
+\code{variable_level}: Cluster identifier indicating level of variable for imputations
+of higher-level variables
 }
   \item{ind}{
 List containing a list of univariate conditional models for covariates.
@@ -241,7 +249,7 @@ Missing-data methods for generalized linear models: A comparative review.
 Jamshidian, M., & Jennrich, R. I. (2000). Standard errors for EM estimation.
 \emph{Journal of the Royal Statistical Society (Series B), 62}, 257-270.
 
-Keller, B. T., & Enders, C. K. (2018). \emph{Blimp user's manual}. Los Angeles, CA.
+Keller, B. T., & Enders, C. K. (2018). \emph{Blimp user's manual}. Los Angeles, CA. \cr
 \emph{http://www.appliedmissingdata.com/multilevel-imputation.html}
 
 Lee, M. C., & Mitra, R. (2016). Multiply imputing missing values in data sets
@@ -759,7 +767,7 @@ mcmc_iter <- 4   # number of MCMC iterations for model parameter sampling
 model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) +  w + w*cwc(x, idcluster) +
                    w*gm(x, idcluster) + ( 1 + cwc(x, idcluster) | idcluster)
 dep <- list("model"="mlreg", "formula"=model_formula,
-               R_args=list(iter=mcmc_iter. outcome="probit") )
+               R_args=list(iter=mcmc_iter, outcome="normal") )
 ind_x <- list( "model"="mlreg", "formula"=x ~ w + ( 1|idcluster), R_args=list(iter=mcmc_iter),
                   sampling_level="idcluster" )
 # group means of x are involved in the outcome model. Therefore, Metropolis-Hastings
@@ -768,8 +776,21 @@ ind_x <- list( "model"="mlreg", "formula"=x ~ w + ( 1|idcluster), R_args=list(it
 ind <- list( "x"=ind_x)
 
 # --- estimate model
-mod <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
-# agrument aggregation is necessary because group means are involved in regression formulas
+mod1 <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
+# argument aggregation is necessary because group means are involved in regression formulas
+
+#-------------
+#*** imputation of a continuous level-2 variable w
+
+#  create artificially some missings on w
+dat[ dat$idcluster \%\%3==0, "w" ] <- NA
+
+# define level-2 model with argument variable_level
+ind_w <- list( "model"="linreg", "formula"=w ~ 1, "variable_level"="idcluster" )
+ind <- list( x=ind_x, w=ind_w)
+
+#* conduct imputations
+mod2 <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameter_step.R
-## File Version: 0.364
+## File Version: 0.370
 
 
 frm_fb_sample_parameter_step <- function( ind_mm, dat, weights,
@@ -7,7 +7,15 @@ frm_fb_sample_parameter_step <- function( ind_mm, dat, weights,
 {
     #--- compute likelihood
     mod$coefficients <- coef
+    use_variable_level <- ind_mm$use_variable_level
     mod$sigma <- sigma
+    #* adapt for sampling parameters for models with variables at higher levels
+    if (use_variable_level){
+        id_variable_level_unique <- ind_mm$id_variable_level_unique
+        dat <- dat[ id_variable_level_unique, ]
+        weights <- weights[ id_variable_level_unique ]
+    }
+    #* create list of arguments
     args <- list(model=mod, y=dat[, ind_mm$dv_vars ], case=dat$case)
     args$design_matrix <- dat
     if ( ind_mm$use_gibbs_model ){

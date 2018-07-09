@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.22
+%% File Version: 0.25
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -11,12 +11,15 @@ Model Based Treatment of Missing Data
 }
 
 \description{
-    Contains model-based treatment of missing data for regression models 
-    with missing values in covariates or the dependent variable 
-    using maximum likelihood or Bayesian estimation (Ibrahim et al., 2005;
-    <doi:10.1198/016214504000001844>). The regression model can be nonlinear
-    (e.g., including interaction or quadratic effects). 
-    Multiple imputation can be also conducted.
+    Contains model-based treatment of missing data for regression 
+    models with missing values in covariates or the dependent 
+    variable using maximum likelihood or Bayesian estimation 
+    (Ibrahim et al., 2005; <doi:10.1198/016214504000001844>). T
+    The regression model can be nonlinear (e.g., interaction 
+    quadratic effects or spline functions). Multilevel models
+    with missing data in predictors is also available for
+    Bayesian estimation. Substantive-model compatible multiple 
+    imputation can be also conducted.
 }
 
 \details{
@@ -25,10 +28,17 @@ Model Based Treatment of Missing Data
 
 \item The maximum likelihood estimation of regression models with
 missing values in covariates is implemented in \code{\link{frm_em}}.
+Available regression models are linear regression, logistic regression,
+ordinal probit regression and models with Box-Cox or Yeo-Johnson transformed 
+normally distributed outcomes. The factorization based regression model
+also allow the inclusion of latent variables and measurement error prone
+covariates.  
 
 \item Bayesian estimation and multiple imputation of regression models with
-missing values in covariates is implemented in \code{\link{frm_fb}}. 
-
+missing values in covariates is implemented in \code{\link{frm_fb}}. The same
+regression models like in \code{\link{frm_em}} can be specified. Moreover,
+multilevel models can also be specified with Bayesian estimation. The \code{\link{frm_fb}}
+allow substantive model compatible multiple imputation.
 }
 
 

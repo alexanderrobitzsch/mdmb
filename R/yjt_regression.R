@@ -1,5 +1,5 @@
 ## File Name: yjt_regression.R
-## File Version: 0.14
+## File Version: 0.16
 
 
 yjt_regression <- function( formula, data, weights=NULL,
@@ -9,9 +9,8 @@ yjt_regression <- function( formula, data, weights=NULL,
     CALL <- match.call()
     type <- "yjt"
     #--- wrapping general regression function
-    res <- mdmb_regression( formula=formula, data=data, type=type,
-                weights=weights,    beta_init=beta_init,
-                beta_prior=beta_prior, df=df, lambda_fixed=lambda_fixed,
+    res <- mdmb_regression( formula=formula, data=data, type=type, weights=weights,
+                beta_init=beta_init, beta_prior=beta_prior, df=df, lambda_fixed=lambda_fixed,
                 use_grad=use_grad, h=h, control=control )
     res$CALL <- CALL
     #--- additional informations about model type

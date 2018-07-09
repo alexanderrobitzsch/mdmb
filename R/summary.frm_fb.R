@@ -1,5 +1,5 @@
 ## File Name: summary.frm_fb.R
-## File Version: 0.15
+## File Version: 0.16
 
 
 #*******************************************************
@@ -10,11 +10,7 @@ summary.frm_fb <- function( object, digits=4, file=NULL, ...)
     CDM::osink( file=file, suffix=paste0( "__SUMMARY.Rout") )
 
     cat("-----------------------------------------------------------------\n")
-    sirt::sirt_summary_print_package_rsession(pack="mdmb")
-
-    mdmb_summary_print_computation_time(object=object)
-
-    sirt::sirt_summary_print_call(CALL=object$CALL)
+    mdmd_summary_print_model_description(object=object, pack="mdmb")
 
     cat("-----------------------------------------------------------------\n")
     cat( "Number of observations=", object$ic$N, "\n\n" )

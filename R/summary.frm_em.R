@@ -1,5 +1,5 @@
 ## File Name: summary.frm_em.R
-## File Version: 0.34
+## File Version: 0.37
 
 
 #*******************************************************
@@ -10,11 +10,7 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
     CDM::osink( file=file, suffix=paste0( "__SUMMARY.Rout") )
 
     cat("-----------------------------------------------------------------\n")
-    sirt::sirt_summary_print_package_rsession(pack="mdmb")
-
-    mdmb_summary_print_computation_time(object=object)
-
-    sirt::sirt_summary_print_call(CALL=object$CALL)
+    mdmd_summary_print_model_description(object=object, pack="mdmb")
 
     cat("-----------------------------------------------------------------\n")
     cat( "Number of observations","=", object$ic$N, "\n" )
@@ -59,8 +55,7 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
     for (mm in seq( NM+1, 1 ) ){
         ind_mm <- ind0[[mm]]
         nodes_string <- frm_em_summary_print_nodes( dv_vars=ind_mm$dv_vars,
-                            nodes=ind_mm$nodes,
-                            nodes_description=ind_mm$nodes_description,
+                            nodes=ind_mm$nodes, nodes_description=ind_mm$nodes_description,
                             desc_vars=object$desc_vars )
         cat( nodes_string, "\n")
     }

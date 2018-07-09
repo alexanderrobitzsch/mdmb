@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.cpp
-//// File Version: 0.46
+//// File Version: 0.491
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -189,6 +189,30 @@ Rcpp::NumericVector mdmb_rcpp_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector 
     return fx;
 }
 ///********************************************************************
+
+///********************************************************************
+// univariate normal density logarithmized
+///** mdmb_rcpp_log_dnorm
+// [[Rcpp::export]]
+Rcpp::NumericVector mdmb_rcpp_log_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector mu,
+    double sigma )
+{
+    int N = x.size();
+    Rcpp::NumericVector fx(N);
+    double pi1 = 3.14159265359;
+    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    fac = std::log( fac / sigma);
+    double tmp = 0;
+    double sq2 = 1 / std::sqrt(2) / sigma;
+    for (int nn=0; nn<N; nn++){
+        tmp = sq2 * (x[nn] - mu[nn]);
+        fx[nn] = fac - tmp * tmp;
+    }
+    //---- OUTPUT
+    return fx;
+}
+///********************************************************************
+
 
 // Rcpp::Rcout << "cc=" << cc << " ii_start= " << ii_start <<
 //                " ii_end=" << ii_end << " count=" << count << std::endl;

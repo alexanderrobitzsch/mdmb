@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.760
+## File Version: 0.783
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -86,12 +86,14 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     # ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
 
     #*** initial estimation of models
-    res3 <- frm_fb_initial_parameters(dat=dat, ind0=ind0, data_init=data_init)
+    res3 <- frm_fb_initial_parameters(dat=dat, ind0=ind0, data_init=data_init,
+                ind_miss=ind_miss)
     ind0 <- res3$ind0
     parms <- res3$parms
     parms_index <- res3$parms_index
     model_results <- res3$model_results
     npars <- res3$npars
+    dat <- res3$dat
 
     #**** allocate matrices with sampled values for parameters
     parms_mcmc <- frm_fb_init_matrices_saved_parameters( iter=iter, burnin=burnin,
@@ -113,11 +115,11 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     iterate <- TRUE
     mcmc_start_time <- Sys.time()
 
-
 zz0 <- Sys.time()
 
     #**** MCMC algorithm
     while( iterate ){
+
         #*** sample model parameters
         res <- frm_fb_sample_parameters( dat=dat, ind0=ind0, NM=NM, iter=iter,
                     weights0=weights0, dat_resp=dat_resp, ind_resp=ind_resp,
@@ -151,9 +153,6 @@ zz0 <- Sys.time()
     }
     #***************************************
 # cat("\n* MCMC algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
-
-
-# zz0 <- Sys.time()
 
     if (verbose){
         cat("\n")

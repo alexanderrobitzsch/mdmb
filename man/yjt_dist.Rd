@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.36
+%% File Version: 0.42
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -45,7 +45,7 @@ is also included in this collection of functions.
 
 \usage{
 # Yeo-Johnson transformation and its inverse transformation
-yj_trafo(y, lambda)
+yj_trafo(y, lambda, use_rcpp=TRUE)
 yj_antitrafo(y, lambda)
 
 #---- scaled t distribution with Yeo-Johnson transformation
@@ -63,7 +63,7 @@ bc_trafo(y, lambda)
 bc_antitrafo(y, lambda)
 
 #---- scaled t distribution with Box-Cox transformation
-dbct_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE)
+dbct_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, check_zero=TRUE)
 rbct_scaled(n, location=0, shape=1, lambda=1, df=Inf)
 
 fit_bct_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL)
@@ -92,12 +92,15 @@ Numeric vector
   \item{lambda}{
 Transformation parameter \eqn{\lambda} for Yeo-Johnson transformation
 }
+\item{use_rcpp}{Logical indicating whether \pkg{Rcpp} package should be used}
 \item{x}{Numeric vector}
 \item{location}{Location parameter of (transformed) scaled \eqn{t} distribution}
 \item{shape}{Shape parameter of (transformed) scaled \eqn{t} distribution}
 \item{df}{Degrees of freedom of (transformed) scaled \eqn{t} distribution}
 \item{log}{Logical indicating whether logarithm of the density should be
 computed}
+\item{check_zero}{Logical indicating whether check for inadmissible values
+should be conducted}
 \item{n}{Number of observations to be simulated}
 \item{par_init}{Optional vector of initial parameters}
 \item{lambda_fixed}{Optional value for fixed \eqn{\lambda} parameter}

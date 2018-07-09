@@ -1,8 +1,8 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.47
+## File Version: 0.50
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
-    R_args=NULL, sampling_level=NULL )
+    R_args=NULL, sampling_level=NULL, variable_level=NULL )
 {
     R_fct <- NULL
     R_density_fct <- NULL
@@ -10,6 +10,9 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     use_gibbs_model <- FALSE
     if (is.null(sampling_level)){
         sampling_level <- NULL
+    }
+    if (is.null(variable_level)){
+        variable_level <- NULL
     }
     if (is.null(R_args) ){
         R_args <- list()
@@ -55,7 +58,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     if (model$model %in% c("mlreg") ){
         R_fct <- frm_mlreg_wrapper_ml_mcmc
         R_fct_name <- "miceadds::ml_mcmc"
-        args <- list(outcome="normal", iter=3, burnin=1, inits_lme4=TRUE,
+        args <- list(outcome="normal", iter=5, burnin=1, inits_lme4=TRUE,
                         thresh_fac=5.8 )
         R_args <- frm_append_list( list1=R_args, list2=args, overwrite=FALSE )
         R_density_fct <- "frm_mlreg_density"
@@ -65,6 +68,6 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     #--- output
     res <- list( R_fct=R_fct, R_args=R_args, R_density_fct=R_density_fct, R_fct_name=R_fct_name,
                     use_gibbs_model=use_gibbs_model, R_sampling_fct=R_sampling_fct,
-                    sampling_level=sampling_level)
+                    sampling_level=sampling_level, variable_level=variable_level)
     return(res)
 }

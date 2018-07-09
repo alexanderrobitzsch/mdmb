@@ -1,28 +1,33 @@
 Package: mdmb
 Type: Package
 Title: Model Based Treatment of Missing Data
-Version: 0.8-30
-Date: 2018-07-03 20:48:20
+Version: 0.9-1
+Date: 2018-07-09 21:11:40
 Author: 
     Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
 Maintainer: 
     Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
 Description: 
-    Contains model-based treatment of missing data for regression models 
-    with missing values in covariates or the dependent variable 
-    using maximum likelihood or Bayesian estimation (Ibrahim et al., 2005;
-    <doi:10.1198/016214504000001844>). The regression model can be nonlinear
-    (e.g., including interaction or quadratic effects). 
-    Multiple imputation can be also conducted.
+    Contains model-based treatment of missing data for regression 
+    models with missing values in covariates or the dependent 
+    variable using maximum likelihood or Bayesian estimation 
+    (Ibrahim et al., 2005; <doi:10.1198/016214504000001844>).
+    The regression model can be nonlinear (e.g., interaction 
+    quadratic effects or spline functions). Multilevel models
+    with missing data in predictors is also available for
+    Bayesian estimation. Substantive-model compatible multiple 
+    imputation can be also conducted.
 Depends:
     R (>= 3.1)
 Imports: 
-    CDM, coda, graphics, MASS, miceadds (>= 2.13-44), Rcpp, sirt, 
+    CDM, coda, graphics, MASS, miceadds (>= 2.13-60), Rcpp, sirt, 
     stats, TAM, utils     
 Suggests: 
     mice
 LinkingTo: 
     miceadds, Rcpp, RcppArmadillo
-URL: https://github.com/alexanderrobitzsch/mdmb
+URL: 
+    https://github.com/alexanderrobitzsch/mdmb,
+    https://sites.google.com/site/alexanderrobitzsch2/software
 License: 
     GPL (>= 2)

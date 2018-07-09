@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.920
+## File Version: 0.929
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -12,7 +12,6 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     #*** prepare models
     res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_control=nodes_control,
                     use_grad=use_grad)
-
     dep <- res$dep
     ind <- res$ind
     predictorMatrix <- res$predictorMatrix
@@ -72,10 +71,10 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         if (iter==1 ){ ll_change_disp <- NA }
         beta_change <- max( abs( beta_new - beta_old ) )
         if(verbose){
-            p1 <- paste0("*** Iter. ", iter, " | ", "LL=",
+            p1 <- paste0("*** Iter. ", iter, " | ", "LL ","=", " ",
                     round(ll_new,3),
-                    " | LL change=", round(ll_change_disp,6),
-                    " | Parm. change=", round(beta_change,6),"\n"    )
+                    " | LL change ", "=", " ", round(ll_change_disp,6),
+                    " | Parm. change ", "=", " ", round(beta_change,6),"\n"    )
             cat(p1)
             utils::flush.console()
         }
