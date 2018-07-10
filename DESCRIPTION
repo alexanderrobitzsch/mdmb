@@ -1,8 +1,8 @@
 Package: mdmb
 Type: Package
 Title: Model Based Treatment of Missing Data
-Version: 0.9-2
-Date: 2018-07-09 21:22:15
+Version: 0.9-3
+Date: 2018-07-10 09:48:59
 Author: 
     Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
 Maintainer: 
@@ -13,10 +13,10 @@ Description:
     variable using maximum likelihood or Bayesian estimation 
     (Ibrahim et al., 2005; <doi:10.1198/016214504000001844>).
     The regression model can be nonlinear (e.g., interaction 
-    quadratic effects or spline functions). Multilevel models
-    with missing data in predictors is also available for
-    Bayesian estimation. Substantive-model compatible multiple 
-    imputation can be also conducted.
+    effects, quadratic effects or B-spline functions). 
+    Multilevel models with missing data in predictors are
+    available for Bayesian estimation. Substantive-model compatible 
+    multiple imputation can be also conducted.
 Depends:
     R (>= 3.1)
 Imports: 
