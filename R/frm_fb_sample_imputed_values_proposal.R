@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.43
+## File Version: 0.47
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
@@ -32,8 +32,17 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
     #*** sample new values for yjtreg and bctreg regression
     if ( model_vv %in% c( "bctreg", "yjtreg" ) ){
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
+        eps <- 1E-3
         if ( model_vv=="bctreg"){
+            # imp1 <- ifelse( imp1 < 0, eps, imp1 )
             imp1 <- ifelse( imp1 < 0, imp, imp1 )
+        }
+        if ( model_vv=="yjtreg"){
+            if ( ind0[[index_vv]]$R_args$probit){
+                # imp1 <- mdmb_squeeze(x=imp1, lower=eps, upper=1-eps)
+                imp1 <- ifelse( imp1 < 0, imp, imp1 )
+                imp1 <- ifelse( imp1 > 1, imp, imp1 )
+            }
         }
         do_mh <- TRUE
     }

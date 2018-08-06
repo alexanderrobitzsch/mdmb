@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.cpp
-//// File Version: 0.491
+//// File Version: 0.493
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -167,6 +167,7 @@ Rcpp::NumericVector mdmb_rcpp_frm_normalize_posterior(
 }
 ///********************************************************************
 
+
 ///********************************************************************
 // univariate normal density
 ///** mdmb_rcpp_dnorm
@@ -206,6 +207,53 @@ Rcpp::NumericVector mdmb_rcpp_log_dnorm( Rcpp::NumericVector x, Rcpp::NumericVec
     double sq2 = 1 / std::sqrt(2) / sigma;
     for (int nn=0; nn<N; nn++){
         tmp = sq2 * (x[nn] - mu[nn]);
+        fx[nn] = fac - tmp * tmp;
+    }
+    //---- OUTPUT
+    return fx;
+}
+///********************************************************************
+
+
+///********************************************************************
+// univariate normal density
+///** mdmb_rcpp_dnorm_double
+// [[Rcpp::export]]
+Rcpp::NumericVector mdmb_rcpp_dnorm_double( Rcpp::NumericVector x, double mu,
+    double sigma )
+{
+    int N = x.size();
+    Rcpp::NumericVector fx(N);
+    double pi1 = 3.14159265359;
+    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    fac = fac / sigma;
+    double tmp = 0;
+    double sq2 = 1 / std::sqrt(2) / sigma;
+    for (int nn=0; nn<N; nn++){
+        tmp = sq2 * (x[nn] - mu);
+        fx[nn] = fac * std::exp( - tmp * tmp);
+    }
+    //---- OUTPUT
+    return fx;
+}
+///********************************************************************
+
+///********************************************************************
+// univariate normal density logarithmized
+///** mdmb_rcpp_log_dnorm_double
+// [[Rcpp::export]]
+Rcpp::NumericVector mdmb_rcpp_log_dnorm_double( Rcpp::NumericVector x, double mu,
+    double sigma )
+{
+    int N = x.size();
+    Rcpp::NumericVector fx(N);
+    double pi1 = 3.14159265359;
+    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    fac = std::log( fac / sigma);
+    double tmp = 0;
+    double sq2 = 1 / std::sqrt(2) / sigma;
+    for (int nn=0; nn<N; nn++){
+        tmp = sq2 * (x[nn] - mu);
         fx[nn] = fac - tmp * tmp;
     }
     //---- OUTPUT

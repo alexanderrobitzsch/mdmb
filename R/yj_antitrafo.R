@@ -1,7 +1,7 @@
 ## File Name: yj_antitrafo.R
-## File Version: 0.07
+## File Version: 0.09
 
-yj_antitrafo <- function(y, lambda)
+yj_antitrafo <- function(y, lambda, probit=FALSE)
 {
     #*** recode lambda
     eps <- 1E-5
@@ -13,6 +13,9 @@ yj_antitrafo <- function(y, lambda)
     yt <- ifelse( y >=0, ( lambda * y + 1 )^(1/lambda ) - 1, yt )
     #*** y <=0
     yt <- ifelse( y < 0, - ( - (2-lambda )*y + 1 )^( 1 / (2-lambda ) ) + 1, yt )
+    if (probit){
+        yt <- stats::pnorm(yt)
+    }
     #--- output
     return(yt)
 }

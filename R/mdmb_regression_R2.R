@@ -1,8 +1,8 @@
 ## File Name: mdmb_regression_R2.R
-## File Version: 0.16
+## File Version: 0.23
 
 #**** evaluate individual likelihood
-mdmb_regression_R2 <- function( linear.predictor,  y, type, beta, index_sigma  )
+mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma, probit=FALSE )
 {
     R2 <- NULL
     np <- length(beta)
@@ -21,7 +21,7 @@ mdmb_regression_R2 <- function( linear.predictor,  y, type, beta, index_sigma  )
     if (type %in% c("yjt","bct") ){
         sigma <- beta[index_sigma]
         if (type=="yjt"){
-            yt <- yj_trafo( y=y, lambda=beta[np] )
+            yt <- yj_trafo( y=y, lambda=beta[np], probit=probit )
         }
         if (type=="bct"){
             yt <- bc_trafo( y=y, lambda=beta[np] )

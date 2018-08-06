@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.50
+## File Version: 0.52
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     R_args=NULL, sampling_level=NULL, variable_level=NULL )
@@ -53,6 +53,9 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_fct_name <- "mdmb::yjt_regression"
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_mdmb_regression_density"
+        if (is.null(R_args$probit)){
+            R_args$probit <- FALSE
+        }
     }
     #--- linear regression with multilevel regression
     if (model$model %in% c("mlreg") ){

@@ -1,7 +1,7 @@
 ## File Name: dyjt_scaled_log_multiplication.R
-## File Version: 0.08
+## File Version: 0.11
 
-dyjt_scaled_log_multiplication <- function( dy, yt, use_log, check_zero=TRUE )
+dyjt_scaled_log_multiplication <- function( dy, yt, use_log, check_zero=TRUE)
 {
     if (use_log){
         dy <- dy + log(yt)

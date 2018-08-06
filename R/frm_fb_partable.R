@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.43
+## File Version: 0.455
 
 frm_fb_partable <- function( ind0, parms_mcmc )
 {
@@ -34,6 +34,7 @@ frm_fb_partable <- function( ind0, parms_mcmc )
             dfr1 <- NULL
         }
         colnames(dfr1)[ rename_index ] <- rename_names
+
         #*** include standard deviation if model=="linreg"
 
         include_sigma <- ( ind0[[mm]]$model=="linreg" )
@@ -102,7 +103,7 @@ frm_fb_partable <- function( ind0, parms_mcmc )
 
     parnames <- paste(dfr2$parm)
     dfr2[,"effsize"] <- es[parnames]
-    dfr2[,"accrate"] <- accrate
+    dfr2[,"accrate"] <- accrate[ dfr2$idparm ]
 
     #* compute Rhat function
     r1 <- sirt::mcmc_Rhat( mcmc_object=values_coda, n_splits=3 )

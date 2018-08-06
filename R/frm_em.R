@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.929
+## File Version: 0.9392
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -39,8 +39,8 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     NM <- attr(ind,"NM")
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
-
     ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
+
     #*** add additional arguments for regression functions
     ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
     iter <- 0
@@ -58,6 +58,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
                     weights0=weights0, dat_resp=dat_resp, ind_resp=ind_resp,
                     ind_miss=ind_miss )
         ind0 <- res$ind0
+        coefs <- res$coefs
         dat$weights <- res$post * dat$weights0
         like <- res$like
         beta_new <- res$coefs[[NM+1]]

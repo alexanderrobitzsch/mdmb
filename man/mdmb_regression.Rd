@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.45
+%% File Version: 0.48
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -45,6 +45,9 @@ distributed following the scaled \eqn{t} distribution. The function
 \code{bct_regression} has same functionality but employs a Box-Cox transformation
 of the outcome variable.
 
+The Yeo-Johnson transformation can be extended by a probit transformation
+(\code{probit=TRUE}) to cover the case of bounded variables on \eqn{[0,1]}.
+
 The function \code{logistic_regression} performs logistic regression
 for dichotomous data.
 
@@ -55,7 +58,7 @@ for ordinal polytomous data.
 \usage{
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
 yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
-        df=Inf, lambda_fixed=NULL, use_grad=2, h=1e-5, control=NULL)
+        df=Inf, lambda_fixed=NULL, probit=FALSE, use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -115,6 +118,8 @@ Optional vector of initial regression coefficients
 \item{df}{Fixed degrees of freedom for scaled \eqn{t} distribution}
 \item{lambda_fixed}{Optional fixed value for \eqn{\lambda} for scaled
   \eqn{t} distribution with Yeo-Johnson transformation}
+\item{probit}{Logical whether probit transformation should be employed for
+bounded outcome in \code{yjt_regression}}  
  \item{use_grad}{Computation method for gradients in \code{stats::optim}.
       The value \code{0} is the internal approximation of
       \code{stats::optim} and applies the settings in \pkg{mdmb} (\eqn{\le}0.3).

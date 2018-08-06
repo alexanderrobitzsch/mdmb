@@ -1,37 +1,27 @@
 ## File Name: dbct_scaled.R
-## File Version: 0.37
+## File Version: 0.44
 
 dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, check_zero=TRUE )
 {
     #*** recode lambda
     eps <- 1E-3
     # lambda <- yj_adjust_lambda( lambda=lambda, lambda0=0, eps=eps )
-    xt <- bc_trafo(y=x, lambda=lambda )
+    #--------- adjustment for derivative of Box-Cox transformation
+    # xt <- bc_trafo(y=x, lambda=lambda )
+    res <- bc_trafo_derivative(y=x, lambda=lambda, check_zero=check_zero )
+    xt <- res$yt
+    yt <- res$dyt
 
     if ( df==Inf ){
         # dy <- stats::dnorm( x=xt, mean=location, sd=shape, log=log )
-        dy <- mdmb_dnorm(x=xt, mean=location, sd=shape, log=log)
+        dy <- mdmb_dnorm(x=xt, mu=location, sigma=shape, log=log)
     } else {
         dy <- dt_scaled( x=xt, location=location, shape=shape, df=df, log=log)
     }
 
-    #--------- adjustment for derivative of Box-Cox transformation
-    y <- x
-    if ( abs(lambda) > eps ){
-        yt <- log(y)
-        lam1 <- lambda - 1
-        yt <- exp( lam1 * yt )
-        # yt=y^(lambda - 1 )
-    } else {
-        yt <- 1 / y
-    }
-    if (check_zero){
-        yt <- ifelse( x <=0, 0, yt )
-    }
-
     #---- multiplicative adjustment
     dy <- dyjt_scaled_log_multiplication( dy=dy, yt=yt, use_log=log, check_zero=check_zero )
-
+    #--- output
     return(dy)
 }
 

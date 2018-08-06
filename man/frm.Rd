@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.798
+%% File Version: 0.810
 
 \name{frm}
 \alias{frm}
@@ -48,9 +48,9 @@ The current functionality only support missing values on continuous covariates
 (accommodating skewness and only positive values), dichotomous covariates and
 ordinal covariates.
 
-Multilevel models (using \code{model="mlreg"}) for normally distributed 
-(\code{outcome="normal"}) and ordinal variables (\code{outcome="probit"}) 
-as well as variables at higher levels (using argument \code{variable_level}) 
+Multilevel models (using \code{model="mlreg"}) for normally distributed
+(\code{outcome="normal"}) and ordinal variables (\code{outcome="probit"})
+as well as variables at higher levels (using argument \code{variable_level})
 are accommodated.
 
 The handling of nominal covariates will be included in future
@@ -97,7 +97,8 @@ or \code{\link[stats:lm.wfit]{stats::lm.wfit}}),
 \code{"logistic"} for dichotomous variables (wrapper to \code{\link{logistic_regression}}),
 \code{"oprobit"} for ordinal variables
 (wrapper to \code{\link{oprobit_regression}}),
-\code{"yjtreg"} for continuous variables (wrapper to \code{\link{yjt_regression}}),
+\code{"yjtreg"} for continuous variables and bounded variables on \eqn{[0,1]}
+(wrapper to \code{\link{yjt_regression}}),
 \code{"bctreg"} for positive continuous variables
 (wrapper to \code{\link{bct_regression}}),
 \code{"mlreg"} for multilevel models with normally distributed and ordinal
@@ -569,7 +570,8 @@ summary(mod2)
 plot(mod2)
 
 #############################################################################
-# EXAMPLE 6: Non-normally distributed covariates
+# EXAMPLE 6: Non-normally distributed covariates:
+#            Positive values with Box-Cox transformation
 #############################################################################
 
 # simulate data with chi-squared distributed covariate from
@@ -737,7 +739,7 @@ dat$theta <- NA
 # Model 1: Fully Bayesian estimation
 
 #--- define model
-ind_y1 <- list("model"="oprobit", "formula"=y1 ~  offset(1*theta) )
+ind_y1 <- list( "model"="oprobit", "formula"=y1 ~  offset(1*theta) )
 ind_y2 <- list( "model"="oprobit", "formula"=y2 ~ theta )
 ind_y3 <- list( "model"="oprobit", "formula"=y3 ~ theta )
 dep <- list( "model"="linreg", "formula"=theta ~ 0  )
@@ -764,16 +766,16 @@ dat <- data.mb04
 
 #*** model specification
 mcmc_iter <- 4   # number of MCMC iterations for model parameter sampling
-model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) +  w + w*cwc(x, idcluster) +
+model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) + w + w*cwc(x, idcluster) +
                    w*gm(x, idcluster) + ( 1 + cwc(x, idcluster) | idcluster)
 dep <- list("model"="mlreg", "formula"=model_formula,
                R_args=list(iter=mcmc_iter, outcome="normal") )
-ind_x <- list( "model"="mlreg", "formula"=x ~ w + ( 1|idcluster), R_args=list(iter=mcmc_iter),
+ind_x <- list( "model"="mlreg", "formula"=x ~ w + (1|idcluster), R_args=list(iter=mcmc_iter),
                   sampling_level="idcluster" )
 # group means of x are involved in the outcome model. Therefore, Metropolis-Hastings
 # sampling of missing values in x should be conducted at the level of clusters,
 # i.e. specifying sampling_level
-ind <- list( "x"=ind_x)
+ind <- list("x"=ind_x)
 
 # --- estimate model
 mod1 <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
@@ -791,6 +793,53 @@ ind <- list( x=ind_x, w=ind_w)
 
 #* conduct imputations
 mod2 <- mdmb::frm_fb(dat, dep, ind, aggregation=TRUE)
+summary(mod2)
+
+#############################################################################
+# EXAMPLE 11: Bounded variable combined with Yeo-Johnson transformation
+#############################################################################
+
+#*** simulate data
+set.seed(876)
+n <- 1500
+x <- mdmb::ryjt_scaled( n, location=-.2, shape=.8, lambda=.9, probit=TRUE)
+R2 <- .25    # explained variance
+y <- 1*x + stats::rnorm(n, sd=sqrt( (1-R2)/R2 * stats::var(x)) )
+dat0 <- dat <- data.frame( y=y, x=x )
+
+# simulate missing responses
+prop_miss <- .5
+cor_miss <- .7
+resp_tend <- cor_miss*(dat$y-mean(y) )/ stats::sd(y) +
+                 stats::rnorm(n, sd=sqrt( 1 - cor_miss^2) )
+dat[ resp_tend < stats::qnorm( prop_miss ), "x" ] <- NA
+summary(dat)
+
+#*** define models
+dep <- list("model"="linreg", "formula"=y ~  x )
+# distribution according to Yeo-Johnson transformation
+ind_x1 <- list( "model"="yjtreg", "formula"=x ~ 1 )
+# distribution according to Probit Yeo-Johnson transformation
+ind_x2 <- list( "model"="yjtreg", "formula"=x ~ 1, R_args=list("probit"=TRUE ) )
+ind1 <- list( "x"=ind_x1 )
+ind2 <- list( "x"=ind_x2 )
+
+#--- complete data
+mod0 <- stats::lm( y~x, data=dat0)
+summary(mod0)
+
+#--- Yeo-Johnson normal distribution (for unbounded variables)
+mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind1 )
+summary(mod1)
+
+#--- Probit Yeo-Johnson normal distribution (for bounded variable on [0,1])
+mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind2)
+summary(mod2)
+
+#--- same model, but MCMC estimation
+mod3 <- mdmb::frm_fb(dat, dep, ind=ind2, burnin=2000, iter=5000)
+summary(mod3)
+plot(mod3)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

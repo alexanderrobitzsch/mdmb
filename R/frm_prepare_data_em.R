@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_data_em.R
-## File Version: 0.25
+## File Version: 0.28
 
 frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0)
 {

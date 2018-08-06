@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.42
+%% File Version: 0.494
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -39,20 +39,23 @@ Scaled \eqn{t} Distribution with Yeo-Johnson and Box-Cox Transformations
 Collection of functions for the Yeo-Johnson transformation
 (Yeo & Johnson, 2000) and the corresponding distribution family of scaled
 \eqn{t} distribution with and without Yeo-Johnson transformation
-(see Details). The Box-Cox transformation (\code{bc}; Sakia, 1992)
-is also included in this collection of functions.
+(see Details). The Yeo-Johnson transformation can also be applied for bounded variables
+on \eqn{[0,1]} which uses a probit transformation (see Details; argument \code{probit}).
+
+The Box-Cox transformation (\code{bc}; Sakia, 1992)
+can be applied for variables with positive values.
 }
 
 \usage{
 # Yeo-Johnson transformation and its inverse transformation
-yj_trafo(y, lambda, use_rcpp=TRUE)
-yj_antitrafo(y, lambda)
+yj_trafo(y, lambda, use_rcpp=TRUE, probit=FALSE)
+yj_antitrafo(y, lambda, probit=FALSE)
 
 #---- scaled t distribution with Yeo-Johnson transformation
-dyjt_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE)
-ryjt_scaled(n, location=0, shape=1, lambda=1, df=Inf)
+dyjt_scaled(x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, probit=FALSE)
+ryjt_scaled(n, location=0, shape=1, lambda=1, df=Inf, probit=FALSE)
 
-fit_yjt_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL)
+fit_yjt_scaled(x, df=Inf, par_init=NULL, lambda_fixed=NULL, weights=NULL, probit=FALSE)
 \method{coef}{fit_yjt_scaled}(object, ...)
 \method{logLik}{fit_yjt_scaled}(object, ...)
 \method{summary}{fit_yjt_scaled}(object, digits=4, file=NULL, ...)
@@ -93,6 +96,8 @@ Numeric vector
 Transformation parameter \eqn{\lambda} for Yeo-Johnson transformation
 }
 \item{use_rcpp}{Logical indicating whether \pkg{Rcpp} package should be used}
+\item{probit}{Logical indicating whether probit transformation should be
+applied for bounded variables on \eqn{[0,1]}}
 \item{x}{Numeric vector}
 \item{location}{Location parameter of (transformed) scaled \eqn{t} distribution}
 \item{shape}{Shape parameter of (transformed) scaled \eqn{t} distribution}
@@ -117,6 +122,14 @@ is distribution as Scaled \eqn{t} with Yeo-Johnson transformation with location
 \eqn{\mu}, scale \eqn{\sigma} and transformation parameter \eqn{\lambda}
 iff \eqn{X=g_\lambda ( \mu + \sigma Z ) } and \eqn{Z} is \eqn{t} distributed
 with \code{df} degrees of freedom.
+
+For a bounded variable \eqn{X} on \eqn{[0,1]}, the probit transformation \eqn{\Phi}
+is applied such that \eqn{X=\Phi( g_\lambda ( \mu + \sigma Z ) ) } with a \eqn{t}
+distributed variable \eqn{Z}.
+
+For a Yeo-Johnson normally distributed variable, a normally distributed variable results in
+case of \eqn{\lambda=0}. For a Box-Cox normally distributed variable, a normally
+distributed variable results for \eqn{\lambda=1}.
 }
 
 
@@ -302,6 +315,24 @@ graphocs::lines( y, mdmb::dbct_scaled(y, location=c2[1], shape=c2[2], lambda=c2[
 graphics::lines( y, stats::dnorm( y, mean=df0, sd=sqrt(2*df0) ), lty=4)
 graphics::legend( .6*max(y), .9*max(dy), c("chi square", "yjt", "bct", "norm"),
                      lty=1:4)
+
+#############################################################################
+# EXAMPLE 6: Bounded variable on [0,1] with Probit Yeo-Johnson transformation
+#############################################################################
+
+set.seed(876)
+n <- 1000
+x <- stats::rnorm(n)
+y <- stats::pnorm( 1*x + stats::rnorm(n, sd=sqrt(.5) ) )
+dat <- data.frame( y=y, x=x )
+
+#*** fit Probit Yeo-Johnson distribution
+mod1 <- mdmb::fit_yjt_scaled(x=y, probit=TRUE)
+summary(mod1)
+
+#*** estimation using regression model
+mod2 <- mdmb::yjt_regression( y ~ x, data=dat, probit=TRUE )
+summary(mod2)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

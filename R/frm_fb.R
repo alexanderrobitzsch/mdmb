@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.783
+## File Version: 0.7863
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -128,6 +128,7 @@ zz0 <- Sys.time()
         ind0 <- res$ind0
         model_results <- res$model_results
         parms_mcmc <- res$parms_mcmc
+
 
         #*** imputation of missing values
         res <- frm_fb_sample_imputed_values( imputations_mcmc=imputations_mcmc,

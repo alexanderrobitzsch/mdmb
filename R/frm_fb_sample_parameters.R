@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.518
+## File Version: 0.523
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -59,7 +59,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         #--- sample sigma
         sample_sigma <- ind_mm$sample_sigma
         if ( sample_sigma & ( ! use_gibbs_model ) ){
-            sigma1 <- stats::rnorm(1, mean=sigma0, sd=ind_mm$sigma_sd_proposal)
+            sigma1 <- stats::rnorm(n=1, mean=sigma0, sd=ind_mm$sigma_sd_proposal)
             res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
                             weights=weights, mod=mod, coef=coef0, sigma=sigma1)
             accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)

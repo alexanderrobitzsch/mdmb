@@ -1,8 +1,8 @@
 ## File Name: fit_mdmb_distribution.R
-## File Version: 0.43
+## File Version: 0.495
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
-    weights=NULL)
+    weights=NULL, probit=FALSE)
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -45,8 +45,12 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
             x0 <- x0[1:2]
         }
         parnames <- c("location","scale","lambda")
-        description <- paste0(
-            "Scaled t distribution with Yeo-Johnson transformation (df=", df, ")")
+
+        if (probit){
+            description <- paste0( "Scaled t distribution with Probit Yeo-Johnson transformation (df=", df, ")")
+        } else {
+            description <- paste0( "Scaled t distribution with Yeo-Johnson transformation (df=", df, ")")
+        }
         class_type <- "fit_yjt_scaled"
         loglik_fit <- function(x){
             if ( is_lambda_fixed ){
@@ -54,8 +58,7 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
             } else {
                 lambda1 <- x[3]
             }
-            dx <- dyjt_scaled( x=y, location=x[1], shape=x[2],
-                    lambda=lambda1, df=df )
+            dx <- dyjt_scaled( x=y, location=x[1], shape=x[2], lambda=lambda1, df=df, probit=probit )
             fn <- - sum( weights * log(dx + eps ) )
             return(fn)
         }
@@ -81,8 +84,7 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
             } else {
                 lambda1 <- x[3]
             }
-            dx <- dbct_scaled( x=y, location=x[1], shape=x[2],
-                    lambda=lambda1, df=df )
+            dx <- dbct_scaled( x=y, location=x[1], shape=x[2], lambda=lambda1, df=df )
             fn <- - sum( weights * log(dx + eps ) )
             return(fn)
         }
@@ -125,13 +127,10 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
     partable <- fit_mdmb_distribution_summary_table( beta=coefs, vcov1=vcovs )
     s2 <- Sys.time()
     #--- output
-    res <- list( coef=coefs, vcov=vcovs, loglike=loglike,
-                deviance=deviance,
+    res <- list( coef=coefs, vcov=vcovs, loglike=loglike, deviance=deviance,
                 partable=partable, np=np, N=N, lambda_fixed=lambda_fixed,
-                is_lambda_fixed=is_lambda_fixed,
-                df=df, x=y, weights=weights, CALL=CALL,
-                description=description, type=type,
-                s1=s1, s2=s2 )
+                is_lambda_fixed=is_lambda_fixed, df=df, x=y, weights=weights, CALL=CALL,
+                description=description, type=type, probit=probit, s1=s1, s2=s2 )
     class(res) <- class_type
     return(res)
 }

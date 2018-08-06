@@ -1,5 +1,5 @@
 ## File Name: frm_mdmb_regression_density.R
-## File Version: 0.15
+## File Version: 0.23
 
 frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL )
@@ -35,7 +35,7 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
         yt <- bc_trafo( y=y, lambda=pars[np] )
     }
     if (class_model    =="yjt_regression"){
-        yt <- yj_trafo( y=y, lambda=pars[np] )
+        yt <- yj_trafo( y=y, lambda=pars[np], probit=model$probit )
     }
     y_sd0 <- TAM::weighted_sd( yt, w=w )
     if ( ! is.null(model$sigma) ){
@@ -50,7 +50,7 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
     }
     if (class_model    =="yjt_regression"){
         d1 <- dyjt_scaled( y, location=y_pred, shape=pars[np-1],
-                    lambda=pars[np], df=model$df )
+                    lambda=pars[np], df=model$df, probit=model$probit )
     }
     d2 <- frm_normalize_posterior( post=d1, case=case )
     res <- list( "like"=d1, "post"=d2, "sigma"=y_sd, R2=R2)

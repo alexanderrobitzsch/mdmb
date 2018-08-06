@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.489
+## File Version: 0.504
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
     use_gibbs=FALSE, weights=NULL )
@@ -9,6 +9,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     NM <- length(ind)
     dv_vars <- NULL
     no_weights <- is.null(weights)
+
     for (mm in 1:NM){
         res <- frm_formula_extract_terms( ind[[mm]]$formula )
         all_vars <- c( all_vars, res$all_vars )
