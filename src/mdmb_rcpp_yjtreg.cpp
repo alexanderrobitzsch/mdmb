@@ -1,7 +1,8 @@
 //// File Name: mdmb_rcpp_yjtreg.cpp
-//// File Version: 0.415
+//// File Version: 0.417
 
 // [[Rcpp::depends(RcppArmadillo)]]
+// [[RcppNOplugins(unwindProtect)]]
 
 // #include <RcppArmadillo.h>
 #include <Rcpp.h>

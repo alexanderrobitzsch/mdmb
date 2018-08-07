@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.494
+%% File Version: 0.495
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -128,7 +128,7 @@ is applied such that \eqn{X=\Phi( g_\lambda ( \mu + \sigma Z ) ) } with a \eqn{t
 distributed variable \eqn{Z}.
 
 For a Yeo-Johnson normally distributed variable, a normally distributed variable results in
-case of \eqn{\lambda=0}. For a Box-Cox normally distributed variable, a normally
+case of \eqn{\lambda=1}. For a Box-Cox normally distributed variable, a normally
 distributed variable results for \eqn{\lambda=1}.
 }
 

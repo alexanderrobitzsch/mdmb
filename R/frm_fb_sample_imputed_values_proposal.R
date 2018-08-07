@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.47
+## File Version: 0.53
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
@@ -12,6 +12,7 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
     do_mh <- FALSE
     gibbs_values <- NULL
     NG <- NULL
+    changed1 <- TRUE
     #*** sample new values for linear regression
     if ( model_vv %in% c( "linreg" ) ){
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
@@ -34,15 +35,15 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
         eps <- 1E-3
         if ( model_vv=="bctreg"){
-            # imp1 <- ifelse( imp1 < 0, eps, imp1 )
             imp1 <- ifelse( imp1 < 0, imp, imp1 )
+            changed1 <- ( imp1 != imp )            
         }
         if ( model_vv=="yjtreg"){
             if ( ind0[[index_vv]]$R_args$probit){
-                # imp1 <- mdmb_squeeze(x=imp1, lower=eps, upper=1-eps)
                 imp1 <- ifelse( imp1 < 0, imp, imp1 )
                 imp1 <- ifelse( imp1 > 1, imp, imp1 )
             }
+            changed1 <- ( imp1 != imp )
         }
         do_mh <- TRUE
     }
@@ -66,6 +67,7 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
         imp1 <- imp1[ variable_info$replace_miss_id ]
     }
     #--- output
-    res <- list( imp1=imp1, do_mh=do_mh, gibbs_values=gibbs_values, NG=NG )
+    res <- list( imp1=imp1, do_mh=do_mh, gibbs_values=gibbs_values, NG=NG,
+                    changed1=changed1)
     return(res)
 }

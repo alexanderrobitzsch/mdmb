@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.804
+## File Version: 1.811
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -50,13 +50,17 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     #--- starting values parameters
     if ( is.null(beta_init) ){
         par <- rep(0,Ndes)
+        y1 <- y
+        if (probit){
+            y1 <- stats::qlogis(y1)
+        }        
         if (use_grad %in% c(1,2) ){
-            mod <- stats::lm.wfit( y=y, x=Xdes, w=weights)
+            mod <- stats::lm.wfit( y=y1, x=Xdes, w=weights)
             par0 <- mod$coefficients
-            sd_y <- stats::sd( mod$residuals )
+            sd_y <- TAM::weighted_sd( x=mod$residuals, w=weights )
             par <- par0
         } else {
-            sd_y <- stats::sd(y)
+            sd_y <- TAM::weighted_sd( x=y1, w=weights )
         }
         #** starting values yjt and bct regression
         if ( type %in% c("yjt","bct") ){
@@ -168,6 +172,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             y_pred <- Xdes %*% beta + offset_values
             ll_i <- dens_fct( y, location=y_pred, shape=shape, lambda=lambda, df=df, log=TRUE, probit=probit )
             ll <- - sum( weights * ll_i )
+
             #--- include prior distributions
             if (is_prior){
                 ll <- ll - eval_prior_list_sumlog( par=x, par_prior=beta_prior, use_grad=use_grad )

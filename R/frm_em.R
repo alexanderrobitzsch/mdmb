@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.9392
+## File Version: 0.9395
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -23,6 +23,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         weights0 <- rep(1,N)
     }
     dat0 <- dat
+
     #*** prepare data
     res2 <- frm_prepare_data_em(dat=dat, dep=dep, ind=ind, weights0=weights0,
                     dat0=dat0)
@@ -34,13 +35,13 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     freq_miss_values <- res2$freq_miss_values
     # dat$weights <- dat$weights0 * dat$resp_all
     N2 <- nrow(dat)
-
+    
     #*** prepare list of models
     NM <- attr(ind,"NM")
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
     ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
-
+    
     #*** add additional arguments for regression functions
     ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
     iter <- 0
@@ -64,11 +65,11 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         beta_new <- res$coefs[[NM+1]]
         ll_new <- res$ll
         iter <- iter + 1
-
         #**** changes in parameters
         ll_change0 <- ( ll_new - ll_old ) / abs( ll_new)
         ll_change <- abs(ll_change0)
         ll_change_disp <- ll_new - ll_old
+
         if (iter==1 ){ ll_change_disp <- NA }
         beta_change <- max( abs( beta_new - beta_old ) )
         if(verbose){

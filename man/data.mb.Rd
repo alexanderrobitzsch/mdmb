@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.21
+%% File Version: 0.22
 
 \name{data.mb}
 \alias{data.mb}
@@ -8,6 +8,7 @@
 \alias{data.mb02}
 \alias{data.mb03}
 \alias{data.mb04}
+\alias{data.mb05}
 
 \docType{data}
 
@@ -25,6 +26,7 @@ data(data.mb01)
 data(data.mb02)
 data(data.mb03)
 data(data.mb04)
+data(data.mb05)
 }
 
 
@@ -79,6 +81,23 @@ level-1 variables code{y}, \code{x} and the level-2 variable \code{w}.
 \code{ $ w        : num  -0.552 -0.552 -0.552 -0.552 -0.552 ...} \cr
 \code{ $ y        : num  NA NA -0.0711 0.7165 -0.1917 ...} \cr
 
+\item Dataset \code{data.mb05}. This dataset contains selected (and transformed)
+variables of the German PISA 2012 data.
+
+\code{'data.frame':   5001 obs. of  13 variables:} \cr
+\code{ $ idschool : num  1001 1001 1001 1001 1001 ...} \cr
+\code{ $ idstud   : num  1e+05 1e+05 1e+05 1e+05 1e+05 ...} \cr
+\code{ $ female   : num  1 1 0 0 0 1 1 1 0 0 ...} \cr
+\code{ $ books    : num  NA 3 3 1 NA 2 NA 1 NA 2 ...} \cr
+\code{ $ hisced   : num  NA 6 6 2 NA 2 NA 2 NA 2 ...} \cr
+\code{ $ hisei    : num  NA 30.6 57.7 26.9 NA ...} \cr
+\code{ $ hisei10  : num  NA 0.257 0.596 0.211 NA ...} \cr
+\code{ $ native   : num  NA NA 1 0 NA 0 NA 1 NA 1 ...} \cr
+\code{ $ ANCINTMAT: num  NA 0.644 -0.096 1.057 NA ...} \cr
+\code{ $ MATHEFF  : num  NA 0.34 0.54 -0.18 NA 0.15 NA NA NA NA ...} \cr
+\code{ $ READ     : num  -0.25 -0.503 0.421 -1.664 -0.894 ...} \cr
+\code{ $ MATH     : num  -0.565 -0.854 0.384 -0.896 -0.534 ...} \cr
+\code{ $ W_FSTUWT : num  140 140 140 140 140 ...} \cr
 
 }
 }

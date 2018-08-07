@@ -30,7 +30,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.9  |  2018-08-06  |  Last: mdmb 0.9-16
+VERSIONS mdmb 0.9  |  2018-08-07  |  Last: mdmb 0.9-36
 ---------------------------------------------------------------------
 
 ADDED * extended Yeo-Johnson transformation to include bounded
@@ -39,7 +39,7 @@ ADDED * extended Yeo-Johnson transformation to include bounded
         yjt_regression(), frm_em() and frm_fb().
 
 
-DATA  * included/modified datasets: ---
+DATA  * included/modified datasets: data.mb05
 EXAMP * included/modified examples: yjt_dist (6), frm_em (11)
 
 ---------------------------------------------------------------------

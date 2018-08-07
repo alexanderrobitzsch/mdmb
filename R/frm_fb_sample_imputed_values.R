@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.740
+## File Version: 0.744
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -32,6 +32,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
                     ind0=ind0, imp=imp,    imputations_mcmc=imputations_mcmc, N_vv=N_vv, dat_vv=dat_vv,
                     model_results=model_results[[ index_vv ]], ind_miss_vv=ind_miss_vv )
         dat1_vv[, var_vv ] <- imp1 <- res$imp1
+        changed1 <- res$changed1
 
         do_mh <- res$do_mh
         NG <- res$NG
@@ -103,12 +104,13 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
                                 cluster_index=cluster_index, ind_miss_vv=ind_miss_vv, eps=eps,
                                 ind_vv=ind_vv )
             accept <- do.call( frm_fb_sample_imputed_values_evaluate_mh_ratio, args=args_mhratio )
-            if ( sum(accept) > 0){
-                dat_vv[ accept, var_vv ] <- dat1_vv[ accept, var_vv ]
+            accept2 <- accept & changed1
+            if ( sum(accept2) > 0){
+                dat_vv[ accept2, var_vv ] <- dat1_vv[ accept2, var_vv ]
             }
             mh_vv <- imputations_mcmc$mh_imputations_values[[ var_vv ]]
             mh_vv$iter <- mh_vv$iter + 1
-            mh_vv$accepted <- mh_vv$accepted + accept
+            mh_vv$accepted <- mh_vv$accepted + accept2
             imputations_mcmc$mh_imputations_values[[ var_vv ]] <- mh_vv
         } else {  # no MH sampling
             dat_vv[, var_vv ] <- dat1_vv[, var_vv ]
