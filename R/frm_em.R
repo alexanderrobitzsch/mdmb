@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.9395
+## File Version: 0.9396
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -35,13 +35,13 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     freq_miss_values <- res2$freq_miss_values
     # dat$weights <- dat$weights0 * dat$resp_all
     N2 <- nrow(dat)
-    
+
     #*** prepare list of models
     NM <- attr(ind,"NM")
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
     ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
-    
+
     #*** add additional arguments for regression functions
     ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
     iter <- 0

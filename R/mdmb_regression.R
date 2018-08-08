@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.811
+## File Version: 1.812
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -53,7 +53,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         y1 <- y
         if (probit){
             y1 <- stats::qlogis(y1)
-        }        
+        }
         if (use_grad %in% c(1,2) ){
             mod <- stats::lm.wfit( y=y1, x=Xdes, w=weights)
             par0 <- mod$coefficients

@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_model_nodes_weights.R
-## File Version: 0.326
+## File Version: 0.327
 
 frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
 {
@@ -10,7 +10,7 @@ frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
     y <- dat0[, dv_vars ]
     res <- frm_prepare_models_descriptives(y=y)
     m0 <- res$m0
-    sd0 <- res$sd0    
+    sd0 <- res$sd0
     #--------- define nodes if not provided
     choose_nodes <- sum( names(ind_mm)=="nodes" )==0
     if ( choose_nodes ){

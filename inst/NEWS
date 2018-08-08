@@ -28,16 +28,26 @@ CHANGELOG mdmb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+---------------------------------------------------------------------
+VERSIONS mdmb 0.10  |  2018-08-08  |  Last: mdmb 0.10-1
+---------------------------------------------------------------------
+
+xxxx  *
+
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.9  |  2018-08-07  |  Last: mdmb 0.9-36
+VERSIONS mdmb 0.9  |  2018-08-08  |  Last: mdmb 0.9-43
 ---------------------------------------------------------------------
 
 ADDED * extended Yeo-Johnson transformation to include bounded
         variables on [0,1] by employing a probit transformation.
         The extension is implemented in fit_yjt_scaled(), 
         yjt_regression(), frm_em() and frm_fb().
-
 
 DATA  * included/modified datasets: data.mb05
 EXAMP * included/modified examples: yjt_dist (6), frm_em (11)

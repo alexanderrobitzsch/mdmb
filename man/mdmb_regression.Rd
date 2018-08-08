@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.48
+%% File Version: 0.49
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -119,7 +119,7 @@ Optional vector of initial regression coefficients
 \item{lambda_fixed}{Optional fixed value for \eqn{\lambda} for scaled
   \eqn{t} distribution with Yeo-Johnson transformation}
 \item{probit}{Logical whether probit transformation should be employed for
-bounded outcome in \code{yjt_regression}}  
+bounded outcome in \code{yjt_regression}}
  \item{use_grad}{Computation method for gradients in \code{stats::optim}.
       The value \code{0} is the internal approximation of
       \code{stats::optim} and applies the settings in \pkg{mdmb} (\eqn{\le}0.3).

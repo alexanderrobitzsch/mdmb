@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.53
+## File Version: 0.55
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
@@ -36,14 +36,14 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
         eps <- 1E-3
         if ( model_vv=="bctreg"){
             imp1 <- ifelse( imp1 < 0, imp, imp1 )
-            changed1 <- ( imp1 != imp )            
+            changed1 <- ( imp1 !=imp )
         }
         if ( model_vv=="yjtreg"){
             if ( ind0[[index_vv]]$R_args$probit){
                 imp1 <- ifelse( imp1 < 0, imp, imp1 )
                 imp1 <- ifelse( imp1 > 1, imp, imp1 )
             }
-            changed1 <- ( imp1 != imp )
+            changed1 <- ( imp1 !=imp )
         }
         do_mh <- TRUE
     }
