@@ -29,10 +29,11 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.10  |  2018-08-08  |  Last: mdmb 0.10-1
+VERSIONS mdmb 0.10  |  2018-08-13  |  Last: mdmb 0.10-11
 ---------------------------------------------------------------------
 
-xxxx  *
+NOTE  * included argument 'control_optim_fct' in oprobit_regression().
+        Slight speed improvements in case of many ordered categories.
 
 
 DATA  * included/modified datasets: ---

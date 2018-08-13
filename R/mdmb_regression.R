@@ -1,10 +1,10 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.812
+## File Version: 1.845
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
     beta_init=NULL, beta_prior=NULL, df=Inf, lambda_fixed=NULL, probit=FALSE,
-    use_grad=2, h=1E-4, control=NULL )
+    use_grad=2, h=1E-4, control=NULL, control_optim_fct=NULL )
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -14,6 +14,9 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     Xdes <- stats::model.matrix( object=formula, data=data )
     N <- nrow(Xdes)
 
+    # control arguments control_optim_fct
+    control_optim_fct <- mdmb_regression_proc_control_optim_fct(control_optim_fct=control_optim_fct)
+    
     index_beta <- NULL
     index_thresh <- NULL
 
@@ -164,122 +167,44 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
         #--- define optimization function
         fct_optim <- function(x){
-            res <- mdmd_regression_optim_yjt_extract( x=x, index_beta=index_beta, eps_shape=eps_shape, index_sigma=index_sigma,
-                        lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda )
-            beta <- res$beta
-            shape <- res$shape
-            lambda <- res$lambda
-            y_pred <- Xdes %*% beta + offset_values
-            ll_i <- dens_fct( y, location=y_pred, shape=shape, lambda=lambda, df=df, log=TRUE, probit=probit )
-            ll <- - sum( weights * ll_i )
-
-            #--- include prior distributions
-            if (is_prior){
-                ll <- ll - eval_prior_list_sumlog( par=x, par_prior=beta_prior, use_grad=use_grad )
-            }
-            #--- output
+            ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta, eps_shape=eps_shape, 
+                        index_sigma=index_sigma, lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed, 
+                        index_lambda=index_lambda, Xdes=Xdes, offset_values=offset_values, y=y, df=df, 
+                        probit=probit, weights=weights, is_prior=is_prior, beta_prior=beta_prior, 
+                        use_grad=use_grad, dens_fct=dens_fct ) 
             return(ll)
         }
         #--- gradient
         grad_optim2 <- function(x){
-            res <- mdmd_regression_optim_yjt_extract( x=x, index_beta=index_beta, eps_shape=eps_shape, index_sigma=index_sigma,
-                        lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda )
-            beta <- res$beta
-            shape <- res$shape
-            lambda <- res$lambda
-            y_pred <- Xdes %*% beta + offset_values
-            x_grad <- rep(NA, np )
-            ll0 <- ll_i <- dens_fct( y, location=y_pred, shape=shape, lambda=lambda, df=df, log=TRUE, probit=probit )
-            hvec <- mdmb_regression_adjustment_differentiation_parameter(h=h, par=x )
-            #*** derivative with respect to beta
-            h0 <- hvec[ index_sigma ]
-            # derivative with respect to mu (apply chain rule)
-            ll1 <- dens_fct( y, location=y_pred+h0, shape=shape, lambda=lambda, df=df, log=TRUE, probit=probit )
-            der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h0)
-            wder1 <- weights * der1
-            x_grad[index_beta] <- colSums( wder1 * Xdes )
-            #*** derivative with respect to sigma
-            ll1 <- dens_fct( y, location=y_pred, shape=shape+h0, lambda=lambda, df=df, log=TRUE, probit=probit )
-            der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h0)
-            x_grad[index_sigma] <- sum( der1 * weights )
-            #*** derivative with respect to lambda
-            if ( ! is_lambda_fixed ){
-                ll1 <- dens_fct( y, location=y_pred, shape=shape, lambda=lambda+h0, df=df, log=TRUE, probit=probit )
-                der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h0)
-                x_grad[index_lambda] <- sum( der1 * weights )
-            }
-            if ( is_prior ){
-                xgrad[index_beta] <- xgrad[ index_beta ] - eval_prior_list_gradient_log( par=par, par_prior=beta_prior, h=h )
-            }
-            return(x_grad)
+            xgrad <- mdmb_regression_optim_yjt_grad( x=x, index_beta=index_beta, 
+                            eps_shape=eps_shape, index_sigma=index_sigma, lambda_fixed=lambda_fixed, 
+                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda, Xdes=Xdes, 
+                            offset_values=offset_values, y=y, df=df, probit=probit, weights=weights, is_prior=is_prior, 
+                            beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct, np=np, h=h ) 
+            return(xgrad)
         }
     }
     #***********************************
     #*** ordinal probit model
     if ( type=="oprobit"){
         description <- "Ordinal Probit Regression"
-        a0 <- .01
         NT <- length(index_thresh)
 
         #--- optimization function
         fct_optim <- function(x){
-            beta <- x[ index_beta ]
-            logthresh <- x[ index_thresh ]
-            thresh <- logthresh_2_thresh(x=logthresh)
-            ypred <- Xdes %*% beta + offset_values
-            ll_i <- mdmb_regression_oprobit_density( y=y, ypred=ypred, thresh=thresh, log=TRUE, eps=eps)
-            ll <- - sum( weights * ll_i )
-            #--- output
+            ll <- mdmb_regression_optim_oprobit_fct( x=x, index_beta=index_beta, 
+                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, 
+                        eps=eps, weights=weights )
             return(ll)
         }
-        #--- settings gradient
-        use_rcpp_deriv_ypred <- FALSE
-        use_rcpp_deriv_logthresh <- TRUE
         #--- gradient
         grad_optim2 <- function(x){
-            beta <- x[ index_beta ]
-            logthresh <- x[ index_thresh ]
-            thresh <- logthresh_2_thresh(x=logthresh)
-            xgrad <- rep(0, length(x) )
-            ypred <- Xdes %*% beta + offset_values
-            if ( ! use_rcpp_deriv_ypred ){
-                ll0 <- mdmb_regression_oprobit_density( y=y, ypred=ypred, thresh=thresh, log=TRUE, eps=eps )
-                ll1 <- mdmb_regression_oprobit_density( y=y, ypred=ypred+h, thresh=thresh, log=TRUE, eps=eps )
-                der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
-            } else {
-                res0 <- mdmb_oprobit_extend_thresh(thresh=thresh)
-                res <- mdmb_rcpp_oprobit_derivative_ypred( ypred=ypred, thresh_low=res0$thresh_low,
-                            thresh_upp=res0$thresh_upp, y=y )
-                ll0 <- res$ll0
-                der1 <- res$der1
-            }
-            if (! is.null(index_beta) ){
-                wder1 <- weights * der1[,1]
-                xgrad[index_beta] <- colSums( wder1 * Xdes )
-            }
-            #-- derivatives for thresholds
-            if (NT>0){
-                for (ii in 1:NT){
-                    logthresh0 <- logthresh
-                    logthresh0[ii] <- logthresh[ii] + h
-                    thresh0 <- logthresh_2_thresh(x=logthresh0)
-                    if (! use_rcpp_deriv_logthresh ){
-                        ll1 <- mdmb_regression_oprobit_density( y=y, ypred=ypred,
-                                    thresh=thresh0, log=TRUE, eps=eps )
-                        der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
-                    } else {
-                        res0 <- mdmb_oprobit_extend_thresh(thresh=thresh0)
-                        der1 <- mdmb_rcpp_oprobit_derivative_logthresh( ypred=ypred,
-                                    thresh_low=res0$thresh_low, thresh_upp=res0$thresh_upp, y=y,
-                                    ll0=ll0, eps=eps, h=h, y_value=ii)
-                    }
-                    xgrad[ index_thresh[ii] ] <- sum( weights * der1[,1] )
-
-                }
-            }
-            return(xgrad)
+            xgrad <- mdmb_regression_optim_oprobit_grad( x=x, index_beta=index_beta, 
+                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, eps=eps, h=h, 
+                        weights=weights, NT=NT, use_rcpp_deriv_ypred=control_optim_fct$use_rcpp_deriv_ypred, 
+                        use_rcpp_deriv_logthresh=control_optim_fct$use_rcpp_deriv_logthresh ) 
+            return(xgrad)                
         }
-
     }
     #--- compute gradient
     grad_optim <- function(x){
@@ -351,8 +276,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             partable=partable, y=y, X=Xdes, weights=weights,
             fitted.values=fitted.values, linear.predictor=linear.predictor,
             loglike=loglike, deviance=deviance, logprior=logprior, logpost=logpost,
-            like_case=loglike_case,  ic=ic, formula=formula, offset_values=offset_values,
-            thresh=thresh,     R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
+            like_case=loglike_case, ic=ic, formula=formula, offset_values=offset_values,
+            thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
             index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
             index_thresh=index_thresh, is_prior=is_prior, fct_optim=fct_optim, type=type,
             CALL=CALL, converged=mod1$converged, result_optim=result_optim, probit=probit,

@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.49
+%% File Version: 0.52
 
 \name{mdmb_regression}
 \alias{logistic_regression}
@@ -88,7 +88,7 @@ logistic_regression(formula, data, weights=NULL, beta_init=NULL,
 
 #---- ordinal probit regression
 oprobit_regression(formula, data, weights=NULL, beta_init=NULL,
-        use_grad=2, h=1e-5, control=NULL)
+        use_grad=2, h=1e-5, control=NULL, control_optim_fct=NULL)
 
 \method{coef}{oprobit_regression}(object, ...)
 \method{logLik}{oprobit_regression}(object, ...)
@@ -131,6 +131,8 @@ bounded outcome in \code{yjt_regression}}
 Optional arguments to be passed to optimization function
 \code{\link[stats:optim]{stats::optim}}
 }
+\item{control_optim_fct}{Optional control argument for gradient in
+optimization}
 \item{object}{Object of class \code{logistic_regression}}
 \item{newdata}{Design matrix for \code{predict} function}
 \item{trafo}{Logical indicating whether fitted values should be on the

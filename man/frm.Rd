@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.810
+%% File Version: 0.811
 
 \name{frm}
 \alias{frm}
@@ -97,7 +97,7 @@ or \code{\link[stats:lm.wfit]{stats::lm.wfit}}),
 \code{"logistic"} for dichotomous variables (wrapper to \code{\link{logistic_regression}}),
 \code{"oprobit"} for ordinal variables
 (wrapper to \code{\link{oprobit_regression}}),
-\code{"yjtreg"} for continuous variables and bounded variables on \eqn{[0,1]}
+\code{"yjtreg"} for continuous variables and bounded variables on \eqn{(0,1)}
 (wrapper to \code{\link{yjt_regression}}),
 \code{"bctreg"} for positive continuous variables
 (wrapper to \code{\link{bct_regression}}),
@@ -832,7 +832,7 @@ summary(mod0)
 mod1 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind1 )
 summary(mod1)
 
-#--- Probit Yeo-Johnson normal distribution (for bounded variable on [0,1])
+#--- Probit Yeo-Johnson normal distribution (for bounded variable on (0,1))
 mod2 <- mdmb::frm_em(dat=dat, dep=dep, ind=ind2)
 summary(mod2)
 

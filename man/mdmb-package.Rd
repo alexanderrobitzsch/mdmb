@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.26
+%% File Version: 0.28
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -37,7 +37,8 @@ covariates.
 \item Bayesian estimation and multiple imputation of regression models with
 missing values in covariates is implemented in \code{\link{frm_fb}}. The same
 regression models like in \code{\link{frm_em}} can be specified. Moreover,
-multilevel models can also be specified with Bayesian estimation. The \code{\link{frm_fb}}
+multilevel models can also be specified with Bayesian estimation. 
+The \code{\link{frm_fb}}
 allow substantive model compatible multiple imputation.
 }
 
@@ -49,8 +50,7 @@ allow substantive model compatible multiple imputation.
 Alexander Robitzsch & Oliver Luedtke \cr 
 IPN - Leibniz Institute for Science and Mathematics Education
 at Kiel University \cr \cr
-Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de> \cr \cr
-URL: \url{https://sites.google.com/site/alexanderrobitzsch/}
+Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de> 
 }
 
 

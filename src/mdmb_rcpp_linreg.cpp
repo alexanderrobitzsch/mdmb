@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.cpp
-//// File Version: 0.493
+//// File Version: 0.496
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -10,7 +10,11 @@ using namespace Rcpp;
 using namespace arma;
 
 
+
 // user includes
+const double pi1 = 3.14159265359;
+const double pi2 = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+
 
 ///********************************************************************
 // weighted sd for centered variable
@@ -177,8 +181,7 @@ Rcpp::NumericVector mdmb_rcpp_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector 
 {
     int N = x.size();
     Rcpp::NumericVector fx(N);
-    double pi1 = 3.14159265359;
-    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    double fac = pi2;  // 1/sqrt(2*pi)/sigma
     fac = fac / sigma;
     double tmp = 0;
     double sq2 = 1 / std::sqrt(2) / sigma;
@@ -200,8 +203,7 @@ Rcpp::NumericVector mdmb_rcpp_log_dnorm( Rcpp::NumericVector x, Rcpp::NumericVec
 {
     int N = x.size();
     Rcpp::NumericVector fx(N);
-    double pi1 = 3.14159265359;
-    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    double fac = pi2;  // 1/sqrt(2*pi)/sigma
     fac = std::log( fac / sigma);
     double tmp = 0;
     double sq2 = 1 / std::sqrt(2) / sigma;
@@ -224,8 +226,7 @@ Rcpp::NumericVector mdmb_rcpp_dnorm_double( Rcpp::NumericVector x, double mu,
 {
     int N = x.size();
     Rcpp::NumericVector fx(N);
-    double pi1 = 3.14159265359;
-    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    double fac = pi2;  // 1/sqrt(2*pi)/sigma
     fac = fac / sigma;
     double tmp = 0;
     double sq2 = 1 / std::sqrt(2) / sigma;
@@ -247,8 +248,7 @@ Rcpp::NumericVector mdmb_rcpp_log_dnorm_double( Rcpp::NumericVector x, double mu
 {
     int N = x.size();
     Rcpp::NumericVector fx(N);
-    double pi1 = 3.14159265359;
-    double fac = 1 / std::sqrt(2*pi1);  // 1/sqrt(2*pi)/sigma
+    double fac = pi2;  // 1/sqrt(2*pi)/sigma
     fac = std::log( fac / sigma);
     double tmp = 0;
     double sq2 = 1 / std::sqrt(2) / sigma;

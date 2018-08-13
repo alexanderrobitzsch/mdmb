@@ -1,5 +1,5 @@
 %% File Name: yjt_dist.Rd
-%% File Version: 0.495
+%% File Version: 0.496
 
 \name{yjt_dist}
 \alias{yjt_dist}
@@ -40,7 +40,7 @@ Collection of functions for the Yeo-Johnson transformation
 (Yeo & Johnson, 2000) and the corresponding distribution family of scaled
 \eqn{t} distribution with and without Yeo-Johnson transformation
 (see Details). The Yeo-Johnson transformation can also be applied for bounded variables
-on \eqn{[0,1]} which uses a probit transformation (see Details; argument \code{probit}).
+on \eqn{(0,1)} which uses a probit transformation (see Details; argument \code{probit}).
 
 The Box-Cox transformation (\code{bc}; Sakia, 1992)
 can be applied for variables with positive values.
@@ -97,7 +97,7 @@ Transformation parameter \eqn{\lambda} for Yeo-Johnson transformation
 }
 \item{use_rcpp}{Logical indicating whether \pkg{Rcpp} package should be used}
 \item{probit}{Logical indicating whether probit transformation should be
-applied for bounded variables on \eqn{[0,1]}}
+applied for bounded variables on \eqn{(0,1)}}
 \item{x}{Numeric vector}
 \item{location}{Location parameter of (transformed) scaled \eqn{t} distribution}
 \item{shape}{Shape parameter of (transformed) scaled \eqn{t} distribution}
@@ -123,7 +123,7 @@ is distribution as Scaled \eqn{t} with Yeo-Johnson transformation with location
 iff \eqn{X=g_\lambda ( \mu + \sigma Z ) } and \eqn{Z} is \eqn{t} distributed
 with \code{df} degrees of freedom.
 
-For a bounded variable \eqn{X} on \eqn{[0,1]}, the probit transformation \eqn{\Phi}
+For a bounded variable \eqn{X} on \eqn{(0,1)}, the probit transformation \eqn{\Phi}
 is applied such that \eqn{X=\Phi( g_\lambda ( \mu + \sigma Z ) ) } with a \eqn{t}
 distributed variable \eqn{Z}.
 
@@ -317,7 +317,7 @@ graphics::legend( .6*max(y), .9*max(dy), c("chi square", "yjt", "bct", "norm"),
                      lty=1:4)
 
 #############################################################################
-# EXAMPLE 6: Bounded variable on [0,1] with Probit Yeo-Johnson transformation
+# EXAMPLE 6: Bounded variable on (0,1) with Probit Yeo-Johnson transformation
 #############################################################################
 
 set.seed(876)
