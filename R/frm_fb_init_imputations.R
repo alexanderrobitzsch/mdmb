@@ -1,5 +1,5 @@
 ## File Name: frm_fb_init_imputations.R
-## File Version: 0.40
+## File Version: 0.44
 
 frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_vars,
         impute_vars_index, ind_miss, ind0, dv_vars,    variablesMatrix, dat=NULL )
@@ -28,6 +28,7 @@ frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_v
         M1 <- as.data.frame(M1)
         mm <- which( var_vv==dv_vars )
         model_mm <- ind0[[mm]]$model
+
         if ( model_mm %in% c("bctreg","yjtreg","linreg") ){
             parm <- ind0[[mm]]$coef
             np <- length(parm)

@@ -1,5 +1,5 @@
 ## File Name: frm_estimate_model_create_R_args.R
-## File Version: 0.02
+## File Version: 0.04
 
 frm_estimate_model_create_R_args <- function(dat, weights, ind_mm)
 {

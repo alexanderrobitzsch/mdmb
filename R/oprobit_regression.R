@@ -1,5 +1,5 @@
 ## File Name: oprobit_regression.R
-## File Version: 0.07
+## File Version: 0.08
 
 
 oprobit_regression <- function( formula, data, weights=NULL,
@@ -9,7 +9,7 @@ oprobit_regression <- function( formula, data, weights=NULL,
     type <- "oprobit"
     #--- wrapping general regression function
     res <- mdmb_regression( formula=formula, data=data, type=type,
-                weights=weights, beta_init=beta_init, use_grad=use_grad, h=h, control=control, 
+                weights=weights, beta_init=beta_init, use_grad=use_grad, h=h, control=control,
                 control_optim_fct=control_optim_fct )
     res$CALL <- CALL
     #--- additional informations about model type

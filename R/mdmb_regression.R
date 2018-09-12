@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.845
+## File Version: 1.846
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -16,7 +16,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     # control arguments control_optim_fct
     control_optim_fct <- mdmb_regression_proc_control_optim_fct(control_optim_fct=control_optim_fct)
-    
+
     index_beta <- NULL
     index_thresh <- NULL
 
@@ -167,20 +167,20 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
         #--- define optimization function
         fct_optim <- function(x){
-            ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta, eps_shape=eps_shape, 
-                        index_sigma=index_sigma, lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed, 
-                        index_lambda=index_lambda, Xdes=Xdes, offset_values=offset_values, y=y, df=df, 
-                        probit=probit, weights=weights, is_prior=is_prior, beta_prior=beta_prior, 
-                        use_grad=use_grad, dens_fct=dens_fct ) 
+            ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta, eps_shape=eps_shape,
+                        index_sigma=index_sigma, lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed,
+                        index_lambda=index_lambda, Xdes=Xdes, offset_values=offset_values, y=y, df=df,
+                        probit=probit, weights=weights, is_prior=is_prior, beta_prior=beta_prior,
+                        use_grad=use_grad, dens_fct=dens_fct )
             return(ll)
         }
         #--- gradient
         grad_optim2 <- function(x){
-            xgrad <- mdmb_regression_optim_yjt_grad( x=x, index_beta=index_beta, 
-                            eps_shape=eps_shape, index_sigma=index_sigma, lambda_fixed=lambda_fixed, 
-                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda, Xdes=Xdes, 
-                            offset_values=offset_values, y=y, df=df, probit=probit, weights=weights, is_prior=is_prior, 
-                            beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct, np=np, h=h ) 
+            xgrad <- mdmb_regression_optim_yjt_grad( x=x, index_beta=index_beta,
+                            eps_shape=eps_shape, index_sigma=index_sigma, lambda_fixed=lambda_fixed,
+                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda, Xdes=Xdes,
+                            offset_values=offset_values, y=y, df=df, probit=probit, weights=weights, is_prior=is_prior,
+                            beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct, np=np, h=h )
             return(xgrad)
         }
     }
@@ -192,18 +192,18 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
         #--- optimization function
         fct_optim <- function(x){
-            ll <- mdmb_regression_optim_oprobit_fct( x=x, index_beta=index_beta, 
-                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, 
+            ll <- mdmb_regression_optim_oprobit_fct( x=x, index_beta=index_beta,
+                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y,
                         eps=eps, weights=weights )
             return(ll)
         }
         #--- gradient
         grad_optim2 <- function(x){
-            xgrad <- mdmb_regression_optim_oprobit_grad( x=x, index_beta=index_beta, 
-                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, eps=eps, h=h, 
-                        weights=weights, NT=NT, use_rcpp_deriv_ypred=control_optim_fct$use_rcpp_deriv_ypred, 
-                        use_rcpp_deriv_logthresh=control_optim_fct$use_rcpp_deriv_logthresh ) 
-            return(xgrad)                
+            xgrad <- mdmb_regression_optim_oprobit_grad( x=x, index_beta=index_beta,
+                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, eps=eps, h=h,
+                        weights=weights, NT=NT, use_rcpp_deriv_ypred=control_optim_fct$use_rcpp_deriv_ypred,
+                        use_rcpp_deriv_logthresh=control_optim_fct$use_rcpp_deriv_logthresh )
+            return(xgrad)
         }
     }
     #--- compute gradient

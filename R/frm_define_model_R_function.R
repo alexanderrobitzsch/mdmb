@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.52
+## File Version: 0.53
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     R_args=NULL, sampling_level=NULL, variable_level=NULL )
@@ -17,6 +17,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     if (is.null(R_args) ){
         R_args <- list()
     }
+    R_args$probit <- FALSE
     #--- linear regression normal distribution
     if (model$model=="linreg"){
         R_fct <- stats::lm

@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.389
+## File Version: 0.399
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -7,7 +7,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
     NM <- attr(ind0, "NM")
     NM1 <- NM + 1
     if ( ! is.null(data_init) ){
-        dat <- data_init
+        subs <- intersect( colnames(data_init), colnames(dat) )
+        dat[,subs] <- data_init[, subs]
     }
     model_results <- list()
     parms <- list()
@@ -55,6 +56,9 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         #*** estimate model
         R_args <- frm_estimate_model_create_R_args(dat=dat, weights=weights, ind_mm=ind_mm)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
+        if (model_mm %in% c("linreg")){
+            R_args$probit <- NULL
+        }
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod
         se_mod <- mdmb_vcov2se(vcov=vcov(mod))
