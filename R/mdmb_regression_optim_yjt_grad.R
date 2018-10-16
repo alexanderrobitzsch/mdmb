@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_optim_yjt_grad.R
-## File Version: 0.01
+## File Version: 0.04
 
 mdmb_regression_optim_yjt_grad <- function(x, index_beta, eps_shape, index_sigma, lambda_fixed,
         is_lambda_fixed, index_lambda, Xdes, offset_values, y, df, probit, weights,
@@ -20,6 +20,7 @@ mdmb_regression_optim_yjt_grad <- function(x, index_beta, eps_shape, index_sigma
     ll1 <- dens_fct( y, location=y_pred+h0, shape=shape, lambda=lambda, df=df, log=TRUE, probit=probit )
     der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h0)
     wder1 <- weights * der1
+    wder1 <- as.vector(wder1)
     x_grad[index_beta] <- colSums( wder1 * Xdes )
     #*** derivative with respect to sigma
     ll1 <- dens_fct( y, location=y_pred, shape=shape+h0, lambda=lambda, df=df, log=TRUE, probit=probit )

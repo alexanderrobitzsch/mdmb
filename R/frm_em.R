@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.9396
+## File Version: 0.9397
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -125,12 +125,9 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 
     #--- output
     s2 <- Sys.time()
-    res <- list( coef=coefs, vcov=vcovs,
-                partable=res0$partable,
-                all_coefs=res$coefs,
-                ll=ll_new, like=like, dat=dat, se=ses,
-                info=res0$info,
-                conv=conv, iter=iter, ic=ic,
+    res <- list( coef=coefs, vcov=vcovs, partable=res0$partable,
+                all_coefs=res$coefs, ll=ll_new, like=like, dat=dat, se=ses,
+                info=res0$info, conv=conv, iter=iter, ic=ic,
                 ind0=ind0, predictorMatrix=predictorMatrix,
                 variablesMatrix=variablesMatrix, desc_vars=desc_vars,
                 model_results=res$model_results, like0=res$like0,

@@ -29,10 +29,14 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 0.11  |  2018-09-12  |  Last: mdmb 0.11-1
+VERSIONS mdmb 0.11  |  2018-10-16  |  Last: mdmb 0.11-6
 ---------------------------------------------------------------------
 
-xxxx  *
+NOTE  * included consistency checks of model names for covariate
+        models in frm_em() and frm_fb()
+NOTE  * fixed an error in mdmb_regression() for Yeo-Johnson transformed
+        variables (incompatible dimensions)
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

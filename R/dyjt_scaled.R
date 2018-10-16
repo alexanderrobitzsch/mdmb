@@ -1,5 +1,5 @@
 ## File Name: dyjt_scaled.R
-## File Version: 0.502
+## File Version: 0.504
 
 dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, probit=FALSE )
 {
@@ -13,7 +13,6 @@ dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, pr
     res <- mdmb_rcpp_yj_trafo_derivative( y=x, lambda=lambda, probit=probit )
     xt <- res$yt
     yt <- res$dyt
-
     if ( df==Inf ){
         # dy <- stats::dnorm( x=xt, mean=location, sd=shape, log=log )
         dy <- mdmb_dnorm(x=xt, mu=location, sigma=shape, log=log)

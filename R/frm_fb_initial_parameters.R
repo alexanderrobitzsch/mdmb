@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.399
+## File Version: 0.404
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
