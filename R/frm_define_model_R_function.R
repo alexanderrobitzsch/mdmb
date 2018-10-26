@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.53
+## File Version: 0.54
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     R_args=NULL, sampling_level=NULL, variable_level=NULL )
@@ -33,6 +33,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         # R_args <- list("family"="binomial")
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_logistic_density"
+        R_args$probit <- NULL
     }
     #--- ordinal probit regression
     if (model$model=="oprobit"){

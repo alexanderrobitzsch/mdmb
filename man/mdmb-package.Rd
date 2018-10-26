@@ -1,26 +1,26 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.28
+%% File Version: 0.33
 
 \name{mdmb-package}
 \alias{mdmb-package}
 \alias{mdmb}
 \docType{package}
 
+
 \title{
-Model Based Treatment of Missing Data  
+\packageTitle{mdmb} 
 }
 
 \description{
-    Contains model-based treatment of missing data for regression 
-    models with missing values in covariates or the dependent 
-    variable using maximum likelihood or Bayesian estimation 
-    (Ibrahim et al., 2005; <doi:10.1198/016214504000001844>).
-    The regression model can be nonlinear (e.g., interaction 
-    effects, quadratic effects or B-spline functions). 
-    Multilevel models with missing data in predictors are
-    available for Bayesian estimation. Substantive-model compatible 
-    multiple imputation can be also conducted.
+\packageDescription{mdmb}
 }
+
+\author{
+\packageAuthor{mdmb}
+
+Maintainer: \packageMaintainer{mdmb}
+}
+
 
 \details{
 
@@ -46,12 +46,6 @@ allow substantive model compatible multiple imputation.
 
 }
 
-\author{
-Alexander Robitzsch & Oliver Luedtke \cr 
-IPN - Leibniz Institute for Science and Mathematics Education
-at Kiel University \cr \cr
-Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de> 
-}
 
 
 \references{

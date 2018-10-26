@@ -30,10 +30,12 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.0  |  2018-10-17  |  Last: mdmb 1.0-1
+VERSIONS mdmb 1.0  |  2018-10-26  |  Last: mdmb 1.0-5
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * fixed a bug in frm_em() and frm_fb() when logistic regression
+        is applied (thanks to Man Yiu Tim Tsang)
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

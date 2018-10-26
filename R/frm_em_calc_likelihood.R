@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.372
+## File Version: 1.374
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,

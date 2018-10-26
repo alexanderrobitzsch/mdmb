@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood_estimate_model.R
-## File Version: 0.453
+## File Version: 0.455
 
 frm_em_calc_likelihood_estimate_model <- function( ind_mm, dat, weights )
 {
@@ -13,7 +13,6 @@ frm_em_calc_likelihood_estimate_model <- function( ind_mm, dat, weights )
         R_args[["w"]] <- weights
         R_fct <- "mdmb_lm_wfit"
     }
-
     #-- estimate regression model
     mod <- do.call( what=R_fct, args=R_args )
     if ( is_linreg ){
