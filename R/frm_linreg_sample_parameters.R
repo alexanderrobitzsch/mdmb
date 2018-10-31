@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_sample_parameters.R
-## File Version: 0.09
+## File Version: 0.16
 
 
 frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_weights, ... )
@@ -17,15 +17,25 @@ frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_we
     }
     XtX <- crossprod(X1)
     Xty <- crossprod(X1,y1)
-    xtx_inv <- MASS::ginv(XtX)
-    beta0 <- xtx_inv %*% Xty
-    e <- y1 - X1 %*% beta0
+    np <- ncol(X1)
+    sample_beta <- ( np > 0 )
+    if (sample_beta){
+        xtx_inv <- MASS::ginv(XtX)
+        beta0 <- xtx_inv %*% Xty
+        e <- y1 - X1 %*% beta0
+    } else {
+        e <- y1
+    }
     N <- length(y1)
     sigma2 <- sum( weights * e^2 ) / sum(weights)
     #--- sample regression parameters
-    beta_vcov <- sigma2 * xtx_inv
-    coef <- MASS::mvrnorm(n=1, mu=beta0[,1], Sigma=beta_vcov)
-    df <- N - ncol(X1)
+    if (sample_beta){
+        beta_vcov <- sigma2 * xtx_inv
+        coef <- MASS::mvrnorm(n=1, mu=beta0[,1], Sigma=beta_vcov)
+    } else {
+        coef <- NULL
+    }
+    df <- N - np
     #      df * s2 / sig2 ~ chi2
     #=>   sig2 ~ df * s2 / chi2
     sigma2 <- sigma2 * df / stats::rchisq(1, df=df )

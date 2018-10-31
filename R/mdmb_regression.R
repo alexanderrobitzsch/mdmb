@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.850
+## File Version: 1.851
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -60,10 +60,10 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         if (use_grad %in% c(1,2) ){
             mod <- stats::lm.wfit( y=y1, x=Xdes, w=weights)
             par0 <- mod$coefficients
-            sd_y <- TAM::weighted_sd( x=mod$residuals, w=weights )
+            sd_y <- mdmb_weighted_sd( x=mod$residuals, w=weights )
             par <- par0
         } else {
-            sd_y <- TAM::weighted_sd( x=y1, w=weights )
+            sd_y <- mdmb_weighted_sd( x=y1, w=weights )
         }
         #** starting values yjt and bct regression
         if ( type %in% c("yjt","bct") ){

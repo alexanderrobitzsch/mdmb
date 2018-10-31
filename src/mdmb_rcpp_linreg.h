@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.h
-//// File Version: 0.493
+//// File Version: 0.498
 
 #ifndef _MDMB_MDMB_RCPP_LINREG_H
 #define _MDMB_MDMB_RCPP_LINREG_H

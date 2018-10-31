@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.374
+## File Version: 1.382
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -17,7 +17,8 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     post_miss <- post
     coefs <- as.list( 1:(NM+1) )
     for (mm in 1:(NM+1)){
-        ind_mm <- ind0[[mm]]
+# cat("\n---------------------- mm=", mm, " --------\n")        
+        ind_mm <- ind0[[mm]]        
         #--- estimate model with weights
         mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat,
                     weights=weights )
@@ -29,8 +30,8 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
             model_results[[mm]]$sigma <- ind_mm$sigma_fixed
         }
         mod <- model_results[[mm]]
-        #--- compute likelihood (evaluation of density)
-        args <- list(model=mod, y=dat[, ind_mm$dv_vars ],  case=dat$case)
+        #--- compute likelihood (evaluation of density)        
+        args <- list(model=mod, y=dat[, ind_mm$dv_vars ], case=dat$case)
         args <- frm_em_linreg_density_extend_args(args=args, ind_mm=ind_mm)
         dmod <- do.call( what=ind_mm$R_density_fct, args=args )
         #*** arrange coefficients

@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.811
+%% File Version: 0.812
 
 \name{frm}
 \alias{frm}
@@ -275,19 +275,19 @@ package and the statement \code{survey::SE(mod)}.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-See also the \pkg{icdGLM} package for estimation of generalized
+See also the \CRANpkg{icdGLM} package for estimation of generalized
 linear models with incomplete discrete covariates.
 
 The imputation of covariates in substantive models with interactions or nonlinear
-terms can be also conducted with the \pkg{JointAI} package which is a wrapper
+terms can be also conducted with the \CRANpkg{JointAI} package which is a wrapper
 to the JAGS software (see Erler et al., 2016). This package is also based on a sequential
 modelling approach.
 
-The \pkg{jomo} package also accommodates substantive models (\code{jomo::jomo.lm})
+The \CRANpkg{jomo} package also accommodates substantive models (\code{jomo::jomo.lm})
 based on a joint modeling framework.
 
 Substantive model compatible imputation based
-on fully conditional specification can be found in the \pkg{smcfcs} package
+on fully conditional specification can be found in the \CRANpkg{smcfcs} package
 (see Bartlett et al., 2015; Bartlett & Morris, 2015)
 or the Blimp stand-alone software
 (Keller & Enders, 2018).

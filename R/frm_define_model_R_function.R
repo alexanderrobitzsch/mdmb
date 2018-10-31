@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.54
+## File Version: 0.58
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     R_args=NULL, sampling_level=NULL, variable_level=NULL )
@@ -41,6 +41,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_fct_name <- "mdmb::oprobit_regression"
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_oprobit_density"
+        R_args$probit <- NULL
     }
     #--- linear regression with Box-Cox Transformation
     if (model$model %in% c("bctreg") ){
@@ -48,6 +49,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_fct_name <- "mdmb::bct_regression"
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_mdmb_regression_density"
+        R_args$probit <- NULL
     }
     #--- linear regression with Yeo-Johnson Transformation
     if (model$model %in% c("yjtreg") ){
@@ -63,9 +65,10 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     if (model$model %in% c("mlreg") ){
         R_fct <- frm_mlreg_wrapper_ml_mcmc
         R_fct_name <- "miceadds::ml_mcmc"
+        R_args$probit <- NULL
         args <- list(outcome="normal", iter=5, burnin=1, inits_lme4=TRUE,
                         thresh_fac=5.8 )
-        R_args <- frm_append_list( list1=R_args, list2=args, overwrite=FALSE )
+        R_args <- frm_append_list( list1=R_args, list2=args, overwrite=FALSE)
         R_density_fct <- "frm_mlreg_density"
         R_sampling_fct <- "frm_mlreg_sample_parameters"
         use_gibbs_model <- TRUE

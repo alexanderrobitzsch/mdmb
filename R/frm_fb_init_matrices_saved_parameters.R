@@ -1,9 +1,12 @@
 ## File Name: frm_fb_init_matrices_saved_parameters.R
-## File Version: 0.17
+## File Version: 0.18
 
 frm_fb_init_matrices_saved_parameters <- function( iter, burnin,
         Nsave, Nimp, npars, parms, parms_index, predictorMatrix )
 {
+    if (burnin > iter){
+        burnin <- round(iter/2)
+    }
     # number of iterations
     iter_main <- iter - burnin
     Nsave0 <- min( iter_main, Nsave )
@@ -30,6 +33,6 @@ frm_fb_init_matrices_saved_parameters <- function( iter, burnin,
                 parms=parms, parms_index=parms_index,
                 parms_unlist=parms_unlist, iter_save_temp=iter_save_temp,
                 iter_save_index=iter_save_index, M_mcmc=M_mcmc,
-                SD_mcmc=SD_mcmc, vars_descriptives=vars )
+                SD_mcmc=SD_mcmc, vars_descriptives=vars, burnin=burnin )
     return(res)
 }

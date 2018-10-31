@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.7886
+## File Version: 0.7898
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -49,7 +49,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     #        * no adaptations are needed
     #
     #*****************----------------
-
+    
     #*** prepare models
     res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_weights=FALSE, use_gibbs=use_gibbs,
                 weights=weights)
@@ -63,7 +63,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         weights0 <- rep(1,N)
     }
     dat0 <- dat
-
+    
     #*** prepare data
     res2 <- frm_prepare_data_fb(dat=dat, dep=dep, ind=ind, weights0=weights0,
                     dat0=dat0, data_init=data_init )
@@ -81,9 +81,9 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     NM <- attr(ind,"NM")
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
-
+    
     #*** fixed standard deviations
-    # ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
+    ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
 
     #*** initial estimation of models
     res3 <- frm_fb_initial_parameters(dat=dat, ind0=ind0, data_init=data_init,
@@ -94,13 +94,14 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     model_results <- res3$model_results
     npars <- res3$npars
     dat <- res3$dat
-
+    
     #**** allocate matrices with sampled values for parameters
     parms_mcmc <- frm_fb_init_matrices_saved_parameters( iter=iter, burnin=burnin,
                         Nsave=Nsave, Nimp=Nimp, npars=npars, parms=parms,
                         parms_index=parms_index, predictorMatrix=predictorMatrix )
     iter <- parms_mcmc$iter
-
+    burnin <- parms_mcmc$burnin
+    
     #**** inits objects for imputations
     imputations_mcmc <- frm_fb_init_imputations( Nimp=Nimp, model_results=model_results,
                             iter=iter, burnin=burnin, impute_vars=impute_vars,

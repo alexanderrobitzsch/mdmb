@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.744
+## File Version: 0.749
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -11,6 +11,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
     nrow_dat <- nrow(dat)
     for (vv in 1:NV){
         var_vv <- imputations_mcmc$impute_vars[vv]
+    #  cat("\n---------------------- var_vv=", var_vv, " --------\n")        
         index_vv <- imputations_mcmc$impute_vars_index[vv]
         ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]
         like_nrow <- N_vv <- length( ind_miss_vv )
@@ -25,7 +26,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         # dat_vv is a reduced data frame which has missing values in variable vv
         dat_vv <- dat[ ind_miss_vv,, drop=FALSE ]
         imp <- dat_vv[, var_vv ]
-
+        
         #--- sample new proposed values
         dat1_vv <- dat_vv
         res <- frm_fb_sample_imputed_values_proposal( var_vv=var_vv, index_vv=index_vv,
@@ -83,6 +84,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
             }
             dat_vv[,var_vv] <- dat1_vv[,var_vv] <- imp1
         }
+        
         #******************************************
         #**** evaluate models under old value and new proposed value
         if (do_mh){
@@ -98,6 +100,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
             }  # end mm
 
         }
+        
         #**** evaluation proposal in Metropolis-Hastings sampling
         if (do_mh){
             args_mhratio <- list( like=like, like1=like1, use_sampling_level_vv=use_sampling_level_vv,

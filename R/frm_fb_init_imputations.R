@@ -1,5 +1,5 @@
 ## File Name: frm_fb_init_imputations.R
-## File Version: 0.44
+## File Version: 0.45
 
 frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_vars,
         impute_vars_index, ind_miss, ind0, dv_vars,    variablesMatrix, dat=NULL )
@@ -46,7 +46,11 @@ frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_v
         }
         M1$sd_proposal <- ind0[[mm]]$sigma
 
-        if( ind0[[mm]]$R_args$probit ){
+        is_probit <- ind0[[mm]]$R_args$probit
+        if (is.null(is_probit) ){
+            is_probit <- FALSE
+        }        
+        if( is_probit ){
             M1$sd_proposal <- .25*M1$sd_proposal
         }
         mh_imputations_values[[ var_vv ]] <- M1

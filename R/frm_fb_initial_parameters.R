@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.404
+## File Version: 0.413
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -56,7 +56,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         #*** estimate model
         R_args <- frm_estimate_model_create_R_args(dat=dat, weights=weights, ind_mm=ind_mm)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
-        if (model_mm %in% c("linreg")){
+        if (model_mm %in% c("linreg","oprobit")){
             R_args$probit <- NULL
         }
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
@@ -92,7 +92,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             est_sigma <- FALSE
         }
         if ( est_sigma ){
-            sigma <- TAM::weighted_sd( residuals(mod), weights )
+            sigma <- mdmb_weighted_sd(x=residuals(mod), w=weights, 
+                        unbiased=TRUE, na.rm=TRUE)
             ind_mm$N_sigma <- 1
             ind_mm$sample_sigma <- TRUE
             ind_mm$sigma <- sigma
