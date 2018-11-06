@@ -1,5 +1,5 @@
 ## File Name: summary.frm_fb.R
-## File Version: 0.16
+## File Version: 0.18
 
 
 #*******************************************************
@@ -13,11 +13,10 @@ summary.frm_fb <- function( object, digits=4, file=NULL, ...)
     mdmd_summary_print_model_description(object=object, pack="mdmb")
 
     cat("-----------------------------------------------------------------\n")
-    cat( "Number of observations=", object$ic$N, "\n\n" )
-    cat( "Number of iterations=", object$iter, "\n" )
-    cat( "Number of burnin iterations=", object$burnin, "\n\n" )
-
-    cat( "Number of estimated parameters=", object$ic$np, "\n" )
+    CDM::cat_paste( "Number of observations", xx(), object$ic$N, "\n\n" )
+    CDM::cat_paste( "Number of iterations", xx(), object$iter, "\n" )
+    CDM::cat_paste( "Number of burnin iterations", xx(), object$burnin, "\n\n" )
+    CDM::cat_paste( "Number of estimated parameters", xx(), object$ic$np, "\n" )
 
     #--- Model equations
     cat("-----------------------------------------------------------------\n")
@@ -28,7 +27,7 @@ summary.frm_fb <- function( object, digits=4, file=NULL, ...)
     #--- Predictor matrix
     cat("-----------------------------------------------------------------\n")
     cat("Predictor Matrix\n")
-    print( object$predictorMatrix)
+    print(object$predictorMatrix)
 
     #--- Model equations
     cat("-----------------------------------------------------------------\n")

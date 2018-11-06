@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.35
+%% File Version: 0.36
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -62,7 +62,7 @@ The EM algorithm for the multivariate normal model is implemented in
 A corresponding MCMC algorithm can be
 found in the \code{norm2::mcmcNorm} function.
 
-See the \CRANpkg{lavaan}, \CRANpkg{OpenMx} or \CRANpkg{sem} packages for full information 
+See the \pkg{lavaan}, \pkg{OpenMx} or \pkg{sem} packages for full information 
 maximum likelihood approaches for handling missing data for multivariate
 normal distributions, linear regression models, and, more generally, 
 structural equation modeling with missing data.
@@ -72,8 +72,7 @@ two-stage procedure. In a first stage, a mean vector and a covariance matrix
 is estimated (possibly with auxiliary variables) and in the second stage,
 the structural equation model is estimated on the previously obtained
 mean vector and covariance matrix. The procedure is implemented in the  
-\code{semTools::twostage} function in the
-\CRANpkg{semTools} package.
+\code{semTools::twostage} function in the \pkg{semTools} package.
 }
 
 % \code{\link[semTools:twostage]{semTools::twostage}}

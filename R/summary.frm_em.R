@@ -1,5 +1,5 @@
 ## File Name: summary.frm_em.R
-## File Version: 0.37
+## File Version: 0.38
 
 
 #*******************************************************
@@ -86,7 +86,7 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
         if (ind_mm$model=="linreg"){
             all_coefs <- object$all_coefs[[mm]]
             AC <- length(all_coefs)
-            v1 <- paste0("Explained variance R^2=", round( all_coefs[AC], digits ), "\n")
+            v1 <- paste0("Explained variance R^2", "=",round( all_coefs[AC], digits ), "\n")
             cat(v1)
         }
         if (ind_mm$model %in% c("logistic") ) {

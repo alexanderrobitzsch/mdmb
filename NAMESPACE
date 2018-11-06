@@ -57,6 +57,7 @@ importFrom(utils, packageDescription)
 #***************************************************
 #************** Imports (own) **********************
 
+importFrom(CDM, cat_paste)
 importFrom(CDM, cdm_print_summary_data_frame) 
 importFrom(CDM, csink)
 importFrom(CDM, numerical_Hessian)

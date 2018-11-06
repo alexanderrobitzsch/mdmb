@@ -29,8 +29,20 @@ CHANGELOG mdmb
 
 
 
+
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.0  |  2018-10-31  |  Last: mdmb 1.0-14
+VERSIONS mdmb 1.1  |  2018-11-06  |  Last: mdmb 1.1-1
+---------------------------------------------------------------------
+
+xxxx  *
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+
+---------------------------------------------------------------------
+VERSIONS mdmb 1.0  |  2018-11-06  |  Last: mdmb 1.0-18
 ---------------------------------------------------------------------
 
 FIXED * fixed a bug in frm_em() and frm_fb() when logistic regression
@@ -43,11 +55,8 @@ FIXED * fixed bug in frm_em() and frm_fb() for ordinal probit
 FIXED * fixed bug in sampling of linear regression with no estimated
         mean structure (Example 9)
 
-
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
-
-
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 0.11  |  2018-10-16  |  Last: mdmb 0.11-7
