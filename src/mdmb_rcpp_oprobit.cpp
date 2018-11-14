@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_oprobit.cpp
-//// File Version: 0.498
+//// File Version: 0.503
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -10,10 +10,11 @@
 
 
 #include <miceadds.h>
-// #include "p:\Eigene_Projekte\R-Routinen\IRT-Functions\miceadds_Package\2.14\miceadds_work\inst\include\miceadds.h"
+// #include "p:\Eigene_Projekte\R-Routinen\IRT-Functions\miceadds_Package\3.0\miceadds_work\inst\include\miceadds.h"
 
 // [include_header_file]
-#include "mdmb_rcpp_linreg.h"
+#include "mdmb_rcpp_dnorm_dt.h"
+
 
 using namespace Rcpp;
 using namespace arma;

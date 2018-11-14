@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.9404
+## File Version: 0.9405
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -8,7 +8,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 {
     CALL <- match.call()
     s1 <- Sys.time()
-    
+
     #*** prepare models
     res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_control=nodes_control,
                     use_grad=use_grad)
@@ -16,7 +16,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     ind <- res$ind
     predictorMatrix <- res$predictorMatrix
     variablesMatrix <- res$variablesMatrix
-    
+
     weights0 <- weights
     N <- nrow(dat)
     if ( is.null(weights0)){
@@ -35,13 +35,13 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     freq_miss_values <- res2$freq_miss_values
     # dat$weights <- dat$weights0 * dat$resp_all
     N2 <- nrow(dat)
-    
+
     #*** prepare list of models
     NM <- attr(ind,"NM")
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
     ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
-    
+
     #*** add additional arguments for regression functions
     ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
     iter <- 0
@@ -50,7 +50,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     beta_new <- 0
     iterate <- TRUE
     conv1 <- conv2 <- FALSE
-    
+
     #**** EM algorithm
     while( iterate ){
         ll_old <- ll_new

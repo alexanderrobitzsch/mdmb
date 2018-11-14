@@ -1,9 +1,9 @@
 ## File Name: frm_linreg_density.R
-## File Version: 0.9705
+## File Version: 0.9708
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL, use_in_frm_fb=FALSE )
-{    
+{
     if ( is.null(design_matrix) ){
         if (is.null(X) ){
             y_pred <- predict(model)
@@ -26,7 +26,7 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
             y_pred <- offset_values
         }
     }
-    
+
     w <- model$weights
     yr <- residuals(model)
     if ( is.null(w) ){
@@ -48,12 +48,12 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
         }
         y <- y1
     }
-    
+
     y_sd0 <- mdmb_rcpp_weighted_sd( x=y, w=w1 )
     if ( ! is.null(model$sigma) ){
         y_sd <- model$sigma
     }
-    
+
     # R^2
     R2 <- mean( 1 - y_sd^2 / y_sd0^2 )
 
@@ -61,12 +61,12 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
     if ( is.matrix(y_pred) ){
         y_pred <- y_pred[,1]
     }
-    if ( length(y_sd) == 1 ){
-        d1 <- mdmb_rcpp_dnorm( x=y, mu=y_pred, sigma=y_sd)    
+    if ( length(y_sd)==1 ){
+        d1 <- mdmb_rcpp_dnorm( x=y, mu=y_pred, sigma=y_sd)
     } else {
         d1 <- stats::dnorm( x=y, mean=y_pred, sd=y_sd)
     }
-    
+
     d2 <- NULL
     if ( ! use_in_frm_fb ){
         d2 <- frm_normalize_posterior( post=d1, case=case )

@@ -31,10 +31,12 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.1  |  2018-11-06  |  Last: mdmb 1.1-1
+VERSIONS mdmb 1.1  |  2018-11-14  |  Last: mdmb 1.1-7
 ---------------------------------------------------------------------
 
-xxxx  *
+NOTE  * efficiency improvements in internal functions
+        fit_mdmb_distribution()
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

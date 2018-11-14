@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models_sigma_fixed.R
-## File Version: 0.13
+## File Version: 0.14
 
 frm_prepare_models_sigma_fixed <- function( ind0, NM, dat0, dat)
 {
@@ -13,7 +13,7 @@ frm_prepare_models_sigma_fixed <- function( ind0, NM, dat0, dat)
         ind_mm$is_sigma_fixed <- FALSE
         ind_mm$est_sigma <- TRUE
         if ( NS==1){
-            sigma_fixed <- rep( sigma_fixed, N )                
+            sigma_fixed <- rep( sigma_fixed, N )
         }
         if ( NS > 0){
             sigma_fixed <- sigma_fixed[ dat$case ]

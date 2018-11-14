@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.413
+## File Version: 0.414
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -92,7 +92,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             est_sigma <- FALSE
         }
         if ( est_sigma ){
-            sigma <- mdmb_weighted_sd(x=residuals(mod), w=weights, 
+            sigma <- mdmb_weighted_sd(x=residuals(mod), w=weights,
                         unbiased=TRUE, na.rm=TRUE)
             ind_mm$N_sigma <- 1
             ind_mm$sample_sigma <- TRUE

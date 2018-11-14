@@ -1,8 +1,8 @@
 Package: mdmb
 Type: Package
 Title: Model Based Treatment of Missing Data
-Version: 1.1-1
-Date: 2018-11-06 19:12:19
+Version: 1.1-7
+Date: 2018-11-14 11:32:35
 Author: 
     Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
 Maintainer: 

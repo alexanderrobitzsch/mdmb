@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.cpp
-//// File Version: 0.498
+//// File Version: 0.506
 
 // [[Rcpp::depends(RcppArmadillo)]]
 
@@ -170,97 +170,6 @@ Rcpp::NumericVector mdmb_rcpp_frm_normalize_posterior(
     return post1;
 }
 ///********************************************************************
-
-
-///********************************************************************
-// univariate normal density
-///** mdmb_rcpp_dnorm
-// [[Rcpp::export]]
-Rcpp::NumericVector mdmb_rcpp_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector mu,
-    double sigma )
-{
-    int N = x.size();
-    Rcpp::NumericVector fx(N);
-    double fac = pi2;  // 1/sqrt(2*pi)
-    fac = fac / sigma;
-    double tmp = 0;
-    double sq2 = 1 / std::sqrt(2) / sigma;
-    for (int nn=0; nn<N; nn++){
-        tmp = sq2 * (x[nn] - mu[nn]);
-        fx[nn] = fac * std::exp( - tmp * tmp);
-    }
-    //---- OUTPUT
-    return fx;
-}
-///********************************************************************
-
-///********************************************************************
-// univariate normal density logarithmized
-///** mdmb_rcpp_log_dnorm
-// [[Rcpp::export]]
-Rcpp::NumericVector mdmb_rcpp_log_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector mu,
-    double sigma )
-{
-    int N = x.size();
-    Rcpp::NumericVector fx(N);
-    double fac = pi2;  // 1/sqrt(2*pi)
-    fac = std::log( fac / sigma);
-    double tmp = 0;
-    double sq2 = 1 / std::sqrt(2) / sigma;
-    for (int nn=0; nn<N; nn++){
-        tmp = sq2 * (x[nn] - mu[nn]);
-        fx[nn] = fac - tmp * tmp;
-    }
-    //---- OUTPUT
-    return fx;
-}
-///********************************************************************
-
-
-///********************************************************************
-// univariate normal density
-///** mdmb_rcpp_dnorm_double
-// [[Rcpp::export]]
-Rcpp::NumericVector mdmb_rcpp_dnorm_double( Rcpp::NumericVector x, double mu,
-    double sigma )
-{
-    int N = x.size();
-    Rcpp::NumericVector fx(N);
-    double fac = pi2;  // 1/sqrt(2*pi)
-    fac = fac / sigma;
-    double tmp = 0;
-    double sq2 = 1 / std::sqrt(2) / sigma;
-    for (int nn=0; nn<N; nn++){
-        tmp = sq2 * (x[nn] - mu);
-        fx[nn] = fac * std::exp( - tmp * tmp);
-    }
-    //---- OUTPUT
-    return fx;
-}
-///********************************************************************
-
-///********************************************************************
-// univariate normal density logarithmized
-///** mdmb_rcpp_log_dnorm_double
-// [[Rcpp::export]]
-Rcpp::NumericVector mdmb_rcpp_log_dnorm_double( Rcpp::NumericVector x, double mu,
-    double sigma )
-{
-    int N = x.size();
-    Rcpp::NumericVector fx(N);
-    double fac = pi2;  // 1/sqrt(2*pi)
-    fac = std::log( fac / sigma);
-    double tmp = 0;
-    double sq2 = 1 / std::sqrt(2) / sigma;
-    for (int nn=0; nn<N; nn++){
-        tmp = sq2 * (x[nn] - mu);
-        fx[nn] = fac - tmp * tmp;
-    }
-    //---- OUTPUT
-    return fx;
-}
-///********************************************************************
-
 
 // Rcpp::Rcout << "cc=" << cc << " ii_start= " << ii_start <<
 //                " ii_end=" << ii_end << " count=" << count << std::endl;

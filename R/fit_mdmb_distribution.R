@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution.R
-## File Version: 0.495
+## File Version: 0.504
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
     weights=NULL, probit=FALSE)
@@ -28,8 +28,8 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
         description <- paste0( "Scaled t distribution (df=", df, ")")
         class_type <- "fit_t_scaled"
         loglik_fit <- function(x){
-            dx <- dt_scaled( x=y, location=x[1], shape=x[2], df=df )
-            fn <- - sum( weights * log(dx + eps ) )
+            dx <- dt_scaled( x=y, location=x[1], shape=x[2], df=df, log=TRUE )
+            fn <- - sum( weights * dx )
             return(fn)
         }
     }
@@ -58,8 +58,9 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
             } else {
                 lambda1 <- x[3]
             }
-            dx <- dyjt_scaled( x=y, location=x[1], shape=x[2], lambda=lambda1, df=df, probit=probit )
-            fn <- - sum( weights * log(dx + eps ) )
+            dx <- dyjt_scaled( x=y, location=x[1], shape=x[2], lambda=lambda1, df=df,
+                            probit=probit, log=TRUE )
+            fn <- - sum( weights * dx )
             return(fn)
         }
     }

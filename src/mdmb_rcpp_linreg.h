@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_linreg.h
-//// File Version: 0.498
+//// File Version: 0.506
 
 #ifndef _MDMB_MDMB_RCPP_LINREG_H
 #define _MDMB_MDMB_RCPP_LINREG_H
@@ -16,17 +16,5 @@ Rcpp::List mdmb_rcpp_lm_wfit( arma::mat x, arma::colvec y, arma::colvec w );
 
 Rcpp::NumericVector mdmb_rcpp_frm_normalize_posterior(
             Rcpp::NumericVector post, Rcpp::IntegerVector case_ );
-
-Rcpp::NumericVector mdmb_rcpp_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector mu,
-    double sigma );
-
-Rcpp::NumericVector mdmb_rcpp_log_dnorm( Rcpp::NumericVector x, Rcpp::NumericVector mu,
-    double sigma );
-
-Rcpp::NumericVector mdmb_rcpp_dnorm_double( Rcpp::NumericVector x, double mu,
-    double sigma );
-
-Rcpp::NumericVector mdmb_rcpp_log_dnorm_double( Rcpp::NumericVector x, double mu,
-    double sigma );
 
 #endif // _MDMB_MDMB_RCPP_LINREG_H
