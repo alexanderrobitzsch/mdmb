@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.36
+%% File Version: 0.37
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -38,8 +38,7 @@ covariates.
 missing values in covariates is implemented in \code{\link{frm_fb}}. The same
 regression models like in \code{\link{frm_em}} can be specified. Moreover,
 multilevel models can also be specified with Bayesian estimation. 
-The \code{\link{frm_fb}}
-allow substantive model compatible multiple imputation.
+The function \code{\link{frm_fb}} allows substantive model compatible multiple imputation.
 }
 
 

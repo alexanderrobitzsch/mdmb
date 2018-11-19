@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.813
+%% File Version: 0.816
 
 \name{frm}
 \alias{frm}
@@ -811,7 +811,7 @@ prop_miss <- .5
 cor_miss <- .7
 resp_tend <- cor_miss*(dat$y-mean(y) )/ stats::sd(y) +
                  stats::rnorm(n, sd=sqrt( 1 - cor_miss^2) )
-dat[ resp_tend < stats::qnorm( prop_miss ), "x" ] <- NA
+dat[ resp_tend < stats::qnorm(prop_miss), "x" ] <- NA
 summary(dat)
 
 #*** define models
@@ -839,6 +839,36 @@ summary(mod2)
 mod3 <- mdmb::frm_fb(dat, dep, ind=ind2, burnin=2000, iter=5000)
 summary(mod3)
 plot(mod3)
+
+#############################################################################
+# EXAMPLE 12: Yeo-Johnson transformation with estimated degrees of freedom
+#############################################################################
+
+#*** simulate data
+set.seed(876)
+n <- 1500
+x <- mdmb::ryjt_scaled( n, location=-.2, shape=.8, lambda=.9, df=10 )
+R2 <- .25    # explained variance
+y <- 1*x + stats::rnorm(n, sd=sqrt( (1-R2)/R2 * stats::var(x)) )
+dat0 <- dat <- data.frame( y=y, x=x )
+
+# simulate missing responses
+prop_miss <- .5
+cor_miss <- .7
+resp_tend <- cor_miss*(dat$y-mean(y) )/ stats::sd(y) +
+                 stats::rnorm(n, sd=sqrt( 1-cor_miss^2) )
+dat[ resp_tend < stats::qnorm(prop_miss), "x" ] <- NA
+summary(dat)
+
+#*** define models
+dep <- list("model"="linreg", "formula"=y ~  x )
+# specify distribution with estimated degrees of freedom
+ind_x <- list( "model"="yjtreg", "formula"=x ~ 1, R_args=list(est_df=TRUE ) )
+ind <- list( "x"=ind_x )
+
+#--- Yeo-Johnson t distribution
+mod1 <- mdmb::frm_fb(dat=dat, dep=dep, ind=ind, iter=3000, burnin=1000 )
+summary(mod1)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

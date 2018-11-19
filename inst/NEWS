@@ -31,15 +31,20 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.1  |  2018-11-14  |  Last: mdmb 1.1-7
+VERSIONS mdmb 1.1  |  2018-11-19  |  Last: mdmb 1.1-21
 ---------------------------------------------------------------------
 
-NOTE  * efficiency improvements in internal functions
+NOTE  * efficiency improvements in internal function
         fit_mdmb_distribution()
+ADDED * added argument 'est_df' in yjt_regression() and 
+        bct_regression() for estimation of degrees of freedom in 
+        t distribution. These models can also be used in the 
+        sequential modeling frm_fb() and frm_em() 
+        (see ?frm_fb; Example 12)
 
 
 DATA  * included/modified datasets: ---
-EXAMP * included/modified examples: ---
+EXAMP * included/modified examples: mdmb_regression (2), frm_fb (12)
 
 
 

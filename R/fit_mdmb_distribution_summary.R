@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution_summary.R
-## File Version: 0.28
+## File Version: 0.29
 
 
 #*******************************************************
@@ -14,7 +14,7 @@ fit_mdmb_distribution_summary <- function( object, digits=4, file=NULL, ...)
 
     cat("-----------------------------------------------------------------\n")
     # package and R session
-    mdmd_summary_print_model_description(object=object, pack="mdmb")
+    mdmb_summary_print_model_description(object=object, pack="mdmb")
 
     cat( object$description, "\n\n")
 

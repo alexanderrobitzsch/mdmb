@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.750
+## File Version: 0.756
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -11,7 +11,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
     nrow_dat <- nrow(dat)
     for (vv in 1:NV){
         var_vv <- imputations_mcmc$impute_vars[vv]
-    #  cat("\n---------------------- var_vv=", var_vv, " --------\n")
+    # cat("\n---------------------- var_vv=", var_vv, " --------\n")
         index_vv <- imputations_mcmc$impute_vars_index[vv]
         ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]
         like_nrow <- N_vv <- length( ind_miss_vv )

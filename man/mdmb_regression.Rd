@@ -1,25 +1,29 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.52
+%% File Version: 0.565
 
 \name{mdmb_regression}
+
 \alias{logistic_regression}
 \alias{coef.logistic_regression}
 \alias{vcov.logistic_regression}
 \alias{logLik.logistic_regression}
 \alias{summary.logistic_regression}
 \alias{predict.logistic_regression}
+
 \alias{yjt_regression}
 \alias{coef.yjt_regression}
 \alias{vcov.yjt_regression}
 \alias{logLik.yjt_regression}
 \alias{summary.yjt_regression}
 \alias{predict.yjt_regression}
+
 \alias{bct_regression}
 \alias{coef.bct_regression}
 \alias{vcov.bct_regression}
 \alias{logLik.bct_regression}
 \alias{summary.bct_regression}
 \alias{predict.bct_regression}
+
 \alias{oprobit_regression}
 \alias{coef.oprobit_regression}
 \alias{vcov.oprobit_regression}
@@ -41,8 +45,10 @@ prior distributions.
 The function \code{yjt_regression} performs a linear regression in which the
 response variable is transformed according to the Yeo-Johnson transformation
 (Yeo & Johnson, 2000; see \code{\link{yjt_dist}}) and the residuals are
-distributed following the scaled \eqn{t} distribution. The function
-\code{bct_regression} has same functionality but employs a Box-Cox transformation
+distributed following the scaled \eqn{t} distribution. The degrees of freedom
+of the \eqn{t} distribution can be fixed or estimated (\code{est_df=TRUE}).
+The function \code{bct_regression} has same functionality like the
+Yeo-Johnson transformation but employs a Box-Cox transformation
 of the outcome variable.
 
 The Yeo-Johnson transformation can be extended by a probit transformation
@@ -58,7 +64,8 @@ for ordinal polytomous data.
 \usage{
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
 yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
-        df=Inf, lambda_fixed=NULL, probit=FALSE, use_grad=2, h=1e-5, control=NULL)
+        df=Inf, lambda_fixed=NULL, probit=FALSE, est_df=FALSE,
+        use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -68,7 +75,7 @@ yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
 
 #---- linear regression with Box-Cox transformed scaled t distribution
 bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
-        df=Inf, lambda_fixed=NULL, use_grad=2, h=1e-5, control=NULL)
+        df=Inf, lambda_fixed=NULL, est_df=FALSE, use_grad=2, h=1e-5, control=NULL)
 
 \method{coef}{bct_regression}(object, ...)
 \method{logLik}{bct_regression}(object, ...)
@@ -120,6 +127,8 @@ Optional vector of initial regression coefficients
   \eqn{t} distribution with Yeo-Johnson transformation}
 \item{probit}{Logical whether probit transformation should be employed for
 bounded outcome in \code{yjt_regression}}
+\item{est_df}{Logical indicating whether degrees of freedom in
+\eqn{t} distribution should be estimated.}
  \item{use_grad}{Computation method for gradients in \code{stats::optim}.
       The value \code{0} is the internal approximation of
       \code{stats::optim} and applies the settings in \pkg{mdmb} (\eqn{\le}0.3).
@@ -237,7 +246,7 @@ summary(mod2)
 set.seed(9865)
 n <- 1000
 x <- stats::rnorm(n)
-y <- .5 + 1*x + stats::rnorm(n, sd=.7 )
+y <- .5 + 1*x + .7*stats::rt(n, df=8 )
 y <- mdmb::yj_antitrafo( y, lambda=.5 )
 dat <- data.frame( y=y, x=x )
 # display data
@@ -256,7 +265,7 @@ summary(mod2)
 mod3 <- mdmb::yjt_regression( y ~ x, data=dat, lambda_fixed=.5)
 summary(mod3)
 
-#--- Model 3: fit regression model with transformed normal distribution (df=Inf)
+#--- Model 4: fit regression model with transformed normal distribution (df=Inf)
 #             and fixed transformation parameter lambda of 1
 #             -> This model corresponds to least squares regression
 mod4 <- mdmb::yjt_regression( y ~ x, data=dat, lambda_fixed=1)
@@ -266,12 +275,17 @@ summary(mod4)
 mod4b <- stats::lm( y ~ x, data=dat )
 summary(mod4b)
 
+#--- Model 5: fit regression model with estimated degrees of freedom
+mod5 <- mdmb::yjt_regression( y ~ x, data=dat, est_df=TRUE)
+summary(mod5)
+
 #** compare log-likelihood values
 logLik(mod1)
 logLik(mod2)
 logLik(mod3)
 logLik(mod4)
 logLik(mod4b)
+logLik(mod5)
 
 #############################################################################
 # EXAMPLE 3: Regression with Box-Cox and Yeo-Johnson transformations

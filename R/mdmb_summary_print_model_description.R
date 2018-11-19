@@ -1,7 +1,7 @@
-## File Name: mdmd_summary_print_model_description.R
-## File Version: 0.01
+## File Name: mdmb_summary_print_model_description.R
+## File Version: 0.02
 
-mdmd_summary_print_model_description <- function(object, pack)
+mdmb_summary_print_model_description <- function(object, pack)
 {
     # print package and R information
     sirt::sirt_summary_print_package_rsession(pack=pack)

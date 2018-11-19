@@ -1,11 +1,10 @@
 ## File Name: dbct_scaled.R
-## File Version: 0.44
+## File Version: 0.45
 
 dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, check_zero=TRUE )
 {
     #*** recode lambda
     eps <- 1E-3
-    # lambda <- yj_adjust_lambda( lambda=lambda, lambda0=0, eps=eps )
     #--------- adjustment for derivative of Box-Cox transformation
     # xt <- bc_trafo(y=x, lambda=lambda )
     res <- bc_trafo_derivative(y=x, lambda=lambda, check_zero=check_zero )

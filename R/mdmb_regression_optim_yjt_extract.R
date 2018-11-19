@@ -1,7 +1,7 @@
-## File Name: mdmd_regression_optim_yjt_extract.R
-## File Version: 0.03
+## File Name: mdmb_regression_optim_yjt_extract.R
+## File Version: 0.04
 
-mdmd_regression_optim_yjt_extract <- function(x, index_beta, eps_shape, index_sigma,
+mdmb_regression_optim_yjt_extract <- function(x, index_beta, eps_shape, index_sigma,
         lambda_fixed, is_lambda_fixed, index_lambda )
 {
     np <- length(x)

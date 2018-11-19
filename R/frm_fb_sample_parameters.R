@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.5313
+## File Version: 0.5325
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -42,6 +42,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
 
         if ( ( NC > 0) & ( ! use_gibbs_model ) ) {
             for (cc in 1:NC){
+            # cat("**************** cc=", cc, "*****************\n")
                 coef1 <- coef0
                 coef1[cc] <- stats::rnorm(1, mean=coef0[cc], sd=ind_mm$coef_sd_proposal[cc])
                 res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
@@ -97,8 +98,8 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
             }
         }
         vars_d <- parms_mcmc$vars_descriptives
-        parms_mcmc$M_mcmc[ii,] <- colMeans( dat[,vars_d ] )
-        parms_mcmc$SD_mcmc[ii,] <- apply( dat[,vars_d ], 2, stats::sd )
+        parms_mcmc$M_mcmc[ii,] <- colMeans( dat[, vars_d ] )
+        parms_mcmc$SD_mcmc[ii,] <- apply( dat[, vars_d ], 2, stats::sd )
     }
     #--------------------------------
     #--- output

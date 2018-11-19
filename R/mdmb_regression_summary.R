@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_summary.R
-## File Version: 0.42
+## File Version: 0.44
 
 
 #*******************************************************
@@ -14,7 +14,7 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
 
     cat("-----------------------------------------------------------------\n")
     # package and R session
-    mdmd_summary_print_model_description(object=object, pack="mdmb")
+    mdmb_summary_print_model_description(object=object, pack="mdmb")
 
     cat( object$description, "\n\n")
 
@@ -32,6 +32,7 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
     cat( "  Number of estimated beta parameters","=", object$ic$np.beta, "\n" )
     cat( "  Number of estimated sigma parameters","=", object$ic$np.sigma, "\n" )
     cat( "  Number of estimated lambda parameters","=", object$ic$np.lambda, "\n" )
+    cat( "  Number of estimated df parameters","=", object$ic$np.df, "\n" )
     cat( "  Number of estimated threshold parameters","=", object$ic$np.thresh, "\n" )
     cat("\n")
 

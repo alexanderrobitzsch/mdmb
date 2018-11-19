@@ -1,5 +1,5 @@
 ## File Name: summary.frm_em.R
-## File Version: 0.38
+## File Version: 0.391
 
 
 #*******************************************************
@@ -10,7 +10,7 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
     CDM::osink( file=file, suffix=paste0( "__SUMMARY.Rout") )
 
     cat("-----------------------------------------------------------------\n")
-    mdmd_summary_print_model_description(object=object, pack="mdmb")
+    mdmb_summary_print_model_description(object=object, pack="mdmb")
 
     cat("-----------------------------------------------------------------\n")
     cat( "Number of observations","=", object$ic$N, "\n" )

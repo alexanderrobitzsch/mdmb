@@ -1,10 +1,10 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.851
+## File Version: 1.894
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
     beta_init=NULL, beta_prior=NULL, df=Inf, lambda_fixed=NULL, probit=FALSE,
-    use_grad=2, h=1E-4, control=NULL, control_optim_fct=NULL )
+    est_df=FALSE, use_grad=2, h=1E-4, control=NULL, control_optim_fct=NULL )
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -72,6 +72,13 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             } else {
                 par <- c( par, sigma=sd_y, lambda=1 )
             }
+            if (est_df){
+                df0 <- df
+                if (df0==Inf){
+                    df0 <- 30
+                }
+                par <- c(par, logdf=log(df0) )
+            }
         }
         #** ordinal probit model
         if ( type %in% c("oprobit") ){
@@ -101,12 +108,19 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         is_prior <- TRUE
     }
 
+    # define upper bound for df
+    upper <- rep(Inf, length(par))
+    if (est_df){
+        upper[length(par)] <- 6.000
+    }
+
     x <- par
     parnames <- names(par)
     np <- length(x)
     eps <- 1E-50
     index_sigma <- NULL
     index_lambda <- NULL
+    index_df <- NULL
 
     #-----------------------------------------
     #---- define optimization function
@@ -145,10 +159,15 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     #***********************************
     #*** yjt regression
     if ( type %in% c("yjt","bct") ){
-        index_beta <- seq(1,np-2 + is_lambda_fixed)
-        index_sigma <- np - 1 + is_lambda_fixed
+        np1 <- np
+        if (est_df){
+            np1 <- np - 1
+            index_df <- np
+        }
+        index_beta <- seq(1,np1-2 + is_lambda_fixed)
+        index_sigma <- np1 - 1 + is_lambda_fixed
         if ( ! is_lambda_fixed){
-            index_lambda <- np
+            index_lambda <- np1
         }
         eps_shape <- .01
         if (type=="yjt"){
@@ -157,7 +176,6 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             } else {
                 description <- paste0("Scaled t regression with Yeo-Johnson transformation (df=", df, ")")
             }
-
             dens_fct <- dyjt_scaled
         }
         if (type=="bct"){
@@ -169,7 +187,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         fct_optim <- function(x){
             ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta, eps_shape=eps_shape,
                         index_sigma=index_sigma, lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed,
-                        index_lambda=index_lambda, Xdes=Xdes, offset_values=offset_values, y=y, df=df,
+                        index_lambda=index_lambda, index_df=index_df, est_df=est_df,
+                        Xdes=Xdes, offset_values=offset_values, y=y, df=df,
                         probit=probit, weights=weights, is_prior=is_prior, beta_prior=beta_prior,
                         use_grad=use_grad, dens_fct=dens_fct )
             return(ll)
@@ -178,7 +197,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         grad_optim2 <- function(x){
             xgrad <- mdmb_regression_optim_yjt_grad( x=x, index_beta=index_beta,
                             eps_shape=eps_shape, index_sigma=index_sigma, lambda_fixed=lambda_fixed,
-                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda, Xdes=Xdes,
+                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda,
+                            index_df=index_df, est_df=est_df, Xdes=Xdes,
                             offset_values=offset_values, y=y, df=df, probit=probit, weights=weights, is_prior=is_prior,
                             beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct, np=np, h=h )
             return(xgrad)
@@ -222,12 +242,15 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     #-------------------------------------------
     #---- optimization using optim
     mod1 <- stats::optim( par=par, fn=fct_optim, gr=grad_optim, method="L-BFGS-B",
-                hessian=TRUE, control=control)
+                hessian=TRUE, upper=upper, control=control)
     result_optim <- mod1
 
     #--- extract parameters
     beta <- mdmb_regression_extract_parameters( mod=mod1, parnames=parnames,
                 type=type, is_lambda_fixed=is_lambda_fixed, lambda_fixed=lambda_fixed )
+
+    #--- degrees of freedom
+    df <- mdmb_compute_df(x=beta, est_df=est_df, df=df)
 
     #--- thresholds
     thresh <- NULL
@@ -261,27 +284,32 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     deviance <- - 2 * loglike
     ic <- mdmb_regression_ic( N=N, beta=beta, deviance=deviance, type=type,
                 index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
-                index_thresh=index_thresh )
+                index_thresh=index_thresh, index_df=index_df )
 
     #---- summary table
     partable <- mdmb_regression_summary_table( beta=beta, vcov1=vcov1 )
 
+    #--- description
+    description <- mdmb_regression_est_df_description(description=description, df=df,
+                        est_df=est_df)
+
     #---- calculate R^2
-    R2 <- mdmb_regression_R2( linear.predictor=linear.predictor,  y=y,
-                type=type, beta=beta, index_sigma=index_sigma, probit=probit )
+    R2 <- mdmb_regression_R2( linear.predictor=linear.predictor, y=y,
+                type=type, beta=beta, index_sigma=index_sigma,
+                index_lambda=index_lambda, probit=probit )
     s2 <- Sys.time()
 
     #--- output
-    res <- list(coefficients=beta, vcov=vcov1,
-            partable=partable, y=y, X=Xdes, weights=weights,
+    res <- list(coefficients=beta, vcov=vcov1, partable=partable, y=y, X=Xdes, weights=weights,
             fitted.values=fitted.values, linear.predictor=linear.predictor,
             loglike=loglike, deviance=deviance, logprior=logprior, logpost=logpost,
             like_case=loglike_case, ic=ic, formula=formula, offset_values=offset_values,
             thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
             index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
-            index_thresh=index_thresh, is_prior=is_prior, fct_optim=fct_optim, type=type,
+            index_thresh=index_thresh, index_df=index_df, est_df=est_df,
+            is_prior=is_prior, fct_optim=fct_optim, type=type,
             CALL=CALL, converged=mod1$converged, result_optim=result_optim, probit=probit,
-            iter=mod1$counts["function"], description=description, s1=s1, s2=s2, diff_time=s2-s1
+            iter=mod1$counts['function'], description=description, s1=s1, s2=s2, diff_time=s2-s1
             )
     class(res) <- "mdmb_regression"
     return(res)

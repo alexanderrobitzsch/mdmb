@@ -1,5 +1,5 @@
 ## File Name: dyjt_scaled.R
-## File Version: 0.506
+## File Version: 0.511
 
 dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, probit=FALSE )
 {

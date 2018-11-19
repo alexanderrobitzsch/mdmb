@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.7899
+## File Version: 0.7917
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -153,6 +153,7 @@ zz0 <- Sys.time()
 
     }
     #***************************************
+
 # cat("\n* MCMC algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
 
     if (verbose){
@@ -172,10 +173,10 @@ zz0 <- Sys.time()
     ic <- list()
     ic$N <- nrow(dat0)
     ic$np <- nrow(partable)
-
     #--- descriptive statistics
     desc_vars <- frm_fb_descriptives_variables(dat=dat, predictorMatrix=predictorMatrix,
                         freq_miss_values=freq_miss_values, dat0=dat0, parms_mcmc=parms_mcmc )
+
 
     #--- output
     s2 <- Sys.time()

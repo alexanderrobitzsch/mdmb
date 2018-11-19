@@ -1,8 +1,9 @@
 ## File Name: mdmb_regression_R2.R
-## File Version: 0.23
+## File Version: 0.29
 
-#**** evaluate individual likelihood
-mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma, probit=FALSE )
+#**** explained variance
+mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma,
+    index_lambda, probit=FALSE )
 {
     R2 <- NULL
     np <- length(beta)
@@ -19,14 +20,15 @@ mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma, pr
 
     #***** yjt regression
     if (type %in% c("yjt","bct") ){
-        sigma <- beta[index_sigma]
+        sigma <- beta["sigma"]
+        lambda <- beta["lambda"]
         if (type=="yjt"){
-            yt <- yj_trafo( y=y, lambda=beta[np], probit=probit )
+            yt <- yj_trafo( y=y, lambda=lambda, probit=probit )
         }
         if (type=="bct"){
-            yt <- bc_trafo( y=y, lambda=beta[np] )
+            yt <- bc_trafo( y=y, lambda=lambda )
         }
-        var_y <- stats::var( yt    )
+        var_y <- stats::var(yt)
         var_resid <- var_y - var_y_pred
     }
     #*** R2 formula
@@ -34,4 +36,3 @@ mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma, pr
     #--- output
     return(R2)
 }
-
