@@ -1,12 +1,12 @@
 ## File Name: frm_fb_sample_parameter_step.R
-## File Version: 0.377
+## File Version: 0.383
 
 
 frm_fb_sample_parameter_step <- function( ind_mm, dat, weights,
             mod, coef, sigma )
 {
     #--- compute likelihood
-    mod$coefficients <- coef
+    mod$coefficients <- mod$coef <- coef
     use_variable_level <- ind_mm$use_variable_level
     mod$sigma <- sigma
     #* adapt for sampling parameters for models with variables at higher levels

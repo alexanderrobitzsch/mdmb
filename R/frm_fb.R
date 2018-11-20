@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.7917
+## File Version: 0.7934
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -108,9 +108,9 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
                             impute_vars_index=impute_vars_index, ind_miss=ind_miss,
                             dv_vars=dv_vars, ind0=ind0, variablesMatrix=variablesMatrix,
                             dat=dat)
+
     #*** add additional arguments for regression functions
     # ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
-
     maxiter <- iter
     iter <- 1
     iterate <- TRUE

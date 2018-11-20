@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.894
+## File Version: 1.916
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -110,6 +110,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     # define upper bound for df
     upper <- rep(Inf, length(par))
+    lower <- rep(-Inf, length(par))
     if (est_df){
         upper[length(par)] <- 6.000
     }
@@ -239,10 +240,19 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         grad_optim <- grad_optim2
     }
 
+    coef_init <- par
+    #* lower bounds
+    if ( type %in% c("yjt","bct") ){
+        lower[index_sigma] <- 0
+        if (est_df){
+            lower[index_df] <- log(.2)
+        }
+    }
+
     #-------------------------------------------
     #---- optimization using optim
     mod1 <- stats::optim( par=par, fn=fct_optim, gr=grad_optim, method="L-BFGS-B",
-                hessian=TRUE, upper=upper, control=control)
+                hessian=TRUE, lower=lower, upper=upper, control=control)
     result_optim <- mod1
 
     #--- extract parameters
@@ -302,14 +312,14 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     #--- output
     res <- list(coefficients=beta, vcov=vcov1, partable=partable, y=y, X=Xdes, weights=weights,
             fitted.values=fitted.values, linear.predictor=linear.predictor,
-            loglike=loglike, deviance=deviance, logprior=logprior, logpost=logpost,
+            hessian=hessian, coef_init=coef_init, loglike=loglike, deviance=deviance, logprior=logprior, logpost=logpost,
             like_case=loglike_case, ic=ic, formula=formula, offset_values=offset_values,
             thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
             index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
             index_thresh=index_thresh, index_df=index_df, est_df=est_df,
             is_prior=is_prior, fct_optim=fct_optim, type=type,
             CALL=CALL, converged=mod1$converged, result_optim=result_optim, probit=probit,
-            iter=mod1$counts['function'], description=description, s1=s1, s2=s2, diff_time=s2-s1
+            coef=beta, iter=mod1$counts['function'], description=description, s1=s1, s2=s2, diff_time=s2-s1
             )
     class(res) <- "mdmb_regression"
     return(res)

@@ -31,7 +31,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.1  |  2018-11-19  |  Last: mdmb 1.1-21
+VERSIONS mdmb 1.1  |  2018-11-20  |  Last: mdmb 1.1-28
 ---------------------------------------------------------------------
 
 NOTE  * efficiency improvements in internal function
@@ -41,6 +41,8 @@ ADDED * added argument 'est_df' in yjt_regression() and
         t distribution. These models can also be used in the 
         sequential modeling frm_fb() and frm_em() 
         (see ?frm_fb; Example 12)
+NOTE  * corrected labeling of variables in coda summary output
+        of frm_fb() function
 
 
 DATA  * included/modified datasets: ---

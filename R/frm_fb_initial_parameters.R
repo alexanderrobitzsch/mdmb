@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.414
+## File Version: 0.438
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -17,7 +17,6 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
     for (mm in 1:NM1){
         ind_mm <- ind0[[mm]]
         var_mm <- ind_mm$dv_vars
-# cat("\n------ mm=", mm, "----- var_mm ", var_mm, " ---- \n")
         ind_miss_mm <- ind_miss[[ var_mm ]]
         model_mm <- ind_mm$model
         parms0 <- parms00
@@ -61,7 +60,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         }
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod
-        se_mod <- mdmb_vcov2se(vcov=vcov(mod))
+        # se_mod <- mdmb_vcov2se(vcov=vcov(mod))
+        se_mod <- frm_fb_initial_parameters_se_sd_proposal(mod=mod)
         ind_mm$N_coef <- length(se_mod)
         ind_mm$coef <- coef(mod)
         ind_mm$coef_sd_proposal <- se_mod
@@ -82,7 +82,6 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         v1 <- 0*coef(mod)
         ind_mm$coef_MH$accepted <- v1
         ind_mm$coef_MH$iter <- v1
-
         ind_mm$N_sigma <- 0
         ind_mm$sigma_parnames <- NULL
         ind_mm$sample_sigma <- FALSE

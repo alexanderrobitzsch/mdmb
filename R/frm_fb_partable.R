@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.459
+## File Version: 0.471
 
 frm_fb_partable <- function( ind0, parms_mcmc )
 {
@@ -13,7 +13,7 @@ frm_fb_partable <- function( ind0, parms_mcmc )
     accrate <- NULL
 
     for (mm in 1:(NM+1)){
-        # mm <- 1
+        # cat("------ mm=", mm, "----\n")
         names_mm <- parms[[mm]][1]
         NC <- length(names_mm)
         # NC <- ind0[[mm]]$N_coef
@@ -49,7 +49,6 @@ frm_fb_partable <- function( ind0, parms_mcmc )
         }
         dfr <- rbind( dfr1, dfr )
     }
-
     NP <- nrow(dfr)
     dfr <- data.frame(index=1:NP, dfr )
     rownames(dfr) <- NULL
@@ -79,15 +78,15 @@ frm_fb_partable <- function( ind0, parms_mcmc )
 
     #--- convert parameter values into coda object
     NV <- ncol(values)
-    values <- values[, seq(NV,1,-1) ]
+    # values <- values[, seq(NV,1,-1) ]
     dfr11 <- dfr[ order(dfr$idparm), ]
-    dfr11 <- dfr11[ seq(NV,1,-1), ]
-    colnames(values) <- paste(dfr$parm)
+    # dfr11 <- dfr11[ seq(NV,1,-1), ]
+    colnames(values) <- paste(dfr11$parm)
 
     values_coda <- coda::mcmc(data=values, start=min(parms_mcmc$iter_save),
                                 end=max(parms_mcmc$iter_save),
                                 thin=diff(parms_mcmc$iter_save)[1] )
-#    colnames(values_coda) <- paste( dfr$parm )
+    colnames(values_coda) <- colnames(values)
 
     #--- technical summary MCMC algorithm
     dfr2 <- dfr[, 1:5]
