@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.916
+## File Version: 1.923
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -111,6 +111,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     # define upper bound for df
     upper <- rep(Inf, length(par))
     lower <- rep(-Inf, length(par))
+    names(upper) <- names(lower) <- names(par)
     if (est_df){
         upper[length(par)] <- 6.000
     }
@@ -245,7 +246,10 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     if ( type %in% c("yjt","bct") ){
         lower[index_sigma] <- 0
         if (est_df){
-            lower[index_df] <- log(.2)
+            lower[index_df] <- log(1.5)
+        }
+        if (! is.null(index_lambda) ){
+            upper["lambda"] <- 5
         }
     }
 

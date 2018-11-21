@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_optim_yjt_fct.R
-## File Version: 0.15
+## File Version: 0.17
 
 
 mdmb_regression_optim_yjt_fct <- function(x, index_beta, eps_shape, index_sigma, lambda_fixed,
