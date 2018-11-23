@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.565
+%% File Version: 0.575
 
 \name{mdmb_regression}
 
@@ -64,8 +64,8 @@ for ordinal polytomous data.
 \usage{
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
 yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
-        df=Inf, lambda_fixed=NULL, probit=FALSE, est_df=FALSE,
-        use_grad=2, h=1e-5, control=NULL)
+        df=Inf, lambda_fixed=NULL, probit=FALSE, est_df=FALSE, df_min=0.5, df_max=100,
+        use_grad=2, h=1e-5, optimizer="nlminb", control=NULL)
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -75,7 +75,8 @@ yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
 
 #---- linear regression with Box-Cox transformed scaled t distribution
 bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
-        df=Inf, lambda_fixed=NULL, est_df=FALSE, use_grad=2, h=1e-5, control=NULL)
+        df=Inf, lambda_fixed=NULL, est_df=FALSE, use_grad=2, h=1e-5,
+        optimizer="nlminb", control=NULL)
 
 \method{coef}{bct_regression}(object, ...)
 \method{logLik}{bct_regression}(object, ...)
@@ -85,7 +86,7 @@ bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
 
 #---- logistic regression
 logistic_regression(formula, data, weights=NULL, beta_init=NULL,
-         beta_prior=NULL, use_grad=2, h=1e-5, control=NULL)
+         beta_prior=NULL, use_grad=2, h=1e-5, optimizer="nlminb", control=NULL)
 
 \method{coef}{logistic_regression}(object, ...)
 \method{logLik}{logistic_regression}(object, ...)
@@ -95,7 +96,7 @@ logistic_regression(formula, data, weights=NULL, beta_init=NULL,
 
 #---- ordinal probit regression
 oprobit_regression(formula, data, weights=NULL, beta_init=NULL,
-        use_grad=2, h=1e-5, control=NULL, control_optim_fct=NULL)
+        use_grad=2, h=1e-5, optimizer="nlminb", control=NULL, control_optim_fct=NULL)
 
 \method{coef}{oprobit_regression}(object, ...)
 \method{logLik}{oprobit_regression}(object, ...)
@@ -129,6 +130,8 @@ Optional vector of initial regression coefficients
 bounded outcome in \code{yjt_regression}}
 \item{est_df}{Logical indicating whether degrees of freedom in
 \eqn{t} distribution should be estimated.}
+\item{df_min}{Minimum value for estimated degrees of freedom}
+\item{df_max}{Maximum value for estimated degrees of freedom}
  \item{use_grad}{Computation method for gradients in \code{stats::optim}.
       The value \code{0} is the internal approximation of
       \code{stats::optim} and applies the settings in \pkg{mdmb} (\eqn{\le}0.3).
@@ -136,8 +139,13 @@ bounded outcome in \code{yjt_regression}}
  the gradient in \code{CDM::numerical_Hessian}. The value \code{2} is
  usually the most efficient calculation of the gradient.}
 \item{h}{Numerical differentiation parameter.}
+\item{optimizer}{Type of optimizer to be chosen. Options are
+the default \code{"nlminb"} (\code{\link[stats:nlminb]{stats::nlminb}}) and
+\code{"optim"} (\code{\link[stats:optim]{stats::optim}})
+}
   \item{control}{
 Optional arguments to be passed to optimization function
+(\code{\link[stats:nlminb]{stats::nlminb}}) or
 \code{\link[stats:optim]{stats::optim}}
 }
 \item{control_optim_fct}{Optional control argument for gradient in

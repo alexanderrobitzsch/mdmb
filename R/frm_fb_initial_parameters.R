@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.438
+## File Version: 0.444
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -72,6 +72,13 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             on1 <- rep(" ON ", NM )
             if (ind_mm$model %in% c("bctreg","yjtreg") ){
                 on1[ (NM-1):NM ] <- " "
+                ind_mm$index_lambda <- mod$index_lambda
+                ind_mm$index_df <- mod$index_df
+                ind_mm$est_df <- mod$est_df
+                ind_mm$df_min <- mod$df_min
+                ind_mm$df_max <- mod$df_max
+                ind_mm$logdf_min <- log(mod$df_min)
+                ind_mm$logdf_max <- log(mod$df_max)
             }
             ind_mm$coef_parnames <- paste0( var_mm, on1, names_mm )
         }

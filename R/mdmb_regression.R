@@ -1,10 +1,11 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.923
+## File Version: 1.963
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
     beta_init=NULL, beta_prior=NULL, df=Inf, lambda_fixed=NULL, probit=FALSE,
-    est_df=FALSE, use_grad=2, h=1E-4, control=NULL, control_optim_fct=NULL )
+    est_df=FALSE, df_min=1, df_max=100, use_grad=2, h=1E-4, optimizer="nlminb",
+    control=NULL, control_optim_fct=NULL )
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -113,7 +114,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     lower <- rep(-Inf, length(par))
     names(upper) <- names(lower) <- names(par)
     if (est_df){
-        upper[length(par)] <- 6.000
+        upper[length(par)] <- log(df_max)
     }
 
     x <- par
@@ -246,7 +247,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     if ( type %in% c("yjt","bct") ){
         lower[index_sigma] <- 0
         if (est_df){
-            lower[index_df] <- log(1.5)
+            lower[index_df] <- log(df_min)
         }
         if (! is.null(index_lambda) ){
             upper["lambda"] <- 5
@@ -254,9 +255,11 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     }
 
     #-------------------------------------------
-    #---- optimization using optim
-    mod1 <- stats::optim( par=par, fn=fct_optim, gr=grad_optim, method="L-BFGS-B",
-                hessian=TRUE, lower=lower, upper=upper, control=control)
+    #---- optimization
+    mod1 <- mdmb_optim(optimizer="nlminb", par=par, fn=fct_optim,
+                gr=grad_optim, method='L-BFGS-B',
+                lower=lower, upper=upper, control=control, h=h)
+    converged <- mod1$converged
     result_optim <- mod1
 
     #--- extract parameters
@@ -321,9 +324,10 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
             index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
             index_thresh=index_thresh, index_df=index_df, est_df=est_df,
-            is_prior=is_prior, fct_optim=fct_optim, type=type,
-            CALL=CALL, converged=mod1$converged, result_optim=result_optim, probit=probit,
-            coef=beta, iter=mod1$counts['function'], description=description, s1=s1, s2=s2, diff_time=s2-s1
+            df_min=df_min, df_max=df_max, lambda_fixed=lambda_fixed, is_prior=is_prior, fct_optim=fct_optim, type=type,
+            CALL=CALL, converged=converged, convergence_code=result_optim$convergence,
+            result_optim=result_optim, optimizer=optimizer, probit=probit,
+            coef=beta, iter=result_optim$iter, description=description, s1=s1, s2=s2, diff_time=s2-s1
             )
     class(res) <- "mdmb_regression"
     return(res)

@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_summary.R
-## File Version: 0.44
+## File Version: 0.47
 
 
 #*******************************************************
@@ -19,6 +19,10 @@ mdmb_regression_summary <- function( object, digits=4, file=NULL, ...)
     cat( object$description, "\n\n")
 
     cat("-----------------------------------------------------------------\n")
+    cat( "Optimizer","=", object$optimizer, "\n" )
+    cat( "Converged","=", object$converged, "\n" )
+    cat( "Convergence code","=", object$convergence_code, "\n" )
+    cat("\n")
     cat( "Number of observations","=", object$ic$n, "\n" )
     cat( "Number of iterations","=", object$iter, "\n\n" )
     cat( "Deviance","=", round( object$ic$deviance, 2 ), "\n" )

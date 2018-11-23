@@ -1,5 +1,5 @@
 ## File Name: frm_mdmb_regression_density.R
-## File Version: 0.412
+## File Version: 0.419
 
 frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL )
@@ -33,12 +33,18 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
     y_sd <- mdmb_weighted_sd( x=y_pred, w=w )
 
     #--- extract parameters
-    df <- model$df
     if (model$est_df){
         logdf <- pars[model$index_df]
         df <- mdmb_compute_df(x=logdf, df=Inf, est_df=TRUE)
+    } else {
+        df <- model$df
     }
-    lambda <- pars[model$index_lambda]
+    if ( is.null(model$index_lambda) ){
+        lambda <- model$lambda_fixed
+    } else {
+        lambda <- pars[model$index_lambda]
+    }
+
     sigma <- pars[model$index_sigma]
     use_probit <- model$probit
     #*** y values on the transformed metric
@@ -57,11 +63,11 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
     R2 <- mean( y_sd^2 / y_sd0^2 )
     #****** evaluated density
     if (class_model    =="bct_regression"){
-        d1 <- dbct_scaled( y, location=y_pred, shape=sigma, lambda=lambda, df=df )
+        d1 <- dbct_scaled( x=y, location=y_pred, shape=sigma, lambda=lambda, df=df )
     }
     if (class_model    =="yjt_regression"){
-        d1 <- dyjt_scaled( y, location=y_pred, shape=sigma,
-                    lambda=lambda, df=df, probit=use_probit )
+        d1 <- dyjt_scaled( x=y, location=y_pred, shape=sigma, lambda=lambda,
+                        df=df, probit=use_probit )
     }
     d2 <- frm_normalize_posterior( post=d1, case=case )
     res <- list( "like"=d1, "post"=d2, "sigma"=y_sd, R2=R2)

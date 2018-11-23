@@ -177,7 +177,6 @@ zz0 <- Sys.time()
     desc_vars <- frm_fb_descriptives_variables(dat=dat, predictorMatrix=predictorMatrix,
                         freq_miss_values=freq_miss_values, dat0=dat0, parms_mcmc=parms_mcmc )
 
-
     #--- output
     s2 <- Sys.time()
     res <- list( coef=coefs, vcov=vcovs, partable=partable, tech_summary=tech_summary,

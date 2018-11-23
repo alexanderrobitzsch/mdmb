@@ -1,5 +1,5 @@
 ## File Name: frm_fb_refresh_parameters_step.R
-## File Version: 0.14
+## File Version: 0.19
 
 frm_fb_refresh_parameters_step <- function( mm, ind0, name_MH, name_sd_proposal,
         acc_bounds, proposal_sd_min )
