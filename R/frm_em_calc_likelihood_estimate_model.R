@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood_estimate_model.R
-## File Version: 0.458
+## File Version: 0.459
 
 frm_em_calc_likelihood_estimate_model <- function( ind_mm, dat, weights )
 {

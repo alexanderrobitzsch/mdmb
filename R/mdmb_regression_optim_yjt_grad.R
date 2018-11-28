@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_optim_yjt_grad.R
-## File Version: 0.23
+## File Version: 0.27
 
 mdmb_regression_optim_yjt_grad <- function(x, index_beta, eps_shape, index_sigma, lambda_fixed,
         is_lambda_fixed, index_lambda, index_df, est_df, Xdes, offset_values, y, df, probit, weights,
@@ -35,12 +35,8 @@ mdmb_regression_optim_yjt_grad <- function(x, index_beta, eps_shape, index_sigma
     }
     #*** derivative with respect to logdf
     if ( est_df ){
-        logdf <- x["logdf"]+hvec[index_df]
-        if (logdf<7){
-            df_h <- exp(logdf)
-        } else {
-            df_h <- Inf
-        }
+        logdf <- x['logdf']+hvec[index_df]
+        df_h <- mdmb_compute_df(x=logdf, df=Inf, est_df=TRUE, maxval=7)
         ll1 <- dens_fct( y, location=y_pred, shape=shape, lambda=lambda,
                         df=df_h, log=TRUE, probit=probit )
         der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h0)

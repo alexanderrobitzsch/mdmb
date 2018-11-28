@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.816
+%% File Version: 0.819
 
 \name{frm}
 \alias{frm}
@@ -606,8 +606,9 @@ summary(mod1)
 dep <- list("model"="linreg", "formula"=y ~  x )
 # normally distributed data
 ind_x1 <- list( "model"="linreg", "formula"=x ~ 1 )
-# distribution according to Box-Cox
-ind_x2 <- list( "model"="bctreg", "formula"=x ~ 1 )
+# Box-Cox normal distribution
+ind_x2 <- list( "model"="bctreg", "formula"=x ~ 1,
+              nodes=c( seq(0.05, 3, len=31), seq( 3.5, 9, by=.5 ) ) )
 ind1 <- list( "x"=ind_x1 )
 ind2 <- list( "x"=ind_x2 )
 

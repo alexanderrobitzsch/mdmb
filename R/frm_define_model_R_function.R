@@ -1,8 +1,8 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.63
+## File Version: 0.66
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
-    R_args=NULL, sampling_level=NULL, variable_level=NULL )
+    R_args=NULL, sampling_level=NULL, variable_level=NULL, maxiter=8 )
 {
     R_fct <- NULL
     R_density_fct <- NULL
@@ -34,6 +34,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_logistic_density"
         R_args$probit <- NULL
+        R_args <- frm_define_model_R_function_include_maxiter(R_args=R_args, maxiter=maxiter)
     }
     #--- ordinal probit regression
     if (model$model=="oprobit"){
@@ -42,6 +43,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_oprobit_density"
         R_args$probit <- NULL
+        R_args <- frm_define_model_R_function_include_maxiter(R_args=R_args, maxiter=maxiter)
     }
     #--- linear regression with Box-Cox Transformation
     if (model$model %in% c("bctreg") ){
@@ -50,6 +52,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_mdmb_regression_density"
         R_args$probit <- NULL
+        R_args <- frm_define_model_R_function_include_maxiter(R_args=R_args, maxiter=maxiter)
     }
     #--- linear regression with Yeo-Johnson Transformation
     if (model$model %in% c("yjtreg") ){
@@ -57,6 +60,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_fct_name <- "mdmb::yjt_regression"
         R_args$use_grad <- use_grad
         R_density_fct <- "frm_mdmb_regression_density"
+        R_args <- frm_define_model_R_function_include_maxiter(R_args=R_args, maxiter=maxiter)
         if (is.null(R_args$probit)){
             R_args$probit <- FALSE
         }

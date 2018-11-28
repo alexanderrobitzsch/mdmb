@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.383
+## File Version: 1.387
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -17,7 +17,7 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     post_miss <- post
     coefs <- as.list( 1:(NM+1) )
     for (mm in 1:(NM+1)){
-# cat("\n---------------------- mm=", mm, " --------\n")
+        # cat("\n---------------------- mm=", mm, " --------\n")
         ind_mm <- ind0[[mm]]
         #--- estimate model with weights
         mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat,

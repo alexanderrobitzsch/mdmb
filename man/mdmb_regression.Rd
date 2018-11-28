@@ -1,5 +1,5 @@
 %% File Name: mdmb_regression.Rd
-%% File Version: 0.575
+%% File Version: 0.580
 
 \name{mdmb_regression}
 
@@ -65,7 +65,7 @@ for ordinal polytomous data.
 #---- linear regression with Yeo-Johnson transformed scaled t distribution
 yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
         df=Inf, lambda_fixed=NULL, probit=FALSE, est_df=FALSE, df_min=0.5, df_max=100,
-        use_grad=2, h=1e-5, optimizer="nlminb", control=NULL)
+        use_grad=2, h=1e-5, optimizer="optim", maxiter=300, control=NULL)
 
 \method{coef}{yjt_regression}(object, ...)
 \method{logLik}{yjt_regression}(object, ...)
@@ -76,7 +76,7 @@ yjt_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
 #---- linear regression with Box-Cox transformed scaled t distribution
 bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
         df=Inf, lambda_fixed=NULL, est_df=FALSE, use_grad=2, h=1e-5,
-        optimizer="nlminb", control=NULL)
+        optimizer="optim", maxiter=300, control=NULL)
 
 \method{coef}{bct_regression}(object, ...)
 \method{logLik}{bct_regression}(object, ...)
@@ -86,7 +86,8 @@ bct_regression(formula, data, weights=NULL, beta_init=NULL, beta_prior=NULL,
 
 #---- logistic regression
 logistic_regression(formula, data, weights=NULL, beta_init=NULL,
-         beta_prior=NULL, use_grad=2, h=1e-5, optimizer="nlminb", control=NULL)
+         beta_prior=NULL, use_grad=2, h=1e-5, optimizer="optim", maxiter=300,
+         control=NULL)
 
 \method{coef}{logistic_regression}(object, ...)
 \method{logLik}{logistic_regression}(object, ...)
@@ -96,7 +97,8 @@ logistic_regression(formula, data, weights=NULL, beta_init=NULL,
 
 #---- ordinal probit regression
 oprobit_regression(formula, data, weights=NULL, beta_init=NULL,
-        use_grad=2, h=1e-5, optimizer="nlminb", control=NULL, control_optim_fct=NULL)
+        use_grad=2, h=1e-5, optimizer="optim", maxiter=300,
+        control=NULL, control_optim_fct=NULL)
 
 \method{coef}{oprobit_regression}(object, ...)
 \method{logLik}{oprobit_regression}(object, ...)
@@ -140,9 +142,10 @@ bounded outcome in \code{yjt_regression}}
  usually the most efficient calculation of the gradient.}
 \item{h}{Numerical differentiation parameter.}
 \item{optimizer}{Type of optimizer to be chosen. Options are
-the default \code{"nlminb"} (\code{\link[stats:nlminb]{stats::nlminb}}) and
-\code{"optim"} (\code{\link[stats:optim]{stats::optim}})
+\code{"nlminb"} (\code{\link[stats:nlminb]{stats::nlminb}}) and
+the default \code{"optim"} (\code{\link[stats:optim]{stats::optim}})
 }
+\item{maxiter}{Maximum number of iterations}
   \item{control}{
 Optional arguments to be passed to optimization function
 (\code{\link[stats:nlminb]{stats::nlminb}}) or

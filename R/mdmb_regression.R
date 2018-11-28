@@ -1,11 +1,11 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.963
+## File Version: 1.973
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
     beta_init=NULL, beta_prior=NULL, df=Inf, lambda_fixed=NULL, probit=FALSE,
     est_df=FALSE, df_min=1, df_max=100, use_grad=2, h=1E-4, optimizer="nlminb",
-    control=NULL, control_optim_fct=NULL )
+    maxiter=300, control=NULL, control_optim_fct=NULL )
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -94,7 +94,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             index_beta <- NULL
         }
         if (K>=2){
-            index_thresh <- Ndes + seq(1,length(thresh_init))
+            index_thresh <- Ndes + seq_len(length(thresh_init))
         } else {
             index_thresh <- NULL
         }
@@ -110,16 +110,17 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     }
 
     # define upper bound for df
-    upper <- rep(Inf, length(par))
-    lower <- rep(-Inf, length(par))
+    NP <- length(par)
+    upper <- rep(Inf, NP)
+    lower <- rep(-Inf, NP)
     names(upper) <- names(lower) <- names(par)
     if (est_df){
-        upper[length(par)] <- log(df_max)
+        upper[NP] <- log(df_max)
     }
 
     x <- par
     parnames <- names(par)
-    np <- length(x)
+    np <- NP
     eps <- 1E-50
     index_sigma <- NULL
     index_lambda <- NULL
@@ -256,9 +257,9 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     #-------------------------------------------
     #---- optimization
-    mod1 <- mdmb_optim(optimizer="nlminb", par=par, fn=fct_optim,
+    mod1 <- mdmb_optim(optimizer=optimizer, par=par, fn=fct_optim,
                 gr=grad_optim, method='L-BFGS-B',
-                lower=lower, upper=upper, control=control, h=h)
+                lower=lower, upper=upper, maxiter=maxiter, control=control, h=h)
     converged <- mod1$converged
     result_optim <- mod1
 
