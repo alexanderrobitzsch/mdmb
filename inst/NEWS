@@ -29,9 +29,19 @@ CHANGELOG mdmb
 
 
 
+---------------------------------------------------------------------
+VERSIONS mdmb 1.2  |  2019-01-07  |  Last: mdmb 1.2-1
+---------------------------------------------------------------------
+
+xxxx  *
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.1  |  2018-11-28  |  Last: mdmb 1.1-48
+VERSIONS mdmb 1.1  |  2019-01-07  |  Last: mdmb 1.1-51
 ---------------------------------------------------------------------
 
 NOTE  * efficiency improvements in internal function
@@ -47,11 +57,8 @@ ADDED * allowed now optimizers stats::optim() and stats::nlminb() in
         mdmb_regression() and frm_em(). The optimizer can be chosen
         by the argument 'optimizer'.
 
-
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: mdmb_regression (2), frm_fb (12)
-
-
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.0  |  2018-11-06  |  Last: mdmb 1.0-18

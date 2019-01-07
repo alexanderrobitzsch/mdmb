@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.22
+%% File Version: 0.23
 
 \name{data.mb}
 \alias{data.mb}
@@ -188,4 +188,4 @@ mod2 <- mitools::MIcombine(results=results,variances=variances,df.complete=69)
 summary(mod2)
 }
 }
-\keyword{datasets}
+%% \keyword{datasets}
