@@ -30,15 +30,14 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.2  |  2019-01-07  |  Last: mdmb 1.2-1
+VERSIONS mdmb 1.2  |  2019-01-11  |  Last: mdmb 1.2-4
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * fixed a bug in frm_fb() which caused crash of algorithm
+        (thanks to Simon Grund)
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
-
-
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.1  |  2019-01-07  |  Last: mdmb 1.1-51
