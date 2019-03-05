@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.444
+## File Version: 0.447
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -111,6 +111,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         }
         parms[[mm]] <- parms0
         ind0[[mm]] <- ind_mm
+
     }
     #--- indices for parameters to be saved
     parms_index <- parms

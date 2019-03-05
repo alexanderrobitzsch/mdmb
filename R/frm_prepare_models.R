@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.514
+## File Version: 0.518
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
     use_gibbs=FALSE, weights=NULL )

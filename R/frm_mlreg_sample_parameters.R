@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_sample_parameters.R
-## File Version: 0.15
+## File Version: 0.195
 
 
 frm_mlreg_sample_parameters <- function(model, y, design_matrix,

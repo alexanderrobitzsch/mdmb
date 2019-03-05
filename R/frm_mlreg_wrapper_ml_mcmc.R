@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_wrapper_ml_mcmc.R
-## File Version: 0.17
+## File Version: 0.19
 
 frm_mlreg_wrapper_ml_mcmc <- function( data, formula, weights=NULL,
     sample_missings=TRUE, ...)
