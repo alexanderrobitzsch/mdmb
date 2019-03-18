@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.821
+%% File Version: 0.822
 
 \name{frm}
 \alias{frm}
@@ -801,7 +801,7 @@ model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) + w + w*cwc(x, idclust
 
 # define scale degrees of freedom (nu) and scale matrix (S) for inverse Wishart distribution                   
 psi_nu0_list <- list( -3 )
-psi_S0_list <- list( diag(1,2) )                   
+psi_S0_list <- list( diag(0,2) )                   
 dep <- list("model"="mlreg", "formula"=model_formula,
                R_args=list(iter=mcmc_iter, outcome="normal",
                psi_nu0_list=psi_nu0_list, psi_S0_list=psi_S0_list ) )
