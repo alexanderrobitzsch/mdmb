@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_sample_parameters.R
-## File Version: 0.195
+## File Version: 0.197
 
 
 frm_mlreg_sample_parameters <- function(model, y, design_matrix,
@@ -27,6 +27,7 @@ frm_mlreg_sample_parameters <- function(model, y, design_matrix,
     est_parameter <- model$est_parameter
     npar <- model$npar
     thresh_fac <- model$thresh_fac
+    ridge <- model$ridge
     parnames <- model$parnames
     outcome <- model$outcome
     ncluster_list <- model$ncluster_list
@@ -52,7 +53,7 @@ frm_mlreg_sample_parameters <- function(model, y, design_matrix,
             parameter_index=parameter_index, est_parameter=est_parameter, npar=npar,
             iter=iter, save_iter=save_iter, verbose=verbose, print_iter=print_iter,
             parnames0=parnames0, K=K, est_thresh=est_thresh, thresh_fac=thresh_fac,
-            parm_summary=FALSE)
+            ridge=ridge, parm_summary=FALSE)
     res <- do.call( miceadds::ml_mcmc_fit, args=ml_mcmc_fit_args)
     sampled_values <- res$sampled_values
     coef <- sampled_values[ nrow(sampled_values), ]

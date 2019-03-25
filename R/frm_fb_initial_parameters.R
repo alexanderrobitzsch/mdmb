@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.447
+## File Version: 0.452
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -51,13 +51,17 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         ind_mm$id_variable_level <- id_variable_level
         ind_mm$id_variable_level_unique <- id_variable_level_unique
         ind_mm$variable_info <- variable_info
-
         #*** estimate model
         R_args <- frm_estimate_model_create_R_args(dat=dat, weights=weights, ind_mm=ind_mm)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
         if (model_mm %in% c("linreg","oprobit")){
             R_args$probit <- NULL
         }
+
+        if (model_mm %in% c("mlreg")){
+            # R_args$inits_lme4 <- FALSE
+        }
+        
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod
         # se_mod <- mdmb_vcov2se(vcov=vcov(mod))
