@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.5387
+## File Version: 0.5391
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -11,10 +11,9 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     NM1 <- NM + 1
     for (mm in 1:NM1 ){
         ind_mm <- ind0[[mm]]
-# cat("\n---------------------- mm=", mm, " --------\n")
+    # cat("\n---------------------- mm=", mm, " --------\n")
         #--- likelihood evaluated at old parameter
         mod <- model_results[[mm]]
-
         R_args <- mod$R_args <- ind_mm$R_args
         coef0 <- mod$coef
         sigma0 <- ind_mm$sigma
@@ -23,7 +22,6 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         use_gibbs_model <- ind_mm$use_gibbs_model
         res0 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
                     weights=weights, mod=mod, coef=coef0, sigma=sigma0)
-
         if ( use_gibbs_model ){
             coef0 <- res0$coef
             #---- linear regression

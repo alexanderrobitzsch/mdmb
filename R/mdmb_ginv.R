@@ -1,19 +1,9 @@
 ## File Name: mdmb_ginv.R
-## File Version: 0.08
+## File Version: 0.12
 
-mdmb_ginv <- function(x, eps=1e-10)
+mdmb_ginv <- function(x, ...)
 {
-    x0 <- x
-    x0_diag <- sqrt(diag(x0))
-    M <- outer(x0_diag, x0_diag)
-    x <- x0 / M
-    sx <- svd(x=x)
-    ind <- which( sx$d > eps )
-    U <- sx$u[,ind]
-    # V <- sx$v[,ind]
-    V <- t(U)
-    D <- diag(1/sx$d[ind])
-    U1 <- U %*% D %*% t(V)
-    U1 <- U1 / M
-    return(U1)
+    requireNamespace("MASS")
+    y <- MASS::ginv(X=x, ...)
+    return(y)
 }

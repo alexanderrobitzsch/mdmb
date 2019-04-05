@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.452
+## File Version: 0.456
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -61,7 +61,6 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         if (model_mm %in% c("mlreg")){
             # R_args$inits_lme4 <- FALSE
         }
-        
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod
         # se_mod <- mdmb_vcov2se(vcov=vcov(mod))

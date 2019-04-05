@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.822
+%% File Version: 0.823
 
 \name{frm}
 \alias{frm}
@@ -799,17 +799,17 @@ summary(mod2)
 model_formula <- y ~ cwc(x, idcluster) + gm(x, idcluster) + w + w*cwc(x, idcluster) +
                    w*gm(x, idcluster) + ( 1 + cwc(x, idcluster) | idcluster)
 
-# define scale degrees of freedom (nu) and scale matrix (S) for inverse Wishart distribution                   
+# define scale degrees of freedom (nu) and scale matrix (S) for inverse Wishart distribution
 psi_nu0_list <- list( -3 )
-psi_S0_list <- list( diag(0,2) )                   
+psi_S0_list <- list( diag(0,2) )
 dep <- list("model"="mlreg", "formula"=model_formula,
                R_args=list(iter=mcmc_iter, outcome="normal",
                psi_nu0_list=psi_nu0_list, psi_S0_list=psi_S0_list ) )
 
-# define nu and S parameters for covariate model 
+# define nu and S parameters for covariate model
 psi_nu0_list <- list( .4 )
-psi_S0_list <- list( matrix(.2, nrow=1, ncol=1) )            
-ind_x <- list( "model"="mlreg", "formula"=x ~ w + (1|idcluster), 
+psi_S0_list <- list( matrix(.2, nrow=1, ncol=1) )
+ind_x <- list( "model"="mlreg", "formula"=x ~ w + (1|idcluster),
                    R_args=list(iter=mcmc_iter, psi_nu0_list=psi_nu0_list,
                             psi_S0_list=psi_S0_list),
                   sampling_level="idcluster" )

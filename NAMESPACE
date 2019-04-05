@@ -83,10 +83,14 @@ importFrom(sirt, sirt_summary_print_package_rsession)
 
 importFrom(coda, effectiveSize)
 importFrom(coda, mcmc)
-importFrom(MASS, ginv)
-importFrom(MASS, mvrnorm)
 
 
+
+#***************************************************
+#************** Suggests ***************************
+
+# importFrom(MASS, ginv)
+# importFrom(MASS, mvrnorm)
 
 
 ######################################

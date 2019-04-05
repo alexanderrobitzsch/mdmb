@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_sample_parameters.R
-## File Version: 0.16
+## File Version: 0.23
 
 
 frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_weights, ... )
@@ -20,7 +20,7 @@ frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_we
     np <- ncol(X1)
     sample_beta <- ( np > 0 )
     if (sample_beta){
-        xtx_inv <- MASS::ginv(XtX)
+        xtx_inv <- mdmb_ginv(XtX)
         beta0 <- xtx_inv %*% Xty
         e <- y1 - X1 %*% beta0
     } else {
@@ -30,6 +30,7 @@ frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_we
     sigma2 <- sum( weights * e^2 ) / sum(weights)
     #--- sample regression parameters
     if (sample_beta){
+        requireNamespace("MASS")
         beta_vcov <- sigma2 * xtx_inv
         coef <- MASS::mvrnorm(n=1, mu=beta0[,1], Sigma=beta_vcov)
     } else {

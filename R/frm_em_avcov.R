@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.946
+## File Version: 0.947
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -234,7 +234,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     dfr <- frm_partable_thresholds(partable=dfr)
 
     infomat <- - infomat
-    avcov <- MASS::ginv( infomat )
+    avcov <- mdmb_ginv( x=infomat )
     se <- sqrt( diag(avcov) )
     dfr$se <- se
 
