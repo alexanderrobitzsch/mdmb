@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.456
+## File Version: 0.4597
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -51,8 +51,11 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         ind_mm$id_variable_level <- id_variable_level
         ind_mm$id_variable_level_unique <- id_variable_level_unique
         ind_mm$variable_info <- variable_info
+
         #*** estimate model
         R_args <- frm_estimate_model_create_R_args(dat=dat, weights=weights, ind_mm=ind_mm)
+        mod_weights <- R_args$weights
+        n_data <- nrow(R_args$data)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
         if (model_mm %in% c("linreg","oprobit")){
             R_args$probit <- NULL
@@ -101,12 +104,12 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             est_sigma <- FALSE
         }
         if ( est_sigma ){
-            sigma <- mdmb_weighted_sd(x=residuals(mod), w=weights,
-                        unbiased=TRUE, na.rm=TRUE)
+            mod_resid <- residuals(mod)
+            sigma <- mdmb_weighted_sd(x=mod_resid, w=mod_weights, unbiased=TRUE, na.rm=TRUE)
             ind_mm$N_sigma <- 1
             ind_mm$sample_sigma <- TRUE
             ind_mm$sigma <- sigma
-            ind_mm$sigma_sd_proposal <- sigma / sqrt( nrow(dat) )
+            ind_mm$sigma_sd_proposal <- sigma / sqrt( n_data )
             ind_mm$sigma_parnames <- paste0( var_mm, " sigma" )
             parms0[[2]] <- ind_mm$sigma_parnames
             ind_mm$sigma_MH$accepted <- 0
@@ -114,8 +117,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         }
         parms[[mm]] <- parms0
         ind0[[mm]] <- ind_mm
+    }  # end mm
 
-    }
     #--- indices for parameters to be saved
     parms_index <- parms
     N0 <- 0
@@ -136,5 +139,3 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
                 npars=N0, model_results=model_results, dat=dat )
     return(res)
 }
-
-

@@ -30,7 +30,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.3  |  2019-04-05  |  Last: mdmb 1.3-12
+VERSIONS mdmb 1.3  |  2019-04-12  |  Last: mdmb 1.3-14
 ---------------------------------------------------------------------
 
 NOTE  * included option for changing prior distributions in frm_fb()
@@ -41,6 +41,10 @@ NOTE  * removed dependency from lme4::lmer() function for generating
 NOTE  * updated 'mlreg' function in frm_fb() for argument 'ridge' which
         was introduced in miceadds::ml_mcmc(). This option needs
         miceadds >= 3.2-10.
+NOTE  * fixed an issue in initial value computation in frm_fb() for
+        models with dependent variables at higher levels
+        (thanks to Simon Grund)
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: frm (10.3)
