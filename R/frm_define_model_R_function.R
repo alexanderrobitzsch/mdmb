@@ -1,8 +1,8 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.66
+## File Version: 0.684
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
-    R_args=NULL, sampling_level=NULL, variable_level=NULL, maxiter=8 )
+    R_args=NULL, sampling_level=NULL, variable_level=NULL, maxiter=8, dat0=NULL )
 {
     R_fct <- NULL
     R_density_fct <- NULL
@@ -81,6 +81,15 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_density_fct <- "frm_mlreg_density"
         R_sampling_fct <- "frm_mlreg_sample_parameters"
         use_gibbs_model <- TRUE
+        if (!is.null(sampling_level)){
+            cn <- colnames(dat0)
+            if (!is.null(cn)){
+                sl0 <- setdiff(sampling_level, cn)
+                if (length(sl0) > 0){
+                    stop(paste0("Sampling level '", sl0 , "' not in data!\n") )
+                }
+            }
+        }
     }
     #--- output
     res <- list( R_fct=R_fct, R_args=R_args, R_density_fct=R_density_fct, R_fct_name=R_fct_name,

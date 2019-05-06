@@ -29,10 +29,14 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.4  |  2019-04-16  |  Last: mdmb 1.4-1
+VERSIONS mdmb 1.4  |  2019-05-06  |  Last: mdmb 1.4-3
 ---------------------------------------------------------------------
 
-xxxx  *
+NOTE  * included data checks about variable ordering and sampling
+        level in frm_fb() and frm_em() 
+        (thanks to a discussion with Sebastian Roehl)
+
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

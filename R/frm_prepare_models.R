@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.518
+## File Version: 0.524
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
     use_gibbs=FALSE, weights=NULL )
@@ -22,7 +22,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
         res1 <- frm_define_model_R_function(model=res, use_grad=use_grad,
                     use_gibbs=use_gibbs, R_args=ind[[mm]]$R_args,
                     sampling_level=ind[[mm]]$sampling_level,
-                    variable_level=ind[[mm]]$variable_level )
+                    variable_level=ind[[mm]]$variable_level, dat0=dat0 )
         res1$no_weights <- no_weights
         ind[[mm]] <- frm_append_list( list1=res, list2=res1 )
         if (nodes_weights){
@@ -39,7 +39,8 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     res <- frm_append_list( list1=dep, list2=res )
     res1 <- frm_define_model_R_function(model=res, use_grad=use_grad,
                     use_gibbs=use_gibbs, R_args=dep$R_args,
-                    sampling_level=dep$sampling_level, variable_level=dep$variable_level)
+                    sampling_level=dep$sampling_level, variable_level=dep$variable_level,
+                    dat0=dat0)
     res1$no_weights <- no_weights
     dep <- frm_append_list( list1=res, list2=res1 )
     if (nodes_weights){
@@ -62,6 +63,9 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     rsp <- rowSums(predictorMatrix)
     var_order <- order( rsp, decreasing=TRUE )
     predictorMatrix <- predictorMatrix[ var_order, var_order ]
+    
+    #- check predictor matrix
+    frm_check_predictor_matrix(pred=predictorMatrix)
 
     variablesMatrix <- predictorMatrix
     rvm <- rownames(variablesMatrix)
