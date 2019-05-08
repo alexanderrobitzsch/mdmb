@@ -1,5 +1,5 @@
 ## File Name: frm_check_predictor_matrix.R
-## File Version: 0.05
+## File Version: 0.06
 
 frm_check_predictor_matrix <- function(pred)
 {
@@ -22,6 +22,6 @@ frm_check_predictor_matrix <- function(pred)
                 }            
             }
         }
-        # stop() # stop algorithm here
+        stop() # stop algorithm here
     }
 }
