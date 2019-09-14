@@ -1,5 +1,5 @@
 %% File Name: mdmb-package.Rd
-%% File Version: 0.37
+%% File Version: 0.401
 
 \name{mdmb-package}
 \alias{mdmb-package}
@@ -51,6 +51,16 @@ The function \code{\link{frm_fb}} allows substantive model compatible multiple i
 Ibrahim, J. G., Chen, M. H., Lipsitz, S. R., & Herring, A. H. (2005). 
 Missing-data methods for generalized linear models: A comparative review. 
 \emph{Journal of the American Statistical Association, 100}, 332-346.
+
+Luedtke, O., Robitzsch, A., & West, S. (XXXX). Regression models involving nonlinear 
+effects with missing data: A sequential modeling approach using Bayesian estimation. 
+\emph{Psychological Methods, xx}(xx), xxx-xxx. 
+\doi{10.1037/met0000233}
+
+Luedtke, O., Robitzsch, A., & West, S. (XXXX). Analysis of interactions and nonlinear 
+effects with missing data: A factored regression modeling approach using maximum 
+likelihood estimation. \emph{Multivariate Behavioral Research, xx}(xx), xxx-xxx. 
+\doi{10.1080/00273171.2019.1640104}
 }
 
 

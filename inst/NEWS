@@ -15,7 +15,7 @@ mdmb:  Model Based Treatment of Missing Data
 Alexander Robitzsch & Oliver Luedtke
 
 Questions or suggestions about mdmb should be sent to
-robitzsch@ipn.uni-kiel.de
+robitzsch@leibniz-ipn.de
 
 In case of reporting a bug, please always provide a
 reproducible script.
@@ -29,7 +29,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.4  |  2019-05-09  |  Last: mdmb 1.4-6
+VERSIONS mdmb 1.4  |  2019-09-14  |  Last: mdmb 1.4-9
 ---------------------------------------------------------------------
 
 NOTE  * included data checks about variable ordering and sampling

@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.23
+%% File Version: 0.24
 
 \name{data.mb}
 \alias{data.mb}
@@ -113,6 +113,7 @@ variables of the German PISA 2012 data.
 \references{
 Enders, C. K., Baraldi, A. N., & Cham, H. (2014). Estimating interaction effects with
 incomplete predictor variables. \emph{Psychological Methods, 19}(1), 39-55.
+\doi{10.1037/a0035314}
 }
 
 

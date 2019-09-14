@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.823
+%% File Version: 0.831
 
 \name{frm}
 \alias{frm}
@@ -28,7 +28,8 @@ The factored regression model (FRM) allows the estimation of the linear regressi
 (logistic regression for dichotomous outcomes). Missing values in covariates are
 handled by posing a conditional univariate distribution for each covariate. The
 approach follows Ibrahim (1990), Ibrahim, Chen, Lipsitz and Herring (2005),
-Lee and Mitra (2016), and Zhang and Wang (2017). Latent variables
+Lee and Mitra (2016), and Zhang and Wang (2017) and is applied in
+Luedtke, Robitzsch, and West (XXXX, XXXX). Latent variables
 and covariates with measurement error or multiple indicators can also be handled
 within this framework (see Examples 3, 4 and 5).
 
@@ -235,30 +236,47 @@ Bartlett, J. W., Seaman, S. R., White, I. R., Carpenter, J. R., & Alzheimer's Di
 Neuroimaging Initiative (2015). Multiple imputation of covariates by fully conditional
 specification: Accommodating the substantive model.
 \emph{Statistical Methods in Medical Research, 24}(4), 462-487.
+\doi{10.1177/0962280214521348}
 
 Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., & Lesaffre, E. M.
 (2016). Dealing with missing covariates in epidemiologic studies: A comparison between multiple
 imputation and a full Bayesian approach. \emph{Statistics in Medicine, 35}(17), 2955-2974.
+\doi{10.1002/sim.6944}
 
 Ibrahim, J. G. (1990). Incomplete data in generalized linear models.
-\emph{Journal of the American Statistical Association, 85}, 765-769.
+\emph{Journal of the American Statistical Association, 85}(411), 765-769.
+\doi{10.1080/01621459.1990.10474938}
 
 Ibrahim, J. G., Chen, M. H., Lipsitz, S. R., & Herring, A. H. (2005).
 Missing-data methods for generalized linear models: A comparative review.
-\emph{Journal of the American Statistical Association, 100}, 332-346.
+\emph{Journal of the American Statistical Association, 100}(469), 332-346.
+\doi{10.1198/016214504000001844}
 
 Jamshidian, M., & Jennrich, R. I. (2000). Standard errors for EM estimation.
-\emph{Journal of the Royal Statistical Society (Series B), 62}, 257-270.
+\emph{Journal of the Royal Statistical Society (Series B), 62}(2), 257-270.
+\doi{10.1111/1467-9868.00230}
 
 Keller, B. T., & Enders, C. K. (2018). \emph{Blimp user's manual}. Los Angeles, CA. \cr
 \emph{http://www.appliedmissingdata.com/multilevel-imputation.html}
 
 Lee, M. C., & Mitra, R. (2016). Multiply imputing missing values in data sets
 with mixed measurement scales using a sequence of generalised linear models.
-\emph{Computational Statistics & Data Analysis, 95}, 24-38.
+\emph{Computational Statistics & Data Analysis, 95}(24), 24-38.
+\doi{10.1016/j.csda.2015.08.004}
+
+Luedtke, O., Robitzsch, A., & West, S. (XXXX). Regression models involving nonlinear 
+effects with missing data: A sequential modeling approach using Bayesian estimation. 
+\emph{Psychological Methods, xx}(xx), xxx-xxx. 
+\doi{10.1037/met0000233}
+
+Luedtke, O., Robitzsch, A., & West, S. (XXXX). Analysis of interactions and nonlinear 
+effects with missing data: A factored regression modeling approach using maximum 
+likelihood estimation. \emph{Multivariate Behavioral Research, xx}(xx), xxx-xxx. 
+\doi{10.1080/00273171.2019.1640104}
 
 Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors.
 \emph{Psychological Methods, 22}(4), 649-666.
+\doi{10.1037/met0000104}
 }
 
 \author{
