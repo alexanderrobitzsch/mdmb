@@ -8,21 +8,29 @@
 
 <title>Several Regression Models with Prior Distributions and Sampling Weights — mdmb_regression • mdmb</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +38,8 @@
 
 
 
-<meta property="og:title" content="Several Regression Models with Prior Distributions and Sampling Weights — mdmb_regression" />
 
+<meta property="og:title" content="Several Regression Models with Prior Distributions and Sampling Weights — mdmb_regression" />
 <meta property="og:description" content="Several regression functions which allow for sampling weights and
 prior distributions.
 The function yjt_regression performs a linear regression in which the
@@ -48,7 +56,7 @@ The function logistic_regression performs logistic regression
 for dichotomous data.
 The function oprobit_regression performs ordinal probit regression
 for ordinal polytomous data." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -62,9 +70,10 @@ for ordinal polytomous data." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +87,7 @@ for ordinal polytomous data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.4-vv</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.5-vv</span>
       </span>
     </div>
 
@@ -86,7 +95,7 @@ for ordinal polytomous data." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +103,10 @@ for ordinal polytomous data." />
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/alexanderrobitzsch/mdmb">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/alexanderrobitzsch/mdmb/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +117,7 @@ for ordinal polytomous data." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,7 +129,6 @@ for ordinal polytomous data." />
     </div>
 
     <div class="ref-description">
-    
     <p>Several regression functions which allow for sampling weights and
 prior distributions.</p>
 <p>The function <code>yjt_regression</code> performs a linear regression in which the
@@ -137,7 +145,6 @@ of the outcome variable.</p>
 for dichotomous data.</p>
 <p>The function <code>oprobit_regression</code> performs ordinal probit regression
 for ordinal polytomous data.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'>#---- linear regression with Yeo-Johnson transformed scaled t distribution</span>
@@ -146,15 +153,15 @@ for ordinal polytomous data.</p>
         <span class='kw'>use_grad</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>h</span><span class='kw'>=</span><span class='fl'>1e-5</span>, <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>"optim"</span>, <span class='kw'>maxiter</span><span class='kw'>=</span><span class='fl'>300</span>, <span class='kw'>control</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for yjt_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for yjt_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for yjt_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>trafo</span><span class='kw'>=</span><span class='fl'>TRUE</span>,  <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>trafo</span><span class='kw'>=</span><span class='fl'>TRUE</span>,  <span class='no'>...</span>)
 <span class='co'># S3 method for yjt_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for yjt_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'>#---- linear regression with Box-Cox transformed scaled t distribution</span>
 <span class='fu'>bct_regression</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>beta_init</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>beta_prior</span><span class='kw'>=</span><span class='kw'>NULL</span>,
@@ -162,15 +169,15 @@ for ordinal polytomous data.</p>
         <span class='kw'>optimizer</span><span class='kw'>=</span><span class='st'>"optim"</span>, <span class='kw'>maxiter</span><span class='kw'>=</span><span class='fl'>300</span>, <span class='kw'>control</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for bct_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for bct_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for bct_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>trafo</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>trafo</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for bct_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for bct_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'>#---- logistic regression</span>
 <span class='fu'>logistic_regression</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>beta_init</span><span class='kw'>=</span><span class='kw'>NULL</span>,
@@ -178,15 +185,15 @@ for ordinal polytomous data.</p>
          <span class='kw'>control</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for logistic_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for logistic_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for logistic_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for logistic_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for logistic_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'>#---- ordinal probit regression</span>
 <span class='fu'>oprobit_regression</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>beta_init</span><span class='kw'>=</span><span class='kw'>NULL</span>,
@@ -194,16 +201,16 @@ for ordinal polytomous data.</p>
         <span class='kw'>control</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>control_optim_fct</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for oprobit_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for oprobit_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for oprobit_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='kw'>newdata</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for oprobit_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for oprobit_regression</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -257,11 +264,11 @@ bounded outcome in <code>yjt_regression</code></p></td>
     </tr>
     <tr>
       <th>use_grad</th>
-      <td><p>Computation method for gradients in <code><a href='https://www.rdocumentation.org/packages/stats/topics/optim'>stats::optim</a></code>.
+      <td><p>Computation method for gradients in <code><a href='https://rdrr.io/r/stats/optim.html'>stats::optim</a></code>.
       The value <code>0</code> is the internal approximation of
-      <code><a href='https://www.rdocumentation.org/packages/stats/topics/optim'>stats::optim</a></code> and applies the settings in <span class="pkg">mdmb</span> (\(\le\)0.3).
+      <code><a href='https://rdrr.io/r/stats/optim.html'>stats::optim</a></code> and applies the settings in <span class="pkg">mdmb</span> (\(\le\)0.3).
       The specification <code>use_grad=1</code> uses the calculation of
- the gradient in <code><a href='https://www.rdocumentation.org/packages/CDM/topics/numerical_Hessian'>CDM::numerical_Hessian</a></code>. The value <code>2</code> is
+ the gradient in <code><a href='https://rdrr.io/pkg/CDM/man/numerical_Hessian.html'>CDM::numerical_Hessian</a></code>. The value <code>2</code> is
  usually the most efficient calculation of the gradient.</p></td>
     </tr>
     <tr>
@@ -271,8 +278,8 @@ bounded outcome in <code>yjt_regression</code></p></td>
     <tr>
       <th>optimizer</th>
       <td><p>Type of optimizer to be chosen. Options are
-<code>"nlminb"</code> (<code><a href='https://www.rdocumentation.org/packages/stats/topics/nlminb'>stats::nlminb</a></code>) and
-the default <code>"optim"</code> (<code><a href='https://www.rdocumentation.org/packages/stats/topics/optim'>stats::optim</a></code>)</p></td>
+<code>"nlminb"</code> (<code><a href='https://rdrr.io/r/stats/nlminb.html'>stats::nlminb</a></code>) and
+the default <code>"optim"</code> (<code><a href='https://rdrr.io/r/stats/optim.html'>stats::optim</a></code>)</p></td>
     </tr>
     <tr>
       <th>maxiter</th>
@@ -281,8 +288,8 @@ the default <code>"optim"</code> (<code><a href='https://www.rdocumentation.org/
     <tr>
       <th>control</th>
       <td><p>Optional arguments to be passed to optimization function
-(<code><a href='https://www.rdocumentation.org/packages/stats/topics/nlminb'>stats::nlminb</a></code>) or
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/optim'>stats::optim</a></code></p></td>
+(<code><a href='https://rdrr.io/r/stats/nlminb.html'>stats::nlminb</a></code>) or
+<code><a href='https://rdrr.io/r/stats/optim.html'>stats::optim</a></code></p></td>
     </tr>
     <tr>
       <th>control_optim_fct</th>
@@ -312,11 +319,11 @@ optimization</p></td>
       <td><p>File name if the <code>summary</code> output should be sunk into a file.</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>Further arguments to be passed.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>List containing values</p>
@@ -336,167 +343,152 @@ optimization</p></td>
 <dt>ic</dt><dd><p>Information criteria</p></dd>
 <dt>R2</dt><dd><p>Pseudo R-square value according to McKelvey and Zavoina</p></dd>
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>McKelvey, R., &amp; Zavoina, W. (1975). A statistical model for the analysis of
 ordinal level dependent variables.
 <em>Journal of Mathematical Sociology, 4</em>(1), 103-120.
-doi: <a href='http://doi.org/10.1080/0022250X.1975.9989847'>10.1080/0022250X.1975.9989847</a></p>
+doi: <a href='https://doi.org/10.1080/0022250X.1975.9989847'>10.1080/0022250X.1975.9989847</a></p>
 <p>Yeo, I.-K., &amp; Johnson, R. (2000). A new family of power transformations to
 improve normality or symmetry. <em>Biometrika, 87</em>(4), 954-959.
-doi: <a href='http://doi.org/10.1093/biomet/87.4.954'>10.1093/biomet/87.4.954</a></p>
-    
+doi: <a href='https://doi.org/10.1093/biomet/87.4.954'>10.1093/biomet/87.4.954</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='yjt_dist.html'>yjt_dist</a></code> or <code><a href='https://www.rdocumentation.org/packages/car/topics/bcPower'>car::yjPower</a></code>
+    <div class='dont-index'><p>See <code><a href='yjt_dist.html'>yjt_dist</a></code> or <code><a href='https://rdrr.io/pkg/car/man/bcPower.html'>car::yjPower</a></code>
 for functions for the Yeo-Johnson transformation.</p>
-<p>See <code><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>stats::lm</a></code> and
-<code><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>stats::glm</a></code> for linear and logistic
+<p>See <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></code> and
+<code><a href='https://rdrr.io/r/stats/glm.html'>stats::glm</a></code> for linear and logistic
 regression models.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'>#############################################################################</span>
+    <pre class="examples"><span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 1: Simulated example logistic regression</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#--- simulate dataset</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>986</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>986</span>)
 <span class='no'>N</span> <span class='kw'>&lt;-</span> <span class='fl'>500</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>N</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>*( <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='no'>N</span>) <span class='kw'>&lt;</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Logistic'>plogis</a></span>( -<span class='fl'>0.8</span> + <span class='fl'>1.2</span> * <span class='no'>x</span> ) )
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>( <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>*( <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='no'>N</span>) <span class='kw'>&lt;</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Logistic.html'>plogis</a></span>( -<span class='fl'>0.8</span> + <span class='fl'>1.2</span> * <span class='no'>x</span> ) )
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>( <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span> )
 
 <span class='co'>#--- estimate logistic regression with mdmb::logistic_regression</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>logistic_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod1</span>)
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>logistic_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1</span>)
 
-<span class='co'># }</span><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>#--- estimate logistic regression with stats::glm</span>
-<span class='no'>mod1b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod1b</span>)
+<span class='no'>mod1b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span>, <span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1b</span>)
 
 <span class='co'>#--- estimate logistic regression with prior distributions</span>
-<span class='no'>b0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>( <span class='st'>"dnorm"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>100</span>) )  <span class='co'># first parameter</span>
-<span class='no'>b1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>( <span class='st'>"dcauchy"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>location</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>2.5</span>) )   <span class='co'># second parameter</span>
-<span class='no'>beta_priors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>( <span class='no'>b0</span>, <span class='no'>b1</span> )  <span class='co'># order in list defines priors for parameters</span>
+<span class='no'>b0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='st'>"dnorm"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>100</span>) )  <span class='co'># first parameter</span>
+<span class='no'>b1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='st'>"dcauchy"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>location</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>scale</span><span class='kw'>=</span><span class='fl'>2.5</span>) )   <span class='co'># second parameter</span>
+<span class='no'>beta_priors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='no'>b0</span>, <span class='no'>b1</span> )  <span class='co'># order in list defines priors for parameters</span>
 <span class='co'>#* estimation</span>
-<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>logistic_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span>, <span class='kw'>beta_prior</span><span class='kw'>=</span><span class='no'>beta_priors</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod2</span>)
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>logistic_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>data</span>, <span class='kw'>beta_prior</span><span class='kw'>=</span><span class='no'>beta_priors</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 2: Yeo-Johnson transformed scaled t regression</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#*** create simulated data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>9865</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>9865</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1000</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>n</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>.5</span> + <span class='fl'>1</span>*<span class='no'>x</span> + <span class='fl'>.7</span>*<span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/TDist'>rt</a></span>(<span class='no'>n</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>8</span> )
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_antitrafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> )
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>.5</span> + <span class='fl'>1</span>*<span class='no'>x</span> + <span class='fl'>.7</span>*<span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/TDist.html'>rt</a></span>(<span class='no'>n</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>8</span> )
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='yjt_dist.html'>yj_antitrafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> )
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
 <span class='co'># display data</span>
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>y</span>)
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>y</span>)
 
 <span class='co'>#--- Model 1: fit regression model with transformed normal distribution (df=Inf)</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod1</span>)
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1</span>)
 
 <span class='co'>#--- Model 2: fit regression model with transformed scaled t distribution (df=10)</span>
-<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod2</span>)
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>10</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2</span>)
 
 <span class='co'>#--- Model 3: fit regression model with transformed normal distribution (df=Inf)</span>
 <span class='co'>#             and fixed transformation parameter lambda of .5</span>
-<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>.5</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod3</span>)
+<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>.5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod3</span>)
 
 <span class='co'>#--- Model 4: fit regression model with transformed normal distribution (df=Inf)</span>
 <span class='co'>#             and fixed transformation parameter lambda of 1</span>
 <span class='co'>#             -&gt; This model corresponds to least squares regression</span>
-<span class='no'>mod4</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod4</span>)
+<span class='no'>mod4</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod4</span>)
 
 <span class='co'># fit with lm function</span>
-<span class='no'>mod4b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod4b</span>)
+<span class='no'>mod4b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod4b</span>)
 
 <span class='co'>#--- Model 5: fit regression model with estimated degrees of freedom</span>
-<span class='no'>mod5</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>est_df</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod5</span>)
+<span class='no'>mod5</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>est_df</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod5</span>)
 
 <span class='co'>#** compare log-likelihood values</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod3</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod4</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod4b</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod5</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod3</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod4</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod4b</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod5</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 3: Regression with Box-Cox and Yeo-Johnson transformations</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#*** simulate data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>985</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>985</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1000</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>n</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>.5</span> + <span class='fl'>1</span>*<span class='no'>x</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>n</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>.7</span> )
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>bc_antitrafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> )
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>.5</span> + <span class='fl'>1</span>*<span class='no'>x</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>.7</span> )
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='yjt_dist.html'>bc_antitrafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> )
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
 
 <span class='co'>#--- Model 1: fit regression model with Box-Cox transformation</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>bct_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod1</span>)
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>bct_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1</span>)
 <span class='co'>#--- Model 2: fit regression model with Yeo-Johnson transformation</span>
-<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod2</span>)
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yjt_regression</span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2</span>)
 <span class='co'>#--- compare fit</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>mod2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod2</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 4: Ordinal probit regression</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#--- simulate data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>987</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>987</span>)
 <span class='no'>N</span> <span class='kw'>&lt;-</span> <span class='fl'>1500</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>N</span>)
-<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
 <span class='co'># regression coefficients</span>
 <span class='no'>b0</span> <span class='kw'>&lt;-</span> -<span class='fl'>.5</span> ; <span class='no'>b1</span> <span class='kw'>&lt;-</span> <span class='fl'>.6</span> ; <span class='no'>b2</span> <span class='kw'>&lt;-</span> <span class='fl'>.1</span>
 <span class='co'># vector of thresholds</span>
-<span class='no'>thresh</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>1</span>, -<span class='fl'>.3</span>, <span class='fl'>1</span>)
-<span class='no'>yast</span> <span class='kw'>&lt;-</span> <span class='no'>b0</span> + <span class='no'>b1</span> * <span class='no'>x</span> + <span class='no'>b2</span>*<span class='no'>z</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>N</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>( <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>( <span class='no'>yast</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>Inf</span>,<span class='no'>thresh</span>,<span class='fl'>Inf</span>) ) ) - <span class='fl'>1</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>( <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>z</span><span class='kw'>=</span><span class='no'>z</span> )
+<span class='no'>thresh</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, -<span class='fl'>.3</span>, <span class='fl'>1</span>)
+<span class='no'>yast</span> <span class='kw'>&lt;-</span> <span class='no'>b0</span> + <span class='no'>b1</span> * <span class='no'>x</span> + <span class='no'>b2</span>*<span class='no'>z</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>N</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>( <span class='no'>yast</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>Inf</span>,<span class='no'>thresh</span>,<span class='fl'>Inf</span>) ) ) - <span class='fl'>1</span>
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>( <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>z</span><span class='kw'>=</span><span class='no'>z</span> )
 
 <span class='co'>#--- probit regression</span>
-<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>oprobit_regression</a></span>( <span class='kw'>formula</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='no'>x</span> + <span class='no'>z</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/AsIs'>I</a></span>(<span class='no'>x</span>*<span class='no'>z</span>), <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod</span>)
-<span class='co'># }</span></pre>
+<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>oprobit_regression</span>( <span class='kw'>formula</span><span class='kw'>=</span><span class='no'>y</span> ~ <span class='no'>x</span> + <span class='no'>z</span> + <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>x</span>*<span class='no'>z</span>), <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod</span>)
+}</pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Alexander Robitzsch</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -504,13 +496,16 @@ regression models.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

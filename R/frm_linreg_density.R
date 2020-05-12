@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_density.R
-## File Version: 0.9708
+## File Version: 0.971
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL, use_in_frm_fb=FALSE )

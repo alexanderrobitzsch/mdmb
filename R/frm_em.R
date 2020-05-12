@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.9405
+## File Version: 0.941
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,

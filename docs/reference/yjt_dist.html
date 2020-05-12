@@ -8,21 +8,29 @@
 
 <title>Scaled \(t\) Distribution with Yeo-Johnson and Box-Cox Transformations — yjt_dist • mdmb</title>
 
-<!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +38,8 @@
 
 
 
-<meta property="og:title" content="Scaled \(t\) Distribution with Yeo-Johnson and Box-Cox Transformations — yjt_dist" />
 
+<meta property="og:title" content="Scaled \(t\) Distribution with Yeo-Johnson and Box-Cox Transformations — yjt_dist" />
 <meta property="og:description" content="Collection of functions for the Yeo-Johnson transformation
 (Yeo &amp;amp; Johnson, 2000) and the corresponding distribution family of scaled
 \(t\) distribution with and without Yeo-Johnson transformation
@@ -39,7 +47,7 @@
 on \((0,1)\) which uses a probit transformation (see Details; argument probit).
 The Box-Cox transformation (bc; Sakia, 1992)
 can be applied for variables with positive values." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -53,9 +61,10 @@ can be applied for variables with positive values." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +78,7 @@ can be applied for variables with positive values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.4-vv</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.5-vv</span>
       </span>
     </div>
 
@@ -77,7 +86,7 @@ can be applied for variables with positive values." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -85,11 +94,10 @@ can be applied for variables with positive values." />
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/alexanderrobitzsch/mdmb">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/alexanderrobitzsch/mdmb/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -100,6 +108,7 @@ can be applied for variables with positive values." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -111,7 +120,6 @@ can be applied for variables with positive values." />
     </div>
 
     <div class="ref-description">
-    
     <p>Collection of functions for the Yeo-Johnson transformation
 (Yeo &amp; Johnson, 2000) and the corresponding distribution family of scaled
 \(t\) distribution with and without Yeo-Johnson transformation
@@ -119,7 +127,6 @@ can be applied for variables with positive values." />
 on \((0,1)\) which uses a probit transformation (see Details; argument <code>probit</code>).</p>
 <p>The Box-Cox transformation (<code>bc</code>; Sakia, 1992)
 can be applied for variables with positive values.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># Yeo-Johnson transformation and its inverse transformation</span>
@@ -132,13 +139,13 @@ can be applied for variables with positive values.</p>
 
 <span class='fu'>fit_yjt_scaled</span>(<span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span>, <span class='kw'>par_init</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>probit</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='co'># S3 method for fit_yjt_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_yjt_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_yjt_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_yjt_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># Box-Cox transformation and its inverse transformation</span>
 <span class='fu'>bc_trafo</span>(<span class='no'>y</span>, <span class='no'>lambda</span>)
@@ -150,13 +157,13 @@ can be applied for variables with positive values.</p>
 
 <span class='fu'>fit_bct_scaled</span>(<span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span>, <span class='kw'>par_init</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 <span class='co'># S3 method for fit_bct_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_bct_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_bct_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_bct_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'>#---- scaled t distribution</span>
 <span class='fu'>dt_scaled</span>(<span class='no'>x</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span>, <span class='kw'>log</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
@@ -164,14 +171,14 @@ can be applied for variables with positive values.</p>
 
 <span class='fu'>fit_t_scaled</span>(<span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span>, <span class='kw'>par_init</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 <span class='co'># S3 method for fit_t_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_t_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_t_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>file</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>)
 <span class='co'># S3 method for fit_t_scaled</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/vcov'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/stats/vcov.html'>vcov</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -247,11 +254,11 @@ should be conducted</p></td>
       <td><p>File name for the <code>summary</code> to be sunk into</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>Further arguments to be passed</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Let \(g_\lambda\) be the Yeo-Johnson transformation. A random variable \(X\)
@@ -265,60 +272,55 @@ distributed variable \(Z\).</p>
 <p>For a Yeo-Johnson normally distributed variable, a normally distributed variable results in
 case of \(\lambda=1\). For a Box-Cox normally distributed variable, a normally
 distributed variable results for \(\lambda=1\).</p>
-    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Vector or an object of fitted distribution depending on the called function</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Sakia, S. M. (1992). The Box-Cox transformation technique: A review.
 <em>The Statistician, 41</em>(2), 169-178.
-doi: <a href='http://doi.org/10.2307/2348250'>10.2307/2348250</a></p>
+doi: <a href='https://doi.org/10.2307/2348250'>10.2307/2348250</a></p>
 <p>Yeo, I.-K., &amp; Johnson, R. (2000). A new family of power transformations to
 improve normality or symmetry. <em>Biometrika, 87</em>(4), 954-959.
-doi: <a href='http://doi.org/10.1093/biomet/87.4.954'>10.1093/biomet/87.4.954</a></p>
-    
+doi: <a href='https://doi.org/10.1093/biomet/87.4.954'>10.1093/biomet/87.4.954</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='mdmb_regression.html'>yjt_regression</a></code> for fitting a regression model in which
 the response variable is distributed according to the scaled \(t\)
 distribution with Yeo-Johnson transformation.</p>
-<p>See <code><a href='https://www.rdocumentation.org/packages/car/topics/bcPower'>car::yjPower</a></code> for fitting the Yeo-Johnson
-transformation in the <span class="pkg">car</span> package. See <code><a href='https://www.rdocumentation.org/packages/car/topics/bcPower'>car::bcPower</a></code> for the
+<p>See <code><a href='https://rdrr.io/pkg/car/man/bcPower.html'>car::yjPower</a></code> for fitting the Yeo-Johnson
+transformation in the <span class="pkg">car</span> package. See <code><a href='https://rdrr.io/pkg/car/man/bcPower.html'>car::bcPower</a></code> for the
 Box-Cox transformation.</p>
 <p>The scaled \(t\) distribution can be also found in
 <code>metRology::dt.scaled</code> (<span class="pkg">metRology</span> package).</p>
-<p>See <code><a href='https://www.rdocumentation.org/packages/stats/topics/TDist'>stats::dt</a></code> for the \(t\) distribution.</p>
+<p>See <code><a href='https://rdrr.io/r/stats/TDist.html'>stats::dt</a></code> for the \(t\) distribution.</p>
 <p>See the <span class="pkg">fitdistrplus</span> package or the general
-<code><a href='https://www.rdocumentation.org/packages/stats4/topics/mle'>stats4::mle</a></code> function
+<code><a href='https://rdrr.io/r/stats4/mle.html'>stats4::mle</a></code> function
 for fitting several distributions in <span style="R">R</span>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'>#############################################################################</span>
+    <pre class="examples"><span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 1: Transforming values according to Yeo-Johnson transformation</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'># vector of y values</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(-<span class='fl'>3</span>,<span class='fl'>3</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>3</span>,<span class='fl'>3</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span>)
 
 <span class='co'># non-negative lambda values</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>1</span> ), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fl'>8</span>*<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>1</span>),
-           <span class='kw'>ylab</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expression'>expression</a></span>( <span class='no'>g</span>[<span class='no'>lambda</span>] (<span class='no'>y</span>) ) )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>2</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>1</span> ), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fl'>8</span>*<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>1</span>),
+           <span class='kw'>ylab</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>( <span class='no'>g</span>[<span class='no'>lambda</span>] (<span class='no'>y</span>) ) )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>2</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span> )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>.5</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span> )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span> )
 
 <span class='co'># non-positive lambda values</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>1</span> ), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fl'>8</span>*<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>1</span>),
-           <span class='kw'>ylab</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expression'>expression</a></span>(<span class='no'>g</span>[<span class='no'>lambda</span>] (<span class='no'>y</span>) ) )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>2</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>.5</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>1</span> ), <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fl'>8</span>*<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>1</span>),
+           <span class='kw'>ylab</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='no'>g</span>[<span class='no'>lambda</span>] (<span class='no'>y</span>) ) )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>2</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span> )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span>-<span class='fl'>.5</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span> )
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='no'>y</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0</span> ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span> )
 
-<span class='co'># }</span><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 2: Density of scaled t distribution</span>
 <span class='co'>#############################################################################</span>
@@ -328,29 +330,29 @@ for fitting several distributions in <span style="R">R</span>.</p></div>
 <span class='no'>sig</span> <span class='kw'>&lt;-</span> <span class='fl'>1.5</span>
 <span class='co'>#-- compare density of scaled t distribution with large degrees of freedom</span>
 <span class='co'>#   with normal distribution</span>
-<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>dt_scaled</a></span>( <span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>100</span> )
-<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>dnorm</a></span>( <span class='no'>y</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='no'>sig</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='no'>y1</span>-<span class='no'>y2</span>))
+<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>dt_scaled</span>( <span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>100</span> )
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span>( <span class='no'>y</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='no'>sig</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>y1</span>-<span class='no'>y2</span>))
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 3: Simulating and fitting the scaled t distribution</span>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#-- simulate data with 10 degrees of freedom</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>987</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>987</span>)
 <span class='no'>df0</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>    <span class='co'># define degrees of freedom</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>rt_scaled</a></span>( <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1E4</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>rt_scaled</span>( <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>1E4</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
 <span class='co'>#** fit data with df=10 degrees of freedom</span>
-<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_t_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
+<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_t_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
 <span class='co'>#** compare with fit from normal distribution</span>
-<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_t_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span> )  <span class='co'># df=Inf is the default</span>
+<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_t_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='fl'>Inf</span> )  <span class='co'># df=Inf is the default</span>
 
 <span class='co'>#-- some comparisons</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a></span>(<span class='no'>fit2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/AIC.html'>AIC</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/AIC.html'>AIC</a></span>(<span class='no'>fit2</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 4: Simulation and fitting of scaled t distribution with</span>
@@ -363,35 +365,35 @@ for fitting several distributions in <span style="R">R</span>.</p></div>
 <span class='no'>lam</span> <span class='kw'>&lt;-</span> <span class='fl'>.5</span>
 
 <span class='co'># evaluate density</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>( -<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span> )
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>dyjt_scaled</a></span>( <span class='no'>x</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>( <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>( -<span class='fl'>5</span>, <span class='fl'>5</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span> )
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>dyjt_scaled</span>( <span class='no'>x</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>( <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)
 
 <span class='co'># transform original values</span>
-<span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>yj_trafo</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
+<span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>yj_trafo</span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
 
 <span class='co'>#** simulate data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>987</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>ryjt_scaled</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3000</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>30</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>987</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>ryjt_scaled</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>3000</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>m0</span>, <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>sig</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>lam</span> )
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>30</span>)
 
 <span class='co'>#*** Model 1: Fit data with lambda to be estimated</span>
-<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_yjt_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit1</span>)
+<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_yjt_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)
 
 <span class='co'>#*** Model 2: Fit data with lambda fixed to simulated lambda</span>
-<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_yjt_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='no'>lam</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>fit2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit2</span>)
+<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_yjt_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='no'>lam</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit2</span>)
 
 <span class='co'>#*** Model 3: Fit data with lambda fixed to 1</span>
-<span class='no'>fit3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_yjt_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>1</span>)
+<span class='no'>fit3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_yjt_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span>, <span class='kw'>lambda_fixed</span><span class='kw'>=</span><span class='fl'>1</span>)
 
 <span class='co'>#-- compare log-likelihood values</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit3</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit3</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 5: Approximating the chi square distribution</span>
@@ -399,79 +401,68 @@ for fitting several distributions in <span style="R">R</span>.</p></div>
 <span class='co'>#############################################################################</span>
 
 <span class='co'>#-- simulate data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>987</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>987</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>3000</span>
 <span class='no'>df0</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Chisquare'>rchisq</a></span>( <span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>rchisq</a></span>( <span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
 
 <span class='co'>#-- plot data</span>
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>30</span>)
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>x</span>, <span class='kw'>breaks</span><span class='kw'>=</span><span class='fl'>30</span>)
 
 <span class='co'>#-- fit data with yjt distribution</span>
-<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_yjt_scaled</a></span>(<span class='no'>x</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>fit1</span>)
-<span class='no'>c1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit1</span>)
+<span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_yjt_scaled</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit1</span>)
+<span class='no'>c1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)
 
 <span class='co'>#-- fit data with bct distribution</span>
-<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_bct_scaled</a></span>(<span class='no'>x</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>fit2</span>)
-<span class='no'>c2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit2</span>)
+<span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_bct_scaled</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fit2</span>)
+<span class='no'>c2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit2</span>)
 <span class='co'># compare log-likelihood values</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit1</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></span>(<span class='no'>fit2</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit1</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>fit2</span>)
 
 <span class='co'>#-- plot chi square distribution and approximating yjt distribution</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>( <span class='fl'>.01</span>, <span class='fl'>3</span>*<span class='no'>df0</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span> )
-<span class='no'>dy</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Chisquare'>dchisq</a></span>( <span class='no'>y</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>( <span class='no'>y</span>, <span class='no'>dy</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>dy</span>) )*<span class='fl'>1.1</span> )
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>( <span class='fl'>.01</span>, <span class='fl'>3</span>*<span class='no'>df0</span>, <span class='kw'>len</span><span class='kw'>=</span><span class='fl'>100</span> )
+<span class='no'>dy</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>dchisq</a></span>( <span class='no'>y</span>, <span class='kw'>df</span><span class='kw'>=</span><span class='no'>df0</span> )
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>( <span class='no'>y</span>, <span class='no'>dy</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>dy</span>) )*<span class='fl'>1.1</span> )
 <span class='co'># approximation with scaled t distribution and Yeo-Johnson transformation</span>
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>dyjt_scaled</a></span>(<span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>1</span>], <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>2</span>], <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>3</span>]),
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>dyjt_scaled</span>(<span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>1</span>], <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>2</span>], <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>c1</span>[<span class='fl'>3</span>]),
                      <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>2</span>)
 <span class='co'># approximation with scaled t distribution and Box-Cox transformation</span>
-<span class='kw pkg'>graphocs</span><span class='kw ns'>::</span><span class='fu'>lines</span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>dbct_scaled</a></span>(<span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>1</span>], <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>2</span>], <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>3</span>]),
+<span class='kw pkg'>graphocs</span><span class='kw ns'>::</span><span class='fu'>lines</span>( <span class='no'>y</span>, <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>dbct_scaled</span>(<span class='no'>y</span>, <span class='kw'>location</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>1</span>], <span class='kw'>shape</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>2</span>], <span class='kw'>lambda</span><span class='kw'>=</span><span class='no'>c2</span>[<span class='fl'>3</span>]),
                      <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>3</span>)
 <span class='co'># appoximating normal distribution</span>
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>dnorm</a></span>( <span class='no'>y</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>df0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>sqrt</a></span>(<span class='fl'>2</span>*<span class='no'>df0</span>) ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/legend'>legend</a></span>( <span class='fl'>.6</span>*<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>y</span>), <span class='fl'>.9</span>*<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>dy</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"chi square"</span>, <span class='st'>"yjt"</span>, <span class='st'>"bct"</span>, <span class='st'>"norm"</span>),
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>( <span class='no'>y</span>, <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>dnorm</a></span>( <span class='no'>y</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>df0</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fl'>2</span>*<span class='no'>df0</span>) ), <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>4</span>)
+<span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>( <span class='fl'>.6</span>*<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>y</span>), <span class='fl'>.9</span>*<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>dy</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"chi square"</span>, <span class='st'>"yjt"</span>, <span class='st'>"bct"</span>, <span class='st'>"norm"</span>),
                      <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>)
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 6: Bounded variable on (0,1) with Probit Yeo-Johnson transformation</span>
 <span class='co'>#############################################################################</span>
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>876</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>876</span>)
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>1000</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>n</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>pnorm</a></span>( <span class='fl'>1</span>*<span class='no'>x</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='no'>n</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>sqrt</a></span>(<span class='fl'>.5</span>) ) )
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>pnorm</a></span>( <span class='fl'>1</span>*<span class='no'>x</span> + <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='fl'>.5</span>) ) )
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>( <span class='kw'>y</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>x</span><span class='kw'>=</span><span class='no'>x</span> )
 
 <span class='co'>#*** fit Probit Yeo-Johnson distribution</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/yjt_dist'>fit_yjt_scaled</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>probit</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod1</span>)
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'>fit_yjt_scaled</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>probit</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1</span>)
 
 <span class='co'>#*** estimation using regression model</span>
-<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/mdmb/topics/mdmb_regression'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>probit</span><span class='kw'>=</span><span class='fl'>TRUE</span> )
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>mod2</span>)
-<span class='co'># }</span></pre>
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mdmb</span><span class='kw ns'>::</span><span class='fu'><a href='mdmb_regression.html'>yjt_regression</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>probit</span><span class='kw'>=</span><span class='fl'>TRUE</span> )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2</span>)
+}</pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -479,13 +470,16 @@ for fitting several distributions in <span style="R">R</span>.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

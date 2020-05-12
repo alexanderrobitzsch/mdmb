@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.7959
+## File Version: 0.801
 
 ### Factored regression model
 ### Fully Bayesian estimation
