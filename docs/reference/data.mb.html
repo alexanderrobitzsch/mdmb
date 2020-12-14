@@ -213,8 +213,8 @@ doi: <a href='https://doi.org/10.1037/a0035314'>10.1037/a0035314</a></p>
 }
 
 <span class='co'>#--- generate initial imputed values withj mice package</span>
-<span class='no'>imp</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='http://stefvanbuuren.github.io/mice/reference/mice.html'>mice</a></span>( <span class='no'>dat</span>, <span class='kw'>m</span><span class='kw'>=</span>, <span class='kw'>maxit</span><span class='kw'>=</span><span class='fl'>20</span> )
-<span class='no'>data_init</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='http://stefvanbuuren.github.io/mice/reference/complete.mids.html'>complete</a></span>(<span class='no'>imp</span>, <span class='kw'>action</span><span class='kw'>=</span><span class='fl'>1</span>)
+<span class='no'>imp</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mice/man/mice.html'>mice</a></span>( <span class='no'>dat</span>, <span class='kw'>m</span><span class='kw'>=</span>, <span class='kw'>maxit</span><span class='kw'>=</span><span class='fl'>20</span> )
+<span class='no'>data_init</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mice/man/complete.mids.html'>complete</a></span>(<span class='no'>imp</span>, <span class='kw'>action</span><span class='kw'>=</span><span class='fl'>1</span>)
 
 <span class='co'>#--- define number of iterations and number of imputed datasets</span>
 <span class='no'>iter</span> <span class='kw'>&lt;-</span> <span class='fl'>50000</span>; <span class='no'>burnin</span> <span class='kw'>&lt;-</span> <span class='fl'>5000</span>
@@ -243,7 +243,7 @@ doi: <a href='https://doi.org/10.1037/a0035314'>10.1037/a0035314</a></p>
 <span class='no'>imp2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>miceadds</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/miceadds/man/datalist2mids.html'>datlist2mids</a></span>(<span class='no'>datlist</span>)
 <span class='co'># estimate linear model on multiply imputed datasets</span>
 <span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>imp2</span>, <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>( <span class='no'>y</span> ~ <span class='no'>x</span>*<span class='no'>z</span> ) )
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='http://stefvanbuuren.github.io/mice/reference/pool.html'>pool</a></span>(<span class='no'>mod1</span>) )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mice/man/pool.html'>pool</a></span>(<span class='no'>mod1</span>) )
 
 <span class='co'>#-------------------------------</span>
 <span class='co'>#--- analyze imputed datasets using sandwich standard errors</span>

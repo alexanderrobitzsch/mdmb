@@ -451,7 +451,7 @@ doi: <a href='https://doi.org/10.1037/met0000104'>10.1037/met0000104</a></p>
     <p>The <code>coef</code> and <code>vcov</code> methods can be used to extract coefficients and
 the corresponding covariance matrix, respectively. Standard errors for a fitted
 object <code>mod</code> can be extracted by making use of the <span class="pkg">survey</span>
-package and the statement <code>survey::SE(mod)</code>.</p>
+package and the statement <code><a href='https://rdrr.io/pkg/survey/man/SE.html'>survey::SE(mod)</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See also the <span class="pkg">icdGLM</span> package for estimation of generalized
@@ -528,7 +528,7 @@ or the Blimp stand-alone software (Keller &amp; Enders, 2018).</p></div>
 <span class='no'>imp2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>miceadds</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/miceadds/man/datalist2mids.html'>datlist2mids</a></span>(<span class='no'>datlist</span>)
 <span class='co'># estimate linear model on multiply imputed datasets</span>
 <span class='no'>mod2c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>imp2</span>, <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>( <span class='no'>Y</span> ~ <span class='no'>X</span>*<span class='no'>Z</span> ) )
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='http://stefvanbuuren.github.io/mice/reference/pool.html'>pool</a></span>(<span class='no'>mod2c</span>) )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mice/man/pool.html'>pool</a></span>(<span class='no'>mod2c</span>) )
 
 <span class='co'>#******************************************</span>
 <span class='co'># Model 3: Multiple imputation in jomo package</span>
@@ -543,7 +543,7 @@ or the Blimp stand-alone software (Keller &amp; Enders, 2018).</p></div>
 <span class='no'>datlist</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>miceadds</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/miceadds/man/jomo2datlist.html'>jomo2mids</a></span>( <span class='no'>imp</span> )
 <span class='co'># estimate linear model</span>
 <span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>datlist</span>, <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>( <span class='no'>Y</span> ~ <span class='no'>X</span>*<span class='no'>Z</span> ) )
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='http://stefvanbuuren.github.io/mice/reference/pool.html'>pool</a></span>(<span class='no'>mod3</span>) )
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>( <span class='kw pkg'>mice</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mice/man/pool.html'>pool</a></span>(<span class='no'>mod3</span>) )
 
 <span class='co'>#############################################################################</span>
 <span class='co'># EXAMPLE 2: Simulated example logistic regression with interaction effects</span>

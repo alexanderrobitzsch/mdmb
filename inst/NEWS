@@ -29,10 +29,13 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.5  |  2020-05-12  |  Last: mdmb 1.5-1
+VERSIONS mdmb 1.5  |  2020-12-14  |  Last: mdmb 1.5-2
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * fixed a bug in sampling imputed values in frm_fb() for 
+        model "yjtreg" with argument 'probit=TRUE'
+        (thanks to Simon Grund)
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---

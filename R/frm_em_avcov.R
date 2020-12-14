@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.947
+## File Version: 0.961
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -62,7 +62,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         # loglike <- matrix(NA, nrow=N2, ncol=NM+1)
         loglike <- loglike0
         post <- 1 + 0*dat$weights
-        eps <- 1E-30
+        eps <- 1e-30
         post0a <- post0
 
         for (mm in update ){
@@ -117,7 +117,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     score_f1 <- function(par){
         NP <- length(par)
         abs_par <- abs(par)
-        hvec <- h * ifelse(abs_par > 1, abs_par, 1)
+#        hvec <- h * ifelse(abs_par > 1, abs_par, 1)
         x <- par
         y <- par
         #*** function Q( x, y )
@@ -164,6 +164,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         for (ii in 1:NP){
             par1 <- par
             par1[ii] <- par[ii] + hvec[ii]
+
             loglike <- f0a$loglike
             post <- 1 + 0*dat$weights
             post0a <- f0a$post0a
@@ -181,7 +182,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                 } else {
                     update_model <- FALSE
                 }
-
+                # update_model <- TRUE                
                 if ( update_model ){
                     dmod <- frm_em_score_function_prepare_model(mm=mm,
                                 model_results=model_results, x=x, index_coefs_vec=index_coefs_vec,
@@ -199,6 +200,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                     #    post0a[,mm] <- dmod$post
                 }
             }
+        
             for (mm in seq(1,NM+1)){
                 post <- post * post0a[,mm]
             }
@@ -217,6 +219,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     infomat <- matrix(NA,nrow=NP,ncol=NP)
     m1 <- paste0( rep("*",NP), collapse="")
     cat( paste0("\n|",m1,"|","\n|") )
+    
     for (ii in 1:NP){
         cat("-")
         utils::flush.console()
@@ -226,7 +229,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         infomat[ii,] <- (sc2 - score_fct1) / hvec[ii]
     }
     cat("|\n")
-
     #-- modify parameter labels
     dfr <- frm_modify_parameter_labels( dfr=dfr, ind0=ind0, NM=NM )
 
