@@ -1,5 +1,5 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.4597
+## File Version: 0.467
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
@@ -38,7 +38,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             variable_info$miss <- variable_info$case %in% ind_miss_mm
             variable_info$unique <- variable_info$case %in% id_variable_level_unique
             variable_info <- variable_info[ variable_info$miss, ]
-            variable_info$miss_id <- 1:nrow(variable_info)
+            variable_info$miss_id <- 1L:nrow(variable_info)
             variable_info$replace_miss_id <- variable_info$miss_id
             # unique_cases <- unique(variable_info$id[ variable_info$unique ] )
             var1 <- variable_info[ variable_info$unique, ]
@@ -62,7 +62,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         }
 
         if (model_mm %in% c("mlreg")){
-            # R_args$inits_lme4 <- FALSE
+            R_args$inits_lme4 <- FALSE
         }
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
         model_results[[mm]] <- mod

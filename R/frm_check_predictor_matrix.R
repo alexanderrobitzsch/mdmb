@@ -1,5 +1,5 @@
 ## File Name: frm_check_predictor_matrix.R
-## File Version: 0.06
+## File Version: 0.07
 
 frm_check_predictor_matrix <- function(pred)
 {
@@ -19,7 +19,7 @@ frm_check_predictor_matrix <- function(pred)
             for (ii in hh:NC){
                 if (check1[hh,ii]){
                     cat( "  ", paste0(dv[hh], " - ", dv[ii] ), "\n")
-                }            
+                }
             }
         }
         stop() # stop algorithm here

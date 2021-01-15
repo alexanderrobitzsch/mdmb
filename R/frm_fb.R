@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.807
+## File Version: 0.813
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -63,7 +63,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         weights0 <- rep(1,N)
     }
     dat0 <- dat
-    
+
     #*** prepare data
     res2 <- frm_prepare_data_fb(dat=dat, dep=dep, ind=ind, weights0=weights0,
                     dat0=dat0, data_init=data_init )
@@ -135,7 +135,7 @@ zz0 <- Sys.time()
                     aggregation=aggregation )
         imputations_mcmc <- res$imputations_mcmc
         dat <- res$dat
-        
+
         #*** refreshing proposal SD for parameters and imputed values
         if ( ( iter %% refresh==0 ) & ( iter <=burnin ) ){
             ind0 <- frm_fb_mh_refresh_parameters( ind0=ind0, acc_bounds=acc_bounds )

@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_wrapper_ml_mcmc.R
-## File Version: 0.282
+## File Version: 0.293
 
 frm_mlreg_wrapper_ml_mcmc <- function( data, formula, weights=NULL,
     sample_missings=TRUE, ...)
@@ -12,6 +12,8 @@ frm_mlreg_wrapper_ml_mcmc <- function( data, formula, weights=NULL,
     if ( ! ( "inits_lme4" %in% names(args) ) ){
         args$inits_lme4 <- FALSE
     }
-    res <- do.call( what=miceadds::ml_mcmc, args=args)
+
+    # res <- do.call( what=miceadds::ml_mcmc, args=args)
+    res <- do.call( what=ml_mcmc, args=args)
     return(res)
 }

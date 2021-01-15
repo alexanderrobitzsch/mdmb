@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.529
+## File Version: 0.530
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
     use_gibbs=FALSE, weights=NULL )
@@ -63,7 +63,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     rsp <- rowSums(predictorMatrix)
     var_order <- order( rsp, decreasing=TRUE )
     predictorMatrix <- predictorMatrix[ var_order, var_order ]
-    
+
     #- check predictor matrix
     frm_check_predictor_matrix(pred=predictorMatrix)
 

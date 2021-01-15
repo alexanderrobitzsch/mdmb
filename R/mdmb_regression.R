@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.985
+## File Version: 1.986
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -267,7 +267,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     #--- extract parameters
     beta <- mdmb_regression_extract_parameters( mod=mod1, parnames=parnames,
                 type=type, is_lambda_fixed=is_lambda_fixed, lambda_fixed=lambda_fixed )
-                
+
     #--- degrees of freedom
     df <- mdmb_compute_df(x=beta, est_df=est_df, df=df)
 

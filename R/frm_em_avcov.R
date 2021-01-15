@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.961
+## File Version: 0.962
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -182,7 +182,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                 } else {
                     update_model <- FALSE
                 }
-                # update_model <- TRUE                
+                # update_model <- TRUE
                 if ( update_model ){
                     dmod <- frm_em_score_function_prepare_model(mm=mm,
                                 model_results=model_results, x=x, index_coefs_vec=index_coefs_vec,
@@ -200,7 +200,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                     #    post0a[,mm] <- dmod$post
                 }
             }
-        
+
             for (mm in seq(1,NM+1)){
                 post <- post * post0a[,mm]
             }
@@ -219,7 +219,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     infomat <- matrix(NA,nrow=NP,ncol=NP)
     m1 <- paste0( rep("*",NP), collapse="")
     cat( paste0("\n|",m1,"|","\n|") )
-    
+
     for (ii in 1:NP){
         cat("-")
         utils::flush.console()

@@ -1,5 +1,5 @@
 ## File Name: frm_define_model_R_function.R
-## File Version: 0.686
+## File Version: 0.688
 
 frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     R_args=NULL, sampling_level=NULL, variable_level=NULL, maxiter=8, dat0=NULL )
@@ -16,7 +16,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
     }
     if (is.null(R_args) ){
         R_args <- list()
-    }    
+    }
     if (! ( model$model %in% c("yjtreg") ) ){
         R_args$probit <- FALSE
     }
@@ -65,7 +65,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
         R_args <- frm_define_model_R_function_include_maxiter(R_args=R_args, maxiter=maxiter)
         if (is.null(R_args$probit)){
             R_args$probit <- FALSE
-        }    
+        }
     }
     if (model$model %in% c("yjtreg", "bctreg") ){
         if (is.null(R_args$est_df)){
@@ -88,7 +88,7 @@ frm_define_model_R_function <- function(model, use_grad=2, use_gibbs=FALSE,
             if (!is.null(cn)){
                 sl0 <- setdiff(sampling_level, cn)
                 if (length(sl0) > 0){
-                    stop(paste0("Sampling level '", sl0 , "' not in data!\n") )
+                    stop(paste0("Sampling level '", sl0, "' not in data!\n") )
                 }
             }
         }
