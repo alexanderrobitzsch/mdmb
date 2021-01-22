@@ -8,7 +8,7 @@ If you use `mdmb` and have suggestions for improvement or have found bugs, pleas
 
 The manual may be found here [https://alexanderrobitzsch.github.io/mdmb/](https://alexanderrobitzsch.github.io/mdmb/) 
 
-#### CRAN version `mdmb` 1.4-12 (2020-05-11)
+#### CRAN version `mdmb` 1.5-8 (2021-01-21)
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/mdmb)](https://cran.r-project.org/package=mdmb)
@@ -22,9 +22,9 @@ The CRAN version can be installed from within R using:
 utils::install.packages("mdmb")
 ```
 
-#### GitHub version `mdmb` 1.5-4 (2021-01-15)
+#### GitHub version `mdmb` 1.6-2 (2021-01-21)
 
-[![](https://img.shields.io/badge/github%20version-1.5--4-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
+[![](https://img.shields.io/badge/github%20version-1.6--2-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
 
 The version hosted [here](https://github.com/alexanderrobitzsch/mdmb) is the development version of `mdmb`. 
 The GitHub version can be installed using `devtools` as:

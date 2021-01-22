@@ -1,8 +1,8 @@
 Package: mdmb
 Type: Package
 Title: Model Based Treatment of Missing Data
-Version: 1.5-4
-Date: 2021-01-15 22:19:58
+Version: 1.6-2
+Date: 2021-01-21 14:01:02
 Author: 
     Alexander Robitzsch [aut, cre], Oliver Luedtke [aut]
 Maintainer: 
@@ -12,8 +12,8 @@ Description:
     models with missing values in covariates or the dependent 
     variable using maximum likelihood or Bayesian estimation 
     (Ibrahim et al., 2005; <doi:10.1198/016214504000001844>;
-    Luedtke, Robitzsch, & West, 2019a, 2019b, <doi:10.1037/met0000233>; 
-    <doi:10.1080/00273171.2019.1640104>).
+    Luedtke, Robitzsch, & West, 2020a, 2020b;
+    <doi:10.1080/00273171.2019.1640104><doi:10.1037/met0000233>).
     The regression model can be nonlinear (e.g., interaction 
     effects, quadratic effects or B-spline functions). 
     Multilevel models with missing data in predictors are

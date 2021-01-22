@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.832
+%% File Version: 0.833
 
 \name{frm}
 \alias{frm}
@@ -29,7 +29,7 @@ The factored regression model (FRM) allows the estimation of the linear regressi
 handled by posing a conditional univariate distribution for each covariate. The
 approach follows Ibrahim (1990), Ibrahim, Chen, Lipsitz and Herring (2005),
 Lee and Mitra (2016), and Zhang and Wang (2017) and is applied in
-Luedtke, Robitzsch, and West (XXXX, XXXX). Latent variables
+Luedtke, Robitzsch, and West (2020a, 2020b). Latent variables
 and covariates with measurement error or multiple indicators can also be handled
 within this framework (see Examples 3, 4 and 5).
 
@@ -264,15 +264,15 @@ with mixed measurement scales using a sequence of generalised linear models.
 \emph{Computational Statistics & Data Analysis, 95}(24), 24-38.
 \doi{10.1016/j.csda.2015.08.004}
 
-Luedtke, O., Robitzsch, A., & West, S. (XXXX). Regression models involving nonlinear
-effects with missing data: A sequential modeling approach using Bayesian estimation.
-\emph{Psychological Methods, xx}(xx), xxx-xxx.
-\doi{10.1037/met0000233}
-
-Luedtke, O., Robitzsch, A., & West, S. (XXXX). Analysis of interactions and nonlinear
-effects with missing data: A factored regression modeling approach using maximum
-likelihood estimation. \emph{Multivariate Behavioral Research, xx}(xx), xxx-xxx.
+Luedtke, O., Robitzsch, A., & West, S. (2020a). Analysis of interactions and nonlinear 
+effects with missing data: A factored regression modeling approach using maximum 
+likelihood estimation. \emph{Multivariate Behavioral Research, 55}(3), 361-381. 
 \doi{10.1080/00273171.2019.1640104}
+
+Luedtke, O., Robitzsch, A., & West, S. (2020b). Regression models involving nonlinear 
+effects with missing data: A sequential modeling approach using Bayesian estimation. 
+\emph{Psychological Methods, 25}(2), 157-181. 
+\doi{10.1037/met0000233}
 
 Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors.
 \emph{Psychological Methods, 22}(4), 649-666.

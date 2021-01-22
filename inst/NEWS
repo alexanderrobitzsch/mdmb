@@ -28,8 +28,22 @@ CHANGELOG mdmb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.5  |  2021-01-15  |  Last: mdmb 1.5-4
+VERSIONS mdmb 1.6  |  2021-01-21  |  Last: mdmb 1.6-2
+---------------------------------------------------------------------
+
+xxxx  *
+
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+
+
+---------------------------------------------------------------------
+VERSIONS mdmb 1.5  |  2021-01-21  |  Last: mdmb 1.5-8
 ---------------------------------------------------------------------
 
 FIXED * fixed a bug in sampling imputed values in frm_fb() for 
@@ -39,11 +53,8 @@ FIXED * fixed a bug in frm_fb() function when using multilevel
         models and the argument 'inits_lme4=FALSE' 
         (thanks to Rushani Wijesuriya)
 
-
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
-
-
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.4  |  2020-05-11  |  Last: mdmb 1.4-12
