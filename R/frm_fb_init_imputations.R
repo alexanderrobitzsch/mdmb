@@ -1,5 +1,5 @@
 ## File Name: frm_fb_init_imputations.R
-## File Version: 0.485
+## File Version: 0.490
 
 frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_vars,
         impute_vars_index, ind_miss, ind0, dv_vars,    variablesMatrix, dat=NULL )
@@ -71,7 +71,8 @@ frm_fb_init_imputations <- function( Nimp, model_results, burnin, iter, impute_v
             cluster_index_vv <- match( idcluster_vv, unique(idcluster_vv) )
             cluster_index[[vv]] <- cluster_index_vv
         }
-    }
+
+    }  # end vv
     iter_save_temp <- imp_save[1]
     saved_index <- 1
 

@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.759
+## File Version: 0.769
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -34,7 +34,6 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
                     model_results=model_results[[ index_vv ]], ind_miss_vv=ind_miss_vv )
         dat1_vv[, var_vv ] <- imp1 <- res$imp1
         changed1 <- res$changed1
-
         do_mh <- res$do_mh
         NG <- res$NG
         gibbs_values <- res$gibbs_values
@@ -100,7 +99,6 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
             }  # end mm
 
         }
-
         #**** evaluation proposal in Metropolis-Hastings sampling
         if (do_mh){
             args_mhratio <- list( like=like, like1=like1, use_sampling_level_vv=use_sampling_level_vv,
@@ -125,8 +123,8 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         if ( save_values ){
             imputations_mcmc$values[[var_vv]][, ind_save ] <- dat_vv[, var_vv ]
         }
-
     }  # end vv
+
     #--------------------------------
     #--- output
     res <- list( imputations_mcmc=imputations_mcmc, dat=dat)

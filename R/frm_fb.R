@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.813
+## File Version: 0.821
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -9,7 +9,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
             print_iter=10, use_gibbs=TRUE, aggregation=TRUE )
 {
     CALL <- match.call()
-    s1 <- Sys.time()
+    s1 <- zz0 <- Sys.time()
 
     #*****************----------------
     # adaptation of function for including new model classes
@@ -128,6 +128,7 @@ zz0 <- Sys.time()
         ind0 <- res$ind0
         model_results <- res$model_results
         parms_mcmc <- res$parms_mcmc
+        #    cat("\n -- i200") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
 
         #*** imputation of missing values
         res <- frm_fb_sample_imputed_values( imputations_mcmc=imputations_mcmc,

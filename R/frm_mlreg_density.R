@@ -1,12 +1,15 @@
 ## File Name: frm_mlreg_density.R
-## File Version: 0.15
+## File Version: 0.167
 
 
-frm_mlreg_density <- function( model, y, case, design_matrix)
+frm_mlreg_density <- function( model, y, case, design_matrix, id_variable_level_unique=NULL)
 {
     outcome <- model$outcome
     data <- design_matrix
     formula_terms <- model$formula_terms
+    if ( ! is.null(id_variable_level_unique) ){
+        data <- data[ id_variable_level_unique, ]
+    }
     res <- frm_mlreg_create_design_matrices(data=data, formula_terms=formula_terms )
     y <- res$y
     X <- res$X
@@ -20,7 +23,6 @@ frm_mlreg_density <- function( model, y, case, design_matrix)
     idcluster_list <- model$idcluster_list
     outcome <- model$outcome
     K <- model$K
-
     #- evaluate densities
     ypred <- miceadds::miceadds_rcpp_ml_mcmc_predict_fixed_random( X=X, beta=beta, Z_list=Z_list,
                         u_list=u_list, idcluster_list=idcluster_list, NR=NR )

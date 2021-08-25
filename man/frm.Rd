@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.833
+%% File Version: 0.834
 
 \name{frm}
 \alias{frm}
@@ -264,14 +264,14 @@ with mixed measurement scales using a sequence of generalised linear models.
 \emph{Computational Statistics & Data Analysis, 95}(24), 24-38.
 \doi{10.1016/j.csda.2015.08.004}
 
-Luedtke, O., Robitzsch, A., & West, S. (2020a). Analysis of interactions and nonlinear 
-effects with missing data: A factored regression modeling approach using maximum 
-likelihood estimation. \emph{Multivariate Behavioral Research, 55}(3), 361-381. 
+Luedtke, O., Robitzsch, A., & West, S. (2020a). Analysis of interactions and nonlinear
+effects with missing data: A factored regression modeling approach using maximum
+likelihood estimation. \emph{Multivariate Behavioral Research, 55}(3), 361-381.
 \doi{10.1080/00273171.2019.1640104}
 
-Luedtke, O., Robitzsch, A., & West, S. (2020b). Regression models involving nonlinear 
-effects with missing data: A sequential modeling approach using Bayesian estimation. 
-\emph{Psychological Methods, 25}(2), 157-181. 
+Luedtke, O., Robitzsch, A., & West, S. (2020b). Regression models involving nonlinear
+effects with missing data: A sequential modeling approach using Bayesian estimation.
+\emph{Psychological Methods, 25}(2), 157-181.
 \doi{10.1037/met0000233}
 
 Zhang, Q., & Wang, L. (2017). Moderation analysis with missing data in the predictors.

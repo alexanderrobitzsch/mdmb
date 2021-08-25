@@ -30,10 +30,11 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.6  |  2021-01-21  |  Last: mdmb 1.6-2
+VERSIONS mdmb 1.6  |  2021-08-25  |  Last: mdmb 1.6-4
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * fixed a bug in frm_fb() for sampling of variables at 
+        higher levels with probit model (thanks to Simon Grund)
 
 
 DATA  * included/modified datasets: ---

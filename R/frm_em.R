@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.943
+## File Version: 0.949
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -65,6 +65,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
         beta_new <- res$coefs[[NM+1]]
         ll_new <- res$ll
         iter <- iter + 1
+
         #**** changes in parameters
         ll_change0 <- ( ll_new - ll_old ) / abs( ll_new)
         ll_change <- abs(ll_change0)

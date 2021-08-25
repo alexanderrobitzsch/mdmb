@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_eval_likelihood.R
-## File Version: 0.42
+## File Version: 0.448
 
 
 frm_fb_sample_imputed_values_eval_likelihood <- function(mm, model_results, ind0,
@@ -19,12 +19,17 @@ frm_fb_sample_imputed_values_eval_likelihood <- function(mm, model_results, ind0
     } else {
         dat_sel <- dat_vv
     }
+
+    # dat_sel <- dat_sel[ ind_mm$id_variable_level_unique, ]
     y <- dat_sel[, ind_mm$dv_vars ]
     case <- dat_sel$case
     design_matrix <- dat_sel
     args <- list(model=model, y=y, case=case, design_matrix=design_matrix )
     if (ind_mm$R_density_fct=="frm_linreg_density"){
         args$use_in_frm_fb <- TRUE
+    }
+    if (ind_mm$R_density_fct=="frm_mlreg_density"){
+        args$id_variable_level_unique <- ind_mm$id_variable_level_unique
     }
     dmod <- do.call( what=ind_mm$R_density_fct, args=args )
     like <- dmod$like
