@@ -1,8 +1,9 @@
 ## File Name: frm_linreg_sample_parameters.R
-## File Version: 0.23
+## File Version: 0.252
 
 
-frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_weights, ... )
+frm_linreg_sample_parameters <- function(model, design_matrix, y, weights,
+                no_weights, ... )
 {
     form <- attr( model$model, "terms")
     Xdes <- stats::model.matrix( object=form, design_matrix )
@@ -20,7 +21,7 @@ frm_linreg_sample_parameters <- function(model, design_matrix, y, weights, no_we
     np <- ncol(X1)
     sample_beta <- ( np > 0 )
     if (sample_beta){
-        xtx_inv <- mdmb_ginv(XtX)
+        xtx_inv <- mdmb_ginv(x=XtX)
         beta0 <- xtx_inv %*% Xty
         e <- y1 - X1 %*% beta0
     } else {

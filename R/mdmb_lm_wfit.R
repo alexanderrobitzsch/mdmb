@@ -1,5 +1,5 @@
 ## File Name: mdmb_lm_wfit.R
-## File Version: 0.07
+## File Version: 0.09
 
 mdmb_lm_wfit <- function( x, y, w, offset=NULL )
 {
@@ -11,6 +11,7 @@ mdmb_lm_wfit <- function( x, y, w, offset=NULL )
         fitted.values <- fitted.values + offset
     }
     #-- output
-    res <- list( coefficients=coef, residuals=residuals, fitted.values=fitted.values, weights=w)
+    res <- list( coefficients=coef, residuals=residuals,
+                    fitted.values=fitted.values, weights=w)
     return(res)
 }

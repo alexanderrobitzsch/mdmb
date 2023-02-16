@@ -3,6 +3,9 @@
 
 
 If you use `mdmb` and have suggestions for improvement or have found bugs, please email me at robitzsch@leibniz-ipn.de.
+Please always provide a minimal dataset, necessary to demonstrate the problem, 
+a minimal runnable code necessary to reproduce the issue, which can be run on the given dataset, and
+all necessary information on the used librarys, the R version, and the OS it is run on, perhaps a sessionInfo().
 
 #### Manual
 
@@ -22,9 +25,9 @@ The CRAN version can be installed from within R using:
 utils::install.packages("mdmb")
 ```
 
-#### GitHub version `mdmb` 1.7-2 (2022-05-18)
+#### GitHub version `mdmb` 1.7-10 (2023-02-16)
 
-[![](https://img.shields.io/badge/github%20version-1.7--2-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
+[![](https://img.shields.io/badge/github%20version-1.7--10-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
 
 The version hosted [here](https://github.com/alexanderrobitzsch/mdmb) is the development version of `mdmb`. 
 The GitHub version can be installed using `devtools` as:

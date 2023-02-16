@@ -1,10 +1,10 @@
 ## File Name: frm_em.R
-## File Version: 0.949
+## File Version: 0.959
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     maxiter=500, conv_dev=1E-8, conv_parm=1E-5,
-    nodes_control=c(11,5), h=1E-4, use_grad=2 )
+    nodes_control=c(11,5), h=1E-4, use_grad=2, update_model=NULL )
 {
     CALL <- match.call()
     s1 <- Sys.time()
@@ -38,12 +38,18 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 
     #*** prepare list of models
     NM <- attr(ind,"NM")
-    ind0 <- ind
-    ind0[[ dep$dv_vars ]] <- dep
-    ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
+    if (is.null(update_model)){
+        ind0 <- ind
+        ind0[[ dep$dv_vars ]] <- dep
+        ind0 <- frm_prepare_models_sigma_fixed( ind0=ind0, NM=NM, dat0=dat0, dat=dat )
+        #*** add additional arguments for regression functions
+        ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
+    } else {
+        ind0 <- update_model$ind0
+        weights0 <- update_model$weights0
+    }
 
-    #*** add additional arguments for regression functions
-    ind0 <- frm_prepare_models_design_matrices( ind0=ind0, dat=dat, NM=NM)
+
     iter <- 0
     conv <- FALSE
     ll_new <- 1E-500
@@ -118,11 +124,11 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 
     #--- information criteria
     ic <- frm_em_ic( ll_new=ll_new, N=N, ind0=ind0,
-                model_results=model_results )
+                    model_results=model_results )
 
     #--- descriptive statistics
     desc_vars <- frm_descriptives_variables(dat=dat, predictorMatrix=predictorMatrix,
-                    freq_miss_values=freq_miss_values, dat0=dat0)
+                        freq_miss_values=freq_miss_values, dat0=dat0)
 
     #--- output
     s2 <- Sys.time()
@@ -132,7 +138,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
                 ind0=ind0, predictorMatrix=predictorMatrix,
                 variablesMatrix=variablesMatrix, desc_vars=desc_vars,
                 model_results=res$model_results, like0=res$like0,
-                freq_miss_values=freq_miss_values,
+                freq_miss_values=freq_miss_values, weights0=weights0,
                 CALL=CALL, s1=s1, s2=s2    , diff_time=s2-s1    )
     class(res) <- "frm_em"
     return(res)

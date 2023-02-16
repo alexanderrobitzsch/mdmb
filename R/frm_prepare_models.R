@@ -1,8 +1,8 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.530
+## File Version: 0.532
 
-frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE, use_grad=2,
-    use_gibbs=FALSE, weights=NULL )
+frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE,
+        use_grad=2, use_gibbs=FALSE, weights=NULL )
 {
     all_vars <- NULL
     #*** independent variables models

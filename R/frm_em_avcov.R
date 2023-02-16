@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.962
+## File Version: 0.983
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -54,7 +54,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 
     #----------------------- define Q-function in expected log likelihood
     f <- function(x, y, update=seq(1,NM+1), return_like=FALSE,
-            update_y=TRUE ){
+            update_y=TRUE, eps=1e-30 ){
 
         #*** function Q( x, y )
 
@@ -62,7 +62,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         # loglike <- matrix(NA, nrow=N2, ncol=NM+1)
         loglike <- loglike0
         post <- 1 + 0*dat$weights
-        eps <- 1e-30
         post0a <- post0
 
         for (mm in update ){
@@ -114,7 +113,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     #-----------------------------------------------------
     #-----------------------------------------------------
     # define score function
-    score_f1 <- function(par){
+    score_f1 <- function(par, eps=1e-30){
         NP <- length(par)
         abs_par <- abs(par)
 #        hvec <- h * ifelse(abs_par > 1, abs_par, 1)
@@ -125,7 +124,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         # loglike <- matrix(NA, nrow=N2, ncol=NM+1)
         loglike <- loglike0
         post <- 1 + 0*dat$weights
-        eps <- 1E-30
         post0a <- post0
         for (mm in 1:(NM+1)){
             ind_mm <- ind0[[mm]]
@@ -164,7 +162,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         for (ii in 1:NP){
             par1 <- par
             par1[ii] <- par[ii] + hvec[ii]
-
             loglike <- f0a$loglike
             post <- 1 + 0*dat$weights
             post0a <- f0a$post0a
@@ -179,13 +176,15 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                 l3_mm <- unique( c( l1_mm, l2_mm )    )
                 if ( length(l3_mm) > 0 ){
                     update_model <- ( max( abs( par1[ l3_mm ] - par[l3_mm ]    ) ) > 1E-10 )
+                    # update_model <- ( max( abs( par1[ l3_mm ] - par[l3_mm ]    ) ) > 1E-100 )
                 } else {
                     update_model <- FALSE
                 }
                 # update_model <- TRUE
                 if ( update_model ){
                     dmod <- frm_em_score_function_prepare_model(mm=mm,
-                                model_results=model_results, x=x, index_coefs_vec=index_coefs_vec,
+                                model_results=model_results, x=x,
+                                index_coefs_vec=index_coefs_vec,
                                 index_sigma_vec=index_sigma_vec, dat=dat, ind_mm=ind_mm )
                     loglike[,mm] <- log( dmod$like + eps )
 
@@ -199,7 +198,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                     #    }
                     #    post0a[,mm] <- dmod$post
                 }
-            }
+            }  # end model mm
 
             for (mm in seq(1,NM+1)){
                 post <- post * post0a[,mm]
@@ -207,7 +206,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
             post <- frm_normalize_posterior( post=post, case=dat$case )
             post <- dat$weights0 * post
             score_fct0[ii] <- sum(loglike * post)
-
         }  # end parameter ii
         score_fct0 <- ( score_fct0 - f0 ) / hvec
         return(score_fct0)
@@ -228,6 +226,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         sc2 <- score_f1( par=par1 )
         infomat[ii,] <- (sc2 - score_fct1) / hvec[ii]
     }
+
     cat("|\n")
     #-- modify parameter labels
     dfr <- frm_modify_parameter_labels( dfr=dfr, ind0=ind0, NM=NM )
