@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.769
+## File Version: 0.774
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
@@ -30,8 +30,10 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         #--- sample new proposed values
         dat1_vv <- dat_vv
         res <- frm_fb_sample_imputed_values_proposal( var_vv=var_vv, index_vv=index_vv,
-                    ind0=ind0, imp=imp,    imputations_mcmc=imputations_mcmc, N_vv=N_vv, dat_vv=dat_vv,
-                    model_results=model_results[[ index_vv ]], ind_miss_vv=ind_miss_vv )
+                            ind0=ind0, imp=imp,    imputations_mcmc=imputations_mcmc,
+                            N_vv=N_vv, dat_vv=dat_vv,
+                            model_results=model_results[[ index_vv ]],
+                            ind_miss_vv=ind_miss_vv )
         dat1_vv[, var_vv ] <- imp1 <- res$imp1
         changed1 <- res$changed1
         do_mh <- res$do_mh
@@ -58,8 +60,9 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
                 for (mm in 1:NM1){
                     args_like <- list( mm=mm, model_results=model_results, ind0=ind0,
                                     dat_vv=pdat_vv )
-                    like_temp[,mm] <- do.call( frm_fb_sample_imputed_values_eval_likelihood,
-                                            args=args_like)
+                    like_temp[,mm] <- do.call(
+                                        what=frm_fb_sample_imputed_values_eval_likelihood,
+                                        args=args_like)
                 }
                 log_like_temp <- log(like_temp + eps )
                 if (use_variable_level_vv){
@@ -73,8 +76,9 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
 
             ### include cluster level sampling
             if (use_sampling_level_vv){
-                stop( paste0( "Imputation step at cluster sampling level is not implemented\n",
-                            "for Gibbs sampling.") )
+                stop( paste0( "Imputation step at cluster sampling ",
+                                    "level is not implemented\n",
+                                    "for Gibbs sampling.") )
             }
             probs_vv <- frm_normalize_matrix_row(matr=probs_vv)
             imp1 <- gibbs_values[ mdmb_sample_probabilities(matr=probs_vv) ]
@@ -88,23 +92,30 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         #**** evaluate models under old value and new proposed value
         if (do_mh){
             for (mm in 1:NM1){
-                args_like <- list(mm=mm, model_results=model_results, ind0=ind0, dat_vv=dat_vv,
-                            aggregation=aggregation, dat=dat, ind_miss_vv=ind_miss_vv,
-                            sampling_level_vv=sampling_level_vv, use_sampling_level_vv=use_sampling_level_vv )
+                args_like <- list(mm=mm, model_results=model_results, ind0=ind0,
+                                        dat_vv=dat_vv, aggregation=aggregation,
+                                        dat=dat, ind_miss_vv=ind_miss_vv,
+                                        sampling_level_vv=sampling_level_vv,
+                                        use_sampling_level_vv=use_sampling_level_vv )
                 if (do_mh){
-                    like[,mm] <- do.call( what=frm_fb_sample_imputed_values_eval_likelihood, args=args_like)
+                    like[,mm] <- do.call(
+                                    what=frm_fb_sample_imputed_values_eval_likelihood,
+                                    args=args_like)
                 }
                 args_like$dat_vv <- dat1_vv
-                like1[,mm] <- do.call( what=frm_fb_sample_imputed_values_eval_likelihood, args=args_like)
+                like1[,mm] <- do.call( what=frm_fb_sample_imputed_values_eval_likelihood,
+                                    args=args_like)
             }  # end mm
 
         }
         #**** evaluation proposal in Metropolis-Hastings sampling
         if (do_mh){
-            args_mhratio <- list( like=like, like1=like1, use_sampling_level_vv=use_sampling_level_vv,
-                                cluster_index=cluster_index, ind_miss_vv=ind_miss_vv, eps=eps,
-                                ind_vv=ind_vv )
-            accept <- do.call( frm_fb_sample_imputed_values_evaluate_mh_ratio, args=args_mhratio )
+            args_mhratio <- list( like=like, like1=like1,
+                                    use_sampling_level_vv=use_sampling_level_vv,
+                                    cluster_index=cluster_index, ind_miss_vv=ind_miss_vv,
+                                    eps=eps, ind_vv=ind_vv )
+            accept <- do.call( what=frm_fb_sample_imputed_values_evaluate_mh_ratio,
+                                    args=args_mhratio )
             accept2 <- accept & changed1
             if ( sum(accept2) > 0){
                 dat_vv[ accept2, var_vv ] <- dat1_vv[ accept2, var_vv ]

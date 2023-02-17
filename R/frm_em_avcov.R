@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.983
+## File Version: 0.986
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -138,7 +138,8 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
             testdiff <- any( y[ l1_mm ] !=x[ l1_mm ] )
             if ( testdiff ){
                 dmod <- frm_em_score_function_prepare_model(mm=mm,
-                            model_results=model_results, x=y, index_coefs_vec=index_coefs_vec,
+                            model_results=model_results, x=y,
+                            index_coefs_vec=index_coefs_vec,
                             index_sigma_vec=index_sigma_vec, dat=dat, ind_mm=ind_mm )
             }
             post0a[,mm] <- dmod$post
@@ -173,10 +174,9 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                 ind_mm <- ind0[[mm]]
                 l1_mm <- index_coefs_vec[[mm]]
                 l2_mm <- index_sigma_vec[[mm]]
-                l3_mm <- unique( c( l1_mm, l2_mm )    )
+                l3_mm <- unique( c( l1_mm, l2_mm ))
                 if ( length(l3_mm) > 0 ){
-                    update_model <- ( max( abs( par1[ l3_mm ] - par[l3_mm ]    ) ) > 1E-10 )
-                    # update_model <- ( max( abs( par1[ l3_mm ] - par[l3_mm ]    ) ) > 1E-100 )
+                    update_model <- ( max( abs( par1[l3_mm] - par[l3_mm] ) ) > 1E-10 )
                 } else {
                     update_model <- FALSE
                 }
@@ -187,16 +187,6 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
                                 index_coefs_vec=index_coefs_vec,
                                 index_sigma_vec=index_sigma_vec, dat=dat, ind_mm=ind_mm )
                     loglike[,mm] <- log( dmod$like + eps )
-
-                    #*** y second argument
-                    #    x1 <- y[ l1_mm ]
-                    #    testdiff <- any( y[ l1_mm ] !=x[ l1_mm ] )
-                    #    if ( testdiff ){
-                    #        dmod <- frm_em_score_function_prepare_model(mm=mm,
-                    #                    model_results=model_results, x=y, index_coefs_vec=index_coefs_vec,
-                    #                    index_sigma_vec=index_sigma_vec, dat=dat, ind_mm=ind_mm )
-                    #    }
-                    #    post0a[,mm] <- dmod$post
                 }
             }  # end model mm
 

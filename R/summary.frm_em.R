@@ -1,5 +1,5 @@
 ## File Name: summary.frm_em.R
-## File Version: 0.391
+## File Version: 0.394
 
 
 #*******************************************************
@@ -55,7 +55,8 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
     for (mm in seq( NM+1, 1 ) ){
         ind_mm <- ind0[[mm]]
         nodes_string <- frm_em_summary_print_nodes( dv_vars=ind_mm$dv_vars,
-                            nodes=ind_mm$nodes, nodes_description=ind_mm$nodes_description,
+                            nodes=ind_mm$nodes,
+                            nodes_description=ind_mm$nodes_description,
                             desc_vars=object$desc_vars )
         cat( nodes_string, "\n")
     }
@@ -86,7 +87,8 @@ summary.frm_em <- function( object, digits=4, file=NULL, ...)
         if (ind_mm$model=="linreg"){
             all_coefs <- object$all_coefs[[mm]]
             AC <- length(all_coefs)
-            v1 <- paste0("Explained variance R^2", "=",round( all_coefs[AC], digits ), "\n")
+            v1 <- paste0("Explained variance R^2", "=",
+                            round( all_coefs[AC], digits ), "\n")
             cat(v1)
         }
         if (ind_mm$model %in% c("logistic") ) {

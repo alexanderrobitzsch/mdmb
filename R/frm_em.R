@@ -1,5 +1,5 @@
 ## File Name: frm_em.R
-## File Version: 0.959
+## File Version: 0.961
 
 
 frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
@@ -26,7 +26,7 @@ frm_em <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
 
     #*** prepare data
     res2 <- frm_prepare_data_em(dat=dat, dep=dep, ind=ind, weights0=weights0,
-                    dat0=dat0)
+                    dat0=dat0, update_model=update_model)
     dat <- res2$dat
     dat_resp <- res2$dat_resp
     dv_vars <- res2$dv_vars

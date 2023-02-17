@@ -1,7 +1,8 @@
 ## File Name: dyjt_scaled.R
-## File Version: 0.511
+## File Version: 0.513
 
-dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, probit=FALSE )
+dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
+                    probit=FALSE )
 {
     #*** recode lambda
     eps <- 1E-4

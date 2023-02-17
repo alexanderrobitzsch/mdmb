@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.986
+## File Version: 1.995
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -17,7 +17,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     N <- nrow(Xdes)
 
     # control arguments control_optim_fct
-    control_optim_fct <- mdmb_regression_proc_control_optim_fct(control_optim_fct=control_optim_fct)
+    control_optim_fct <- mdmb_regression_proc_control_optim_fct(
+                                control_optim_fct=control_optim_fct)
 
     index_beta <- NULL
     index_thresh <- NULL
@@ -138,11 +139,13 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         #--- optimization function
         fct_optim <- function(x){
             ypred <- Xdes %*% x + offset_values
-            ll_i <- mdmb_regression_logistic_density( y=y, ypred=ypred, log=TRUE, eps=eps )
+            ll_i <- mdmb_regression_logistic_density( y=y, ypred=ypred,
+                            log=TRUE, eps=eps )
             ll <- - sum( weights * ll_i )
             #--- include prior distributions
             if (is_prior){
-                ll <- ll - eval_prior_list_sumlog( par=x, par_prior=beta_prior, use_grad=use_grad )
+                ll <- ll - eval_prior_list_sumlog( par=x, par_prior=beta_prior,
+                                    use_grad=use_grad )
             }
             #--- output
             return(ll)
@@ -150,13 +153,16 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         #--- gradient
         grad_optim2 <- function(x){
             ypred <- Xdes %*% x + offset_values
-            ll0 <- mdmb_regression_logistic_density( y=y, ypred=ypred, log=TRUE, eps=eps )
-            ll1 <- mdmb_regression_logistic_density( y=y, ypred=ypred+h, log=TRUE, eps=eps )
+            ll0 <- mdmb_regression_logistic_density( y=y, ypred=ypred,
+                            log=TRUE, eps=eps )
+            ll1 <- mdmb_regression_logistic_density( y=y, ypred=ypred+h,
+                            log=TRUE, eps=eps )
             der1 <- - mdmb_diff_quotient(ll0=ll0, ll1=ll1, h=h)
             wder1 <- weights * der1
             xgrad <- colSums( wder1 * Xdes )
             if ( is_prior ){
-                xgrad <- xgrad - eval_prior_list_gradient_log( par=par, par_prior=beta_prior, h=h )
+                xgrad <- xgrad - eval_prior_list_gradient_log( par=par,
+                                        par_prior=beta_prior, h=h )
             }
             return(xgrad)
         }
@@ -177,35 +183,42 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         eps_shape <- .01
         if (type=="yjt"){
             if (probit){
-                description <- paste0("Scaled t regression with Probit Yeo-Johnson transformation (df=", df, ")")
+                description <- paste0("Scaled t regression with Probit ",
+                                    "Yeo-Johnson transformation (df=", df, ")")
             } else {
-                description <- paste0("Scaled t regression with Yeo-Johnson transformation (df=", df, ")")
+                description <- paste0("Scaled t regression with ",
+                                    "Yeo-Johnson transformation (df=", df, ")")
             }
             dens_fct <- dyjt_scaled
         }
         if (type=="bct"){
-            description <- paste0( "Scaled t regression with Box-Cox transformation (df=", df, ")")
+            description <- paste0( "Scaled t regression with ",
+                                        "Box-Cox transformation (df=", df, ")")
             dens_fct <- dbct_scaled_mdmb_regression_wrapper
         }
 
         #--- define optimization function
         fct_optim <- function(x){
-            ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta, eps_shape=eps_shape,
-                        index_sigma=index_sigma, lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed,
-                        index_lambda=index_lambda, index_df=index_df, est_df=est_df,
-                        Xdes=Xdes, offset_values=offset_values, y=y, df=df,
-                        probit=probit, weights=weights, is_prior=is_prior, beta_prior=beta_prior,
-                        use_grad=use_grad, dens_fct=dens_fct )
+            ll <- mdmb_regression_optim_yjt_fct( x=x, index_beta=index_beta,
+                            eps_shape=eps_shape, index_sigma=index_sigma,
+                            lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed,
+                            index_lambda=index_lambda, index_df=index_df, est_df=est_df,
+                            Xdes=Xdes, offset_values=offset_values, y=y, df=df,
+                            probit=probit, weights=weights, is_prior=is_prior,
+                            beta_prior=beta_prior,
+                            use_grad=use_grad, dens_fct=dens_fct )
             return(ll)
         }
         #--- gradient
         grad_optim2 <- function(x){
             xgrad <- mdmb_regression_optim_yjt_grad( x=x, index_beta=index_beta,
-                            eps_shape=eps_shape, index_sigma=index_sigma, lambda_fixed=lambda_fixed,
-                            is_lambda_fixed=is_lambda_fixed, index_lambda=index_lambda,
-                            index_df=index_df, est_df=est_df, Xdes=Xdes,
-                            offset_values=offset_values, y=y, df=df, probit=probit, weights=weights, is_prior=is_prior,
-                            beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct, np=np, h=h )
+                            eps_shape=eps_shape, index_sigma=index_sigma,
+                            lambda_fixed=lambda_fixed, is_lambda_fixed=is_lambda_fixed,
+                            index_lambda=index_lambda, index_df=index_df, est_df=est_df,
+                            Xdes=Xdes, offset_values=offset_values, y=y, df=df,
+                            probit=probit, weights=weights, is_prior=is_prior,
+                            beta_prior=beta_prior, use_grad=use_grad, dens_fct=dens_fct,
+                            np=np, h=h )
             return(xgrad)
         }
     }
@@ -218,16 +231,19 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         #--- optimization function
         fct_optim <- function(x){
             ll <- mdmb_regression_optim_oprobit_fct( x=x, index_beta=index_beta,
-                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y,
-                        eps=eps, weights=weights )
+                            index_thresh=index_thresh, Xdes=Xdes,
+                            offset_values=offset_values, y=y, eps=eps, weights=weights )
             return(ll)
         }
         #--- gradient
         grad_optim2 <- function(x){
             xgrad <- mdmb_regression_optim_oprobit_grad( x=x, index_beta=index_beta,
-                        index_thresh=index_thresh, Xdes=Xdes, offset_values=offset_values, y=y, eps=eps, h=h,
-                        weights=weights, NT=NT, use_rcpp_deriv_ypred=control_optim_fct$use_rcpp_deriv_ypred,
-                        use_rcpp_deriv_logthresh=control_optim_fct$use_rcpp_deriv_logthresh )
+                            index_thresh=index_thresh, Xdes=Xdes,
+                            offset_values=offset_values, y=y, eps=eps, h=h,
+                            weights=weights, NT=NT,
+                            use_rcpp_deriv_ypred=control_optim_fct$use_rcpp_deriv_ypred,
+                            use_rcpp_deriv_logthresh=
+                                        control_optim_fct$use_rcpp_deriv_logthresh )
             return(xgrad)
         }
     }
@@ -289,8 +305,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     vcov1 <- res0$vcov1
 
     #--- predictions
-    res0 <- mdmb_regression_predict( Xdes=Xdes, beta=beta, offset_values=offset_values, type=type,
-                    y=y, index_beta=index_beta )
+    res0 <- mdmb_regression_predict( Xdes=Xdes, beta=beta, offset_values=offset_values,
+                            type=type, y=y, index_beta=index_beta )
     linear.predictor <- res0$linear.predictor
     fitted.values <- res0$fitted.values
 
@@ -319,18 +335,22 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     s2 <- Sys.time()
 
     #--- output
-    res <- list(coefficients=beta, vcov=vcov1, partable=partable, y=y, X=Xdes, weights=weights,
-            fitted.values=fitted.values, linear.predictor=linear.predictor,
-            hessian=hessian, coef_init=coef_init, loglike=loglike, deviance=deviance, logprior=logprior, logpost=logpost,
-            like_case=loglike_case, ic=ic, formula=formula, offset_values=offset_values,
-            thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior, df=df,
-            index_beta=index_beta, index_sigma=index_sigma, index_lambda=index_lambda,
-            index_thresh=index_thresh, index_df=index_df, est_df=est_df,
-            df_min=df_min, df_max=df_max, lambda_fixed=lambda_fixed, is_prior=is_prior, fct_optim=fct_optim, type=type,
-            CALL=CALL, converged=converged, convergence_code=result_optim$convergence,
-            result_optim=result_optim, optimizer=optimizer, probit=probit,
-            coef=beta, iter=result_optim$iter, description=description, s1=s1, s2=s2, diff_time=s2-s1
-            )
+    res <- list(coefficients=beta, vcov=vcov1, partable=partable, y=y, X=Xdes,
+                    weights=weights, fitted.values=fitted.values,
+                    linear.predictor=linear.predictor, hessian=hessian,
+                    coef_init=coef_init, loglike=loglike, deviance=deviance,
+                    logprior=logprior, logpost=logpost, like_case=loglike_case,
+                    ic=ic, formula=formula, offset_values=offset_values,
+                    thresh=thresh, R2=R2, parnames=parnames, beta_prior=beta_prior,
+                    df=df, index_beta=index_beta, index_sigma=index_sigma,
+                    index_lambda=index_lambda, index_thresh=index_thresh,
+                    index_df=index_df, est_df=est_df, df_min=df_min, df_max=df_max,
+                    lambda_fixed=lambda_fixed, is_prior=is_prior, fct_optim=fct_optim,
+                    type=type, CALL=CALL, converged=converged,
+                    convergence_code=result_optim$convergence,
+                    result_optim=result_optim, optimizer=optimizer, probit=probit,
+                    coef=beta, iter=result_optim$iter, description=description,
+                    s1=s1, s2=s2, diff_time=s2-s1 )
     class(res) <- "mdmb_regression"
     return(res)
 }

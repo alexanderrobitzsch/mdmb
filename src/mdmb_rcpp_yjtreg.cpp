@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_yjtreg.cpp
-//// File Version: 0.417
+//// File Version: 0.419
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[RcppNOplugins(unwindProtect)]]
@@ -44,7 +44,8 @@ Rcpp::NumericVector mdmb_rcpp_yj_trafo( Rcpp::NumericVector y, double lambda )
 ///********************************************************************
 ///** mdmb_rcpp_yj_trafo_adjustment_derivative
 // [[Rcpp::export]]
-Rcpp::NumericVector mdmb_rcpp_yj_trafo_adjustment_derivative( Rcpp::NumericVector y, double lambda )
+Rcpp::NumericVector mdmb_rcpp_yj_trafo_adjustment_derivative( Rcpp::NumericVector y,
+            double lambda )
 {
     int N = y.size();
     Rcpp::NumericVector yt(N);
@@ -72,7 +73,8 @@ Rcpp::NumericVector mdmb_rcpp_yj_trafo_adjustment_derivative( Rcpp::NumericVecto
 ///********************************************************************
 ///** mdmb_rcpp_yj_trafo_derivative
 // [[Rcpp::export]]
-Rcpp::List mdmb_rcpp_yj_trafo_derivative( Rcpp::NumericVector y, double lambda, bool probit  )
+Rcpp::List mdmb_rcpp_yj_trafo_derivative( Rcpp::NumericVector y, double lambda,
+            bool probit )
 {
     int N = y.size();
     Rcpp::NumericVector yt(N);

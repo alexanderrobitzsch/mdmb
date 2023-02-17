@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_proc_control_optim_fct.R
-## File Version: 0.10
+## File Version: 0.11
 
 mdmb_regression_proc_control_optim_fct <- function(control_optim_fct)
 {
@@ -14,6 +14,7 @@ mdmb_regression_proc_control_optim_fct <- function(control_optim_fct)
             control_optim_fct[[ nn ]] <- defaults[[ nn ]]
         }
     }
-    control_optim_fct$use_rcpp_deriv_logthresh[ ! control_optim_fct$use_rcpp_deriv_ypred ] <- 0
+    c1 <- ! control_optim_fct$use_rcpp_deriv_ypred
+    control_optim_fct$use_rcpp_deriv_logthresh[ c1 ] <- 0
     return(control_optim_fct)
 }

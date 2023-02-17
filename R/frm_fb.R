@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.821
+## File Version: 0.825
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -51,8 +51,8 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     #*****************----------------
 
     #*** prepare models
-    res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_weights=FALSE, use_gibbs=use_gibbs,
-                weights=weights)
+    res <- frm_prepare_models(dep=dep, ind=ind, dat0=dat, nodes_weights=FALSE,
+                        use_gibbs=use_gibbs, weights=weights)
     dep <- res$dep
     ind <- res$ind
     predictorMatrix <- res$predictorMatrix
@@ -140,14 +140,16 @@ zz0 <- Sys.time()
         #*** refreshing proposal SD for parameters and imputed values
         if ( ( iter %% refresh==0 ) & ( iter <=burnin ) ){
             ind0 <- frm_fb_mh_refresh_parameters( ind0=ind0, acc_bounds=acc_bounds )
-            imputations_mcmc <- frm_fb_mh_refresh_imputed_values( imputations_mcmc=imputations_mcmc,
-                                    acc_bounds=acc_bounds, ind0=ind0 )
+            imputations_mcmc <- frm_fb_mh_refresh_imputed_values(
+                                        imputations_mcmc=imputations_mcmc,
+                                        acc_bounds=acc_bounds, ind0=ind0 )
             res4 <- frm_fb_verbose_mh_refresh( verbose=verbose, iter=iter )
         }
 
         #**** print progress
         res4 <- frm_fb_verbose_iterations( verbose=verbose, iter=iter,
-                        print_iter=print_iter, maxiter=maxiter, mcmc_start_time=mcmc_start_time )
+                                print_iter=print_iter, maxiter=maxiter,
+                                mcmc_start_time=mcmc_start_time )
         if (iter >=maxiter){ iterate <- FALSE }
         iter <- iter + 1
 
@@ -175,16 +177,18 @@ zz0 <- Sys.time()
     ic$np <- nrow(partable)
     #--- descriptive statistics
     desc_vars <- frm_fb_descriptives_variables(dat=dat, predictorMatrix=predictorMatrix,
-                        freq_miss_values=freq_miss_values, dat0=dat0, parms_mcmc=parms_mcmc )
+                                    freq_miss_values=freq_miss_values,
+                                    dat0=dat0, parms_mcmc=parms_mcmc )
 
     #--- output
     s2 <- Sys.time()
     res <- list( coef=coefs, vcov=vcovs, partable=partable, tech_summary=tech_summary,
                 values_coda=values_coda, ic=ic, ind0=ind0, parms_mcmc=parms_mcmc,
                 imputations_mcmc=imputations_mcmc, predictorMatrix=predictorMatrix,
-                variablesMatrix=variablesMatrix, desc_vars=desc_vars, model_results=model_results,
-                ind0=ind0, dat=dat0, freq_miss_values=freq_miss_values,    iter=maxiter, burnin=burnin,
-                CALL=CALL, s1=s1, s2=s2    , diff_time=s2-s1 )
+                variablesMatrix=variablesMatrix, desc_vars=desc_vars,
+                model_results=model_results, ind0=ind0, dat=dat0,
+                freq_miss_values=freq_miss_values, iter=maxiter, burnin=burnin,
+                CALL=CALL, s1=s1, s2=s2, diff_time=s2-s1 )
     class(res) <- "frm_fb"
     return(res)
 }

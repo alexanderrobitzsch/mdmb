@@ -30,20 +30,27 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.7  |  2023-02-16  |  Last: mdmb 1.7-10
+VERSIONS mdmb 1.8  |  2023-02-17  |  Last: mdmb 1.8-1
 ---------------------------------------------------------------------
 
-FIXED * fixed a bug in standard error computation in frm_em() if
-        the logistic model was involved (thanks to Craig Enders
-        and Paul Allison)
+xxxx  *
 
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
 
 
+---------------------------------------------------------------------
+VERSIONS mdmb 1.7  |  2023-02-17  |  Last: mdmb 1.7-22
+---------------------------------------------------------------------
 
+FIXED * fixed a bug in standard error computation in frm_em() if
+        the logistic model was involved (thanks to Craig Enders
+        and Paul Allison)
+ADDED * included argument 'update_model' in frm_em()
 
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.6  |  2022-05-17  |  Last: mdmb 1.6-5

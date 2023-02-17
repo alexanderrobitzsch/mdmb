@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.543
+## File Version: 0.546
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -46,14 +46,16 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
             for (cc in 1:NC){
                 # cat("**************** cc=", cc, "*****************\n")
                 coef1 <- coef0
-                coef1[cc] <- stats::rnorm(1, mean=coef0[cc], sd=ind_mm$coef_sd_proposal[cc])
+                coef1[cc] <- stats::rnorm(1, mean=coef0[cc],
+                                    sd=ind_mm$coef_sd_proposal[cc])
                 # squeeze parameter for estimating df
                 coef1 <- frm_fb_sample_parameters_df_squeeze(coef1=coef1, ind_mm=ind_mm,
                                 cc=cc, NC=NC)
                 # evaluate likelihood
                 res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
-                                weights=weights, mod=mod, coef=coef1, sigma=sigma0)
-                accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)
+                                    weights=weights, mod=mod, coef=coef1, sigma=sigma0)
+                accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll,
+                                    ll1=res1$ll)
                 ind_mm$coef_MH$iter[cc] <- ind_mm$coef_MH$iter[cc] + 1
                 if (accept){
                     coef0 <- coef1
@@ -67,8 +69,9 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         if ( sample_sigma & ( ! use_gibbs_model ) ){
             sigma1 <- stats::rnorm(n=1, mean=sigma0, sd=ind_mm$sigma_sd_proposal)
             res1 <- frm_fb_sample_parameter_step( ind_mm=ind_mm, dat=dat,
-                            weights=weights, mod=mod, coef=coef0, sigma=sigma1)
-            accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll, ll1=res1$ll)
+                                weights=weights, mod=mod, coef=coef0, sigma=sigma1)
+            accept <- frm_fb_sample_parameters_mh_acceptance_step(ll0=res0$ll,
+                                ll1=res1$ll)
             ind_mm$sigma_MH$iter <- ind_mm$sigma_MH$iter + 1
             if (accept){
                 sigma0 <- sigma1
@@ -84,9 +87,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         ind0[[mm]] <- ind_mm
     } # end mm
 
-
-    #------------
-    # save sampled parameters
+    #---- save sampled parameters
     iter_save_temp <- parms_mcmc$iter_save_temp
     if (iter==iter_save_temp){
         ii <- parms_mcmc$iter_save_index
@@ -109,7 +110,6 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         parms_mcmc$SD_mcmc[ii,] <- apply( dat[, vars_d ], 2, stats::sd )
     }  # end mm
 
-    #--------------------------------
     #--- output
     res <- list( model_results=model_results, ind0=ind0, parms_mcmc=parms_mcmc )
     return(res)

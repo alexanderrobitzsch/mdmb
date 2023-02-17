@@ -98,7 +98,7 @@ mdmb package versions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mdmb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.7-vv</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.8-vv</span>
       </span>
     </div>
 
@@ -171,7 +171,8 @@ are accommodated.</p>
 
     <pre class="usage"><span class='co'># Factored regression model: Numerical integration with EM algorithm</span>
 <span class='fu'>frm_em</span>(<span class='no'>dat</span>, <span class='no'>dep</span>, <span class='no'>ind</span>, <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>maxiter</span><span class='kw'>=</span><span class='fl'>500</span>, <span class='kw'>conv_dev</span><span class='kw'>=</span><span class='fl'>1e-08</span>,
-         <span class='kw'>conv_parm</span><span class='kw'>=</span><span class='fl'>1e-05</span>, <span class='kw'>nodes_control</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>,<span class='fl'>5</span>), <span class='kw'>h</span><span class='kw'>=</span><span class='fl'>1e-04</span>, <span class='kw'>use_grad</span><span class='kw'>=</span><span class='fl'>2</span>)
+         <span class='kw'>conv_parm</span><span class='kw'>=</span><span class='fl'>1e-05</span>, <span class='kw'>nodes_control</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>,<span class='fl'>5</span>), <span class='kw'>h</span><span class='kw'>=</span><span class='fl'>1e-04</span>, <span class='kw'>use_grad</span><span class='kw'>=</span><span class='fl'>2</span>,
+        <span class='kw'>update_model</span><span class='kw'>=</span><span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for frm_em</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -212,8 +213,8 @@ has arguments (see Examples)</p>
 <p><code>model</code>: String indicating the model type. Options are
 <code>"linreg"</code> (wrapper to <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></code>
 or <code><a href='https://rdrr.io/r/stats/lmfit.html'>stats::lm.wfit</a></code>),
-<code>"logistic"</code> for dichotomous variables (wrapper to <code><a href='mdmb_regression.html'>logistic_regression</a></code>),
-<code>"oprobit"</code> for ordinal variables
+<code>"logistic"</code> for dichotomous variables (wrapper to
+<code><a href='mdmb_regression.html'>logistic_regression</a></code>), <code>"oprobit"</code> for ordinal variables
 (wrapper to <code><a href='mdmb_regression.html'>oprobit_regression</a></code>),
 <code>"yjtreg"</code> for continuous variables and bounded variables on \((0,1)\)
 (wrapper to <code><a href='mdmb_regression.html'>yjt_regression</a></code>),
@@ -280,6 +281,10 @@ covariance matrix</p></td>
     <code><a href='mdmb_regression.html'>bct_regression</a></code> or <code><a href='mdmb_regression.html'>logistic_regression</a></code>.
     It can be <code>0</code> (compatible with <span class="pkg">mdmb</span> \(\le\)0.3),
 <code>1</code> or <code>2</code> (most efficient one).</p></td>
+    </tr>
+    <tr>
+      <th>update_model</th>
+      <td><p>Optional proviously fitted model can be used as an input</p></td>
     </tr>
     <tr>
       <th>data_init</th>
@@ -415,10 +420,11 @@ Neuroimaging Initiative (2015). Multiple imputation of covariates by fully condi
 specification: Accommodating the substantive model.
 <em>Statistical Methods in Medical Research, 24</em>(4), 462-487.
 doi: <a href='https://doi.org/10.1177/0962280214521348'>10.1177/0962280214521348</a></p>
-<p>Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., &amp; Lesaffre, E. M.
-(2016). Dealing with missing covariates in epidemiologic studies: A comparison between multiple
-imputation and a full Bayesian approach. <em>Statistics in Medicine, 35</em>(17), 2955-2974.
-doi: <a href='https://doi.org/10.1002/sim.6944'>10.1002/sim.6944</a></p>
+<p>Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., &amp;
+Lesaffre, E. M. (2016). Dealing with missing covariates in epidemiologic studies:
+A comparison between multiple
+imputation and a full Bayesian approach. <em>Statistics in Medicine, 35</em>(17),
+2955-2974. doi: <a href='https://doi.org/10.1002/sim.6944'>10.1002/sim.6944</a></p>
 <p>Ibrahim, J. G. (1990). Incomplete data in generalized linear models.
 <em>Journal of the American Statistical Association, 85</em>(411), 765-769.
 doi: <a href='https://doi.org/10.1080/01621459.1990.10474938'>10.1080/01621459.1990.10474938</a></p>

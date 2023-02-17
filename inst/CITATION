@@ -2,10 +2,10 @@
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
 vers <- paste("R package version", meta$Version)
 
-citHeader("To cite the 'mdmb' package in publications use:")
+utils::citHeader("To cite the 'mdmb' package in publications use:")
 
 
-citEntry(entry="Manual",
+utils::bibentry(bibtype="Manual",
          title = "mdmb: Model Based Treatment of Missing Data",
          author = c(
                    person(given = "Alexander",
@@ -22,3 +22,9 @@ citEntry(entry="Manual",
                vers, ". https://CRAN.R-project.org/package=mdmb")
 	)
 
+
+# bibentry(bibtype, textVersion = NULL, header = NULL, footer = NULL,
+#         key = NULL, ..., other = list(),
+#         mheader = NULL, mfooter = NULL)
+
+## citEntry(entry, textVersion, header = NULL, footer = NULL, ...)

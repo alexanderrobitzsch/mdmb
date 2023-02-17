@@ -1,5 +1,5 @@
 ## File Name: eval_prior_list_gradient_log.R
-## File Version: 0.13
+## File Version: 0.141
 
 eval_prior_list_gradient_log <- function( par, par_prior, h )
 {
@@ -23,7 +23,6 @@ eval_prior_list_gradient_log <- function( par, par_prior, h )
             der2[pp] <- mdmb_diff_quotient(ll0=p0, ll1=p1, h=h_pp )
         }
         if ( par_prior_pp=="dnorm"){
-            # d0 <- - 0.5 * log(2*pi) - log( pp_args$sd ) - 0.5 * ( pp_args$x - pp_args$mean )^2 / pp_args$sd^2
             der2[pp] <-  - ( pp_args$x - pp_args$mean ) / pp_args$sd^2
         }
     }

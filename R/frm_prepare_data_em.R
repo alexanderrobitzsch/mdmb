@@ -1,7 +1,7 @@
 ## File Name: frm_prepare_data_em.R
-## File Version: 0.292
+## File Version: 0.295
 
-frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0)
+frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL)
 {
     NM <- attr(ind,"NM")
     N <- nrow(dat)
@@ -25,6 +25,9 @@ frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0)
                     var_mm=dep$dv_vars, nodes_mm=dep$nodes, ind_mm=dep )
     dv_vars <- c( dv_vars, dep$dv_vars )
     dat$weights <- dat$weights * dat$weights0
+    if ( ! is.null(update_model) ){
+        dat <- update_model$dat
+    }
     # extract matrix with response indicators
     dat_resp <- dat[, paste0( "resp_", dv_vars ) ]
     ind_miss <- ind_resp <- list()

@@ -1,7 +1,8 @@
 ## File Name: dbct_scaled.R
-## File Version: 0.46
+## File Version: 0.472
 
-dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, check_zero=TRUE )
+dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
+                    check_zero=TRUE )
 {
     #*** recode lambda
     eps <- 1E-3
@@ -17,7 +18,8 @@ dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE, ch
     }
 
     #---- multiplicative adjustment
-    dy <- dyjt_scaled_log_multiplication( dy=dy, yt=yt, use_log=log, check_zero=check_zero )
+    dy <- dyjt_scaled_log_multiplication( dy=dy, yt=yt, use_log=log,
+                    check_zero=check_zero )
     #--- output
     return(dy)
 }

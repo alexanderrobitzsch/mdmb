@@ -1,5 +1,5 @@
 ## File Name: eval_prior_list_sumlog.R
-## File Version: 0.12
+## File Version: 0.133
 
 
 eval_prior_list_sumlog <- function( par, par_prior, use_grad=1 )
@@ -21,7 +21,8 @@ eval_prior_list_sumlog <- function( par, par_prior, use_grad=1 )
                 v2[pp] <- log( do.call( what=par_prior_pp, args=pp_args ) + eps )
             }
             if ( par_prior_pp=="dnorm"){
-                v2[pp] <- - 0.5 * log(2*pi) - log( pp_args$sd ) - 0.5 * ( pp_args$x - pp_args$mean )^2 / pp_args$sd^2
+                quadform <- 0.5 * ( pp_args$x - pp_args$mean )^2 / pp_args$sd^2
+                v2[pp] <- - 0.5 * log(2*pi) - log( pp_args$sd ) - quadform
             }
         }
         v1 <- v2

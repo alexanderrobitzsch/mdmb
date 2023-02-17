@@ -1,12 +1,14 @@
 ## File Name: frm_logistic_density.R
-## File Version: 0.140
+## File Version: 0.141
 
 frm_logistic_density <- function(model, y, design_matrix=NULL, case=NULL)
 {
     coef0 <- model$coef
     coef1 <- model$coefficients
-    if ( max( abs(coef1-coef0) )>1e-14){
-        model$coef <- model$coefficients
+    if (!is.null(coef1)){
+        if ( max( abs(coef1-coef0) )>1e-14){
+            model$coef <- model$coefficients
+        }
     }
     if ( is.null(design_matrix) ){
         y_pred <- predict(model)

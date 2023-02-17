@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution.R
-## File Version: 0.504
+## File Version: 0.506
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
     weights=NULL, probit=FALSE)
@@ -47,9 +47,11 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
         parnames <- c("location","scale","lambda")
 
         if (probit){
-            description <- paste0( "Scaled t distribution with Probit Yeo-Johnson transformation (df=", df, ")")
+            description <- paste0( "Scaled t distribution with ",
+                                    "Probit Yeo-Johnson transformation (df=", df, ")")
         } else {
-            description <- paste0( "Scaled t distribution with Yeo-Johnson transformation (df=", df, ")")
+            description <- paste0( "Scaled t distribution with ",
+                                    "Yeo-Johnson transformation (df=", df, ")")
         }
         class_type <- "fit_yjt_scaled"
         loglik_fit <- function(x){

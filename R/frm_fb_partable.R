@@ -1,5 +1,5 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.471
+## File Version: 0.473
 
 frm_fb_partable <- function( ind0, parms_mcmc )
 {
@@ -92,7 +92,8 @@ frm_fb_partable <- function( ind0, parms_mcmc )
     dfr2 <- dfr[, 1:5]
     dfr2[,"Nsampled"] <- nrow(values)
 
-    colnames(values_coda) <- gsub( "ON difflogthresh", "difflogthresh", colnames(values_coda))
+    colnames(values_coda) <- gsub( "ON difflogthresh", "difflogthresh",
+                                        colnames(values_coda))
     es <- coda::effectiveSize(values_coda)
 
     parnames <- paste(dfr2$parm)

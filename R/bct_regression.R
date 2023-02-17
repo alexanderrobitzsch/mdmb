@@ -1,5 +1,5 @@
 ## File Name: bct_regression.R
-## File Version: 0.16
+## File Version: 0.172
 
 
 bct_regression <- function( formula, data, weights=NULL,
@@ -12,7 +12,8 @@ bct_regression <- function( formula, data, weights=NULL,
     res <- mdmb_regression( formula=formula, data=data, type=type,
                 weights=weights, beta_init=beta_init, beta_prior=beta_prior,
                 df=df, lambda_fixed=lambda_fixed, est_df=est_df,
-                use_grad=use_grad, h=h, optimizer=optimizer, maxiter=maxiter, control=control )
+                use_grad=use_grad, h=h, optimizer=optimizer, maxiter=maxiter,
+                control=control )
     res$CALL <- CALL
     #--- additional informations about model type
     class(res) <- 'bct_regression'

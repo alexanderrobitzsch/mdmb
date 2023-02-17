@@ -1,5 +1,5 @@
 //// File Name: mdmb_rcpp_oprobit.cpp
-//// File Version: 0.503
+//// File Version: 0.505
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -129,8 +129,9 @@ Rcpp::NumericMatrix mdmb_rcpp_oprobit_derivative_logthresh( Rcpp::NumericVector 
 ///** mdmb_rcpp_oprobit_derivative_logthresh_chain_rule
 // [[Rcpp::export]]
 Rcpp::NumericMatrix mdmb_rcpp_oprobit_derivative_logthresh_chain_rule(
-    Rcpp::NumericVector thresh_der, Rcpp::NumericVector probs, Rcpp::NumericVector dens_upp,
-    Rcpp::NumericVector dens_low, Rcpp::IntegerVector y, double eps, int y_value )
+    Rcpp::NumericVector thresh_der, Rcpp::NumericVector probs,
+    Rcpp::NumericVector dens_upp, Rcpp::NumericVector dens_low, Rcpp::IntegerVector y,
+    double eps, int y_value )
 {
     int N = y.size();
     int K = thresh_der.size() - 2;
@@ -140,7 +141,6 @@ Rcpp::NumericMatrix mdmb_rcpp_oprobit_derivative_logthresh_chain_rule(
     for (int nn=0; nn<N; nn++){
         if (y[nn] >= y_value){
             tmp=0;
-            // der1b <- ( - dens_upp * thresh_der[ y + 2] + dens_low * thresh_der[ y + 1] ) / probs
             if (y[nn] < K){
                 tmp = -dens_upp[nn] * thresh_der[ y[nn] + 1];
             }

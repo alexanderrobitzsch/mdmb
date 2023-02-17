@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.834
+%% File Version: 0.839
 
 \name{frm}
 \alias{frm}
@@ -62,7 +62,8 @@ The handling of nominal covariates will be included in future
 \usage{
 # Factored regression model: Numerical integration with EM algorithm
 frm_em(dat, dep, ind, weights=NULL, verbose=TRUE, maxiter=500, conv_dev=1e-08,
-         conv_parm=1e-05, nodes_control=c(11,5), h=1e-04, use_grad=2)
+         conv_parm=1e-05, nodes_control=c(11,5), h=1e-04, use_grad=2,
+        update_model=NULL)
 
 \method{coef}{frm_em}(object, ...)
 \method{logLik}{frm_em}(object, ...)
@@ -95,8 +96,8 @@ has arguments (see Examples)
 \code{model}: String indicating the model type. Options are
 \code{"linreg"} (wrapper to \code{\link[stats:lm]{stats::lm}}
 or \code{\link[stats:lm.wfit]{stats::lm.wfit}}),
-\code{"logistic"} for dichotomous variables (wrapper to \code{\link{logistic_regression}}),
-\code{"oprobit"} for ordinal variables
+\code{"logistic"} for dichotomous variables (wrapper to
+\code{\link{logistic_regression}}), \code{"oprobit"} for ordinal variables
 (wrapper to \code{\link{oprobit_regression}}),
 \code{"yjtreg"} for continuous variables and bounded variables on \eqn{(0,1)}
 (wrapper to \code{\link{yjt_regression}}),
@@ -149,6 +150,7 @@ covariance matrix}
     \code{\link{bct_regression}} or \code{\link{logistic_regression}}.
     It can be \code{0} (compatible with \pkg{mdmb} \eqn{\le}0.3),
 \code{1} or \code{2} (most efficient one).}
+\item{update_model}{Optional proviously fitted model can be used as an input}
 \item{data_init}{Initial values for dataset}
 \item{iter}{Number of iterations}
 \item{burnin}{Number of burnin iterations}
@@ -238,10 +240,11 @@ specification: Accommodating the substantive model.
 \emph{Statistical Methods in Medical Research, 24}(4), 462-487.
 \doi{10.1177/0962280214521348}
 
-Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., & Lesaffre, E. M.
-(2016). Dealing with missing covariates in epidemiologic studies: A comparison between multiple
-imputation and a full Bayesian approach. \emph{Statistics in Medicine, 35}(17), 2955-2974.
-\doi{10.1002/sim.6944}
+Erler, N. S., Rizopoulos, D., Rosmalen, J. V., Jaddoe, V. W., Franco, O. H., &
+Lesaffre, E. M. (2016). Dealing with missing covariates in epidemiologic studies:
+A comparison between multiple
+imputation and a full Bayesian approach. \emph{Statistics in Medicine, 35}(17),
+2955-2974. \doi{10.1002/sim.6944}
 
 Ibrahim, J. G. (1990). Incomplete data in generalized linear models.
 \emph{Journal of the American Statistical Association, 85}(411), 765-769.
