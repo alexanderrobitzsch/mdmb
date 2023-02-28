@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_data_em.R
-## File Version: 0.295
+## File Version: 0.303
 
 frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL)
 {
@@ -9,6 +9,7 @@ frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL
     dat$weights0 <- weights0
     dat$weights <- 1
     dat$resp_all <- 1
+    dat$delta_nodes <- 1
     # vector of dependent variables
     dv_vars <- c()
     for (mm in 1:NM){
@@ -20,6 +21,7 @@ frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL
         dat <- frm_prepare_data_include_latent_data( dat=dat, var_mm=var_mm,
                         nodes_mm=nodes_mm, ind_mm=ind[[mm]] )
     }
+
     #** prepare dependent variables
     dat <- frm_prepare_data_include_latent_data( dat=dat,
                     var_mm=dep$dv_vars, nodes_mm=dep$nodes, ind_mm=dep )

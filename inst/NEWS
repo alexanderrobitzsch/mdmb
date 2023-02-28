@@ -30,10 +30,12 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.8  |  2023-02-17  |  Last: mdmb 1.8-1
+VERSIONS mdmb 1.8  |  2023-02-28  |  Last: mdmb 1.8-5
 ---------------------------------------------------------------------
 
-xxxx  *
+FIXED * now ouput observed log-likelihood value and not expected 
+        log-likelihood (thanks to Paul Allison)
+   
 
 
 DATA  * included/modified datasets: ---

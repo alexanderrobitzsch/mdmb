@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.387
+## File Version: 1.397
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -78,9 +78,13 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
 
     post <- frm_normalize_posterior( post=post, case=dat$case)
     dat$weights <- dat$weights0 * post
+
     #--- compute total log likelihood
     ll <- frm_em_calc_total_likelihood(dat=dat, weights0=weights0,
-                like_obs=like_obs, post_miss=post_miss)
+                like_obs=like_obs, post_miss=post_miss, like=like)
+
+
+    #--- output
     res <- list( loglike=loglike, post=post, coefs=coefs,
                 model_results=model_results, ll=ll, post0=post0,
                 ind0=ind0, like=like, like0=like0  )
