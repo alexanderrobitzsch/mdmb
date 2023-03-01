@@ -28,19 +28,27 @@ CHANGELOG mdmb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.8  |  2023-02-28  |  Last: mdmb 1.8-5
+VERSIONS mdmb 1.9  |  2023-03-01  |  Last: mdmb 1.9-3
 ---------------------------------------------------------------------
 
-FIXED * now ouput observed log-likelihood value and not expected 
-        log-likelihood (thanks to Paul Allison)
-   
+xxxx  *
 
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
 
+
+
+---------------------------------------------------------------------
+VERSIONS mdmb 1.8  |  2023-02-28  |  Last: mdmb 1.8-7
+---------------------------------------------------------------------
+
+FIXED * now ouput observed log-likelihood value and not expected 
+        log-likelihood (thanks to Paul Allison) 
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.7  |  2023-02-17  |  Last: mdmb 1.7-22
