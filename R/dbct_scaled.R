@@ -1,5 +1,5 @@
 ## File Name: dbct_scaled.R
-## File Version: 0.472
+## File Version: 0.475
 
 dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
                     check_zero=TRUE )
@@ -24,8 +24,4 @@ dbct_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
     return(dy)
 }
 
-
-# zz0 <- Sys.time(); for (bb in 1:B){ ;
-#     xt <- bc_trafo(y=x, lambda=lambda )
-# }; cat("\n* bc_trafo ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
 

@@ -1,5 +1,5 @@
 ## File Name: frm_em_calc_likelihood.R
-## File Version: 1.397
+## File Version: 1.399
 
 #--- loop over models and predictions
 frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -15,9 +15,9 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     like <- post
     like_obs <- post
     post_miss <- post
-    coefs <- as.list( 1:(NM+1) )
-    for (mm in 1:(NM+1)){
-        # cat("\n---------------------- mm=", mm, " --------\n")
+    coefs <- as.list( 1L:(NM+1) )
+    for (mm in 1L:(NM+1)){
+        # cat('\n---------------------- mm=', mm, ' --------\n')
         ind_mm <- ind0[[mm]]
         #--- estimate model with weights
         mod <- frm_em_calc_likelihood_estimate_model( ind_mm=ind_mm, dat=dat,
@@ -37,29 +37,29 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         #*** arrange coefficients
         mod <- model_results[[mm]]
         cm <- coef(mod)
-        if (ind_mm$model=="linreg"){
+        if (ind_mm$model=='linreg'){
             model_results[[mm]]$NC <- length(cm)
             if ( is.null(ind_mm$sigma_fixed) ){
-                cm["sigma"] <- dmod$sigma
+                cm['sigma'] <- dmod$sigma
                 model_results[[mm]]$sigma <- dmod$sigma
                 model_results[[mm]]$est_sigma <- TRUE
             }
-            cm["R2"] <- dmod$R2
+            cm['R2'] <- dmod$R2
         }
         # define initial coefficients for successive iterations
-        if (ind_mm$model=="logistic"){
+        if (ind_mm$model=='logistic'){
             ind0[[mm]]$R_args$beta_init <- coef(mod)
-            cm["R2"] <- mod$R2
+            cm['R2'] <- mod$R2
         }
-        if (ind_mm$model=="bctreg"){
+        if (ind_mm$model=='bctreg'){
             ind0[[mm]]$R_args$beta_init <- coef(mod)
-            cm["R2"] <- mod$R2
+            cm['R2'] <- mod$R2
         }
-        if (ind_mm$model=="oprobit"){
+        if (ind_mm$model=='oprobit'){
             if (iter>1){
                 ind0[[mm]]$R_args$beta_init <- coef(mod)
             }
-            cm["R2"] <- mod$R2
+            cm['R2'] <- mod$R2
         }
         coefs[[mm]] <- cm
         like0[,mm] <- dmod$like
@@ -91,4 +91,4 @@ frm_em_calc_likelihood <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     return(res)
 }
 
-# z0 <- TAM:::tamcat(" -- like/post_calculations",z0,TRUE)
+# z0 <- TAM:::tamcat(' -- like/post_calculations',z0,TRUE)

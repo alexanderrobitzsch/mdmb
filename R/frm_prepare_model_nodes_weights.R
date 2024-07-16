@@ -1,10 +1,10 @@
 ## File Name: frm_prepare_model_nodes_weights.R
-## File Version: 0.327
+## File Version: 0.335
 
 frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
 {
     dv_vars <- ind_mm$dv_vars
-    ind_mm$nodes_description <- "prespecified nodes"
+    ind_mm$nodes_description <- 'prespecified nodes'
 
     #--------- descriptives
     y <- dat0[, dv_vars ]
@@ -12,12 +12,12 @@ frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
     m0 <- res$m0
     sd0 <- res$sd0
     #--------- define nodes if not provided
-    choose_nodes <- sum( names(ind_mm)=="nodes" )==0
+    choose_nodes <- sum( names(ind_mm)=='nodes' )==0
     if ( choose_nodes ){
         #*** linear regression
-        if ( ind_mm$model %in% c("linreg", "yjtreg") ){
+        if ( ind_mm$model %in% c('linreg', 'yjtreg') ){
             use_probit <- ind_mm$R_args$probit
-            if (ind_mm$model=="linreg"){
+            if (ind_mm$model=='linreg'){
                 use_probit <- FALSE
             }
             if (use_probit){
@@ -36,11 +36,11 @@ frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
                 nodes_low <- 1 / (2*n_nodes)
                 nodes_mm <- seq( nodes_low, 1-nodes_low, length=n_nodes )
             }
-            ind_mm$nodes_description <- "automatically chosen nodes"
+            ind_mm$nodes_description <- 'automatically chosen nodes'
             ind_mm$nodes <- nodes_mm
         }
         #*** bct regression
-        if ( ind_mm$model %in% c("bctreg") ){
+        if ( ind_mm$model %in% c('bctreg') ){
             n_nodes <- nodes_control[1]
             probs <- c( 1 / (2*n_nodes), ( 2*n_nodes - 1 ) / (2*n_nodes) )
             nodes <- stats::quantile( y, probs=probs, na.rm=TRUE )
@@ -52,32 +52,32 @@ frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
             sd0 <- stats::sd(y0)
             nodes_mm <- exp( m0 + nodes_control[2] * sd0 * seq(-1,1, length=n_nodes ) )
             # nodes_mm <- unique( stats::quantile(y, probs=probs ) )
-            ind_mm$nodes_description <- "automatically chosen nodes"
+            ind_mm$nodes_description <- 'automatically chosen nodes'
             ind_mm$nodes <- nodes_mm
         }
         #*** logistic regression
-        if ( ind_mm$model %in% c("logistic") ){
+        if ( ind_mm$model %in% c('logistic') ){
             ind_mm$nodes <- c(0,1)
-            ind_mm$nodes_description <- "nodes consisting of observed values"
+            ind_mm$nodes_description <- 'nodes consisting of observed values'
         }
         #*** ordinal probit regression
-        if ( ind_mm$model %in% c("oprobit") ){
+        if ( ind_mm$model %in% c('oprobit') ){
             nodes <- sort( unique( na.omit(y) ) )
             ind_mm$nodes <- nodes
-            ind_mm$nodes_description <- "nodes consisting of observed values"
+            ind_mm$nodes_description <- 'nodes consisting of observed values'
         }
     }
+
     #--------- define initial weights for nodes
     if ( is.null( ind_mm$nodes_weights) ){
         nodes_mm <- ind_mm$nodes
         NM <- length(nodes_mm)
         #*** linear regression
-        if ( ind_mm$model %in% c("linreg") ){
+        if ( ind_mm$model %in% c('linreg') ){
             nodes_weights <- stats::dnorm( nodes_mm, mean=m0, sd=sd0)
         }
-
         #*** yjt regression
-        if ( ind_mm$model %in% c("yjtreg") ){
+        if ( ind_mm$model %in% c('yjtreg') ){
             nodes_weights <- stats::dnorm( nodes_mm, mean=m0, sd=sd0)
             use_probit <- ind_mm$R_args$probit
             if (use_probit){
@@ -85,19 +85,19 @@ frm_prepare_model_nodes_weights <- function( ind_mm, dat0, nodes_control )
             }
         }
         #*** logistic regression
-        if ( ind_mm$model %in% c("logistic") ){
+        if ( ind_mm$model %in% c('logistic') ){
             node_freq <- rep(0,NM)
-            for (hh in 1:NM){
+            for (hh in 1L:NM){
                 node_freq[hh] <- sum( y==nodes_mm[hh], na.rm=TRUE )
             }
             nodes_weights <- node_freq
         }
         #*** bct regression
-        if ( ind_mm$model %in% c("bctreg") ){
+        if ( ind_mm$model %in% c('bctreg') ){
             nodes_weights <- stats::dnorm( nodes_mm, mean=m0, sd=sd0)
         }
         #*** ordinal probit regression
-        if ( ind_mm$model %in% c("oprobit") ){
+        if ( ind_mm$model %in% c('oprobit') ){
             nodes_weights <- prop.table( table(y) )
         }
 

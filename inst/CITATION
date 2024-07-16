@@ -19,7 +19,8 @@ utils::bibentry(bibtype="Manual",
          paste0("Robitzsch, A., & Luedtke, O. (",
                year,
                "). mdmb: Model based treatment of missing data. ",
-               vers, ". https://CRAN.R-project.org/package=mdmb")
+               vers, ". https://CRAN.R-project.org/package=mdmb"),
+         doi = "10.32614/CRAN.package.mdmb"
 	)
 
 

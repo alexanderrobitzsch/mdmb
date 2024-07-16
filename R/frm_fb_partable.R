@@ -1,19 +1,18 @@
 ## File Name: frm_fb_partable.R
-## File Version: 0.473
+## File Version: 0.476
 
 frm_fb_partable <- function( ind0, parms_mcmc )
 {
     parms <- parms_mcmc$parms
     parms_index <- parms_mcmc$parms_index
-    NM <- attr( ind0, "NM" )
+    NM <- attr( ind0, 'NM' )
     dfr <- NULL
-    # rename_index <- c(1,5)
     rename_index <- c(1,4)
-    rename_names <- c("idparm","parm")
+    rename_names <- c('idparm','parm')
     accrate <- NULL
 
-    for (mm in 1:(NM+1)){
-        # cat("------ mm=", mm, "----\n")
+    for (mm in 1L:(NM+1)){
+        # cat('------ mm=', mm, '----\n')
         names_mm <- parms[[mm]][1]
         NC <- length(names_mm)
         # NC <- ind0[[mm]]$N_coef
@@ -32,9 +31,9 @@ frm_fb_partable <- function( ind0, parms_mcmc )
         }
         colnames(dfr1)[ rename_index ] <- rename_names
 
-        #*** include standard deviation if model=="linreg"
+        #*** include standard deviation if model=='linreg'
 
-        include_sigma <- ( ind0[[mm]]$model=="linreg" )
+        include_sigma <- ( ind0[[mm]]$model=='linreg' )
         is_sigma_fixed <- ( ! is.null( ind0[[mm]]$sigma_fixed ) )
         include_sigma <- include_sigma & ( ! is_sigma_fixed    )
         names_mm <- parms[[mm]][2]
@@ -63,18 +62,18 @@ frm_fb_partable <- function( ind0, parms_mcmc )
     values <- parms_mcmc$values
     est <- colMeans( values )
     ind1 <- dfr$idparm
-    dfr[, "est" ] <- est[ind1]
-    dfr[, "se" ] <- apply( values, 2, stats::sd )[ind1]
+    dfr[, 'est' ] <- est[ind1]
+    dfr[, 'se' ] <- apply( values, 2, stats::sd )[ind1]
 
     # p values
     p1 <- colMeans( values > 0 )
     p2 <- colMeans( values < 0 )
     y0 <- 2 * ifelse( p1 < p2, p1, p2 )
-    dfr[, "p" ] <- y0[ind1]
+    dfr[, 'p' ] <- y0[ind1]
 
     # confidence interval
-    dfr[, "lower95"] <- apply( values, 2, stats::quantile, probs=.025 )[ind1]
-    dfr[, "upper95"] <- apply( values, 2, stats::quantile, probs=.975 )[ind1]
+    dfr[, 'lower95'] <- apply( values, 2, stats::quantile, probs=.025 )[ind1]
+    dfr[, 'upper95'] <- apply( values, 2, stats::quantile, probs=.975 )[ind1]
 
     #--- convert parameter values into coda object
     NV <- ncol(values)
@@ -89,25 +88,25 @@ frm_fb_partable <- function( ind0, parms_mcmc )
     colnames(values_coda) <- colnames(values)
 
     #--- technical summary MCMC algorithm
-    dfr2 <- dfr[, 1:5]
-    dfr2[,"Nsampled"] <- nrow(values)
+    dfr2 <- dfr[, 1L:5]
+    dfr2[,'Nsampled'] <- nrow(values)
 
-    colnames(values_coda) <- gsub( "ON difflogthresh", "difflogthresh",
+    colnames(values_coda) <- gsub( 'ON difflogthresh', 'difflogthresh',
                                         colnames(values_coda))
     es <- coda::effectiveSize(values_coda)
 
     parnames <- paste(dfr2$parm)
-    dfr2[,"effsize"] <- es[parnames]
-    dfr2[,"accrate"] <- accrate[ dfr2$idparm ]
+    dfr2[,'effsize'] <- es[parnames]
+    dfr2[,'accrate'] <- accrate[ dfr2$idparm ]
 
     #* compute Rhat function
     r1 <- sirt::mcmc_Rhat( mcmc_object=values_coda, n_splits=3 )
-    dfr2[,"Rhat"] <- r1[ parnames ]
+    dfr2[,'Rhat'] <- r1[ parnames ]
 
     #--- covariance matrix of parameters
     coefs <- dfr$est
     names(coefs) <- dfr$parm
-    colnames(values) <- gsub( "ON difflogthresh", "difflogthresh", colnames(values))
+    colnames(values) <- gsub( 'ON difflogthresh', 'difflogthresh', colnames(values))
 
     vcovs <- stats::cov( values[, parnames]  )
     dfr$index <- NULL

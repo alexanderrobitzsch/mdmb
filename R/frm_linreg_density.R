@@ -1,5 +1,5 @@
 ## File Name: frm_linreg_density.R
-## File Version: 0.973
+## File Version: 0.974
 
 frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL, use_in_frm_fb=FALSE )
@@ -16,7 +16,7 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
         }
     } else {
         #  y_pred <- predict(model, newdata=design_matrix )
-        form <- attr( model$model, "terms")
+        form <- attr( model$model, 'terms')
         Xdes <- stats::model.matrix( object=form, data=design_matrix )
         offset_values <- offset_values_extract(formula=form, data=design_matrix )
         beta <- coef(model)
@@ -77,4 +77,4 @@ frm_linreg_density <- function(model, y, design_matrix=NULL, case=NULL,
     return(res)
 }
 
-# z0 <- TAM:::tamcat(" ~~~~ mdmb_rcpp_dnorm",z0,TRUE)
+# z0 <- TAM:::tamcat(' ~~~~ mdmb_rcpp_dnorm',z0,TRUE)

@@ -1,5 +1,5 @@
 ## File Name: frm_mdmb_regression_density.R
-## File Version: 0.419
+## File Version: 0.422
 
 frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
         X=NULL, offset=NULL )
@@ -20,7 +20,7 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
         }
     } else {
         #  y_pred <- predict(model, newdata=design_matrix )
-        # form <- attr( model$model, "terms")
+        # form <- attr( model$model, 'terms')
         form <- model$formula
         Xdes <- stats::model.matrix( object=form, data=design_matrix )
         offset_values <- offset_values_extract(formula=form, data=design_matrix )
@@ -48,10 +48,10 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
     sigma <- pars[model$index_sigma]
     use_probit <- model$probit
     #*** y values on the transformed metric
-    if (class_model=="bct_regression"){
+    if (class_model=='bct_regression'){
         yt <- bc_trafo( y=y, lambda=lambda )
     }
-    if (class_model=="yjt_regression"){
+    if (class_model=='yjt_regression'){
         yt <- yj_trafo( y=y, lambda=lambda, probit=use_probit )
     }
     y_sd0 <- mdmb_weighted_sd( x=yt, w=w )
@@ -62,14 +62,15 @@ frm_mdmb_regression_density <- function(model, y, design_matrix=NULL, case=NULL,
     #--- R^2
     R2 <- mean( y_sd^2 / y_sd0^2 )
     #****** evaluated density
-    if (class_model    =="bct_regression"){
+    if (class_model    =='bct_regression'){
         d1 <- dbct_scaled( x=y, location=y_pred, shape=sigma, lambda=lambda, df=df )
     }
-    if (class_model    =="yjt_regression"){
+    if (class_model    =='yjt_regression'){
         d1 <- dyjt_scaled( x=y, location=y_pred, shape=sigma, lambda=lambda,
                         df=df, probit=use_probit )
     }
     d2 <- frm_normalize_posterior( post=d1, case=case )
-    res <- list( "like"=d1, "post"=d2, "sigma"=y_sd, R2=R2)
+    #--- output
+    res <- list( like=d1, post=d2, sigma=y_sd, R2=R2)
     return(res)
 }

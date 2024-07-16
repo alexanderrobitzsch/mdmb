@@ -1,5 +1,5 @@
 ## File Name: frm_em_avcov.R
-## File Version: 0.986
+## File Version: 0.992
 
 frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 {
@@ -10,29 +10,28 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     post0 <- res$post0
     coefs <- res$coefs
     dfr <- NULL
-    for (mm in 1:(NM+1)){
-        # mm <- 1
+    for (mm in 1L:(NM+1)){
         coef_mm <- coef(model_results[[mm]] )
         NC <- length(coef_mm)
         names_mm <- names(coef_mm)
         model_mm <- ind0[[mm]]$model
         dv_mm <- ind0[[mm]]$dv_vars
-        c1 <- paste0( dv_mm, " ON ", names_mm )
+        c1 <- paste0( dv_mm, ' ON ', names_mm )
         if (NC > 0){
-            dfr1 <- data.frame( "model"=mm, "dv"=dv_mm, "parm"=c1,
-                "ON"=1, "est"=coef_mm )
+            dfr1 <- data.frame( model=mm, dv=dv_mm, parm=c1,
+                        ON=1, est=coef_mm )
         } else {
             dfr1 <- NULL
         }
 
-        #*** include standard deviation if model=="linreg"
-        include_sigma <- ( ind0[[mm]]$model=="linreg" )
+        #*** include standard deviation if model=='linreg'
+        include_sigma <- ( ind0[[mm]]$model=='linreg' )
         is_sigma_fixed <- ( ! is.null( ind0[[mm]]$sigma_fixed ) )
         include_sigma <- include_sigma & ( ! is_sigma_fixed    )
         if ( include_sigma ){
             sigma <- model_results[[mm]]$sigma
-            dfr1b <- data.frame( "model"=mm, "dv"=dv_mm,
-                        "parm"=paste0( dv_mm, " sigma" ), "ON"=0, "est"=sigma )
+            dfr1b <- data.frame( model=mm, dv=dv_mm,
+                            parm=paste0( dv_mm, ' sigma' ), ON=0, est=sigma )
             dfr1 <- rbind( dfr1, dfr1b )
         }
         dfr1$parm <- paste(dfr1$parm)
@@ -42,12 +41,12 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
     }
 
     NP <- nrow(dfr)
-    dfr <- data.frame("index"=1:NP, dfr )
+    dfr <- data.frame(index=1:NP, dfr )
     rownames(dfr) <- NULL
     x <- dfr$est
-    index_coefs_vec <- as.list(1:(NM+1))
-    index_sigma_vec <- as.list(1:(NM+1))
-    for (mm in 1:(NM+1)){
+    index_coefs_vec <- as.list(1L:(NM+1))
+    index_sigma_vec <- as.list(1L:(NM+1))
+    for (mm in 1L:(NM+1)){
         index_coefs_vec[[mm]] <- which( ( dfr$model==mm ) & ( dfr$ON==1 ) )
         index_sigma_vec[[mm]] <- which( ( dfr$model==mm ) & ( dfr$ON==0 ) )
     }
@@ -125,7 +124,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         loglike <- loglike0
         post <- 1 + 0*dat$weights
         post0a <- post0
-        for (mm in 1:(NM+1)){
+        for (mm in 1L:(NM+1)){
             ind_mm <- ind0[[mm]]
             l1_mm <- index_coefs_vec[[mm]]
             l2_mm <- index_sigma_vec[[mm]]
@@ -160,7 +159,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         post0 <- f0a$post0a
         score_fct0 <- rep(NA,NP)
 
-        for (ii in 1:NP){
+        for (ii in 1L:NP){
             par1 <- par
             par1[ii] <- par[ii] + hvec[ii]
             loglike <- f0a$loglike
@@ -170,7 +169,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
             ####   y=par
             x <- par1
             y <- par
-            for (mm in 1:(NM+1)){
+            for (mm in 1L:(NM+1)){
                 ind_mm <- ind0[[mm]]
                 l1_mm <- index_coefs_vec[[mm]]
                 l2_mm <- index_sigma_vec[[mm]]
@@ -205,11 +204,11 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
 
     score_fct1 <- score_f1( par=par )
     infomat <- matrix(NA,nrow=NP,ncol=NP)
-    m1 <- paste0( rep("*",NP), collapse="")
-    cat( paste0("\n|",m1,"|","\n|") )
+    m1 <- paste0( rep('*',NP), collapse='')
+    cat( paste0('\n|',m1,'|','\n|') )
 
-    for (ii in 1:NP){
-        cat("-")
+    for (ii in 1L:NP){
+        cat('-')
         utils::flush.console()
         par1 <- par
         par1[ii] <- par[ii] + hvec[ii]
@@ -217,7 +216,7 @@ frm_em_avcov <- function(res, dat, ind0, NM, h=h)
         infomat[ii,] <- (sc2 - score_fct1) / hvec[ii]
     }
 
-    cat("|\n")
+    cat('|\n')
     #-- modify parameter labels
     dfr <- frm_modify_parameter_labels( dfr=dfr, ind0=ind0, NM=NM )
 

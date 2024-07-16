@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_predict_yjt_bct.R
-## File Version: 0.07
+## File Version: 0.081
 
 mdmb_regression_predict_yjt_bct <- function( object, newdata=NULL, trafo=TRUE, ...)
 {
@@ -18,10 +18,10 @@ mdmb_regression_predict_yjt_bct <- function( object, newdata=NULL, trafo=TRUE, .
     class_regr <- class(object)
     if ( ! trafo ){
         lam0 <- beta[np]
-        if ( class_regr=="yjt_regression"){
+        if ( class_regr=='yjt_regression'){
             fitted.values <- yj_antitrafo( fitted.values, lambda=lam0 )
         }
-        if ( class_regr=="bct_regression"){
+        if ( class_regr=='bct_regression'){
             fitted.values <- bc_antitrafo( fitted.values, lambda=lam0 )
         }
     }

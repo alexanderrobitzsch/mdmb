@@ -1,5 +1,5 @@
 ## File Name: frm_check_predictor_matrix.R
-## File Version: 0.07
+## File Version: 0.082
 
 frm_check_predictor_matrix <- function(pred)
 {
@@ -13,12 +13,12 @@ frm_check_predictor_matrix <- function(pred)
     if ( any(pred_check>1) ){
         NC <- nrow(pred_check)
         check1 <- ( pred_check > 1 ) | ( t(pred_check) > 1 )
-        cat("No ordered sequence of variable has been defined.\n")
-        cat("Problems involve following pairs of variables:\n")
-        for (hh in 1:NC){
+        cat('No ordered sequence of variable has been defined.\n')
+        cat('Problems involve following pairs of variables:\n')
+        for (hh in 1L:NC){
             for (ii in hh:NC){
                 if (check1[hh,ii]){
-                    cat( "  ", paste0(dv[hh], " - ", dv[ii] ), "\n")
+                    cat( '  ', paste0(dv[hh], ' - ', dv[ii] ), '\n')
                 }
             }
         }

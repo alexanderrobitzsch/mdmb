@@ -1,9 +1,9 @@
 ## File Name: mdmb_ginv.R
-## File Version: 0.12
+## File Version: 0.131
 
 mdmb_ginv <- function(x, ...)
 {
-    requireNamespace("MASS")
+    requireNamespace('MASS')
     y <- MASS::ginv(X=x, ...)
     return(y)
 }

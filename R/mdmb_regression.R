@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression.R
-## File Version: 1.995
+## File Version: 2.002
 
 
 mdmb_regression <- function( formula, data, type, weights=NULL,
@@ -26,19 +26,19 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     offset_values <- offset_values_extract(formula=formula, data=data )
     Ndes <- ncol(Xdes)
     parnames <- colnames(Xdes)
-    if (type %in% c("yjt","bct") ){
-        parnames <- c( parnames, "sigma", "lambda" )
+    if (type %in% c('yjt','bct') ){
+        parnames <- c( parnames, 'sigma', 'lambda' )
     }
 
     dv_var <- as.character( formula[[2]] )
     y <- data[,dv_var]
     #*** lambda fixed
     is_lambda_fixed <- TRUE
-    if (  ( type %in% c("yjt","bct") ) & ( is.null( lambda_fixed ) ) ){
+    if (  ( type %in% c('yjt','bct') ) & ( is.null( lambda_fixed ) ) ){
         is_lambda_fixed <- FALSE
     }
     #-- probit model
-    if ( type %in% "oprobit"){
+    if ( type %in% 'oprobit'){
         K <- max(y, na.rm=TRUE)
         t1 <- cumsum( prop.table(table(y)) )
         thresh_init <- stats::qnorm( t1[ - c(K+1) ] )
@@ -47,7 +47,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
         thresh_init_diff <- c(thresh_init[1], diff(thresh_init) )
         thresh_init <- log( thresh_init_diff )
         if (K>=2){
-            names(thresh_init) <- paste0("difflogthresh",2:K)
+            names(thresh_init) <- paste0('difflogthresh',2L:K)
         } else {
             thresh_init <- NULL
         }
@@ -69,7 +69,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             sd_y <- mdmb_weighted_sd( x=y1, w=weights )
         }
         #** starting values yjt and bct regression
-        if ( type %in% c("yjt","bct") ){
+        if ( type %in% c('yjt','bct') ){
             if ( is_lambda_fixed ){
                 par <- c( par, sigma=sd_y  )
             } else {
@@ -84,14 +84,14 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             }
         }
         #** ordinal probit model
-        if ( type %in% c("oprobit") ){
+        if ( type %in% c('oprobit') ){
             par <- c( par0, thresh_init )
         }
     }
 
-    if (type %in% c("oprobit") ){
+    if (type %in% c('oprobit') ){
         if (Ndes > 0){
-            index_beta <- 1:Ndes
+            index_beta <- 1L:Ndes
         } else {
             index_beta <- NULL
         }
@@ -133,9 +133,9 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     #***********************************
     #*** logistic regression
-    if ( type=="logistic"){
-        description <- "Logistic regression"
-        index_beta <- 1:np
+    if ( type=='logistic'){
+        description <- 'Logistic regression'
+        index_beta <- 1L:np
         #--- optimization function
         fct_optim <- function(x){
             ypred <- Xdes %*% x + offset_values
@@ -169,7 +169,7 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     }
     #***********************************
     #*** yjt regression
-    if ( type %in% c("yjt","bct") ){
+    if ( type %in% c('yjt','bct') ){
         np1 <- np
         if (est_df){
             np1 <- np - 1
@@ -181,19 +181,19 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
             index_lambda <- np1
         }
         eps_shape <- .01
-        if (type=="yjt"){
+        if (type=='yjt'){
             if (probit){
-                description <- paste0("Scaled t regression with Probit ",
-                                    "Yeo-Johnson transformation (df=", df, ")")
+                description <- paste0('Scaled t regression with Probit ',
+                                    'Yeo-Johnson transformation (df=', df, ')')
             } else {
-                description <- paste0("Scaled t regression with ",
-                                    "Yeo-Johnson transformation (df=", df, ")")
+                description <- paste0('Scaled t regression with ',
+                                    'Yeo-Johnson transformation (df=', df, ')')
             }
             dens_fct <- dyjt_scaled
         }
-        if (type=="bct"){
-            description <- paste0( "Scaled t regression with ",
-                                        "Box-Cox transformation (df=", df, ")")
+        if (type=='bct'){
+            description <- paste0( 'Scaled t regression with ',
+                                        'Box-Cox transformation (df=', df, ')')
             dens_fct <- dbct_scaled_mdmb_regression_wrapper
         }
 
@@ -224,8 +224,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
     }
     #***********************************
     #*** ordinal probit model
-    if ( type=="oprobit"){
-        description <- "Ordinal Probit Regression"
+    if ( type=='oprobit'){
+        description <- 'Ordinal Probit Regression'
         NT <- length(index_thresh)
 
         #--- optimization function
@@ -262,21 +262,21 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     coef_init <- par
     #* lower bounds
-    if ( type %in% c("yjt","bct") ){
+    if ( type %in% c('yjt','bct') ){
         lower[index_sigma] <- 0
         if (est_df){
             lower[index_df] <- log(df_min)
         }
         if (! is.null(index_lambda) ){
-            upper["lambda"] <- 5
+            upper['lambda'] <- 5
         }
     }
 
     #-------------------------------------------
     #---- optimization
     mod1 <- mdmb_optim(optimizer=optimizer, par=par, fn=fct_optim,
-                gr=grad_optim, method='L-BFGS-B',
-                lower=lower, upper=upper, maxiter=maxiter, control=control, h=h)
+                            gr=grad_optim, method='L-BFGS-B', lower=lower, upper=upper,
+                            maxiter=maxiter, control=control, h=h)
     converged <- mod1$converged
     result_optim <- mod1
 
@@ -289,9 +289,9 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
 
     #--- thresholds
     thresh <- NULL
-    if (type=="oprobit"){
+    if (type=='oprobit'){
         thresh <- c( 0, logthresh_2_thresh(x=beta[index_thresh] ) )
-        names(thresh) <- paste0("thresh", 1:K)
+        names(thresh) <- paste0('thresh', 1L:K)
     }
 
     #--- extract log-likelihood, log prior and log-posterior
@@ -334,6 +334,8 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
                 index_lambda=index_lambda, probit=probit )
     s2 <- Sys.time()
 
+    convergence_code <- result_optim$convergence
+
     #--- output
     res <- list(coefficients=beta, vcov=vcov1, partable=partable, y=y, X=Xdes,
                     weights=weights, fitted.values=fitted.values,
@@ -347,10 +349,10 @@ mdmb_regression <- function( formula, data, type, weights=NULL,
                     index_df=index_df, est_df=est_df, df_min=df_min, df_max=df_max,
                     lambda_fixed=lambda_fixed, is_prior=is_prior, fct_optim=fct_optim,
                     type=type, CALL=CALL, converged=converged,
-                    convergence_code=result_optim$convergence,
+                    convergence_code=convergence_code,
                     result_optim=result_optim, optimizer=optimizer, probit=probit,
                     coef=beta, iter=result_optim$iter, description=description,
                     s1=s1, s2=s2, diff_time=s2-s1 )
-    class(res) <- "mdmb_regression"
+    class(res) <- 'mdmb_regression'
     return(res)
 }

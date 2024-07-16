@@ -1,5 +1,5 @@
 ## File Name: frm_append_list.R
-## File Version: 0.13
+## File Version: 0.141
 
 frm_append_list <- function(list1, list2, overwrite=TRUE)
 {
@@ -10,7 +10,7 @@ frm_append_list <- function(list1, list2, overwrite=TRUE)
     }
     N2 <- length(list2_names)
     if (N2>0){
-        for (nn in 1:N2){
+        for (nn in 1L:N2){
             list1[[ list2_names[nn] ]] <- list2[[ list2_names[nn] ]]
         }
     }

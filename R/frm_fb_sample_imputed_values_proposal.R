@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_imputed_values_proposal.R
-## File Version: 0.582
+## File Version: 0.583
 
 
 frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
@@ -14,31 +14,31 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
     NG <- NULL
     changed1 <- TRUE
     #*** sample new values for linear regression
-    if ( model_vv %in% c( "linreg" ) ){
+    if ( model_vv %in% c( 'linreg' ) ){
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
         do_mh <- TRUE
     }
     #*** sample new values for logistic regression
-    if ( model_vv %in% c( "logistic" ) ){
+    if ( model_vv %in% c( 'logistic' ) ){
         gibbs_values <- 0:1
         imp1 <- dat_vv[,var_vv]
         NG <- length(gibbs_values)
     }
     #*** sample new values for logistic regression
-    if ( model_vv %in% c( "oprobit" ) ){
+    if ( model_vv %in% c( 'oprobit' ) ){
         imp1 <- dat_vv[,var_vv]
         gibbs_values <- as.numeric( names(table(imp1) ) )
         NG <- length(gibbs_values)
     }
     #*** sample new values for yjtreg and bctreg regression
-    if ( model_vv %in% c( "bctreg", "yjtreg" ) ){
+    if ( model_vv %in% c( 'bctreg', 'yjtreg' ) ){
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
         eps <- 1E-3
-        if ( model_vv=="bctreg"){
+        if ( model_vv=='bctreg'){
             imp1 <- ifelse( imp1 < 0, imp, imp1 )
             changed1 <- ( imp1 !=imp )
         }
-        if ( model_vv=="yjtreg"){
+        if ( model_vv=='yjtreg'){
             if ( ind0[[index_vv]]$R_args$probit){
                 imp1 <- ifelse( imp1 < 0, imp, imp1 )
                 imp1 <- ifelse( imp1 > 1, imp, imp1 )
@@ -49,9 +49,9 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
     }
 
     #*** sample new values for linear regression
-    if ( model_vv %in% c( "mlreg" ) ){
+    if ( model_vv %in% c( 'mlreg' ) ){
         outcome <- ind0_vv$R_args$outcome
-        if (outcome=="probit"){
+        if (outcome=='probit'){
             y1 <- model_results$y
             if (! is.null(ind0_vv$variable_level) ){
                 y1 <- y1[ ind0_vv$id_variable_level,,drop=FALSE]
@@ -59,7 +59,7 @@ frm_fb_sample_imputed_values_proposal <- function( var_vv, index_vv,
             imp <- y1[ ind_miss_vv,1]
         }
         imp1 <- stats::rnorm( N_vv, mean=imp, sd=mh_vv$sd_proposal )
-        if (outcome=="probit"){
+        if (outcome=='probit'){
             alpha <- model_results$alpha[,1]
             imp1 <- mdmb_discretize(x=imp, alpha=alpha )
         }

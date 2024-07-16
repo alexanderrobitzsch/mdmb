@@ -1,5 +1,5 @@
 ## File Name: frm_mlreg_density.R
-## File Version: 0.170
+## File Version: 0.171
 
 
 frm_mlreg_density <- function( model, y, case, design_matrix,
@@ -29,11 +29,11 @@ frm_mlreg_density <- function( model, y, case, design_matrix,
                             Z_list=Z_list, u_list=u_list, idcluster_list=idcluster_list,
                             NR=NR )
     ypred <- ypred[,1]
-    if (outcome=="normal"){
+    if (outcome=='normal'){
         sigma <- sqrt(sigma2)
         like <- mdmb_rcpp_dnorm( x=y, mu=ypred, sigma=sigma )
     }
-    if (outcome=="probit"){
+    if (outcome=='probit'){
         like <- miceadds::miceadds_rcpp_ml_mcmc_probit_category_prob( y_int=y,
                     alpha=alpha, mu1=ypred, use_log=FALSE )
     }

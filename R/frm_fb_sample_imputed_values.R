@@ -1,17 +1,17 @@
 ## File Name: frm_fb_sample_imputed_values.R
-## File Version: 0.774
+## File Version: 0.777
 
 
 frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         ind0, iter, dat, aggregation, eps=1E-30 )
 {
     NV <- imputations_mcmc$NV
-    NM <- attr(ind0,"NM")
+    NM <- attr(ind0,'NM')
     NM1 <- NM + 1
     nrow_dat <- nrow(dat)
-    for (vv in 1:NV){
+    for (vv in 1L:NV){
         var_vv <- imputations_mcmc$impute_vars[vv]
-    # cat("\n---------------------- var_vv=", var_vv, " --------\n")
+            # cat('\n---------------------- var_vv=', var_vv, ' --------\n')
         index_vv <- imputations_mcmc$impute_vars_index[vv]
         ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]
         like_nrow <- N_vv <- length( ind_miss_vv )
@@ -53,11 +53,11 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
                 probs_nrow <- sum( variable_info$unique )
             }
             probs_vv <- matrix( NA, nrow=probs_nrow, ncol=NG)
-            for (gg in 1:NG){
+            for (gg in 1L:NG){
                 like_temp <- like
                 pdat_vv <- dat_vv
                 pdat_vv[, var_vv] <- gibbs_values[gg]
-                for (mm in 1:NM1){
+                for (mm in 1L:NM1){
                     args_like <- list( mm=mm, model_results=model_results, ind0=ind0,
                                     dat_vv=pdat_vv )
                     like_temp[,mm] <- do.call(
@@ -76,9 +76,9 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
 
             ### include cluster level sampling
             if (use_sampling_level_vv){
-                stop( paste0( "Imputation step at cluster sampling ",
-                                    "level is not implemented\n",
-                                    "for Gibbs sampling.") )
+                stop( paste0( 'Imputation step at cluster sampling ',
+                                    'level is not implemented\n',
+                                    'for Gibbs sampling.') )
             }
             probs_vv <- frm_normalize_matrix_row(matr=probs_vv)
             imp1 <- gibbs_values[ mdmb_sample_probabilities(matr=probs_vv) ]
@@ -91,7 +91,7 @@ frm_fb_sample_imputed_values <- function( imputations_mcmc, model_results,
         #******************************************
         #**** evaluate models under old value and new proposed value
         if (do_mh){
-            for (mm in 1:NM1){
+            for (mm in 1L:NM1){
                 args_like <- list(mm=mm, model_results=model_results, ind0=ind0,
                                         dat_vv=dat_vv, aggregation=aggregation,
                                         dat=dat, ind_miss_vv=ind_miss_vv,

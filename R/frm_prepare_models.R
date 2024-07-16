@@ -1,5 +1,5 @@
 ## File Name: frm_prepare_models.R
-## File Version: 0.532
+## File Version: 0.545
 
 frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE,
         use_grad=2, use_gibbs=FALSE, weights=NULL )
@@ -10,7 +10,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     dv_vars <- NULL
     no_weights <- is.null(weights)
 
-    for (mm in 1:NM){
+    for (mm in 1L:NM){
         res <- frm_formula_extract_terms( ind[[mm]]$formula )
         all_vars <- c( all_vars, res$all_vars )
         dv_vars <- c( dv_vars, res$dv_vars )
@@ -27,11 +27,11 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
         ind[[mm]] <- frm_append_list( list1=res, list2=res1 )
         if (nodes_weights){
             ind[[mm]] <- frm_prepare_model_nodes_weights( ind_mm=ind[[mm]],
-                            dat0=dat0, nodes_control=nodes_control)
-                            ## depends on regression model classes
+                                dat0=dat0, nodes_control=nodes_control)
+                                ## depends on regression model classes
         }
     }
-    attr(ind,"NM") <- NM
+    attr(ind,'NM') <- NM
 
     #*** dependent variable model
     res <- frm_formula_extract_terms( dep$formula )
@@ -56,7 +56,7 @@ frm_prepare_models <- function(dep, ind, dat0, nodes_control, nodes_weights=TRUE
     predictorMatrix <- matrix(0, nrow=NV, ncol=NV)
     rownames(predictorMatrix) <- colnames(predictorMatrix) <- vars
     predictorMatrix[ dep$dv_vars, dep$iv_vars ] <- 1
-    for (mm in 1:NM){
+    for (mm in 1L:NM){
         inp <- ind[[mm]]
         predictorMatrix[ inp$dv_vars, inp$iv_vars ] <- 1
     }

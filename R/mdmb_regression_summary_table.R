@@ -1,9 +1,9 @@
 ## File Name: mdmb_regression_summary_table.R
-## File Version: 0.09
+## File Version: 0.101
 
 mdmb_regression_summary_table <- function( beta, vcov1 )
 {
-    dfr <- data.frame( "parm"=names(beta) )
+    dfr <- data.frame( parm=names(beta) )
     dfr$est <- beta
     dfr$se <- sqrt( diag( vcov1) )
     dfr$t <- dfr$est / dfr$se

@@ -11,7 +11,7 @@ all necessary information on the used librarys, the R version, and the OS it is 
 
 The manual may be found here [https://alexanderrobitzsch.github.io/mdmb/](https://alexanderrobitzsch.github.io/mdmb/) 
 
-#### CRAN version `mdmb` 1.8-7 (2023-02-28)
+#### CRAN version `mdmb` 1.9-22 (2024-07-15)
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/mdmb)](https://cran.r-project.org/package=mdmb)
@@ -25,9 +25,9 @@ The CRAN version can be installed from within R using:
 utils::install.packages("mdmb")
 ```
 
-#### GitHub version `mdmb` 1.9-3 (2023-03-01)
+#### GitHub version `mdmb` 1.10-1 (2024-07-15)
 
-[![](https://img.shields.io/badge/github%20version-1.9--3-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
+[![](https://img.shields.io/badge/github%20version-1.10--1-orange.svg)](https://github.com/alexanderrobitzsch/mdmb)&#160;&#160;
 
 The version hosted [here](https://github.com/alexanderrobitzsch/mdmb) is the development version of `mdmb`. 
 The GitHub version can be installed using `devtools` as:

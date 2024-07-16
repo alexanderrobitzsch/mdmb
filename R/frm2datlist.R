@@ -1,5 +1,5 @@
 ## File Name: frm2datlist.R
-## File Version: 0.08
+## File Version: 0.091
 
 frm2datlist <- function( object, as_mids=FALSE)
 {
@@ -9,10 +9,10 @@ frm2datlist <- function( object, as_mids=FALSE)
     dat0 <- object$dat
     NV <- imputations_mcmc$NV
     impute_vars <- imputations_mcmc$impute_vars
-    datlist <- as.list( 1:Nimp )
-    for (ii in 1:Nimp){
+    datlist <- as.list( 1L:Nimp )
+    for (ii in 1L:Nimp){
         dat <- dat0
-        for (vv in 1:NV){
+        for (vv in 1L:NV){
             var_vv <- impute_vars[vv]
             val_vv <- values[[ var_vv ]]
             ind_miss_vv <- imputations_mcmc$ind_miss[[ var_vv ]]

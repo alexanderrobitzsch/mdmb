@@ -1,5 +1,5 @@
 %% File Name: frm.Rd
-%% File Version: 0.839
+%% File Version: 0.842
 
 \name{frm}
 \alias{frm}
@@ -52,7 +52,8 @@ ordinal covariates.
 Multilevel models (using \code{model="mlreg"}) for normally distributed
 (\code{outcome="normal"}) and ordinal variables (\code{outcome="probit"})
 as well as variables at higher levels (using argument \code{variable_level})
-are accommodated.
+are accommodated. Note that multilevel models can only be fit with \code{frm_fb}
+and not with \code{frm_em}.
 
 The handling of nominal covariates will be included in future
 \pkg{mdmb} package versions.

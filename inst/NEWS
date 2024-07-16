@@ -29,7 +29,7 @@ CHANGELOG mdmb
 
 
 ---------------------------------------------------------------------
-VERSIONS mdmb 1.9  |  2023-03-01  |  Last: mdmb 1.9-3
+VERSIONS mdmb 1.10  |  2024-07-15  |  Last: mdmb 1.10-1
 ---------------------------------------------------------------------
 
 xxxx  *
@@ -38,13 +38,20 @@ xxxx  *
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
 
+---------------------------------------------------------------------
+VERSIONS mdmb 1.9  |  2024-07-15  |  Last: mdmb 1.9-22
+---------------------------------------------------------------------
 
+NOTE  * fixed a warning from CRAN check
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ---------------------------------------------------------------------
 VERSIONS mdmb 1.8  |  2023-02-28  |  Last: mdmb 1.8-7
 ---------------------------------------------------------------------
 
-FIXED * now ouput observed log-likelihood value and not expected 
+FIXED * now ouput observed log-likelihood value and not the expected 
         log-likelihood (thanks to Paul Allison) 
 
 DATA  * included/modified datasets: ---

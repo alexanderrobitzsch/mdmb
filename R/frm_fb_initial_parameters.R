@@ -1,10 +1,10 @@
 ## File Name: frm_fb_initial_parameters.R
-## File Version: 0.478
+## File Version: 0.482
 
 frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
 {
     weights <- dat$weights
-    NM <- attr(ind0, "NM")
+    NM <- attr(ind0, 'NM')
     NM1 <- NM + 1
     if ( ! is.null(data_init) ){
         subs <- intersect( colnames(data_init), colnames(dat) )
@@ -14,8 +14,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
     parms <- list()
     parms00 <- list( NA, NA )
 
-    for (mm in 1:NM1){
-
+    for (mm in 1L:NM1){
         ind_mm <- ind0[[mm]]
         var_mm <- ind_mm$dv_vars
         ind_miss_mm <- ind_miss[[ var_mm ]]
@@ -44,7 +43,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             # unique_cases <- unique(variable_info$id[ variable_info$unique ] )
             var1 <- variable_info[ variable_info$unique, ]
             var2 <- variable_info[ ! variable_info$unique, ]
-            var2[, "replace_miss_id"] <- var1[ match( var2$id, var1$id), "miss_id" ]
+            var2[, 'replace_miss_id'] <- var1[ match( var2$id, var1$id), 'miss_id' ]
             variable_info <- rbind( var1, var2)
             variable_info <- variable_info[ order(variable_info$miss_id), ]
         }
@@ -59,10 +58,10 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         mod_weights <- R_args$weights
         n_data <- nrow(R_args$data)
         R_args <- frm_append_list(list1=R_args, list2=ind_mm$R_args)
-        if (model_mm %in% c("linreg","oprobit")){
+        if (model_mm %in% c('linreg','oprobit')){
             R_args$probit <- NULL
         }
-        if (model_mm %in% c("mlreg")){
+        if (model_mm %in% c('mlreg')){
             R_args$inits_lme4 <- FALSE
         }
         mod <- do.call( what=ind_mm$R_fct, args=R_args )
@@ -76,9 +75,9 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         if ( ind_mm$N_coef > 0 ){
             names_mm <- names(ind_mm$coef)
             NM <- length(names_mm)
-            on1 <- rep(" ON ", NM )
-            if (ind_mm$model %in% c("bctreg","yjtreg") ){
-                on1[ (NM-1):NM ] <- " "
+            on1 <- rep(' ON ', NM )
+            if (ind_mm$model %in% c('bctreg','yjtreg') ){
+                on1[ (NM-1):NM ] <- ' '
                 ind_mm$index_lambda <- mod$index_lambda
                 ind_mm$index_df <- mod$index_df
                 ind_mm$est_df <- mod$est_df
@@ -89,8 +88,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             }
             ind_mm$coef_parnames <- paste0( var_mm, on1, names_mm )
         }
-        if ( model_mm=="mlreg"){
-            ind_mm$coef_parnames <- paste0( var_mm, "_", names_mm )
+        if ( model_mm=='mlreg'){
+            ind_mm$coef_parnames <- paste0( var_mm, '_', names_mm )
         }
         parms0[[1]] <- ind_mm$coef_parnames
         v1 <- 0*coef(mod)
@@ -100,7 +99,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
         ind_mm$sigma_parnames <- NULL
         ind_mm$sample_sigma <- FALSE
         # residual standard deviation
-        est_sigma <- model_mm %in% c( "linreg")
+        est_sigma <- model_mm %in% c( 'linreg')
         if ( ! is.null( ind_mm$sigma_fixed ) ){
             est_sigma <- FALSE
         }
@@ -112,7 +111,7 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
             ind_mm$sample_sigma <- TRUE
             ind_mm$sigma <- sigma
             ind_mm$sigma_sd_proposal <- sigma / sqrt( n_data )
-            ind_mm$sigma_parnames <- paste0( var_mm, " sigma" )
+            ind_mm$sigma_parnames <- paste0( var_mm, ' sigma' )
             parms0[[2]] <- ind_mm$sigma_parnames
             ind_mm$sigma_MH$accepted <- 0
             ind_mm$sigma_MH$iter <- 0
@@ -125,8 +124,8 @@ frm_fb_initial_parameters <- function(dat, ind0, data_init, ind_miss=NULL )
     #--- indices for parameters to be saved
     parms_index <- parms
     N0 <- 0
-    for (mm in 1:NM1){
-        for (vv in 1:2){
+    for (mm in 1L:NM1){
+        for (vv in 1L:2){
             p_m_vv <- parms_index[[mm]][[vv]]
             p_m_vv <- p_m_vv[ ! is.na( p_m_vv ) ]
             NC <- length( p_m_vv )

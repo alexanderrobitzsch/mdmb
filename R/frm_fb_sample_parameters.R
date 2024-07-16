@@ -1,5 +1,5 @@
 ## File Name: frm_fb_sample_parameters.R
-## File Version: 0.546
+## File Version: 0.549
 
 
 frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
@@ -9,10 +9,10 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
     weights <- dat$weights
     N2 <- nrow(dat)
     NM1 <- NM + 1
-    for (mm in 1:NM1 ){
+    for (mm in 1L:NM1 ){
         ind_mm <- ind0[[mm]]
 
-    # cat("\n---------------------- mm=", mm, " --------\n")
+    # cat('\n---------------------- mm=', mm, ' --------\n')
         #--- likelihood evaluated at old parameter
         mod <- model_results[[mm]]
         R_args <- mod$R_args <- ind_mm$R_args
@@ -26,13 +26,13 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         if ( use_gibbs_model ){
             coef0 <- res0$coef
             #---- linear regression
-            if ( ind_mm$model=="linreg" ){
+            if ( ind_mm$model=='linreg' ){
                 if ( ind_mm$sample_sigma ){
                     sigma0 <- res0$sigma
                 }
             }
             #---- multilevel regression
-            if ( ind_mm$model=="mlreg" ){
+            if ( ind_mm$model=='mlreg' ){
                 mod$coef <- coef0
                 mod$beta <- res0$beta
                 mod$Psi_list <- res0$Psi_list
@@ -43,8 +43,8 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         }
 
         if ( ( NC > 0) & ( ! use_gibbs_model ) ) {
-            for (cc in 1:NC){
-                # cat("**************** cc=", cc, "*****************\n")
+            for (cc in 1L:NC){
+                # cat('**************** cc=', cc, '*****************\n')
                 coef1 <- coef0
                 coef1[cc] <- stats::rnorm(1, mean=coef0[cc],
                                     sd=ind_mm$coef_sd_proposal[cc])
@@ -93,7 +93,7 @@ frm_fb_sample_parameters <- function( dat, ind0, NM, eps=1E-30, iter=NULL,
         ii <- parms_mcmc$iter_save_index
         parms_mcmc$iter_save_index <- parms_mcmc$iter_save_index + 1
         parms_mcmc$iter_save_temp <- parms_mcmc$iter_save[ parms_mcmc$iter_save_index ]
-        for (mm in 1:NM1){
+        for (mm in 1L:NM1){
             i0 <- parms_mcmc$parms_index[[mm]][[1]]
             nc_mm <- ind0[[mm]]$N_coef
             if ( nc_mm > 0 ){

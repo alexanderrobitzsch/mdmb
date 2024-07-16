@@ -1,11 +1,11 @@
 ## File Name: frm_linreg_sample_parameters.R
-## File Version: 0.252
+## File Version: 0.253
 
 
 frm_linreg_sample_parameters <- function(model, design_matrix, y, weights,
                 no_weights, ... )
 {
-    form <- attr( model$model, "terms")
+    form <- attr( model$model, 'terms')
     Xdes <- stats::model.matrix( object=form, design_matrix )
     offset_values <- offset_values_extract(formula=form, data=design_matrix )
     y <- y - offset_values
@@ -31,7 +31,7 @@ frm_linreg_sample_parameters <- function(model, design_matrix, y, weights,
     sigma2 <- sum( weights * e^2 ) / sum(weights)
     #--- sample regression parameters
     if (sample_beta){
-        requireNamespace("MASS")
+        requireNamespace('MASS')
         beta_vcov <- sigma2 * xtx_inv
         coef <- MASS::mvrnorm(n=1, mu=beta0[,1], Sigma=beta_vcov)
     } else {

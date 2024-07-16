@@ -1,19 +1,18 @@
 ## File Name: frm_prepare_data_em.R
-## File Version: 0.303
+## File Version: 0.307
 
 frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL)
 {
-    NM <- attr(ind,"NM")
+    NM <- attr(ind,'NM')
     N <- nrow(dat)
-    dat$case <- 1:N
+    dat$case <- 1L:N
     dat$weights0 <- weights0
     dat$weights <- 1
     dat$resp_all <- 1
     dat$delta_nodes <- 1
     # vector of dependent variables
     dv_vars <- c()
-    for (mm in 1:NM){
-        # mm <- 1
+    for (mm in 1L:NM){
         ind_mm <- ind[[mm]]
         var_mm <- ind_mm$dv_vars
         dv_vars <- c( dv_vars, var_mm)
@@ -31,11 +30,11 @@ frm_prepare_data_em <- function(dat, dep, ind, weights0, dat0, update_model=NULL
         dat <- update_model$dat
     }
     # extract matrix with response indicators
-    dat_resp <- dat[, paste0( "resp_", dv_vars ) ]
+    dat_resp <- dat[, paste0( 'resp_', dv_vars ) ]
     ind_miss <- ind_resp <- list()
     freq_miss_values <- rep(0,NM+1)
     names(freq_miss_values) <- dv_vars
-    for (mm in 1:(NM+1) ){
+    for (mm in 1L:(NM+1) ){
         ind_resp[[mm]] <- which( dat_resp[,mm]==1)
         ind_miss[[mm]] <- which( dat_resp[,mm]==0)
         freq_miss_values[mm] <- sum( is.na( dat0[, dv_vars[mm] ] ) )

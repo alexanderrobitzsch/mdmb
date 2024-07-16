@@ -1,5 +1,5 @@
 ## File Name: mdmb_sample_missings.R
-## File Version: 0.05
+## File Version: 0.061
 
 mdmb_sample_missings <- function(data, vars=NULL)
 {
@@ -7,7 +7,7 @@ mdmb_sample_missings <- function(data, vars=NULL)
         vars <- colnames(data)
     }
     VV <- length(vars)
-    for (vv in 1:VV){
+    for (vv in 1L:VV){
         var_vv <- vars[vv]
         dvv <- data[, var_vv]
         ind_vv <- is.na(dvv)

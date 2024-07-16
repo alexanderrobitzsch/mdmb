@@ -1,5 +1,5 @@
 ## File Name: frm_proposal_refresh_helper.R
-## File Version: 0.342
+## File Version: 0.343
 
 
 #****** refreshing the proposal SD
@@ -23,7 +23,7 @@ frm_proposal_refresh_helper <- function( acceptance_parameters, proposal_sd,
                         proposal_sd=proposal_sd)
     #*** clean table for storing acceptance rates
     accept_parms <- acceptance_parameters
-    for (uu in 1:2){
+    for (uu in 1L:2){
         accept_parms[[uu]] <- 0*accept_parms[[uu]]
     }
     acc1[ proposal_sd_names ] <- acc

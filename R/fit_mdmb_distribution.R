@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution.R
-## File Version: 0.506
+## File Version: 0.508
 
 fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=NULL,
     weights=NULL, probit=FALSE)
@@ -21,12 +21,12 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
 
     #***************************************************
     #******* scaled t distribution
-    if ( type=="t_scaled"){
+    if ( type=='t_scaled'){
         # initial values for parameters
         x0 <- c( m0, sd0 )
-        parnames <- c("location","scale")
-        description <- paste0( "Scaled t distribution (df=", df, ")")
-        class_type <- "fit_t_scaled"
+        parnames <- c('location','scale')
+        description <- paste0( 'Scaled t distribution (df=', df, ')')
+        class_type <- 'fit_t_scaled'
         loglik_fit <- function(x){
             dx <- dt_scaled( x=y, location=x[1], shape=x[2], df=df, log=TRUE )
             fn <- - sum( weights * dx )
@@ -35,25 +35,25 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
     }
     #***************************************************
     #******* scaled t distribution with Yeo-Johnson transformation
-    if ( type=="yjt_scaled"){
+    if ( type=='yjt_scaled'){
         if ( is.null(lambda_fixed) ){
             is_lambda_fixed <- FALSE
         }
         # initial values for parameters
         x0 <- c( m0, sd0, 1)
         if (is_lambda_fixed){
-            x0 <- x0[1:2]
+            x0 <- x0[1L:2]
         }
-        parnames <- c("location","scale","lambda")
+        parnames <- c('location','scale','lambda')
 
         if (probit){
-            description <- paste0( "Scaled t distribution with ",
-                                    "Probit Yeo-Johnson transformation (df=", df, ")")
+            description <- paste0( 'Scaled t distribution with ',
+                                    'Probit Yeo-Johnson transformation (df=', df, ')')
         } else {
-            description <- paste0( "Scaled t distribution with ",
-                                    "Yeo-Johnson transformation (df=", df, ")")
+            description <- paste0( 'Scaled t distribution with ',
+                                    'Yeo-Johnson transformation (df=', df, ')')
         }
-        class_type <- "fit_yjt_scaled"
+        class_type <- 'fit_yjt_scaled'
         loglik_fit <- function(x){
             if ( is_lambda_fixed ){
                 lambda1 <- lambda_fixed
@@ -68,19 +68,19 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
     }
     #***************************************************
     #******* scaled t distribution with Box-Cox transformation
-    if ( type=="bct_scaled"){
+    if ( type=='bct_scaled'){
         if ( is.null(lambda_fixed) ){
             is_lambda_fixed <- FALSE
         }
         # initial values for parameters
         x0 <- c( m0, sd0, 1)
         if (is_lambda_fixed){
-            x0 <- x0[1:2]
+            x0 <- x0[1L:2]
         }
-        parnames <- c("location","scale","lambda")
+        parnames <- c('location','scale','lambda')
         description <- paste0(
-            "Scaled t distribution with Box-Cox transformation (df=", df, ")")
-        class_type <- "fit_bct_scaled"
+            'Scaled t distribution with Box-Cox transformation (df=', df, ')')
+        class_type <- 'fit_bct_scaled'
         loglik_fit <- function(x){
             if ( is_lambda_fixed ){
                 lambda1 <- lambda_fixed
@@ -94,15 +94,15 @@ fit_mdmb_distribution <- function(x, type, df=Inf, lambda_fixed=NULL, par_init=N
     }
     #***************************************************
     #******* ordinal probit model
-    if ( type=="oprobit"){
+    if ( type=='oprobit'){
         # initial values for parameters
         freq <- cumsum( table(y) ) / length(y)
         x0 <- stats::qnorm( freq[ - length(freq) ] )
         K <- length(x0)
         df <- NULL
-        parnames <- paste0( "thresh", 1:K)
-        description <- paste0( "Ordinal Probit Model")
-        class_type <- "fit_oprobit"
+        parnames <- paste0( 'thresh', 1L:K)
+        description <- paste0( 'Ordinal Probit Model')
+        class_type <- 'fit_oprobit'
         loglik_fit <- function(x){
             dx <- doprobit( x=y, thresh=x )
             fn <- - sum( weights * log(dx + eps ) )

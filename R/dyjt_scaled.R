@@ -1,5 +1,5 @@
 ## File Name: dyjt_scaled.R
-## File Version: 0.513
+## File Version: 0.515
 
 dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
                     probit=FALSE )
@@ -19,17 +19,9 @@ dyjt_scaled <- function( x, location=0, shape=1, lambda=1, df=Inf, log=FALSE,
         dy <- dt_scaled( x=xt, location=location, shape=shape, df=df, log=log)
     }
 
-    #--------- adjustment for derivative of Yeo-Johnson transformation
-    # y <- x
-    # yt <- mdmb_rcpp_yj_trafo_adjustment_derivative(y=y, lambda=lambda)
-
     #---- multiplicative adjustment
     dy <- dyjt_scaled_log_multiplication( dy=dy, yt=yt, use_log=log,
                 check_zero=TRUE)
     return(dy)
 }
 
-
-# zz0 <- Sys.time(); for (bb in 1:B){ ;
-#     yt <- mdmb_rcpp_yj_trafo_adjustment_derivative(y=y, lambda=lambda)
-# }; cat("\n* trafo2 ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1

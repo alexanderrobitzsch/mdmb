@@ -1,5 +1,5 @@
 ## File Name: frm_fb.R
-## File Version: 0.825
+## File Version: 0.826
 
 ### Factored regression model
 ### Fully Bayesian estimation
@@ -19,9 +19,9 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     #            - define sampling functions for parameters and evaluation
     #              function for density in Metropolis-Hastings step
     #                o R_fct <- stats::lm
-    #                o R_fct_name <- "stats::lm"
-    #                o R_density_fct <- "frm_linreg_density"
-    #                o R_sampling_fct <- "frm_linreg_sample_parameters"
+    #                o R_fct_name <- 'stats::lm'
+    #                o R_density_fct <- 'frm_linreg_density'
+    #                o R_sampling_fct <- 'frm_linreg_sample_parameters'
     #
     # @ frm_prepare_data_fb()
     #        * no adaptation necessary, these are just processing functions
@@ -78,7 +78,7 @@ frm_fb <- function(dat, dep, ind, weights=NULL, verbose=TRUE,
     N2 <- nrow(dat)
 
     #*** prepare list of models
-    NM <- attr(ind,"NM")
+    NM <- attr(ind,'NM')
     ind0 <- ind
     ind0[[ dep$dv_vars ]] <- dep
 
@@ -128,7 +128,7 @@ zz0 <- Sys.time()
         ind0 <- res$ind0
         model_results <- res$model_results
         parms_mcmc <- res$parms_mcmc
-        #    cat("\n -- i200") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
+        #    cat('\n -- i200') ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
 
         #*** imputation of missing values
         res <- frm_fb_sample_imputed_values( imputations_mcmc=imputations_mcmc,
@@ -156,10 +156,10 @@ zz0 <- Sys.time()
     }
     #***************************************
 
-# cat("\n* MCMC algorithm ") ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
+# cat('\n* MCMC algorithm ') ; zz1 <- Sys.time(); print(zz1-zz0) ; zz0 <- zz1
 
     if (verbose){
-        cat("\n")
+        cat('\n')
         utils::flush.console()
     }
 
@@ -189,6 +189,6 @@ zz0 <- Sys.time()
                 model_results=model_results, ind0=ind0, dat=dat0,
                 freq_miss_values=freq_miss_values, iter=maxiter, burnin=burnin,
                 CALL=CALL, s1=s1, s2=s2, diff_time=s2-s1 )
-    class(res) <- "frm_fb"
+    class(res) <- 'frm_fb'
     return(res)
 }

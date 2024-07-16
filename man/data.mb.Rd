@@ -1,5 +1,5 @@
 %% File Name: data.mb.Rd
-%% File Version: 0.24
+%% File Version: 0.251
 
 \name{data.mb}
 \alias{data.mb}
@@ -73,7 +73,7 @@ and middle school reading (\code{y}) which all have missing values.
 \code{ $ y: num  5 5.1 6.3 9 9 9.3 NA 10.7 6.2 NA ...} \cr
 
 \item Dataset \code{data.mb04}. This multilevel dataset contains three variables:
-level-1 variables code{y}, \code{x} and the level-2 variable \code{w}.
+level-1 variables \code{y}, \code{x} and the level-2 variable \code{w}.
 
 \code{'data.frame':   500 obs. of  4 variables:} \cr
 \code{ $ idcluster: int  1 1 1 1 1 2 2 2 2 2 ...} \cr

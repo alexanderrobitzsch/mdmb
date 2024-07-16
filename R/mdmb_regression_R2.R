@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_R2.R
-## File Version: 0.29
+## File Version: 0.301
 
 #**** explained variance
 mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma,
@@ -11,21 +11,21 @@ mdmb_regression_R2 <- function( linear.predictor, y, type, beta, index_sigma,
 
     #***** logistic regression
     #  R2 form McKelvey and Zavoina
-    if (type=="logistic"){
+    if (type=='logistic'){
         var_resid <- 3.141593^2 / 3
     }
-    if (type=="oprobit"){
+    if (type=='oprobit'){
         var_resid <- 1
     }
 
     #***** yjt regression
-    if (type %in% c("yjt","bct") ){
-        sigma <- beta["sigma"]
-        lambda <- beta["lambda"]
-        if (type=="yjt"){
+    if (type %in% c('yjt','bct') ){
+        sigma <- beta['sigma']
+        lambda <- beta['lambda']
+        if (type=='yjt'){
             yt <- yj_trafo( y=y, lambda=lambda, probit=probit )
         }
-        if (type=="bct"){
+        if (type=='bct'){
             yt <- bc_trafo( y=y, lambda=lambda )
         }
         var_y <- stats::var(yt)

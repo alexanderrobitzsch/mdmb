@@ -1,5 +1,5 @@
 ## File Name: fit_mdmb_distribution_extract_results.R
-## File Version: 0.09
+## File Version: 0.101
 
 fit_mdmb_distribution_extract_results <- function( res0, lambda_fixed,
         is_lambda_fixed, parnames)
@@ -17,7 +17,7 @@ fit_mdmb_distribution_extract_results <- function( res0, lambda_fixed,
     vcovs <- solve( res0$hessian )
     if ( is_lambda_fixed ){
         vcovs1 <- matrix( 0, nrow=np0, ncol=np0 )
-        vcovs1[ 1:np, 1:np ] <- vcovs
+        vcovs1[ 1L:np, 1L:np ] <- vcovs
         vcovs <- vcovs1
     }
     rownames(vcovs) <- colnames(vcovs) <- parnames

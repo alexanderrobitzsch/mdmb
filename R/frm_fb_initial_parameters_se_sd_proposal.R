@@ -1,10 +1,10 @@
 ## File Name: frm_fb_initial_parameters_se_sd_proposal.R
-## File Version: 0.03
+## File Version: 0.041
 
 
 frm_fb_initial_parameters_se_sd_proposal <- function(mod)
 {
-    if ( "hessian" %in% names(mod) ){
+    if ( 'hessian' %in% names(mod) ){
         hess_diag <- abs( diag( mod$hessian ) )
         M <- 10000 # maximum value
         hess_diag[ hess_diag > M ] <- M

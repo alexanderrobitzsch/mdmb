@@ -1,5 +1,5 @@
 ## File Name: mdmb_regression_optim_oprobit_grad.R
-## File Version: 0.063
+## File Version: 0.065
 
 
 mdmb_regression_optim_oprobit_grad <- function(x, index_beta, index_thresh, Xdes,
@@ -34,7 +34,7 @@ mdmb_regression_optim_oprobit_grad <- function(x, index_beta, index_thresh, Xdes
     #-- derivatives for thresholds
     if (NT>0){
         thresh <- logthresh_2_thresh(x=logthresh)
-        for (ii in 1:NT){
+        for (ii in 1L:NT){
             logthresh0 <- logthresh
             logthresh0[ii] <- logthresh[ii] + h
             thresh0 <- logthresh_2_thresh(x=logthresh0)
